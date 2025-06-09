@@ -1,0 +1,44 @@
+
+	
+	import { offMemoryInfoChange,onMemoryInfoChange,getMemoryInfo} from "@/uni_modules/uni-MemoryInfo";
+	 
+	const __sfc__ = defineComponent({
+		data() {
+			return {
+				memInfo: '-'
+			}
+		},
+		onLoad() {
+
+		},
+		methods: {
+			
+			kotlinMemGetTest:function () {
+			    let array = getMemoryInfo()
+				this.memInfo = "可用内存:" + array[0] + "MB--整体内存:" + array[1] + "MB"
+			},
+			kotlinMemListenTest: function () {
+				onMemoryInfoChange((res: Array<number>) => {
+					this.memInfo = "可用内存:" + res[0] + "MB--整体内存:" + res[1] + "MB"
+				})
+			},
+			
+			kotlinStopMemListenTest:function () {
+			    offMemoryInfoChange()
+				this.memInfo = "已暂停"
+			},
+		}
+	})
+
+export default __sfc__
+function GenPagesIndexIndexRender(this: InstanceType<typeof __sfc__>): any | null {
+const _ctx = this
+const _cache = this.$.renderCache
+  return createElementVNode("view", null, [
+    createElementVNode("button", utsMapOf({ onClick: _ctx.kotlinMemGetTest }), "通过kotlin获取内存(同步)", 8 /* PROPS */, ["onClick"]),
+    createElementVNode("button", utsMapOf({ onClick: _ctx.kotlinMemListenTest }), "kotlin监听内存并持续回调UTS", 8 /* PROPS */, ["onClick"]),
+    createElementVNode("button", utsMapOf({ onClick: _ctx.kotlinStopMemListenTest }), "停止监听", 8 /* PROPS */, ["onClick"]),
+    createElementVNode("text", null, toDisplayString(_ctx.memInfo), 1 /* TEXT */)
+  ])
+}
+const GenPagesIndexIndexStyles = []

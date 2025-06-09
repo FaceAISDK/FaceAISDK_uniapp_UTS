@@ -1,0 +1,26 @@
+{
+  "version": "1",
+  "env": {
+    "compilerVersion": "4.66"
+  },
+  "files": {
+    "utssdk/app-android/index.uts": {
+      "md5": "0bc7a817221063e611560f7aa46a0640"
+    },
+    "utssdk/interface.uts": {
+      "md5": "38cee7a4abfce58345a076c4fe6c32d6"
+    },
+    "utssdk/unierror.uts": {
+      "md5": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "package.json": {
+      "md5": "62cd700a6957f748ef89aa6c5dc3fe73"
+    },
+    "utssdk/app-android/MemoryInfoNative.kt": {
+      "md5": "b629c4b2b57f8565e5f96b85353c0c52"
+    },
+    "utssdk/app-android/config.json": {
+      "md5": "643b2980a54aaca20ecd07d593fb4099"
+    }
+  }
+}
