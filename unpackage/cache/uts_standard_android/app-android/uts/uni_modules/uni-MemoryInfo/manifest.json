@@ -8,7 +8,7 @@
       "md5": "0bc7a817221063e611560f7aa46a0640"
     },
     "utssdk/interface.uts": {
-      "md5": "38cee7a4abfce58345a076c4fe6c32d6"
+      "md5": "172bd4c73db52f940d8045000f264640"
     },
     "utssdk/unierror.uts": {
       "md5": "d41d8cd98f00b204e9800998ecf8427e"
@@ -16,11 +16,20 @@
     "package.json": {
       "md5": "62cd700a6957f748ef89aa6c5dc3fe73"
     },
+    "utssdk/app-android/Base64BitmapUtil.java": {
+      "md5": "6e165a3c483daf362657bd153011d07e"
+    },
     "utssdk/app-android/MemoryInfoNative.kt": {
-      "md5": "b629c4b2b57f8565e5f96b85353c0c52"
+      "md5": "e877b0811fb6dae95278ca9147878fe7"
     },
     "utssdk/app-android/config.json": {
-      "md5": "643b2980a54aaca20ecd07d593fb4099"
+      "md5": "cba0d4f1e2f3f943b862fbd4c4e42d19"
+    },
+    "utssdk/app-android/libs/libuvccamera-release.aar": {
+      "md5": "a2f307edb864d832506befd5acb62799"
+    },
+    "utssdk/app-android/libs/uniplugin_FaceAI_module-release.aar": {
+      "md5": "339eb2b37affcb3edac61dde1b2465de"
     }
   }
 }

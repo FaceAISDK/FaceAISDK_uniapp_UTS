@@ -6,6 +6,28 @@ import DCloudUTSFoundation
 
 public class MemoryInfoNative {
   
+  
+  /// 记录上一次的任务id
+  static private var lastTaskId = -1
+   
+   /// 开启内存监控
+  static func onMemoryInfoChangeSwift(_ callback: @escaping (_ res: [Int]) -> Void) {
+       
+       if lastTaskId != -1 {
+           // 避免重复开启
+           clearInterval(NSNumber.from(lastTaskId))
+       }
+       
+       lastTaskId = setInterval({ 
+           let freeMem = MemoryInfoNative.getFreeMemory()
+           let totalMem = MemoryInfoNative.getTotalMemory()
+           console.log(freeMem, totalMem)
+           callback([freeMem, totalMem])
+       }, 2000).toInt()
+   }
+   
+  
+  
     /// 同步获取内存信息
     static func getMemInfoSwift() -> [Int] {
         let freeMem = MemoryInfoNative.getFreeMemory()
@@ -17,24 +39,7 @@ public class MemoryInfoNative {
         return [freeMem, totalMem]
     }
     
-    /// 记录上一次的任务id
-   static private var lastTaskId = -1
-    
-    /// 开启内存监控
-   static func onMemoryInfoChangeSwift(_ callback: @escaping (_ res: [Int]) -> Void) {
-        
-        if lastTaskId != -1 {
-            // 避免重复开启
-            clearInterval(NSNumber.from(lastTaskId))
-        }
-        
-        lastTaskId = setInterval({ 
-            let freeMem = MemoryInfoNative.getFreeMemory()
-            let totalMem = MemoryInfoNative.getTotalMemory()
-            console.log(freeMem, totalMem)
-            callback([freeMem, totalMem])
-        }, 2000).toInt()
-    }
+
     
     /// 关闭内存监控
     static func offMemoryInfoChangeSwift() {

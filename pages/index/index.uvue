@@ -1,5 +1,6 @@
 <template>
 	<view>
+		
 		<button @tap="kotlinMemGetTest">通过kotlin获取内存(同步)</button>
 		<button @tap="kotlinMemListenTest">kotlin监听内存并持续回调UTS</button>
 		<button @tap="kotlinStopMemListenTest">停止监听</button>
@@ -11,6 +12,7 @@
 	
 	import { offMemoryInfoChange,onMemoryInfoChange,getMemoryInfo} from "@/uni_modules/uni-MemoryInfo";
 	 
+	//改造为json 
 	export default {
 		data() {
 			return {
@@ -21,6 +23,7 @@
 
 		},
 		methods: {
+
 			
 			kotlinMemGetTest:function () {
 			    let array = getMemoryInfo()
