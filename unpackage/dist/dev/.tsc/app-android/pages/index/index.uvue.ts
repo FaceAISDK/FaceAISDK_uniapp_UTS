@@ -2,6 +2,7 @@
 	
 	import { offMemoryInfoChange,onMemoryInfoChange,getMemoryInfo} from "@/uni_modules/uni-MemoryInfo";
 	 
+	//改造为json 
 	const __sfc__ = defineComponent({
 		data() {
 			return {
@@ -12,6 +13,7 @@
 
 		},
 		methods: {
+
 			
 			kotlinMemGetTest:function () {
 			    let array = getMemoryInfo()
