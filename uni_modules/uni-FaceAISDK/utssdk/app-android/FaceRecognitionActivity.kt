@@ -18,9 +18,7 @@ class FaceRecognitionActivity : AppCompatActivity() {
         val userId = intent.getStringExtra("userId") ?: ""
         val scanMode = intent.getBooleanExtra("scanMode", true)
 		
-
         Toast.makeText(baseContext,"跳转9999999"+userId, Toast.LENGTH_LONG).show();
-
         
         // 2. 设置布局（此处使用代码创建简单UI）
         val textView = TextView(this).apply {
