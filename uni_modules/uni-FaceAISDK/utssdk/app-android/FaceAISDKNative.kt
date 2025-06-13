@@ -75,32 +75,7 @@ object FaceAISDKNative {
 		
     }
 	
-	
-	
-	// /**
-	//  * 同步获取内存信息
-	//  */
-	// fun getMemInfoKotlin():Array<Number>{
-	
-	// 	val activityManager = UTSAndroid.getUniActivity()?.getSystemService(ACTIVITY_SERVICE) as ActivityManager
-	// 	val memoryInfo = ActivityManager.MemoryInfo()
-	// 	activityManager.getMemoryInfo(memoryInfo)
-	// 	val availMem = memoryInfo.availMem / 1024 / 1024
-	// 	val totalMem = memoryInfo.totalMem / 1024 / 1024
-		
-	// 	// startActivity(Intent(UTSAndroid.getUniActivity(), FaceAISettingsActivity::class.java))
-		
-	// 	//import io.dcloud.uts.console // kt或java代码
-	// 	//console.log("Hello World")   // kt或java代码
-	
-	// 	val appid=UTSAndroid.getAppContext()?.getPackageName()
-	//     console.log(appid)
-	// 	// availMem 可用内存，单位MB
-	// 	// totalMem 设备内存，单位MB
-	// 	console.log(availMem,totalMem)
-	// 	return arrayOf(availMem,totalMem)
-	// }
-	
+
     
 	/**
 	 * 关闭内存监控

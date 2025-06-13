@@ -1,5 +1,9 @@
+// 插件对外暴露能力的总入口在 interface.uts ，他与Android/ios 目录下的 index.uts的关系是声明和实现的关系。
 
-// 插件对外暴露能力的总入口在 interface.uts ，他与 index.uts的关系是声明和实现的关系。
+
+
+
+
 
 /**
  * 业务方传给FaceAISDK 插件基础参数
@@ -17,24 +21,28 @@ export type outputJSON = {
   faceBase64: string, //同步你的服务器人脸图到设备的时候要传递
 }
 
+//检测人脸是否存在
+export type ISFaceExist = (baseInput: baseInputJSON, callback: (output: UTSJSONObject) => void) => void
+
+
+
 
 /**
- * 跳转到人脸识别页面
+ * 录入一张人脸照片
+ * 
  * @param userId 用户ID
  * @param scanMode 扫描模式 (true: 自动扫描, false: 手动拍照)
  * @param callback 结果回调
  */
-export type StartFaceRecognition = (
-    userId: string, 
-    scanMode: boolean,
-    callback: (result: UTSJSONObject) => void)=> void
- 
-
-export type CallFaceAI = (baseInput: baseInputJSON, callback: (output: UTSJSONObject) => void) => void
+export type AddFaceImage = (
+	userId : string,
+	scanMode : boolean,
+	callback : (result : UTSJSONObject) => void) => void
 
 
 // 内存信息官方参考用的
-export type OnMemoryInfoChange = (callback: (res: Array<number>) => void) => void
+export type OnMemoryInfoChange = (callback : (res : Array<number>) => void) => void
 
 export type OffMemoryInfoChange = () => void
+
 

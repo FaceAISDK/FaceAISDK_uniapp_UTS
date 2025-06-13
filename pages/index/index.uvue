@@ -1,84 +1,83 @@
 <template>
 	<view>
-		<button @tap="testStartFaceRecognition">testStartFaceRecognition UTS</button>
 		
-		<button @tap="testFaceAISDK">testFaceAISDK UTS</button>
+		<button @tap="isFaceExistDemo">检测人脸是否存在</button>
+		<button @tap="addFaceImageDemo">录入人脸照片</button>
 		<button @tap="kotlinMemListenTest">kotlin监听内存并持续回调UTS</button>
 		<button @tap="kotlinStopMemListenTest">停止监听</button>
-		
+
 	</view>
 </template>
 
 <script>
-	
-import {startFaceRecognition,callFaceAI,baseInputJSON,offMemoryInfoChange,onMemoryInfoChange} from "@/uni_modules/uni-FaceAISDK";
-	//改造为json 
+	import {isFaceExist,addFaceImage, offMemoryInfoChange, onMemoryInfoChange,baseInputJSON} from "@/uni_modules/uni-FaceAISDK";
+ 
 	export default {
 		data() {
-			    return {
-			      userId: '',
-			      scanMode: true,
-			      result: null
-			    }
+			return {
+				userId: '',
+				scanMode: true,
+				result: null
+			}
 		},
 		onLoad() {
 
 		},
 		methods: {
-			  
-			/**
-			* 测试startFaceRecognition
-			*/          
-			testStartFaceRecognition: function () {
-
-  			startFaceRecognition(
-				        "10086",
-				        true,
-					function(response){ 
-						uni.showToast({
-							title:'FaceAI～ '+JSON.stringify(response),
-							icon:'none'
-						});
-					},
-				    );
-
-			},
 			
+	
 			
 			/**
-			* 测试FaceAISDK
-			*/          
-			testFaceAISDK: function () {
-			   
-			    var baseObject : baseInputJSON = {
-			        faceID: "your Face ID",
-			        faceBase64: "faceBase64啊"
-			    } 
-				
-				callFaceAI(
+			* 1. 检测是否有人脸照片
+			*/
+			isFaceExistDemo: function () {
+			
+				var baseObject : baseInputJSON = {
+					faceID: "your Face ID",
+					faceBase64: "faceBase64啊"
+				}
+			
+				isFaceExist(
 					baseObject,
-					function(response){ 
+					function (response) {
 						uni.showToast({
-							title:'FaceAI～ '+JSON.stringify(response),
-							icon:'none'
+							title: 'FaceAI～ ' + JSON.stringify(response),
+							icon: 'none'
 						});
 					},
 				);
-			  
+			
 			},
 			
 			
+
+			/**
+			* 2. 演示如何调用SDK录入一张人脸照片
+			*/
+			addFaceImageDemo: function () {
+				addFaceImage(
+					"10086",
+					true,
+					function (response) {
+						uni.showToast({
+							title: 'FaceAI～ ' + JSON.stringify(response),
+							icon: 'none'
+						});
+					},
+				);
+			},
+
+
 			kotlinMemListenTest: function () {
-				onMemoryInfoChange((res: Array<number>) => {
+				onMemoryInfoChange((res : Array<number>) => {
 					this.userId = "可用内存:" + res[0] + "MB--整体内存:" + res[1] + "MB"
 				})
 			},
-			
-			kotlinStopMemListenTest:function () {
-			    offMemoryInfoChange()
+
+			kotlinStopMemListenTest: function () {
+				offMemoryInfoChange()
 				this.userId = "已暂停"
 			},
 		}
 	}
 </script>
-

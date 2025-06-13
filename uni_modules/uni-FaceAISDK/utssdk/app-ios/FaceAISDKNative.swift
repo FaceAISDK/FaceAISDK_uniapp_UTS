@@ -19,8 +19,8 @@ public class FaceAISDKNative {
        }
        
        lastTaskId = setInterval({ 
-           let freeMem = MemoryInfoNative.getFreeMemory()
-           let totalMem = MemoryInfoNative.getTotalMemory()
+           let freeMem = FaceAISDKNative.getFreeMemory()
+           let totalMem = FaceAISDKNative.getTotalMemory()
            console.log(freeMem, totalMem)
            callback([freeMem, totalMem])
        }, 2000).toInt()
@@ -30,8 +30,8 @@ public class FaceAISDKNative {
   
     /// 同步获取内存信息
     static func getMemInfoSwift() -> [Int] {
-        let freeMem = MemoryInfoNative.getFreeMemory()
-        let totalMem = MemoryInfoNative.getTotalMemory()
+        let freeMem = FaceAISDKNative.getFreeMemory()
+        let totalMem = FaceAISDKNative.getTotalMemory()
         
         // freeMem 可用内存，单位MB
         // totalMem 设备内存，单位MB
@@ -51,7 +51,7 @@ public class FaceAISDKNative {
 }
 
 // MARK: - 获取内存工具函数
-extension MemoryInfoNative {
+extension FaceAISDKNative {
     
     /// 获取总内存大小（以MB为单位）
     /// - Returns: 设备总内存
