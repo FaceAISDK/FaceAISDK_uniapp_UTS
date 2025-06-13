@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<button @tap="kotlinMemGetTest">通过kotlin获取内存(同步)</button>
+		
+		<button @tap="testFaceAISDK">testFaceAISDK UTS</button>
+		
 		<button @tap="kotlinMemListenTest">kotlin监听内存并持续回调UTS</button>
 		<button @tap="kotlinStopMemListenTest">停止监听</button>
 		<text>{{memInfo}}</text>
@@ -9,8 +11,9 @@
 
 <script>
 	
-	import { offMemoryInfoChange,onMemoryInfoChange,getMemoryInfo} from "@/uni_modules/uni-MemoryInfo";
+	import {callFaceAI,baseInputJSON,offMemoryInfoChange,onMemoryInfoChange} from "@/uni_modules/uni-FaceAISDK";
 	 
+	//改造为json 
 	export default {
 		data() {
 			return {
@@ -22,13 +25,34 @@
 		},
 		methods: {
 			
-			kotlinMemGetTest:function () {
-			    let array = getMemoryInfo()
-				this.memInfo = "可用内存:" + array[0] + "MB--整体内存:" + array[1] + "MB"
+			/**
+			* 测试FaceAISDK
+			*/          
+			testFaceAISDK: function () {
+			
+			    var baseObject : baseInputJSON = {
+			        faceID: "your Face ID",
+			        faceBase64: "faceBase64啊"
+			    } 
+				
+				callFaceAI(
+					baseObject,
+					function(response){ 
+						uni.showToast({
+							title:'FaceAI～ '+JSON.stringify(response),
+							icon:'none'
+						});
+					},
+				);
+			  
 			},
+			
+			
+
+		
 			kotlinMemListenTest: function () {
 				onMemoryInfoChange((res: Array<number>) => {
-					this.memInfo = "异步可用内存:" + res[0] + "MB--整体内存:" + res[1] + "MB"
+					this.memInfo = "可用内存:" + res[0] + "MB--整体内存:" + res[1] + "MB"
 				})
 			},
 			

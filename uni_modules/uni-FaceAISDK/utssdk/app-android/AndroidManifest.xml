@@ -1,0 +1,17 @@
+<!-- AndroidManifest.xml -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="uts.sdk.modules.uniFaceAISDK">
+
+    <application>
+        <activity
+            android:name=".FaceRecognitionActivity"
+            android:exported="true" >
+			<intent-filter >         
+              <action android:name="android.intent.action.VIEW" />
+			  <category android:name="android.intent.category.DEFAULT"/>      
+			</intent-filter>   
+			
+		</activity>	
+    </application>
+
+</manifest> 
