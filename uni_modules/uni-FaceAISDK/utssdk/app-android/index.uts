@@ -1,0 +1,94 @@
+import { StartFaceRecognition, CallFaceAI, OnMemoryInfoChange, OffMemoryInfoChange, baseInputJSON, outputJSON } from '../interface.uts'
+
+import Log from 'android.util.Log';
+import Application from 'android.app.Application';
+import Activity from 'android.app.Activity';
+import Bundle from 'android.os.Bundle';
+import Intent from 'android.content.Intent';
+import IntentFilter from 'android.content.IntentFilter';
+import Context from 'android.content.Context';
+import Toast from 'android.widget.Toast';
+
+import { getUniActivity } from "io.dcloud.uts.android"
+
+import R from 'uts.sdk.modules.uniFaceAISDK.R';
+import { FaceAISDKNative } from "uts.sdk.modules.uniFaceAISDK"
+import { FaceRecognitionActivity } from "uts.sdk.modules.uniFaceAISDK"
+import { AddFaceImageActivity } from "com.ai.face.addFaceImage"
+import { FaceVerificationActivity } from "com.ai.face.verify"
+
+import { FaceAIConfig } from "com.ai.face"
+
+
+/**
+ * 跳转到人脸识别页面
+ * @param userId 用户ID
+ * @param scanMode 扫描模式 (true: 自动扫描, false: 手动拍照)
+ * @param callback 结果回调
+ */
+export const startFaceRecognition : StartFaceRecognition = function (
+	userId : string,
+	scanMode : boolean,
+	callback : (result : UTSJSONObject) => void
+) {
+	// 获取当前Activity上下文
+	const context = UTSAndroid.getUniActivity() as Activity
+	
+	// 初始化配置
+	FaceAIConfig.init(context);
+
+	const intent = new Intent(context, AddFaceImageActivity().javaClass)
+	intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_VERIFY");
+	intent.putExtra("USER_FACE_ID_KEY","1888888888");
+
+
+	const intent2 = new Intent(context, FaceRecognitionActivity().javaClass)
+	// 添加参数
+	intent2.putExtra("userId", userId)
+	intent2.putExtra("scanMode", scanMode)
+
+	// 启动Activity并等待结果
+	context.startActivityForResult(intent, 10089)
+
+	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ?: Intent) => {
+		if (requestCode == 10086) {
+			// 我们发起的请求
+			let eventName = "onAppActivityResult  -  requestCode:" + requestCode + " -resultCode:" + resultCode + " -data:" + JSON.stringify(data);
+			console.log(eventName);
+		} else if (requestCode == 10089){
+			let eventName = "onAppActivityResult  -  requestCode:" + requestCode + " -resultCode:" + resultCode + " -data:" + JSON.stringify(data);
+			console.log(eventName);
+		}
+	});
+}
+
+
+//跳转到一个新的页面返回结果
+export const callFaceAI : CallFaceAI = function (baseInput : baseInputJSON, callback : (output : UTSJSONObject) => void) {
+
+	// 创建 UTS JSON 对象
+	const utsData : UTSJSONObject = {
+		"faceID": baseInput.faceID,
+		"faceBase64": baseInput.faceBase64
+	}
+
+	FaceAISDKNative.callFaceAIKotlin(utsData, function (output : UTSJSONObject) {
+		callback(output as UTSJSONObject)
+	})
+}
+
+
+
+// interface export type OnMemoryInfoChange = (callback: (res: Array<number>) => void) => void
+// 开启内存监听
+export const onMemoryInfoChange : OnMemoryInfoChange = function (callback : (res : Array<number>) => void) {
+	FaceAISDKNative.onMemoryInfoChangeKotlin(function (res : kotlin.Array<number>) {
+		callback(Array.fromNative(res))
+	})
+}
+
+
+
+export const offMemoryInfoChange : OffMemoryInfoChange = function () {
+	FaceAISDKNative.offMemoryInfoChangeKotlin()
+}
