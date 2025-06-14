@@ -9,44 +9,36 @@
 	</view>
 </template>
 
-<script>
-	import {isFaceExist,addFaceImage, offMemoryInfoChange, onMemoryInfoChange,baseInputJSON} from "@/uni_modules/uni-FaceAISDK";
+<script> 
+	import {isFaceExist,addFaceImage, offMemoryInfoChange, onMemoryInfoChange} from "@/uni_modules/uni-FaceAISDK";
  
 	export default {
 		data() {
 			return {
-				userId: '',
-				scanMode: true,
-				result: null
+				faceID: '18812345678',
+                faceBase64: 'Base64 image Str here'
 			}
 		},
 		onLoad() {
 
 		},
 		methods: {
-			
-	
-			
+		
 			/**
 			* 1. 检测是否有人脸照片
 			*/
 			isFaceExistDemo: function () {
 			
-				var baseObject : baseInputJSON = {
-					faceID: "your Face ID",
-					faceBase64: "faceBase64啊"
-				}
-			
 				isFaceExist(
-					baseObject,
+					this.faceID,
 					function (response) {
 						uni.showToast({
-							title: 'FaceAI～ ' + JSON.stringify(response),
-							icon: 'none'
+							title: '结果' + JSON.stringify(response),
+							icon: 'none',
+							duration:3333
 						});
 					},
 				);
-			
 			},
 			
 			
@@ -56,11 +48,10 @@
 			*/
 			addFaceImageDemo: function () {
 				addFaceImage(
-					"10086",
-					true,
+					this.faceID,
 					function (response) {
 						uni.showToast({
-							title: 'FaceAI～ ' + JSON.stringify(response),
+							title: '结果' + JSON.stringify(response),
 							icon: 'none'
 						});
 					},
@@ -70,13 +61,13 @@
 
 			kotlinMemListenTest: function () {
 				onMemoryInfoChange((res : Array<number>) => {
-					this.userId = "可用内存:" + res[0] + "MB--整体内存:" + res[1] + "MB"
+					this.faceID = "可用内存:" + res[0] + "MB--整体内存:" + res[1] + "MB"
 				})
 			},
 
 			kotlinStopMemListenTest: function () {
 				offMemoryInfoChange()
-				this.userId = "已暂停"
+				this.faceID = "已暂停"
 			},
 		}
 	}

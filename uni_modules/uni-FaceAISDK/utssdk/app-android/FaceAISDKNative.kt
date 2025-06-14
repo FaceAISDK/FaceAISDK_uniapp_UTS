@@ -10,7 +10,7 @@ import io.dcloud.uts.clearInterval
 import io.dcloud.uts.console
 import org.json.JSONObject
 import io.dcloud.uts.UTSJSONObject
-
+import com.ai.face.FaceAIConfig
 
 /**
  *  启动一个新的Activity 并监测结果
@@ -19,23 +19,22 @@ object FaceAISDKNative {
 
 
 	/**
-	 * 获取参数，返回结果 utsInput: UTSJSONObject,
+	 * 判断人脸是否存在
 	 */
-	fun callFaceAIKotlin(utsInput: UTSJSONObject,callback: (UTSJSONObject) -> Unit){
+	fun isFaceExistKotlin(faceID: String,callback: (UTSJSONObject) -> Unit){
 		
-	   val faceID=utsInput.getString("faceID")
-		
+	   val isExist=FaceAIConfig.isFaceIDExist(faceID);
+
        var result: UTSJSONObject = object : UTSJSONObject() {
-            var faceID = "faceIDBack"
-			var code = "code"
-			var msg = "faceIDBack"
-			
+			var code = if(isExist) 1 else 0
+			var msg = if(isExist) "Face exist" else "Face not exist"
+            var faceID = faceID
+
             var printResult = fun(){
                 console.log(faceID)
             }
         }
 		callback(result)
-		
 	}
        
 
