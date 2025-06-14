@@ -1,4 +1,5 @@
-import { ISFaceExist,AddFaceImage, OnMemoryInfoChange, OffMemoryInfoChange,baseInputJSON } from '../interface.uts'
+
+import { ISFaceExist,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace } from '../interface.uts'
 
 import Log from 'android.util.Log';
 import Application from 'android.app.Application';
@@ -8,17 +9,13 @@ import Intent from 'android.content.Intent';
 import IntentFilter from 'android.content.IntentFilter';
 import Context from 'android.content.Context';
 import Toast from 'android.widget.Toast';
-
 import { getUniActivity } from "io.dcloud.uts.android"
-
 import R from 'uts.sdk.modules.uniFaceAISDK.R';
+import { FaceAIConfig } from "com.ai.face"
 import { FaceAISDKNative } from "uts.sdk.modules.uniFaceAISDK"
-import { FaceRecognitionActivity } from "uts.sdk.modules.uniFaceAISDK"
 import { AddFaceImageActivity } from "com.ai.face.addFaceImage"
 import { FaceVerificationActivity } from "com.ai.face.verify"
-
-import { FaceAIConfig } from "com.ai.face"
-
+import { Base64BitmapUtil } from "com.ai.face.utils"
 
 /**
  * 跳转到Android SDK 中原生页面处理人脸录入
@@ -30,34 +27,55 @@ export const addFaceImage : AddFaceImage = function (
 	faceID : string,
 	callback : (result : UTSJSONObject) => void
 ) {
-	// 获取当前Activity上下文
 	const context = UTSAndroid.getUniActivity() as Activity
-	// 初始化配置
 	FaceAIConfig.init(context);
-
 	const intent = new Intent(context, AddFaceImageActivity().javaClass)
 	intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_VERIFY");
 	intent.putExtra("USER_FACE_ID_KEY", faceID);
-
 	context.startActivityForResult(intent, 10086)
 
 	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ?: Intent) => {
 		if (requestCode == 10086) {
-			if(resultCode == -1){
 				const jsonResult = new UTSJSONObject()
-				jsonResult.set("code",1)
-				jsonResult.set("msg", "OK")
+				jsonResult.set("code",data?.getIntExtra("code",0))
+				jsonResult.set("msg", data?.getStringExtra("msg"))
 				jsonResult.set("faceID", faceID)
-				jsonResult.set("faceBase64","faceBase64")
-				callback(jsonResult)
+				jsonResult.set("faceBase64",Base64BitmapUtil.bitmapToBase64(FaceAIConfig.CACHE_BASE_FACE_DIR+faceID))
 				console.log(jsonResult);
-			}else{
-				
-			}
-
+				callback(jsonResult)
 		} 
 	});
-	
+}
+
+
+
+/**
+ * 跳转到Android SDK 中原生页面处理人脸识别活体检测
+ * 
+ * @param faceID 用户ID
+ * @param callback 结果回调
+ */
+export const faceVerify : FaceVerify = function (
+	param : FaceVerifyParam,
+	callback : (result : UTSJSONObject) => void
+) {
+	const context = UTSAndroid.getUniActivity() as Activity
+	FaceAIConfig.init(context);
+	const intent = new Intent(context, FaceVerificationActivity().javaClass)
+	intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_VERIFY");
+	intent.putExtra("USER_FACE_ID_KEY", param.faceID);
+	context.startActivityForResult(intent, 10087)
+
+	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ?: Intent) => {
+		if (requestCode == 10087) {
+				const jsonResult = new UTSJSONObject()
+				jsonResult.set("code",data?.getIntExtra("code", 0))
+				jsonResult.set("msg", data?.getStringExtra("msg"))
+				jsonResult.set("faceID", param.faceID)
+				console.log(jsonResult);
+				callback(jsonResult)
+		} 
+	});
 }
 
 
@@ -70,17 +88,13 @@ export const isFaceExist : ISFaceExist = function (faceID : string, callback : (
 	})
 }
  
-
-
-// 开启内存监听
-export const onMemoryInfoChange : OnMemoryInfoChange = function (callback : (res : Array<number>) => void) {
-	FaceAISDKNative.onMemoryInfoChangeKotlin(function (res : kotlin.Array<number>) {
-		callback(Array.fromNative(res))
+/**
+ *  同步人脸图片Base64编码到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
+ */
+export const insertFace : InsertFace = function (faceID : string, faceBase64 : string, callback : (output : UTSJSONObject) => void) {
+	const context = UTSAndroid.getAppContext() as Application
+	FaceAISDKNative.insertFaceKotlin(faceID,faceBase64,context, function (output : UTSJSONObject) {
+		callback(output as UTSJSONObject)
 	})
 }
-
-
-
-export const offMemoryInfoChange : OffMemoryInfoChange = function () {
-	FaceAISDKNative.offMemoryInfoChangeKotlin()
-}
+ 

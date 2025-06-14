@@ -2,8 +2,8 @@
 	"name": "uniPlugin_FaceAI_UTS",
 	"appid": "__UNI__9292158",
 	"description": "",
-	"versionName": "2.0.0",
-	"versionCode": "200",
+	"versionName": "1.0.1",
+	"versionCode": "101",
 	"uni-app-x": {},
 	"quickapp": {},
 	"mp-weixin": {
