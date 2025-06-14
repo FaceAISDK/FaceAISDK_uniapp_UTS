@@ -1,26 +1,8 @@
 // 插件对外暴露能力的总入口在 interface.uts ，他与Android/ios 目录下的 index.uts的关系是声明和实现的关系。
 
 
-/**
- * 业务方传给FaceAISDK 插件基础参数
- */
-export type baseInputJSON = {
-  faceID: string,
-  faceBase64: string, //同步你的服务器人脸图到设备的时候要传递
-} 
-
-// 返回给FaceAI 业务调用方
-export type outputJSON = {
-  code: number,
-  msg: string, 
-  faceID: string,
-  faceBase64: string, //同步你的服务器人脸图到设备的时候要传递
-}
-
 //检测人脸是否存在
 export type ISFaceExist = (faceID: string, callback: (output: UTSJSONObject) => void) => void
-
-
 
 
 /**
@@ -34,9 +16,49 @@ export type AddFaceImage = (
 	callback : (result : UTSJSONObject) => void) => void
 
 
-// 内存信息官方参考用的
-export type OnMemoryInfoChange = (callback : (res : Array<number>) => void) => void
+/**
+ * 人脸识别
+ * 
+ * @param param 人脸识别参数
+ * @param callback 结果回调
+ */
+export type FaceVerify = (
+	param : FaceVerifyParam,
+	callback : (result : UTSJSONObject) => void) => void
 
-export type OffMemoryInfoChange = () => void
 
+
+/**
+ * 业务方传给FaceAISDK 插件基础参数
+ */
+export type FaceVerifyParam = {
+  faceID: string,
+  threshold: number,        // 人脸识别通过的相似度阈值 0.85到0.95
+  silentThreshold: number,  // 活体分数通过阈值 0.8到0.9
+  faceLivenessType: number, //活体检测类型 //0 SILENT_MOTION; 1 MOTION; 2 SILENT; 3 NONE;
+  motionStepSize: number,   //动作活体检测动作数量 1-2 。比如2表示需要用户做2个动作才能通过活体检测
+  verifyTimeOut: number     //活体检测超时时间 秒
+} 
+
+
+
+/**
+ * 同步人脸图片Base64编码到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
+ * 
+ * @param faceBase64 人脸图片Base64
+ * @param callback 结果回调
+ */
+export type InsertFace = (
+    faceID : string,
+	faceBase64 : string,
+	callback : (result : UTSJSONObject) => void) => void
+
+
+// 返回给FaceAI 业务调用方
+export type outputJSON = {
+  code: number,
+  msg: string, 
+  faceID: string,
+  faceBase64: string, //同步你的服务器人脸图到设备的时候要传递
+}
 

@@ -1,22 +1,24 @@
 <template>
 	<view>
-		
+	
 		<button @tap="isFaceExistDemo">检测人脸是否存在</button>
 		<button @tap="addFaceImageDemo">录入人脸照片</button>
-		<button @tap="kotlinMemListenTest">kotlin监听内存并持续回调UTS</button>
-		<button @tap="kotlinStopMemListenTest">停止监听</button>
+		<button @tap="faceVerifyDemo">人脸识别活体检测</button>
+		<button @tap="insertFaceDemo">同步人脸照片</button>
+		<text>{{faceAIResult}}</text>
 
 	</view>
 </template>
 
 <script> 
-	import {isFaceExist,addFaceImage, offMemoryInfoChange, onMemoryInfoChange} from "@/uni_modules/uni-FaceAISDK";
+	import {isFaceExist,addFaceImage, faceVerify, insertFace,FaceVerifyParam} from "@/uni_modules/uni-FaceAISDK";
  
 	export default {
 		data() {
 			return {
 				faceID: '18812345678',
-                faceBase64: 'Base64 image Str here'
+                faceBase64: 'Base64 image Str here',
+				faceAIResult: '-'
 			}
 		},
 		onLoad() {
@@ -32,6 +34,8 @@
 				isFaceExist(
 					this.faceID,
 					function (response) {
+						//怎么格式化换行显示 ？
+						this.faceAIResult =JSON.stringify(response)
 						uni.showToast({
 							title: '结果' + JSON.stringify(response),
 							icon: 'none',
@@ -50,6 +54,63 @@
 				addFaceImage(
 					this.faceID,
 					function (response) {
+						this.faceAIResult =JSON.stringify(response)
+					
+						uni.showToast({
+							title: '结果' + JSON.stringify(response),
+							icon: 'none'
+						});
+					},
+				);
+			},
+			
+			
+			/**
+			* 3. 演示传参人脸识别
+			* 
+			*/
+			faceVerifyDemo: function () {
+						
+				var faceVerifyParam : FaceVerifyParam = {
+					faceID: this.faceID,
+					threshold: 0.85,        // 人脸识别通过的相似度阈值 0.85到0.95
+					silentThreshold: 0.86,  // 活体分数通过阈值 0.8到0.9
+					faceLivenessType: 1,    //活体检测类型 //0 SILENT_MOTION; 1 MOTION; 2 SILENT; 3 NONE;
+					motionStepSize: 2,      //动作活体检测动作数量 1-2 。比如2表示需要用户做2个动作才能通过活体检测
+					verifyTimeOut: 12       //活体检测超时时间 秒
+				}
+				
+				faceVerify(
+					faceVerifyParam,
+					function (response) {
+                        /**
+                         * Code
+                         * 0 用户取消
+                         * 1 人脸识别成功
+                         * 2 活体分数过低
+                         * 3 活体检测超时
+                         * 4 人脸识别相似度低于阈值
+                         * 5 多次检测到画面无人脸
+                         */
+						this.faceAIResult =JSON.stringify(response)
+						uni.showToast({
+							title: '结果' + JSON.stringify(response),
+							icon: 'none'
+						});
+					},
+				);
+			},
+			
+			
+			/**
+			* 4. 演示同步人脸照片到SDK
+			*/
+			insertFaceDemo: function () {
+				insertFace(
+				    this.faceID,
+					this.faceBase64,
+					function (response) {
+						this.faceAIResult =JSON.stringify(response)
 						uni.showToast({
 							title: '结果' + JSON.stringify(response),
 							icon: 'none'
@@ -59,16 +120,6 @@
 			},
 
 
-			kotlinMemListenTest: function () {
-				onMemoryInfoChange((res : Array<number>) => {
-					this.faceID = "可用内存:" + res[0] + "MB--整体内存:" + res[1] + "MB"
-				})
-			},
-
-			kotlinStopMemListenTest: function () {
-				offMemoryInfoChange()
-				this.faceID = "已暂停"
-			},
 		}
 	}
 </script>

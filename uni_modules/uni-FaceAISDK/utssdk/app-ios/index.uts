@@ -1,5 +1,8 @@
 import {OnMemoryInfoChange,OffMemoryInfoChange} from '../interface.uts'
 
+
+
+
 // 开启内存监听
 export const onMemoryInfoChange:OnMemoryInfoChange = function(callback: (res: Array<number>) => void){
 	FaceAISDKNative.onMemoryInfoChangeSwift((res: Array<Int>) => {

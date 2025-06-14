@@ -1,9 +1,9 @@
 package uts.sdk.modules.uniFaceAISDK;
 
 import android.content.Intent
+import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import android.app.ActivityManager
-import android.content.Context.ACTIVITY_SERVICE
 import io.dcloud.uts.UTSAndroid
 import io.dcloud.uts.setInterval
 import io.dcloud.uts.clearInterval
@@ -11,7 +11,12 @@ import io.dcloud.uts.console
 import org.json.JSONObject
 import io.dcloud.uts.UTSJSONObject
 import com.ai.face.FaceAIConfig
-
+import com.ai.face.base.baseImage.FaceAIUtils
+import com.ai.face.base.baseImage.FaceAIUtils.Companion.getInstance
+import com.ai.face.utils.VoicePlayer 
+import com.ai.face.utils.Base64BitmapUtil
+import android.graphics.Bitmap
+ 
 /**
  *  启动一个新的Activity 并监测结果
  */
@@ -29,61 +34,56 @@ object FaceAISDKNative {
 			var code = if(isExist) 1 else 0
 			var msg = if(isExist) "Face exist" else "Face not exist"
             var faceID = faceID
-
-            var printResult = fun(){
-                console.log(faceID)
-            }
         }
 		callback(result)
 	}
        
-
-
-
-     /**
-     * 记录上一次的任务id
+	   
+	   
+    /**
+     * 同步Base64人脸到SDK
      */
-    private var lastTaskId:Number = -1
-
-	/**
-	 * 开启内存监控
-	 */
-    fun onMemoryInfoChangeKotlin(callback: (Array<Number>) -> Unit){
-
-        if(lastTaskId != -1){
-            // 避免重复开启
-            clearInterval(lastTaskId)
-        }
-
-		// 延迟1000ms，每2000ms 获取一次内存
-        lastTaskId = setInterval({
-
-          val activityManager = UTSAndroid.getUniActivity()?.getSystemService(ACTIVITY_SERVICE) as ActivityManager
-          val memoryInfo = ActivityManager.MemoryInfo()
-          activityManager.getMemoryInfo(memoryInfo)
-          val availMem = memoryInfo.availMem / 1024 / 1024
-          val totalMem = memoryInfo.totalMem / 1024 / 1024
-		  
-          console.log()
-          
-		  console.log(availMem,totalMem)
-		  // 将得到的内存信息，封装为kotlin.Array 单位是MB
-          callback(arrayOf(availMem,totalMem))
-          
-        },1000,2000)
-		
-    }
-	
-
-    
-	/**
-	 * 关闭内存监控
-	 */
-    fun offMemoryInfoChangeKotlin(){
-        if(lastTaskId != -1){
-            // 避免重复开启
-            clearInterval(lastTaskId)
-        }
+    fun insertFaceKotlin(faceID: String,faceBase64 : String,context:Application,callback: (UTSJSONObject) -> Unit){
+    	
+          val bitmap = Base64BitmapUtil.base64ToBitmap(faceBase64)
+		   
+		  if (bitmap == null) { 
+			  var result: UTSJSONObject = object : UTSJSONObject() {
+			  		var code =  0
+			  		var msg = "base64ToBitmap 失败"
+			        var faceID = faceID
+			   }
+			  callback(result)
+			  return
+		  }else {
+			  //其他地方同步过来的人脸可能是不规范的没有经过校准的人脸图（证件照，多人脸，过小等）。disposeBaseFaceImage处理
+			  getInstance(context)
+			      .disposeBaseFaceImage(
+			          bitmap,
+			          FaceAIConfig.CACHE_BASE_FACE_DIR + faceID,
+			          object : FaceAIUtils.Callback {
+			              //处理优化人脸成功完成去初始化引擎
+			              override fun onSuccess(bitmap: Bitmap) {
+							
+							  var result: UTSJSONObject = object : UTSJSONObject() {
+							  		var code =  1
+							  		var msg = "insertFace2SDK 成功"
+							        var faceID = faceID
+							   }
+							  callback(result)
+			              } 
+			   
+			              //底片处理异常的信息回调
+			              override fun onFailed(msg: String, errorCode: Int) {
+							  var result: UTSJSONObject = object : UTSJSONObject() {
+							  		var code =  0
+							  		var msg = "$msg-$errorCode"
+							        var faceID = faceID
+							   }
+							  callback(result)
+			              }
+			          })
+		  }
     }
 
 }
