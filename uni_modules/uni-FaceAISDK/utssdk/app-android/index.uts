@@ -21,71 +21,55 @@ import { FaceAIConfig } from "com.ai.face"
 
 
 /**
- *  跳转到Android SDK 中原生页面处理人脸录入
- * @param userId 用户ID
- * @param scanMode 扫描模式 (true: 自动扫描, false: 手动拍照)
+ * 跳转到Android SDK 中原生页面处理人脸录入
+ * 
+ * @param faceID 用户ID
  * @param callback 结果回调
  */
 export const addFaceImage : AddFaceImage = function (
-	userId : string,
-	scanMode : boolean,
+	faceID : string,
 	callback : (result : UTSJSONObject) => void
 ) {
 	// 获取当前Activity上下文
 	const context = UTSAndroid.getUniActivity() as Activity
-
 	// 初始化配置
 	FaceAIConfig.init(context);
 
 	const intent = new Intent(context, AddFaceImageActivity().javaClass)
 	intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_VERIFY");
-	intent.putExtra("USER_FACE_ID_KEY", "1888888888");
+	intent.putExtra("USER_FACE_ID_KEY", faceID);
 
-
-	const intent2 = new Intent(context, FaceRecognitionActivity().javaClass)
-	// 添加参数
-	intent2.putExtra("userId", userId)
-	intent2.putExtra("scanMode", scanMode)
-
-	// 启动Activity并等待结果
-	context.startActivityForResult(intent, 10089)
+	context.startActivityForResult(intent, 10086)
 
 	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ?: Intent) => {
-
-		// const jsonResult = new UTSJSONObject()
-		// jsonResult.setString("status", "success")
-		// jsonResult.setString("result", "OK")
-
-		// callback(jsonResult)
-
 		if (requestCode == 10086) {
-			// 我们发起的请求
-			let eventName = "onAppActivityResult  -  requestCode:" + requestCode + " -resultCode:" + resultCode + " -data:" + JSON.stringify(data);
-			console.log(eventName);
-		} else if (requestCode == 10089) {
-			let eventName = "onAppActivityResult  -  requestCode:" + requestCode + " -resultCode:" + resultCode + " -data:" + JSON.stringify(data);
-			console.log(eventName);
-		}
+			if(resultCode == -1){
+				const jsonResult = new UTSJSONObject()
+				jsonResult.set("code",1)
+				jsonResult.set("msg", "OK")
+				jsonResult.set("faceID", faceID)
+				jsonResult.set("faceBase64","faceBase64")
+				callback(jsonResult)
+				console.log(jsonResult);
+			}else{
+				
+			}
+
+		} 
 	});
+	
 }
 
 
 /**
  *  调用原生的FaceAISDK 功能 isFaceExist 人脸是否存在
  */
-export const isFaceExist : ISFaceExist = function (baseInput : baseInputJSON, callback : (output : UTSJSONObject) => void) {
-
-	// 创建 UTS JSON 对象
-	const utsData : UTSJSONObject = {
-		"faceID": baseInput.faceID,
-		"faceBase64": baseInput.faceBase64
-	}
-
-	FaceAISDKNative.callFaceAIKotlin(utsData, function (output : UTSJSONObject) {
+export const isFaceExist : ISFaceExist = function (faceID : string, callback : (output : UTSJSONObject) => void) {
+	FaceAISDKNative.isFaceExistKotlin(faceID, function (output : UTSJSONObject) {
 		callback(output as UTSJSONObject)
 	})
 }
-
+ 
 
 
 // 开启内存监听
