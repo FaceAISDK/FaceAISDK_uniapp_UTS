@@ -2,7 +2,7 @@
     "version" : "1.0",
     "configurations" : [
         {
-            "playground" : "standard",
+            "playground" : "custom",
             "type" : "uni-app:app-ios"
         },
         {
