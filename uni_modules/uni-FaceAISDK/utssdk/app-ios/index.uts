@@ -1,4 +1,4 @@
-import {OnMemoryInfoChange,OffMemoryInfoChange} from '../interface.uts'
+import { ISFaceExist,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace } from '../interface.uts'
 
 
 

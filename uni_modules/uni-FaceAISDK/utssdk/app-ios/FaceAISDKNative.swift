@@ -40,7 +40,6 @@ public class FaceAISDKNative {
     }
     
 
-    
     /// 关闭内存监控
     static func offMemoryInfoChangeSwift() {
         if lastTaskId != -1 {
