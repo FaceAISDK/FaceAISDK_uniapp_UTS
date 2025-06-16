@@ -70,13 +70,17 @@ export const faceVerify : FaceVerify = function (
  * 调用原生的FaceAISDK 功能 isFaceExist 人脸是否存在
  */
 export const isFaceExist : ISFaceExist = function (faceID : string, callback : (output : UTSJSONObject) => void) {
-	const jsonResult = new UTSJSONObject()
-	jsonResult.set("code",0)
-	jsonResult.set("msg","132143")
-	jsonResult.set("faceID", faceID)
-	jsonResult.set("faceBase64","4343434")
-	console.log(jsonResult);
-	callback(jsonResult)
+	console.log("ios json ----------");
+	
+	const json = new UTSJSONObject()
+	json.set("code",0)
+	json.set("msg","测试iOS 人脸四否存在")
+	json.set("faceID", faceID)
+	json.set("faceBase64","4343434")
+	console.log(json);
+	console.log("ios json ----------");
+	
+	callback(json)
 }
  
 /**
@@ -93,8 +97,6 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
 	callback(jsonResult)
 }
  
-
-
 
 
 // import {ISFaceExist,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace } from '../interface.uts'

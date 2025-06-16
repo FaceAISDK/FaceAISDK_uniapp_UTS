@@ -1,12 +1,10 @@
 <template>
 	<view>
-	
 		<button @tap="isFaceExistDemo">检测人脸是否存在</button>
 		<button @tap="addFaceImageDemo">录入人脸照片</button>
 		<button @tap="faceVerifyDemo">人脸识别活体检测</button>
 		<button @tap="insertFaceDemo">同步人脸照片</button>
 		<text>{{faceAIResult}}</text>
-
 	</view>
 </template>
 
@@ -18,7 +16,7 @@
 			return {
 				faceID: '18812345678',
                 faceBase64: 'Base64 image Str here',
-				faceAIResult: '-'
+				faceAIResult: 'faceAIResult'
 			}
 		},
 		onLoad() {
@@ -49,14 +47,13 @@
 			
 				isFaceExist(
 					this.faceID,
-					function (response) {
-						//怎么格式化换行显示 ？
+					function (response){
 						this.faceAIResult =JSON.stringify(response)
 						uni.showToast({
 							title: '结果' + JSON.stringify(response),
-							icon: 'none',
-							duration:3333
+							icon: 'none'
 						});
+						
 					},
 				);
 			},

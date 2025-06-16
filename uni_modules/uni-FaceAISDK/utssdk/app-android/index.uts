@@ -84,6 +84,10 @@ export const faceVerify : FaceVerify = function (
  */
 export const isFaceExist : ISFaceExist = function (faceID : string, callback : (output : UTSJSONObject) => void) {
 	FaceAISDKNative.isFaceExistKotlin(faceID, function (output : UTSJSONObject) {
+		
+		console.log("Android json ----------");
+		console.log(output);
+		
 		callback(output as UTSJSONObject)
 	})
 }
