@@ -6,7 +6,6 @@
 		<button @tap="faceVerifyDemo">人脸识别活体检测</button>
 		<button @tap="insertFaceDemo">同步人脸照片</button>
 		<text>{{faceAIResult}}</text>
-
 	</view>
 </template>
 
@@ -14,16 +13,17 @@
 	import {isFaceExist,addFaceImage, faceVerify, insertFace,FaceVerifyParam} from "@/uni_modules/uni-FaceAISDK";
  
 	export default {
+		
 		data() {
 			return {
 				faceID: '18812345678',
-                faceBase64: 'Base64 image Str here',
+                faceBase64: 'data:image/jpeg;base64,/9j/4QDKRX......',
 				faceAIResult: '-'
 			}
 		},
-		onLoad() {
+		// onLoad() {
 
-		},
+		// },
 		methods: {
 		
 			/**
@@ -54,8 +54,9 @@
 				addFaceImage(
 					this.faceID,
 					function (response) {
+						//录入的人脸会以Base64 编码返回来，可以同步到你的业务服务器
 						this.faceAIResult =JSON.stringify(response)
-					
+						
 						uni.showToast({
 							title: '结果' + JSON.stringify(response),
 							icon: 'none'
@@ -73,11 +74,9 @@
 						
 				var faceVerifyParam : FaceVerifyParam = {
 					faceID: this.faceID,
-					threshold: 0.85,        // 人脸识别通过的相似度阈值 0.85到0.95
-					silentThreshold: 0.86,  // 活体分数通过阈值 0.8到0.9
+					threshold: 0.85,        //人脸识别通过的相似度阈值 0.85到0.95
 					faceLivenessType: 1,    //活体检测类型 //0 SILENT_MOTION; 1 MOTION; 2 SILENT; 3 NONE;
-					motionStepSize: 2,      //动作活体检测动作数量 1-2 。比如2表示需要用户做2个动作才能通过活体检测
-					verifyTimeOut: 12       //活体检测超时时间 秒
+					verifyTimeOut: 12       //动作活体检测超时时间 秒
 				}
 				
 				faceVerify(
