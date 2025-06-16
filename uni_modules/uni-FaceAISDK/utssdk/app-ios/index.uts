@@ -1,6 +1,29 @@
-
 import { ISFaceExist,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace } from '../interface.uts'
 
+
+
+// uts-plugin-index.uts 中的 iOS 实现部分
+// export function openSwiftUIPage() : Promise<object> {
+//     return new Promise((resolve, reject) => {
+//         if (UTSiOS.isIOS) {
+//             const controller = SwiftUIViewController.init()
+            
+//             // 设置回调
+//             controller.onResult = { result in
+//                 resolve(result) // 解析为 JSON 对象
+//             }
+            
+//             // 获取当前视图控制器
+//             const rootVC = UTSiOS.getCurrentViewController()
+            
+//             // 呈现页面
+//             controller.modalPresentationStyle = 0 // UIModalPresentationFullScreen
+//             rootVC.presentViewControllerAnimatedCompletion(controller, true, null)
+//         } else {
+//             reject("仅支持iOS平台")
+//         }
+//     })
+// }
 
 /**
  * 跳转到Android SDK 中原生页面处理人脸录入
@@ -20,7 +43,6 @@ export const addFaceImage : AddFaceImage = function (
 	jsonResult.set("faceBase64","4343434")
 	console.log(jsonResult);
 	callback(jsonResult)
-
 }
 
 
@@ -45,7 +67,7 @@ export const faceVerify : FaceVerify = function (
 
 
 /**
- *  调用原生的FaceAISDK 功能 isFaceExist 人脸是否存在
+ * 调用原生的FaceAISDK 功能 isFaceExist 人脸是否存在
  */
 export const isFaceExist : ISFaceExist = function (faceID : string, callback : (output : UTSJSONObject) => void) {
 	const jsonResult = new UTSJSONObject()
@@ -55,11 +77,11 @@ export const isFaceExist : ISFaceExist = function (faceID : string, callback : (
 	jsonResult.set("faceBase64","4343434")
 	console.log(jsonResult);
 	callback(jsonResult)
-
 }
  
 /**
- *  同步人脸图片Base64编码到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
+ * 同步人脸图片Base64编码到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
+ * 
  */
 export const insertFace : InsertFace = function (faceID : string, faceBase64 : string, callback : (output : UTSJSONObject) => void) {
 	const jsonResult = new UTSJSONObject()

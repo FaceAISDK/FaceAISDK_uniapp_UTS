@@ -25,6 +25,22 @@
 
 		},
 		methods: {
+			
+			
+			// openPageDemo: function openPage() {
+			//     try {
+			//         const result = await openSwiftUIPage()
+			//         console.log("收到回调数据:", result)
+			//         uni.showToast({
+			//             title: `操作成功: ${result.data.value}`,
+			//             icon: 'success'
+			//         })
+			//     } catch (e) {
+			//         console.error(e)
+			//     }
+			// }
+			
+			
 		
 			/**
 			* 1. 检测是否有人脸照片
