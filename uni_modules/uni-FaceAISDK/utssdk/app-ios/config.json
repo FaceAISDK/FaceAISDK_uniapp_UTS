@@ -1,3 +1,15 @@
 {
-  "deploymentTarget": "16"
+	"deploymentTarget": "12.0"  // 可选，插件支持的最低 iOS 版本  默认：12.0"
+	
+	// "frameworks": [
+	// 	//"可选，依赖的系统库(系统库有.framework和.tbd和.dylib类型)"
+	// ],
+	// "validArchitectures": [    // 可选，支持的 CPU 架构类型 默认：arm64
+	// 	"arm64"
+	// ],
+	// "dependencies-pods": [ // 可选, 需要依赖的pod库, HBuilderX 3.8.5+ 版本支持
+	// {
+	// 	"name": "ToastUI",
+	// 	"version": "2.0.0"
+	// }]
 }
