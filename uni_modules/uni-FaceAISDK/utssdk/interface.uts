@@ -1,6 +1,14 @@
 // 插件对外暴露能力的总入口在 interface.uts ，他与Android/ios 目录下的 index.uts的关系是声明和实现的关系。
 
 
+
+
+
+
+export type TestiOS = (faceID: string, callback: (output: string) => void) => void
+
+
+
 //检测人脸是否存在
 export type ISFaceExist = (faceID: string, callback: (output: UTSJSONObject) => void) => void
 

@@ -1,6 +1,7 @@
 <template>
 	<view>
-	
+		<button @tap="testiOSDemo">ios 测试</button>
+		
 		<button @tap="isFaceExistDemo">检测人脸是否存在</button>
 		<button @tap="addFaceImageDemo">录入人脸照片</button>
 		<button @tap="faceVerifyDemo">人脸识别活体检测</button>
@@ -10,22 +11,43 @@
 </template>
 
 <script> 
-	import {isFaceExist,addFaceImage, faceVerify, insertFace,FaceVerifyParam} from "@/uni_modules/uni-FaceAISDK";
+	import {testiOS,isFaceExist,addFaceImage, faceVerify, insertFace,FaceVerifyParam} from "@/uni_modules/uni-FaceAISDK";
  
 	export default {
 		
 		data() {
 			return {
 				faceID: '18812345678',
-                faceBase64: 'data:image/jpeg;base64,/9j/4QDKRX......',
-				faceAIResult: '-'
+                faceBase64: 'data:image/jpeg;base64,/9j/4QDKRX......etc',
+				faceAIResult: 'faceAIResult'
 			}
 		},
-		// onLoad() {
+		onLoad() {
 
-		// },
+		},
 		methods: {
-		
+			
+			
+			testiOSDemo: function () {
+				try{
+					testiOS(
+						this.faceID,
+						function (response){
+							this.faceAIResult =response
+							uni.showToast({
+								title: '结果' + response,
+								icon: 'none'
+							});
+							
+						},
+					);
+				}catch(error){
+					console.error("事件处理错误:" + error);
+				}
+	
+			},
+			
+			
 			/**
 			* 1. 检测是否有人脸照片
 			*/
@@ -33,14 +55,13 @@
 			
 				isFaceExist(
 					this.faceID,
-					function (response) {
-						//怎么格式化换行显示 ？
+					function (response){
 						this.faceAIResult =JSON.stringify(response)
 						uni.showToast({
 							title: '结果' + JSON.stringify(response),
-							icon: 'none',
-							duration:3333
+							icon: 'none'
 						});
+						
 					},
 				);
 			},
