@@ -34,10 +34,8 @@ export type FaceVerify = (
 export type FaceVerifyParam = {
   faceID: string,
   threshold: number,        // 人脸识别通过的相似度阈值 0.85到0.95
-  silentThreshold: number,  // 活体分数通过阈值 0.8到0.9
-  faceLivenessType: number, //活体检测类型 //0 SILENT_MOTION; 1 MOTION; 2 SILENT; 3 NONE;
-  motionStepSize: number,   //动作活体检测动作数量 1-2 。比如2表示需要用户做2个动作才能通过活体检测
-  verifyTimeOut: number     //活体检测超时时间 秒
+  faceLivenessType: number, // 活体检测类型 //0 SILENT_MOTION; 1 MOTION; 2 SILENT; 3 NONE;
+  verifyTimeOut: number     // 活体检测超时时间 秒
 } 
 
 
@@ -53,12 +51,4 @@ export type InsertFace = (
 	faceBase64 : string,
 	callback : (result : UTSJSONObject) => void) => void
 
-
-// 返回给FaceAI 业务调用方
-export type outputJSON = {
-  code: number,
-  msg: string, 
-  faceID: string,
-  faceBase64: string, //同步你的服务器人脸图到设备的时候要传递
-}
 

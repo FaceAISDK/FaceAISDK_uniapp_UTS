@@ -1,16 +1,18 @@
 
 import { ISFaceExist,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace } from '../interface.uts'
 
-import Log from 'android.util.Log';
+// import Log from 'android.util.Log';
+// import Bundle from 'android.os.Bundle';
+// import IntentFilter from 'android.content.IntentFilter';
+// import Context from 'android.content.Context';
+// import Toast from 'android.widget.Toast';
+// import { getUniActivity } from "io.dcloud.uts.android"
+// import R from 'uts.sdk.modules.uniFaceAISDK.R';
+
 import Application from 'android.app.Application';
 import Activity from 'android.app.Activity';
-import Bundle from 'android.os.Bundle';
 import Intent from 'android.content.Intent';
-import IntentFilter from 'android.content.IntentFilter';
-import Context from 'android.content.Context';
-import Toast from 'android.widget.Toast';
-import { getUniActivity } from "io.dcloud.uts.android"
-import R from 'uts.sdk.modules.uniFaceAISDK.R';
+
 import { FaceAIConfig } from "com.ai.face"
 import { FaceAISDKNative } from "uts.sdk.modules.uniFaceAISDK"
 import { AddFaceImageActivity } from "com.ai.face.addFaceImage"
@@ -40,7 +42,10 @@ export const addFaceImage : AddFaceImage = function (
 				jsonResult.set("code",data?.getIntExtra("code",0))
 				jsonResult.set("msg", data?.getStringExtra("msg"))
 				jsonResult.set("faceID", faceID)
-				jsonResult.set("faceBase64",Base64BitmapUtil.bitmapToBase64(FaceAIConfig.CACHE_BASE_FACE_DIR+faceID))
+				if(0!=data?.getIntExtra("code",0)){
+					//用户取消了就不应该有这个值
+					jsonResult.set("faceBase64",Base64BitmapUtil.bitmapToBase64(FaceAIConfig.CACHE_BASE_FACE_DIR+faceID))
+				}
 				console.log(jsonResult);
 				callback(jsonResult)
 		} 
