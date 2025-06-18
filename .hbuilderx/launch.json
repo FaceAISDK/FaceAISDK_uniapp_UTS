@@ -5,7 +5,7 @@
             "bundleId" : "com.onewo.space.charge",
             "certificateFile" : "/Users/anylife/code/uniApp/dis/证书.p12",
             "certificateProfileFile" : "/Users/anylife/code/uniApp/dis/zcfadhoc.mobileprovision",
-            "playground" : "custom",
+            "playground" : "standard",
             "runSignStatus" : 1,
             "type" : "uni-app:app-ios"
         },

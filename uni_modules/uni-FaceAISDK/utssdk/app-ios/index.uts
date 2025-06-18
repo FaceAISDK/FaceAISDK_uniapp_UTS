@@ -1,14 +1,19 @@
-import { ISFaceExist,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace, TestiOS } from '../interface.uts'
+import { OnGetString,OnCheckFaceExist,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace, ResultJSON } from '../interface.uts'
 
 
 
-export const testiOS : TestiOS = function (
-	faceID : string,
-	callback : (result : string) => void
-) {
-	console.log('*******  test ios ---------');
-	callback(faceID+ " From ios")
-}
+export const onGetString:OnGetString = function(callback: (res: ResultJSON) => void){
+	console.log("****** -------ios -------#############")
+	
+	const resultJson:ResultJSON={
+		code:11,
+		msg:"onGetString",
+		faceID:"faceID8",
+		faceBase64:"64"
+	}
+	
+    callback(resultJson)
+} 
 
 
 
@@ -20,16 +25,17 @@ export const testiOS : TestiOS = function (
  */
 export const addFaceImage : AddFaceImage = function (
 	faceID : string,
-	callback : (result : UTSJSONObject) => void
+	callback : (result : ResultJSON) => void
 ) {
 
-	const jsonResult = new UTSJSONObject()
-	jsonResult.set("code",0)
-	jsonResult.set("msg","132143")
-	jsonResult.set("faceID", faceID)
-	jsonResult.set("faceBase64","4343434")
-	console.log(jsonResult);
-	callback(jsonResult)
+	const resultJson:ResultJSON={
+		code:11,
+		msg:"addFaceImage",
+		faceID:"faceID8",
+		faceBase64:"64"
+	}
+	
+    callback(resultJson)
 }
 
 
@@ -42,47 +48,45 @@ export const addFaceImage : AddFaceImage = function (
  */
 export const faceVerify : FaceVerify = function (
 	param : FaceVerifyParam,
-	callback : (result : UTSJSONObject) => void
+	callback : (result : ResultJSON) => void
 ) {
-	const jsonResult = new UTSJSONObject()
-	jsonResult.set("code",0)
-	jsonResult.set("msg","132143")
-	jsonResult.set("faceBase64","4343434")
-	console.log(jsonResult);
-	callback(jsonResult)
+	const resultJson:ResultJSON={
+		code:11,
+		msg:"faceVerify",
+		faceID:"faceID8",
+		faceBase64:"64"
+	}
+	
+    callback(resultJson)
 }
 
 
 /**
- * 调用原生的FaceAISDK 功能 isFaceExist 人脸是否存在
+ * 调用原生的FaceAISDK 功能 人脸是否存在
  */
-export const isFaceExist : ISFaceExist = function (faceID : string, callback : (output : UTSJSONObject) => void) {
-	console.log("ios json ----------");
+export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, callback : (result : ResultJSON) => void) {
+	const resultJson:ResultJSON={
+		code:11,
+		msg:"onCheckFaceExist",
+		faceID:"faceID8",
+		faceBase64:"64"
+	}
 	
-	const json = new UTSJSONObject()
-	json.set("code",0)
-	json.set("msg","测试iOS 人脸四否存在")
-	json.set("faceID", faceID)
-	json.set("faceBase64","4343434")
-	console.log(json);
-	console.log("ios json ----------");
-	
-	callback(json)
+    callback(resultJson)
 }
  
 /**
  * 同步人脸图片Base64编码到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
  * 
  */
-export const insertFace : InsertFace = function (faceID : string, faceBase64 : string, callback : (output : UTSJSONObject) => void) {
-	const jsonResult = new UTSJSONObject()
-	jsonResult.set("code",0)
-	jsonResult.set("msg","132143")
-	jsonResult.set("faceID", faceID)
-	jsonResult.set("faceBase64","4343434")
-	console.log(jsonResult);
-	callback(jsonResult)
+export const insertFace : InsertFace = function (faceID : string, faceBase64 : string, callback : (result : ResultJSON) => void) {
+	const resultJson:ResultJSON={
+		code:11,
+		msg:"insertFace",
+		faceID:"faceID8",
+		faceBase64:"64"
+	}
+	
+    callback(resultJson)
 }
  
-
-

@@ -1,13 +1,4 @@
-
-import { ISFaceExist,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace } from '../interface.uts'
-
-// import Log from 'android.util.Log';
-// import Bundle from 'android.os.Bundle';
-// import IntentFilter from 'android.content.IntentFilter';
-// import Context from 'android.content.Context';
-// import Toast from 'android.widget.Toast';
-// import { getUniActivity } from "io.dcloud.uts.android"
-// import R from 'uts.sdk.modules.uniFaceAISDK.R';
+import {OnGetString,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace,OnCheckFaceExist, ResultJSON } from '../interface.uts'
 
 import Application from 'android.app.Application';
 import Activity from 'android.app.Activity';
@@ -19,6 +10,19 @@ import { AddFaceImageActivity } from "com.ai.face.addFaceImage"
 import { FaceVerificationActivity } from "com.ai.face.verify"
 import { Base64BitmapUtil } from "com.ai.face.utils"
 
+
+export const onGetString:OnGetString = function(callback: (res: ResultJSON) => void){
+	console.log("****** -------Android ------- #########")
+	const resultJson:ResultJSON={
+		code:11,
+		msg:"onGetString",
+		faceID:"faceID8",
+		faceBase64:"64"
+	}
+    callback(resultJson)
+} 
+
+
 /**
  * 跳转到Android SDK 中原生页面处理人脸录入
  * 
@@ -27,7 +31,7 @@ import { Base64BitmapUtil } from "com.ai.face.utils"
  */
 export const addFaceImage : AddFaceImage = function (
 	faceID : string,
-	callback : (result : UTSJSONObject) => void
+	callback : (result : ResultJSON) => void
 ) {
 	const context = UTSAndroid.getUniActivity() as Activity
 	FaceAIConfig.init(context);
@@ -36,18 +40,35 @@ export const addFaceImage : AddFaceImage = function (
 	intent.putExtra("USER_FACE_ID_KEY", faceID);
 	context.startActivityForResult(intent, 10086)
 
-	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ?: Intent) => {
+	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ? : Intent) => {
 		if (requestCode == 10086) {
-				const jsonResult = new UTSJSONObject()
-				jsonResult.set("code",data?.getIntExtra("code",0))
-				jsonResult.set("msg", data?.getStringExtra("msg"))
-				jsonResult.set("faceID", faceID)
-				if(0!=data?.getIntExtra("code",0)){
+			if(data!=null){
+				let faceBase64="?"
+				const codeNow:number = data?.getIntExtra("code",0) as number
+				const msgNow:string=data?.getStringExtra("msg") as string
+				if(0!=codeNow){
 					//用户取消了就不应该有这个值
-					jsonResult.set("faceBase64",Base64BitmapUtil.bitmapToBase64(FaceAIConfig.CACHE_BASE_FACE_DIR+faceID))
+					faceBase64=Base64BitmapUtil.bitmapToBase64(FaceAIConfig.CACHE_BASE_FACE_DIR+faceID)
 				}
-				console.log(jsonResult);
-				callback(jsonResult)
+				
+				const resultJson:ResultJSON={
+					code:codeNow,
+					msg:msgNow,
+					faceID:faceID,
+					faceBase64:faceBase64
+				}		
+				console.log("添加人脸："+resultJson)
+				callback(resultJson)
+			}else{
+				const resultJson:ResultJSON={
+					code:-1,
+					msg:"添加失败",
+					faceID:faceID,
+					faceBase64:"?"
+				}
+				
+				callback(resultJson)
+			}
 		} 
 	});
 }
@@ -62,7 +83,7 @@ export const addFaceImage : AddFaceImage = function (
  */
 export const faceVerify : FaceVerify = function (
 	param : FaceVerifyParam,
-	callback : (result : UTSJSONObject) => void
+	callback : (result : ResultJSON) => void
 ) {
 	const context = UTSAndroid.getUniActivity() as Activity
 	FaceAIConfig.init(context);
@@ -71,39 +92,63 @@ export const faceVerify : FaceVerify = function (
 	intent.putExtra("USER_FACE_ID_KEY", param.faceID);
 	context.startActivityForResult(intent, 10087)
 
-	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ?: Intent) => {
+	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ? : Intent) => {
 		if (requestCode == 10087) {
-				const jsonResult = new UTSJSONObject()
-				jsonResult.set("code",data?.getIntExtra("code", 0))
-				jsonResult.set("msg", data?.getStringExtra("msg"))
-				jsonResult.set("faceID", param.faceID)
-				console.log(jsonResult);
-				callback(jsonResult)
+			if(data!=null){
+				const codeNow:number = data?.getIntExtra("code",0) as number
+				const msgNow:string=data?.getStringExtra("msg") as string
+			
+				const resultJson:ResultJSON={
+					code:codeNow,
+					msg:msgNow,
+					faceID:param.faceID,
+					faceBase64:"?"
+				}
+				callback(resultJson)
+			}else{
+				const resultJson:ResultJSON={
+					code:1,
+					msg:"12345",
+					faceID:param.faceID,
+					faceBase64:"faceBase64"
+				}	
+				callback(resultJson)
+			}
 		} 
 	});
 }
 
 
 /**
- *  调用原生的FaceAISDK 功能 isFaceExist 人脸是否存在
+ *  调用原生的FaceAISDK 功能人脸是否存在
  */
-export const isFaceExist : ISFaceExist = function (faceID : string, callback : (output : UTSJSONObject) => void) {
-	FaceAISDKNative.isFaceExistKotlin(faceID, function (output : UTSJSONObject) {
+export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, callback : (re : ResultJSON) => void) {
+	FaceAISDKNative.isFaceExistKotlin(faceID, function (result : UTSJSONObject) {
 		
-		console.log("Android json ----------");
-		console.log(output);
-		
-		callback(output as UTSJSONObject)
+			const resultJson:ResultJSON={
+				code:result.getNumber("code") as number,
+				msg:result.getString("msg") as string,
+				faceID:faceID,
+				faceBase64:"?"
+			}
+			
+		callback(resultJson)
 	})
 }
  
 /**
  *  同步人脸图片Base64编码到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
  */
-export const insertFace : InsertFace = function (faceID : string, faceBase64 : string, callback : (output : UTSJSONObject) => void) {
+export const insertFace : InsertFace = function (faceID : string, faceBase64 : string, callback : (result : ResultJSON) => void) {
 	const context = UTSAndroid.getAppContext() as Application
-	FaceAISDKNative.insertFaceKotlin(faceID,faceBase64,context, function (output : UTSJSONObject) {
-		callback(output as UTSJSONObject)
+	FaceAISDKNative.insertFaceKotlin(faceID,faceBase64,context, function (result : UTSJSONObject) {
+		const resultJson:ResultJSON={
+				code:result.getNumber("code") as number,
+				msg:result.getString("msg") as string,
+				faceID:faceID,
+				faceBase64:"?"
+			}	
+		callback(resultJson)
 	})
 }
  
