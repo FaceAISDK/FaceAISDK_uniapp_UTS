@@ -22,12 +22,11 @@ import android.graphics.Bitmap
  */
 object FaceAISDKNative {
 
-
+ 
 	/**
 	 * 判断人脸是否存在
 	 */
 	fun isFaceExistKotlin(faceID: String,callback: (UTSJSONObject) -> Unit){
-		
 	   val isExist=FaceAIConfig.isFaceIDExist(faceID);
 
        var result: UTSJSONObject = object : UTSJSONObject() {
