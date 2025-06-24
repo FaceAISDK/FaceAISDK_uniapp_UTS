@@ -1,6 +1,7 @@
 ## FaceAISDK UTS Plugin
 
-本Repo为FaceAISDK UTS 插件工程  
+本Repo为FaceAISDK UTS 插件工程，参考官方 uni-MemoryInfo 工程实现人脸识别活体检测以便在uniApp / uniAppX 中使用
+
 目前Android UTS插件全部功能可用  
 iOS UTS 插件持续开发中 30%
 
