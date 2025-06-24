@@ -1,7 +1,6 @@
 import { OnGetString,OnCheckFaceExist,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace, ResultJSON } from '../interface.uts'
 
 
-
 export const onGetString:OnGetString = function(callback: (res: ResultJSON) => void){
 	console.log("****** -------ios -------#############")
 	
@@ -11,7 +10,7 @@ export const onGetString:OnGetString = function(callback: (res: ResultJSON) => v
 		faceID:"faceID8",
 		faceBase64:"64"
 	}
-	
+
     callback(resultJson)
 } 
 
