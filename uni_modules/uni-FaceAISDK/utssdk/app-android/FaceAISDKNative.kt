@@ -4,18 +4,20 @@ import android.content.Intent
 import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import android.app.ActivityManager
+import android.graphics.Bitmap
 import io.dcloud.uts.UTSAndroid
 import io.dcloud.uts.setInterval
 import io.dcloud.uts.clearInterval
 import io.dcloud.uts.console
 import org.json.JSONObject
 import io.dcloud.uts.UTSJSONObject
-import com.ai.face.FaceAIConfig
+
+import com.faceAI.demo.FaceAIConfig
 import com.ai.face.base.baseImage.FaceAIUtils
 import com.ai.face.base.baseImage.FaceAIUtils.Companion.getInstance
-import com.ai.face.utils.VoicePlayer 
-import com.ai.face.utils.Base64BitmapUtil
-import android.graphics.Bitmap
+import com.faceAI.demo.base.utils.VoicePlayer 
+import com.faceAI.demo.base.utils.Base64BitmapUtil
+
  
 /**
  *  启动一个新的Activity 并监测结果
