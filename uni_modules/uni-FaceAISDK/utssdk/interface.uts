@@ -1,16 +1,3 @@
-
-// interface.uts
-export interface NavigationResult {
-    success: boolean;
-    data?: string;
-}
-
-export type OpenSwiftUIPage=(
-    test:string,
-    callback: (result: NavigationResult) => void
-) => void
-
-
 // 插件对外暴露能力的总入口在 interface.uts ，他与Android/ios 目录下的 index.uts的关系是声明和实现的关系。
 
 export type OnGetString = (callback: (res: ResultJSON) => void) => void
@@ -77,3 +64,15 @@ export type InsertFace = (
 	callback : (result : ResultJSON) => void) => void
 
 
+
+
+
+
+/**
+ * 所有的Android 原生 FaceAISDK Demo
+ * 
+ * @param faceID 用户ID
+ * @param callback 结果回调
+ */
+
+export type OnAndroidAllDemo = (callback: (res: ResultJSON) => void) => void
