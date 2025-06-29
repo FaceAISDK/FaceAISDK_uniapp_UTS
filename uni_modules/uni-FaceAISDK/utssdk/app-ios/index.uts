@@ -1,21 +1,35 @@
-import { OnGetString,OnCheckFaceExist,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace, ResultJSON } from '../interface.uts'
+// app-ios/index.uts
+import { UIViewController, UIHostingController } from "UIKit";
+// import { SwiftUIView,SwiftUINavigationDelegate } from "./SwiftUIView.uts"; // 导入SwiftUI组件
+import { UIHostingController } from "SwiftUI"
+  
+export const openSwiftUIPage:OpenSwiftUIPage= function(faceID : string, 
+callback: (result: NavigationResult) => void) {
+	//用Swift 语言实现算了
+	
+    // const delegate = new SwiftUINavigationDelegate(callback);
+    const swiftUIView = new SwiftUIView();
+    const hostingController =UIHostingController.alloc().initWithRootView(swiftUIView);
+     
+    // 获取当前ViewController
+    const rootVC = UIApplication.sharedApplication.keyWindow.rootViewController;
+    rootVC.presentViewControllerAnimatedCompletion(hostingController, true, null);
+}     
 
-
+import {NavigationResult,OpenSwiftUIPage, OnGetString,OnCheckFaceExist,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace, ResultJSON } from '../interface.uts'
 
 export const onGetString:OnGetString = function(callback: (res: ResultJSON) => void){
 	console.log("****** -------ios -------#############")
 	
 	const resultJson:ResultJSON={
 		code:11,
-		msg:"onGetString",
+		msg:"20250619",
 		faceID:"faceID8",
 		faceBase64:"64"
 	}
 	
     callback(resultJson)
 } 
-
-
 
 /**
  * 跳转到Android SDK 中原生页面处理人脸录入

@@ -1,5 +1,17 @@
-// 插件对外暴露能力的总入口在 interface.uts ，他与Android/ios 目录下的 index.uts的关系是声明和实现的关系。
 
+// interface.uts
+export interface NavigationResult {
+    success: boolean;
+    data?: string;
+}
+
+export type OpenSwiftUIPage=(
+    test:string,
+    callback: (result: NavigationResult) => void
+) => void
+
+
+// 插件对外暴露能力的总入口在 interface.uts ，他与Android/ios 目录下的 index.uts的关系是声明和实现的关系。
 
 export type OnGetString = (callback: (res: ResultJSON) => void) => void
 
