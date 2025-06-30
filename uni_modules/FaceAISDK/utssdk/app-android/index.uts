@@ -74,7 +74,6 @@ export const addFaceImage : AddFaceImage = function (
 }
 
 
-
 /**
  * 跳转到Android SDK 中原生页面处理人脸识别活体检测
  * 
@@ -154,8 +153,6 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
  
  
  
- 
-
  /**
   * 跳转到Android SDK 中原生页面处理人脸录入
   * 

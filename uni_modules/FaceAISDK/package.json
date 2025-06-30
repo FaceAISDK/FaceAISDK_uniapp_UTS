@@ -1,12 +1,12 @@
 {
-  "id": "uni-FaceAISDK",
-  "displayName": "uni-FaceAISDK",
+  "id": "FaceAISDK",
+  "displayName": "FaceAISDK",
   "version": "1.0.0",
-  "description": "uni-FaceAISDK",
+  "description": "FaceAISDK",
   "keywords": [
-    "uni-FaceAISDK"
+    "FaceAISDK"
 ],
-  "repository": "",
+  "repository": "https://github.com/AnyLifeZLB/uniPlugin_FaceAI_UTS",
   "engines": {
     "HBuilderX": "^4.53"
   },
@@ -21,12 +21,12 @@
       }
     },
     "contact": {
-      "qq": "wechat18707611416"
+      "qq": ""
     },
     "declaration": {
       "ads": "无",
       "data": "插件不采集任何数据",
-      "permissions": "无"
+      "permissions": "相机"
     },
     "npmurl": ""
   },
@@ -41,7 +41,7 @@
       },
       "client": {
         "Vue": {
-          "vue2": "y",
+          "vue2": "u",
           "vue3": "y"
         },
         "App": {
@@ -49,7 +49,7 @@
                 "minVersion": "21"
             },
             "app-ios": {
-                "minVersion": "9"
+                "minVersion": "16"
             },
             "app-harmony": "n"
         },

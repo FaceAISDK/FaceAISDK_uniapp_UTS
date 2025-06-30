@@ -23,7 +23,6 @@ import com.faceAI.demo.base.utils.Base64BitmapUtil
  *  启动一个新的Activity 并监测结果
  */
 object FaceAISDKNative {
-
  
 	/**
 	 * 判断人脸是否存在
@@ -39,7 +38,6 @@ object FaceAISDKNative {
 		callback(result)
 	}
        
-	   
 	   
     /**
      * 同步Base64人脸到SDK
