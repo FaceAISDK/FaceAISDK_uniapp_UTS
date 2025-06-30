@@ -74,5 +74,4 @@ export type InsertFace = (
  * @param faceID 用户ID
  * @param callback 结果回调
  */
-
 export type OnAndroidAllDemo = (callback: (res: ResultJSON) => void) => void
