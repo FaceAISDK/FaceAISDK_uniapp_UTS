@@ -11,7 +11,6 @@ import { FaceVerificationActivity } from "com.faceAI.demo.SysCamera.verify"
 import { Base64BitmapUtil } from "com.faceAI.demo.base.utils"
 import { FaceAINaviActivity } from "com.faceAI.demo"
 
-
 export const onGetString:OnGetString = function(callback: (res: ResultJSON) => void){
 	const resultJson:ResultJSON={
 		code:11,
@@ -45,13 +44,13 @@ export const addFaceImage : AddFaceImage = function (
 		if (requestCode == 10086) {
 			if(data!=null){
 				let faceBase64="?"
-				const codeNow:number = data?.getIntExtra("code",0) as number
-				const msgNow:string=data?.getStringExtra("msg") as string
+				const codeNow:number = data.getIntExtra("code",0) as number
+				const msgNow:string=data.getStringExtra("msg") as string
 				if(0!=codeNow){
 					//用户取消了就不应该有这个值
 					faceBase64=Base64BitmapUtil.bitmapToBase64(FaceAIConfig.CACHE_BASE_FACE_DIR+faceID)
 				}
-				
+				 
 				const resultJson:ResultJSON={
 					code:codeNow,
 					msg:msgNow,
@@ -96,8 +95,8 @@ export const faceVerify : FaceVerify = function (
 	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ? : Intent) => {
 		if (requestCode == 10087) {
 			if(data!=null){
-				const codeNow:number = data?.getIntExtra("code",0) as number
-				const msgNow:string=data?.getStringExtra("msg") as string
+				const codeNow:number = data.getIntExtra("code",0) as number
+				const msgNow:string=data.getStringExtra("msg") as string
 			
 				const resultJson:ResultJSON={
 					code:codeNow,
@@ -156,26 +155,15 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
  
  
  
+
  /**
   * 跳转到Android SDK 中原生页面处理人脸录入
   * 
   * @param callback 结果回调
   */
 export const onAndroidAllDemo : OnAndroidAllDemo= function(callback: (res: ResultJSON) => void){
-	
-	const context = UTSAndroid.getUniActivity() as Activity
+	const context = UTSAndroid.getUniActivity() as Activity;
 	FaceAIConfig.init(context);
-	const intent = new Intent(context, FaceAINaviActivity().javaClass)	
-	context.startActivityForResult(intent, 10085)
-	
-	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ? : Intent) => {
-		const resultJson:ResultJSON={
-			code:1,
-			msg:"onAndroidAllDemo",
-			faceID:"faceID8",
-			faceBase64:"64"
-		}
-		callback(resultJson)
-	}
-
+	const intent = new Intent(context, FaceAINaviActivity().javaClass)	;
+	context.startActivityForResult(intent, 10081);
 } 

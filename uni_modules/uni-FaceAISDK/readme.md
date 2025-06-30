@@ -20,7 +20,7 @@
 </template>
 
 <script> 
-	import {onGetString,onCheckFaceExist,addFaceImage, faceVerify, insertFace,FaceVerifyParam,ResultJSON} from "@/uni_modules/uni-FaceAISDK";
+	import {onGetString,onCheckFaceExist,addFaceImage,faceVerify,insertFace,FaceVerifyParam,ResultJSON} from "@/uni_modules/uni-FaceAISDK";
  
 	export default {
 		
