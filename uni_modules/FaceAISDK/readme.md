@@ -1,7 +1,7 @@
-# uni-FaceAISDK
+# FaceAISDK
 ### 开发文档
 
-此插件参考官方 uni-MemoryInfo 工程实现人脸识别活体检测以便在uniApp / uniAppX 中使用
+此插件共4个API实现人脸识别活体检测在uniApp,uniAppX 中使用
 
 
 使用示例:
@@ -20,7 +20,7 @@
 </template>
 
 <script> 
-	import {onGetString,onCheckFaceExist,addFaceImage,faceVerify,insertFace,FaceVerifyParam,ResultJSON} from "@/uni_modules/uni-FaceAISDK";
+	import {onGetString,onCheckFaceExist,addFaceImage,faceVerify,insertFace,FaceVerifyParam,ResultJSON} from "@/uni_modules/FaceAISDK";
  
 	export default {
 		
