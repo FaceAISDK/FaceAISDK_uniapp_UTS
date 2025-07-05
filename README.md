@@ -11,9 +11,9 @@ FaceAI SDK is on_device Offline Android Face Detection 、Recognition 、Livenes
 
 保护伞FaceAI SDK是设备端可离线不联网Android 人脸识别、动作及近红外IR活体检测、人脸图质量检测以及人脸搜索（1:N和M:N）SDK，可快速集成实现人脸识别，人脸搜索功能。
 
-Android： https://github.com/AnyLifeZLB/FaceVerificationSDK  
-iOS SDK： https://github.com/AnyLifeZLB/FaceAISDK_iOS  
-Uni App： https://github.com/AnyLifeZLB/uniPlugin_FaceAI_UTS  
+iOS SDK： https://github.com/FaceAISDK/FaceAISDK_iOS
+Uni App： https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS
+Android： https://github.com/FaceAISDK/FaceAISDK_Android
 
 ## 关于插件使用
 当前为公测阶段，预计0715全部正式开放上线，正式使用需要你发送邮件到FaceAISDK.Service@gmail.com
