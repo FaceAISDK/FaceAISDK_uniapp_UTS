@@ -6,7 +6,7 @@
   "keywords": [
     "FaceAISDK"
 ],
-  "repository": "https://github.com/AnyLifeZLB/uniPlugin_FaceAI_UTS",
+  "repository": "https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS",
   "engines": {
     "HBuilderX": "^4.53"
   },

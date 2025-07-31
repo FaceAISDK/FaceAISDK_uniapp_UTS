@@ -16,7 +16,7 @@ import com.faceAI.demo.FaceAIConfig
 import com.ai.face.base.baseImage.FaceAIUtils
 import com.ai.face.base.baseImage.FaceAIUtils.Companion.getInstance
 import com.faceAI.demo.base.utils.VoicePlayer 
-import com.faceAI.demo.base.utils.Base64BitmapUtil
+import com.faceAI.demo.base.utils.BitmapUtils
 
  
 /**
@@ -44,7 +44,7 @@ object FaceAISDKNative {
      */
     fun insertFaceKotlin(faceID: String,faceBase64 : String,context:Application,callback: (UTSJSONObject) -> Unit){
     	
-          val bitmap = Base64BitmapUtil.base64ToBitmap(faceBase64)
+          val bitmap = BitmapUtils.base64ToBitmap(faceBase64)
 		   
 		  if (bitmap == null) { 
 			  var result: UTSJSONObject = object : UTSJSONObject() {
