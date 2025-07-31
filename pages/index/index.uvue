@@ -5,13 +5,13 @@
 		<button @tap="checkFaceExistDemo">检测人脸是否存在</button>
 		<button @tap="faceVerifyDemo">人脸识别活体检测</button>
 		<button @tap="insertFaceDemo">同步人脸照片</button>
-		<button @tap="AndroidAllDemo">所有Android FaceAI Demo</button>
+		<button @tap="AndroidAllDemo">所有原生功能（授权请参考GitHub项目主页）</button>
 		<text>{{faceAIResult}}</text>
 	</view>
 </template>
 
 <script> 
-	import {onGetString,onCheckFaceExist,addFaceImage, faceVerify, insertFace,FaceVerifyParam,ResultJSON,onAndroidAllDemo} from "@/uni_modules/FaceAISDK";
+	import {onGetString,onCheckFaceExist,addFaceImage, faceVerify, insertFace,FaceVerifyParam,ResultJSON,onAndroidAllDemo} from "@/uni_modules/FaceAISDK-Core";
  
 	export default {
 		 
