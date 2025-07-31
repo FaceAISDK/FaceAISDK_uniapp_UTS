@@ -1,0 +1,114 @@
+{
+  "id": "FaceAISDK-Core",
+  "displayName": "FaceAISDK",
+  "version": "1.2.0",
+  "description": "FaceAISDK，人脸识别，活体检测，全部离线工作不收集数据更安全",
+  "keywords": [
+    "离线识别",
+    "人脸识别",
+    "活体检测",
+    "隐私安全"
+],
+  "repository": "https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS",
+  "engines": {
+    "HBuilderX": "^4.53",
+    "uni-app": "^4.57",
+    "uni-app-x": "^4.57"
+  },
+  "dcloudext": {
+    "type": "uts",
+    "sale": {
+      "regular": {
+        "price": "0.00"
+      },
+      "sourcecode": {
+        "price": "0.00"
+      }
+    },
+    "contact": {
+      "qq": ""
+    },
+    "declaration": {
+      "ads": "无\n插件授权更多说明https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS",
+      "data": "离线识别。不采集任何数据\n插件授权更多说明https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS",
+      "permissions": "相机"
+    },
+    "npmurl": "",
+    "darkmode": "x",
+    "i18n": "x",
+    "widescreen": "x"
+  },
+  "uni_modules": {
+    "dependencies": [],
+    "encrypt": [],
+    "platforms": {
+      "cloud": {
+        "tcb": "√",
+        "aliyun": "√",
+        "alipay": "√"
+      },
+      "client": {
+        "uni-app": {
+          "vue": {
+            "vue2": {
+            },
+            "vue3": {
+            }
+          },
+          "web": {
+            "safari": "-",
+            "chrome": "-"
+          },
+          "app": {
+            "vue": "x",
+            "nvue": "x",
+            "android": {
+                "extVersion": "",
+                "minVersion": "21"
+            },
+            "ios": {
+                "extVersion": "",
+                "minVersion": "16"
+            },
+            "harmony": "x"
+          },
+          "mp": {
+            "weixin": "x",
+            "alipay": "x",
+            "toutiao": "x",
+            "baidu": "x",
+            "kuaishou": "x",
+            "jd": "x",
+            "harmony": "x",
+            "qq": "x",
+            "lark": "x"
+          },
+          "quickapp": {
+            "huawei": "x",
+            "union": "-"
+          }
+        },
+        "uni-app-x": {
+          "web": {
+            "safari": "x",
+            "chrome": "x"
+          },
+          "app": {
+            "android": {
+                "extVersion": "",
+                "minVersion": "21"
+            },
+            "ios": {
+                "extVersion": "",
+                "minVersion": "16"
+            },
+            "harmony": "x"
+          },
+          "mp": {
+            "weixin": "x"
+          }
+        }
+      }
+    }
+  }
+}

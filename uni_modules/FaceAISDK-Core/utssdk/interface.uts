@@ -1,0 +1,77 @@
+// 插件对外暴露能力的总入口在 interface.uts ，他与Android/ios 目录下的 index.uts的关系是声明和实现的关系。
+
+export type OnGetString = (callback: (res: ResultJSON) => void) => void
+
+
+//检测人脸是否存在
+export type OnCheckFaceExist = (faceID: string, callback: (result: ResultJSON) => void) => void
+
+  
+/**
+ * 录入一张人脸照片
+ * 
+ * @param faceID 用户ID
+ * @param callback 结果回调
+ */
+export type AddFaceImage = (
+	faceID : string,
+	callback : (result : ResultJSON) => void) => void
+
+
+/**
+ * 人脸识别
+ * 
+ * @param param 人脸识别参数
+ * @param callback 结果回调
+ */
+export type FaceVerify = (
+	param : FaceVerifyParam,
+	callback : (result : ResultJSON) => void) => void
+
+
+
+/**
+ * 业务方传给FaceAISDK 插件基础参数
+ */
+export type FaceVerifyParam = {
+  faceID: string,
+  threshold: number,        // 人脸识别通过的相似度阈值 0.85到0.95
+  faceLivenessType: number, // 活体检测类型 //0 SILENT_MOTION; 1 MOTION; 2 SILENT; 3 NONE;
+  verifyTimeOut: number     // 活体检测超时时间 秒
+} 
+
+
+/**
+ * 业务方传给FaceAISDK 插件基础参数
+ */
+export type ResultJSON = {
+  code: number,        
+  msg: string, 
+  faceID: string,
+  faceBase64: string     
+}
+
+
+/**
+ * 同步人脸图片Base64编码到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
+ * 
+ * @param faceBase64 人脸图片Base64
+ * @param callback 结果回调
+ */
+export type InsertFace = (
+    faceID : string,
+	faceBase64 : string,
+	callback : (result : ResultJSON) => void) => void
+
+
+
+
+
+
+/**
+ * 所有的Android 原生 FaceAISDK Demo
+ * 
+ * @param faceID 用户ID
+ * @param callback 结果回调
+ */
+export type OnAndroidAllDemo = (callback: (res: ResultJSON) => void) => void

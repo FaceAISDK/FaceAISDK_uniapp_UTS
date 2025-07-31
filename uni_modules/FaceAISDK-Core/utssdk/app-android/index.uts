@@ -1,0 +1,166 @@
+import {OnGetString,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace,OnCheckFaceExist, ResultJSON ,OnAndroidAllDemo} from '../interface.uts'
+
+import Application from 'android.app.Application';
+import Activity from 'android.app.Activity';
+import Intent from 'android.content.Intent';
+
+import { FaceAIConfig } from "com.faceAI.demo"
+import { FaceAISDKNative } from "uts.sdk.modules.uniFaceAISDK"
+import { AddFaceImageActivity } from "com.faceAI.demo.SysCamera.addFace"
+import { FaceVerificationActivity } from "com.faceAI.demo.SysCamera.verify"
+import { BitmapUtils } from "com.faceAI.demo.base.utils"
+import { FaceAINaviActivity } from "com.faceAI.demo"
+
+export const onGetString:OnGetString = function(callback: (res: ResultJSON) => void){
+	const resultJson:ResultJSON={
+		code:11,
+		msg:"onGetString",
+		faceID:"faceID8",
+		faceBase64:"64"
+	}
+    callback(resultJson)
+} 
+
+
+/**
+ * 跳转到Android SDK 中原生页面处理人脸录入
+ * 
+ * @param faceID 用户ID
+ * @param callback 结果回调
+ */
+export const addFaceImage : AddFaceImage = function (
+	faceID : string,
+	callback : (result : ResultJSON) => void
+) {
+	const context = UTSAndroid.getUniActivity() as Activity
+	FaceAIConfig.init(context);
+	const intent = new Intent(context, AddFaceImageActivity().javaClass)
+	intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_VERIFY");
+	intent.putExtra("USER_FACE_ID_KEY", faceID);
+	context.startActivityForResult(intent, 10086)
+
+    //语法不熟悉，先保证主流程跑通
+	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ? : Intent) => {
+		if (requestCode == 10086) {
+			if(data!=null){
+				let faceBase64="?"
+				const codeNow:number = data.getIntExtra("code",0) as number
+				const msgNow:string=data.getStringExtra("msg") as string
+				if(0!=codeNow){
+					//用户取消了就不应该有这个值
+					faceBase64=BitmapUtils.bitmapToBase64(FaceAIConfig.CACHE_BASE_FACE_DIR+faceID)
+				}
+				 
+				const resultJson:ResultJSON={
+					code:codeNow,
+					msg:msgNow,
+					faceID:faceID,
+					faceBase64:faceBase64
+				}		
+				console.log("添加人脸："+resultJson)
+				callback(resultJson)
+			}else{
+				const resultJson:ResultJSON={
+					code:-1,
+					msg:"添加失败",
+					faceID:faceID,
+					faceBase64:"?"
+				}
+				
+				callback(resultJson)
+			}
+		} 
+	});
+}
+
+
+/**
+ * 跳转到Android SDK 中原生页面处理人脸识别活体检测
+ * 
+ * @param faceID 用户ID
+ * @param callback 结果回调
+ */
+export const faceVerify : FaceVerify = function (
+	param : FaceVerifyParam,
+	callback : (result : ResultJSON) => void
+) {
+	const context = UTSAndroid.getUniActivity() as Activity
+	FaceAIConfig.init(context);
+	const intent = new Intent(context, FaceVerificationActivity().javaClass)
+	intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_VERIFY");
+	intent.putExtra("USER_FACE_ID_KEY", param.faceID);
+	context.startActivityForResult(intent, 10087)
+
+	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ? : Intent) => {
+		if (requestCode == 10087) {
+			if(data!=null){
+				const codeNow:number = data.getIntExtra("code",0) as number
+				const msgNow:string=data.getStringExtra("msg") as string
+			
+				const resultJson:ResultJSON={
+					code:codeNow,
+					msg:msgNow,
+					faceID:param.faceID,
+					faceBase64:"?"
+				}
+				callback(resultJson)
+			}else{
+				const resultJson:ResultJSON={
+					code:1,
+					msg:"12345",
+					faceID:param.faceID,
+					faceBase64:"faceBase64"
+				}	
+				callback(resultJson)
+			}
+		} 
+	});
+}
+
+
+/**
+ *  调用原生的FaceAISDK 功能人脸是否存在
+ */
+export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, callback : (re : ResultJSON) => void) {
+	FaceAISDKNative.isFaceExistKotlin(faceID, function (result : UTSJSONObject) {
+		
+			const resultJson:ResultJSON={
+				code:result.getNumber("code") as number,
+				msg:result.getString("msg") as string,
+				faceID:faceID,
+				faceBase64:"?"
+			}
+			
+		callback(resultJson)
+	})
+}
+ 
+/**
+ *  同步人脸图片Base64编码到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
+ */
+export const insertFace : InsertFace = function (faceID : string, faceBase64 : string, callback : (result : ResultJSON) => void) {
+	const context = UTSAndroid.getAppContext() as Application
+	FaceAISDKNative.insertFaceKotlin(faceID,faceBase64,context, function (result : UTSJSONObject) {
+		const resultJson:ResultJSON={
+				code:result.getNumber("code") as number,
+				msg:result.getString("msg") as string,
+				faceID:faceID,
+				faceBase64:"?"
+			}	
+		callback(resultJson)
+	})
+}
+ 
+ 
+ 
+ /**
+  * 跳转到Android SDK 中原生页面处理人脸录入
+  * 
+  * @param callback 结果回调
+  */
+export const onAndroidAllDemo : OnAndroidAllDemo= function(callback: (res: ResultJSON) => void){
+	const context = UTSAndroid.getUniActivity() as Activity;
+	FaceAIConfig.init(context);
+	const intent = new Intent(context, FaceAINaviActivity().javaClass)	;
+	context.startActivityForResult(intent, 10081);
+} 
