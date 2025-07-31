@@ -8,7 +8,7 @@ import { FaceAIConfig } from "com.faceAI.demo"
 import { FaceAISDKNative } from "uts.sdk.modules.uniFaceAISDK"
 import { AddFaceImageActivity } from "com.faceAI.demo.SysCamera.addFace"
 import { FaceVerificationActivity } from "com.faceAI.demo.SysCamera.verify"
-import { Base64BitmapUtil } from "com.faceAI.demo.base.utils"
+import { BitmapUtils } from "com.faceAI.demo.base.utils"
 import { FaceAINaviActivity } from "com.faceAI.demo"
 
 export const onGetString:OnGetString = function(callback: (res: ResultJSON) => void){
@@ -48,7 +48,7 @@ export const addFaceImage : AddFaceImage = function (
 				const msgNow:string=data.getStringExtra("msg") as string
 				if(0!=codeNow){
 					//用户取消了就不应该有这个值
-					faceBase64=Base64BitmapUtil.bitmapToBase64(FaceAIConfig.CACHE_BASE_FACE_DIR+faceID)
+					faceBase64=BitmapUtils.bitmapToBase64(FaceAIConfig.CACHE_BASE_FACE_DIR+faceID)
 				}
 				 
 				const resultJson:ResultJSON={
