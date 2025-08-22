@@ -11,8 +11,10 @@ import io.dcloud.uts.clearInterval
 import io.dcloud.uts.console
 import org.json.JSONObject
 import io.dcloud.uts.UTSJSONObject
+import android.graphics.BitmapFactory;
 
-import com.faceAI.demo.FaceAIConfig
+import com.ai.face.base.baseImage.FaceEmbedding;
+import com.faceAI.demo.FaceImageConfig
 import com.ai.face.base.baseImage.FaceAIUtils
 import com.ai.face.base.baseImage.FaceAIUtils.Companion.getInstance
 import com.faceAI.demo.base.utils.VoicePlayer 
@@ -27,8 +29,20 @@ object FaceAISDKNative {
 	/**
 	 * 判断人脸是否存在
 	 */
-	fun isFaceExistKotlin(faceID: String,callback: (UTSJSONObject) -> Unit){
-	   val isExist=FaceAIConfig.isFaceIDExist(faceID);
+	fun isFaceExistKotlin(context:Application,faceID: String,callback: (UTSJSONObject) -> Unit){
+	    var isExist=true;
+
+        val faceEmbedding = FaceEmbedding.loadEmbedding(context, faceID)
+
+        // 去Path 路径读取有没有faceID 对应的处理好的人脸Bitmap
+        val faceFilePath = FaceImageConfig.CACHE_BASE_FACE_DIR + faceID
+        val baseBitmap = BitmapFactory.decodeFile(faceFilePath)
+ 
+
+        if (faceEmbedding.size == 0||baseBitmap==null) {
+			isExist=false;
+		}
+
 
        var result: UTSJSONObject = object : UTSJSONObject() {
 			var code = if(isExist) 1 else 0
@@ -58,12 +72,16 @@ object FaceAISDKNative {
 			  //其他地方同步过来的人脸可能是不规范的没有经过校准的人脸图（证件照，多人脸，过小等）。disposeBaseFaceImage处理
 			  getInstance(context)
 			      .disposeBaseFaceImage(
+				      context, 
 			          bitmap,
-			          FaceAIConfig.CACHE_BASE_FACE_DIR + faceID,
 			          object : FaceAIUtils.Callback {
 			              //处理优化人脸成功完成去初始化引擎
-			              override fun onSuccess(bitmap: Bitmap) {
-							
+			              override fun onSuccess(bitmap: Bitmap,faceEmbedding: FloatArray) {
+							 
+							 FaceEmbedding.saveEmbedding(context, faceID, faceEmbedding); //本地保存人脸特征向量，后期可以用这个了
+						     //人脸向量特征保存成功，好像Bitmap没有刷新？？？？							
+							 BitmapUtils.saveBitmap(bitmap, FaceImageConfig.CACHE_BASE_FACE_DIR,faceID) //裁剪好的人脸保存本地，暂时用这个
+
 							  var result: UTSJSONObject = object : UTSJSONObject() {
 							  		var code =  1
 							  		var msg = "insertFace2SDK 成功"
