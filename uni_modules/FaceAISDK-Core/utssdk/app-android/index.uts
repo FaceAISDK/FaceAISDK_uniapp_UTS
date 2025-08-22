@@ -4,7 +4,7 @@ import Application from 'android.app.Application';
 import Activity from 'android.app.Activity';
 import Intent from 'android.content.Intent';
 
-import { FaceAIConfig } from "com.faceAI.demo"
+import { FaceImageConfig } from "com.faceAI.demo"
 import { FaceAISDKNative } from "uts.sdk.modules.uniFaceAISDK"
 import { AddFaceImageActivity } from "com.faceAI.demo.SysCamera.addFace"
 import { FaceVerificationActivity } from "com.faceAI.demo.SysCamera.verify"
@@ -33,7 +33,7 @@ export const addFaceImage : AddFaceImage = function (
 	callback : (result : ResultJSON) => void
 ) {
 	const context = UTSAndroid.getUniActivity() as Activity
-	FaceAIConfig.init(context);
+	FaceImageConfig.init(context);
 	const intent = new Intent(context, AddFaceImageActivity().javaClass)
 	intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_VERIFY");
 	intent.putExtra("USER_FACE_ID_KEY", faceID);
@@ -48,7 +48,7 @@ export const addFaceImage : AddFaceImage = function (
 				const msgNow:string=data.getStringExtra("msg") as string
 				if(0!=codeNow){
 					//用户取消了就不应该有这个值
-					faceBase64=BitmapUtils.bitmapToBase64(FaceAIConfig.CACHE_BASE_FACE_DIR+faceID)
+					faceBase64=BitmapUtils.bitmapToBase64(FaceImageConfig.CACHE_BASE_FACE_DIR+faceID)
 				}
 				 
 				const resultJson:ResultJSON={
@@ -85,7 +85,7 @@ export const faceVerify : FaceVerify = function (
 	callback : (result : ResultJSON) => void
 ) {
 	const context = UTSAndroid.getUniActivity() as Activity
-	FaceAIConfig.init(context);
+	FaceImageConfig.init(context);
 	const intent = new Intent(context, FaceVerificationActivity().javaClass)
 	intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_VERIFY");
 	intent.putExtra("USER_FACE_ID_KEY", param.faceID);
@@ -122,8 +122,10 @@ export const faceVerify : FaceVerify = function (
  *  调用原生的FaceAISDK 功能人脸是否存在
  */
 export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, callback : (re : ResultJSON) => void) {
-	FaceAISDKNative.isFaceExistKotlin(faceID, function (result : UTSJSONObject) {
-		
+	
+	const context = UTSAndroid.getAppContext() as Application
+	
+	FaceAISDKNative.isFaceExistKotlin(context,faceID, function (result : UTSJSONObject) {
 			const resultJson:ResultJSON={
 				code:result.getNumber("code") as number,
 				msg:result.getString("msg") as string,
@@ -136,7 +138,7 @@ export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, ca
 }
  
 /**
- *  同步人脸图片Base64编码到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
+ *  同步人脸图片到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
  */
 export const insertFace : InsertFace = function (faceID : string, faceBase64 : string, callback : (result : ResultJSON) => void) {
 	const context = UTSAndroid.getAppContext() as Application
@@ -160,7 +162,7 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
   */
 export const onAndroidAllDemo : OnAndroidAllDemo= function(callback: (res: ResultJSON) => void){
 	const context = UTSAndroid.getUniActivity() as Activity;
-	FaceAIConfig.init(context);
+	FaceImageConfig.init(context); //初始化本地图片缓存
 	const intent = new Intent(context, FaceAINaviActivity().javaClass)	;
 	context.startActivityForResult(intent, 10081);
 } 
