@@ -10,7 +10,7 @@
             "type" : "uni-app:app-ios"
         },
         {
-            "customPlaygroundType" : "local",
+            "customPlaygroundType" : "device",
             "playground" : "custom",
             "type" : "uni-app:app-android"
         }
