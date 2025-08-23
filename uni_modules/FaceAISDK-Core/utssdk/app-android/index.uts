@@ -9,7 +9,7 @@ import { FaceAISDKNative } from "uts.sdk.modules.uniFaceAISDK"
 import { AddFaceImageActivity } from "com.faceAI.demo.SysCamera.addFace"
 import { FaceVerificationActivity } from "com.faceAI.demo.SysCamera.verify"
 import { BitmapUtils } from "com.faceAI.demo.base.utils"
-import { FaceAINaviActivity } from "com.faceAI.demo"
+// import { FaceAINaviActivity } from "com.faceAI.demo"
 
 export const onGetString:OnGetString = function(callback: (res: ResultJSON) => void){
 	const resultJson:ResultJSON={
@@ -156,13 +156,13 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
  
  
  /**
-  * 跳转到Android SDK 中原生页面处理人脸录入
+  * 跳转到Android SDK 原生默认的所有入口
   * 
   * @param callback 结果回调
   */
 export const onAndroidAllDemo : OnAndroidAllDemo= function(callback: (res: ResultJSON) => void){
 	const context = UTSAndroid.getUniActivity() as Activity;
 	FaceImageConfig.init(context); //初始化本地图片缓存
-	const intent = new Intent(context, FaceAINaviActivity().javaClass)	;
-	context.startActivityForResult(intent, 10081);
+	// const intent = new Intent(context, FaceAINaviActivity().javaClass)	;
+	// context.startActivityForResult(intent, 10081);
 } 
