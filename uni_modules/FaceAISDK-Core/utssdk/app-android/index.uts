@@ -124,6 +124,7 @@ export const faceVerify : FaceVerify = function (
 export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, callback : (re : ResultJSON) => void) {
 	
 	const context = UTSAndroid.getAppContext() as Application
+	FaceImageConfig.init(context);
 	
 	FaceAISDKNative.isFaceExistKotlin(context,faceID, function (result : UTSJSONObject) {
 			const resultJson:ResultJSON={
@@ -142,6 +143,8 @@ export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, ca
  */
 export const insertFace : InsertFace = function (faceID : string, faceBase64 : string, callback : (result : ResultJSON) => void) {
 	const context = UTSAndroid.getAppContext() as Application
+	FaceImageConfig.init(context);
+	
 	FaceAISDKNative.insertFaceKotlin(faceID,faceBase64,context, function (result : UTSJSONObject) {
 		const resultJson:ResultJSON={
 				code:result.getNumber("code") as number,
