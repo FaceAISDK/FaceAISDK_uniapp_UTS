@@ -57,7 +57,7 @@ export const addFaceImage : AddFaceImage = function (
 					faceID:faceID,
 					faceBase64:faceBase64
 				}		
-				console.log("添加人脸："+resultJson)
+				console.log("添加人脸人脸："+resultJson)
 				callback(resultJson)
 			}else{
 				const resultJson:ResultJSON={
