@@ -69,7 +69,7 @@
 			
 			
 			/**
-			* 3. 演示传参人脸识别
+			* 3. 演示传参进行人脸识别
 			* 
 			*/
 			faceVerifyDemo: function () {
