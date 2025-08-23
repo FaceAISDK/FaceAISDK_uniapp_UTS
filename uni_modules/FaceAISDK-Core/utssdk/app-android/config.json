@@ -13,6 +13,8 @@
 	"com.github.bumptech.glide:glide:4.16.0",
 	"com.github.bumptech.glide:ksp:4.16.0",
 	"androidx.appcompat:appcompat:1.6.0",
-	"androidx.constraintlayout:constraintlayout:2.1.4"
+	"androidx.constraintlayout:constraintlayout:2.1.4",
+	"pub.devrel:easypermissions:3.0.0",
+	"com.airbnb.android:lottie:6.0.0"
   ]
 }
