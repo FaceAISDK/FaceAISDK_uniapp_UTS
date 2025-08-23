@@ -16,7 +16,6 @@ import android.graphics.BitmapFactory;
 import com.ai.face.base.baseImage.FaceEmbedding;
 import com.faceAI.demo.FaceImageConfig
 import com.ai.face.base.baseImage.FaceAIUtils
-import com.ai.face.base.baseImage.FaceAIUtils.Companion.getInstance
 import com.faceAI.demo.base.utils.VoicePlayer 
 import com.faceAI.demo.base.utils.BitmapUtils
 
@@ -70,17 +69,14 @@ object FaceAISDKNative {
 			  return
 		  }else {
 			  //其他地方同步过来的人脸可能是不规范的没有经过校准的人脸图（证件照，多人脸，过小等）。disposeBaseFaceImage处理
-			  getInstance(context)
-			      .disposeBaseFaceImage(
-				      context, 
-			          bitmap,
-			          object : FaceAIUtils.Callback {
+			  FaceAIUtils.Companion.getInstance(context)
+			      .disposeBaseFaceImage(context, bitmap,object : FaceAIUtils.Callback {
 			              //处理优化人脸成功完成去初始化引擎
-			              override fun onSuccess(bitmap: Bitmap,faceEmbedding: FloatArray) {
-							 
+			              override 
+						  fun onSuccess(bitmap: Bitmap,faceEmbedding: FloatArray) {
+							  
 							 FaceEmbedding.saveEmbedding(context, faceID, faceEmbedding); //本地保存人脸特征向量，后期可以用这个了
-						     //人脸向量特征保存成功，好像Bitmap没有刷新？？？？							
-							 BitmapUtils.saveBitmap(bitmap, FaceImageConfig.CACHE_BASE_FACE_DIR,faceID) //裁剪好的人脸保存本地，暂时用这个
+							 BitmapUtils.saveBitmap(bitmap, FaceImageConfig.CACHE_BASE_FACE_DIR,faceID) //裁剪好的人脸保存本地
 
 							  var result: UTSJSONObject = object : UTSJSONObject() {
 							  		var code =  1
@@ -91,7 +87,8 @@ object FaceAISDKNative {
 			              } 
 			   
 			              //底片处理异常的信息回调
-			              override fun onFailed(msg: String, errorCode: Int) {
+			              override 
+						  fun onFailed(msg: String, errorCode: Int) {
 							  var result: UTSJSONObject = object : UTSJSONObject() {
 							  		var code =  0
 							  		var msg = "$msg-$errorCode"

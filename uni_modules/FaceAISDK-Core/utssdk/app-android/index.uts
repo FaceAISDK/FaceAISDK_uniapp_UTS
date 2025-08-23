@@ -9,7 +9,7 @@ import { FaceAISDKNative } from "uts.sdk.modules.uniFaceAISDK"
 import { AddFaceImageActivity } from "com.faceAI.demo.SysCamera.addFace"
 import { FaceVerificationActivity } from "com.faceAI.demo.SysCamera.verify"
 import { BitmapUtils } from "com.faceAI.demo.base.utils"
-import { FaceAINaviActivity } from "com.faceAI.demo"
+// import { FaceAINaviActivity } from "com.faceAI.demo"
 
 export const onGetString:OnGetString = function(callback: (res: ResultJSON) => void){
 	const resultJson:ResultJSON={
@@ -57,7 +57,7 @@ export const addFaceImage : AddFaceImage = function (
 					faceID:faceID,
 					faceBase64:faceBase64
 				}		
-				console.log("添加人脸："+resultJson)
+				console.log("添加人脸人脸："+resultJson)
 				callback(resultJson)
 			}else{
 				const resultJson:ResultJSON={
@@ -124,6 +124,7 @@ export const faceVerify : FaceVerify = function (
 export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, callback : (re : ResultJSON) => void) {
 	
 	const context = UTSAndroid.getAppContext() as Application
+	FaceImageConfig.init(context);
 	
 	FaceAISDKNative.isFaceExistKotlin(context,faceID, function (result : UTSJSONObject) {
 			const resultJson:ResultJSON={
@@ -142,6 +143,8 @@ export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, ca
  */
 export const insertFace : InsertFace = function (faceID : string, faceBase64 : string, callback : (result : ResultJSON) => void) {
 	const context = UTSAndroid.getAppContext() as Application
+	FaceImageConfig.init(context);
+	
 	FaceAISDKNative.insertFaceKotlin(faceID,faceBase64,context, function (result : UTSJSONObject) {
 		const resultJson:ResultJSON={
 				code:result.getNumber("code") as number,
@@ -156,13 +159,13 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
  
  
  /**
-  * 跳转到Android SDK 中原生页面处理人脸录入
+  * 跳转到Android SDK 原生默认的所有入口
   * 
   * @param callback 结果回调
   */
 export const onAndroidAllDemo : OnAndroidAllDemo= function(callback: (res: ResultJSON) => void){
 	const context = UTSAndroid.getUniActivity() as Activity;
 	FaceImageConfig.init(context); //初始化本地图片缓存
-	const intent = new Intent(context, FaceAINaviActivity().javaClass)	;
-	context.startActivityForResult(intent, 10081);
+	// const intent = new Intent(context, FaceAINaviActivity().javaClass)	;
+	// context.startActivityForResult(intent, 10081);
 } 

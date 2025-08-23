@@ -1,4 +1,5 @@
+
 // config.uts
-// true为UniApp X模式，false为UniApp模式
+// true为UniApp X模式，false为UniApp模式??? 没起作用
 
 export const __UNI_APP_X_MODE__ = true; 
