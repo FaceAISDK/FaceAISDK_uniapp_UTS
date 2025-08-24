@@ -4,7 +4,7 @@
 		<button @tap="addFaceImageDemo">录入人脸</button>
 		<button @tap="checkFaceExistDemo">检测人脸是否存在</button>
 		<button @tap="faceVerifyDemo">人脸识别活体检测</button>
-		<button @tap="insertFace">同步人脸(转为Base64)</button>
+		<button @tap="insertFace">同步Base64编码人脸图</button>
 		<button @tap="AndroidAllDemo">V20250822(修改API，升级人脸特征向量)</button>
 		<text>{{faceAIResult}}</text>
 	</view>

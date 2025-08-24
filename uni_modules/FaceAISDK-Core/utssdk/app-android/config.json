@@ -5,7 +5,7 @@
 		"arm64-v8a"
   	],
   "dependencies": [
-	"io.github.faceaisdk:Android:2025.08.22.uni",
+	"io.github.faceaisdk:Android:2025.08.24.beta",
     "androidx.core:core:1.10.1",
 	"androidx.cardview:cardview:1.0.0",
 	"androidx.recyclerview:recyclerview:1.3.2",

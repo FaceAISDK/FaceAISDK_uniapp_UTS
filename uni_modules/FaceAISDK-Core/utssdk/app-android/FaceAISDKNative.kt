@@ -71,12 +71,14 @@ object FaceAISDKNative {
 			  //其他地方同步过来的人脸可能是不规范的没有经过校准的人脸图（证件照，多人脸，过小等）。disposeBaseFaceImage处理
 			  FaceAIUtils.Companion.getInstance(context)
 			      .disposeBaseFaceImage(context, bitmap,object : FaceAIUtils.Callback {
-			              //处理优化人脸成功完成去初始化引擎
+			              /**
+						   * 返回裁剪成功后的人脸图和特征向量编码
+						   */
 			              override 
 						  fun onSuccess(bitmap: Bitmap,faceEmbedding: FloatArray) {
 							  
 							 FaceEmbedding.saveEmbedding(context, faceID, faceEmbedding); //本地保存人脸特征向量，后期可以用这个了
-							 BitmapUtils.saveBitmap(bitmap, FaceImageConfig.CACHE_BASE_FACE_DIR,faceID) //裁剪好的人脸保存本地
+							 BitmapUtils.saveDisposedBitmap(bitmap, FaceImageConfig.CACHE_BASE_FACE_DIR,faceID) //裁剪好的人脸保存本地
 
 							  var result: UTSJSONObject = object : UTSJSONObject() {
 							  		var code =  1
