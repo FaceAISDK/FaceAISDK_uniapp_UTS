@@ -4,7 +4,7 @@
 
     <application>
 
-			<activity
+<!-- 			<activity
 			    android:name="com.faceAI.demo.SysCamera.addFace.AddFaceImageActivity"
 			    android:theme="@style/FaceAITheme"
 			    android:exported="false" />
@@ -23,7 +23,7 @@
 	            android:name="com.faceAI.demo.SysCamera.search.FaceSearchImageMangerActivity"
 	            android:theme="@style/AppTheme"
 	            android:exported="false">
-	        </activity>				
+	        </activity>	 -->			
 		
     </application>
 
