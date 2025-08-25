@@ -27,4 +27,6 @@ Android： https://github.com/FaceAISDK/FaceAISDK_Android
 
 ## 关于插件使用
 iOS为还在内测阶段，预计0915全部正式开放上线，正式使用需要你发送邮件到FaceAISDK.Service@gmail.com
-描述内容包含插件基本使用场景简介，Android 包名和签名SHA1，iOS Bundle ID.
+描述内容包含插件基本使用场景简介，Android 包名和签名SHA1，iOS Bundle ID.  
+
+各位大佬，我们只懂原生SDK封装，uniApp相关知识欠缺，请各位提出宝贵建议以便更加完善插件
