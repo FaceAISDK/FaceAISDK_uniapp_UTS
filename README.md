@@ -13,7 +13,7 @@
  
 iOS UTS插件已经定义好API接口，需要能在uniApp以及uniAppX中使用，插件原生部分全部采用kotlin,Swift6.1 编写
 
-目前暂时不支持UI定制,你可以修改原生工程重新打包制作插件
+建议开发人员先熟悉官方关于UTS 插件基础知识，跑成功本Demo 工程后再接入到你的主工程。
 
 
 ## 关于FaceAISDK
@@ -26,5 +26,5 @@ Uni App： https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS
 Android： https://github.com/FaceAISDK/FaceAISDK_Android
 
 ## 关于插件使用
-iOS为公测试用阶段，预计0915全部正式开放上线，正式使用需要你发送邮件到FaceAISDK.Service@gmail.com
+iOS为还在内测阶段，预计0915全部正式开放上线，正式使用需要你发送邮件到FaceAISDK.Service@gmail.com
 描述内容包含插件基本使用场景简介，Android 包名和签名SHA1，iOS Bundle ID.
