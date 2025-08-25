@@ -19,7 +19,7 @@ iOS UTS插件已经定义好API接口，需要能在uniApp以及uniAppX中使用
 ## 关于FaceAISDK
 FaceAI SDK is on_device Offline Android Face Detection 、Recognition 、Liveness Detection Anti Spoofing and 1:N/M:N Face Search SDK
 
-保护伞FaceAI SDK是设备端可离线不联网Android 人脸识别、动作及近红外IR活体检测、人脸图质量检测以及人脸搜索（1:N和M:N）SDK，可快速集成实现人脸识别，人脸搜索功能。
+\FaceAI SDK是设备端可离线不联网Android 人脸识别、动作及近红外IR活体检测、人脸图质量检测以及人脸搜索（1:N和M:N）SDK，可快速集成实现人脸识别，人脸搜索功能。
 
 iOS SDK： https://github.com/FaceAISDK/FaceAISDK_iOS  
 Uni App： https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS  
