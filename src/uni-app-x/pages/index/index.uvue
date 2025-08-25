@@ -1,11 +1,11 @@
 <template>
 	<view>
-		<button @tap="getStringTest"style="font-size: 20rpx;">请自行管理相机权限,UVC协议摄像头需成像清晰宽动态大于100Db</button>
-		<button @tap="addFaceImageDemo">录入人脸照片</button>
+		<button @tap="getStringTest"style="font-size: 20rpx;">请参考/pages/index/index,此处为拓展实验</button>
+		<button @tap="addFaceImageDemo">录入人脸</button>
 		<button @tap="checkFaceExistDemo">检测人脸是否存在</button>
 		<button @tap="faceVerifyDemo">人脸识别活体检测</button>
-		<button @tap="insertFaceDemo">同步人脸照片</button>
-		<button @tap="AndroidAllDemo">所有原生功能（授权请参考GitHub项目主页）</button>
+		<button @tap="insertFace">同步Base64编码人脸图</button>
+		<button @tap="AndroidAllDemo">V20250722(请参考/pages/index/index)</button>
 		<text>{{faceAIResult}}</text>
 	</view>
 </template>
@@ -56,20 +56,20 @@
 			
 
 			/**
-			* 2. 演示如何调用SDK录入一张人脸照片
+			* 2. 演示如何调用SDK录入人脸，人脸照片保存在本地
 			*/
 			addFaceImageDemo: function () {
 				addFaceImage(
 					this.faceID,
 					 (result: ResultJSON)  => {
-						//录入的人脸会以Base64 编码返回来，可以同步到你的业务服务器
+						//录入的人脸
 						this.faceAIResult =JSON.stringify(result)
 					})
 			},
 			
 			
 			/**
-			* 3. 演示传参人脸识别
+			* 3. 演示传参进行人脸识别
 			* 
 			*/
 			faceVerifyDemo: function () {
@@ -101,9 +101,9 @@
 			/**
 			* 4. 演示同步人脸照片到SDK
 			*/
-			insertFaceDemo: function () {
+			insertFace: function () {
 				insertFace(
-				    this.faceID,					this.faceBase64,
+				    this.faceID,this.faceBase64,
 					(result: ResultJSON) => {
 						this.faceAIResult =JSON.stringify(result)
 					})
