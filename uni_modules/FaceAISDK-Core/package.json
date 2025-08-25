@@ -19,7 +19,7 @@
     "type": "uts",
     "sale": {
       "regular": {
-        "price": "0.00"
+        "price": "9.90"
       },
       "sourcecode": {
         "price": "0.00"
@@ -29,13 +29,13 @@
       "qq": ""
     },
     "declaration": {
-      "ads": "无\n插件授权更多说明https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS",
+      "ads": "无\n先运行成功Demo 工程再集成到项目\n插件更多说明 https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS\n体验APK下载： https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS",
       "data": "离线识别。不采集任何数据\n插件授权更多说明https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS",
       "permissions": "相机"
     },
     "npmurl": "",
     "darkmode": "x",
-    "i18n": "x",
+    "i18n": "√",
     "widescreen": "x"
   },
   "uni_modules": {
@@ -63,7 +63,7 @@
             "vue": "x",
             "nvue": "x",
             "android": {
-                "extVersion": "",
+                "extVersion": "1.3.0",
                 "minVersion": "21"
             },
             "ios": {
@@ -95,7 +95,7 @@
           },
           "app": {
             "android": {
-                "extVersion": "",
+                "extVersion": "1.3.0",
                 "minVersion": "21"
             },
             "ios": {
