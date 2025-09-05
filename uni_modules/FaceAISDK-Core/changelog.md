@@ -1,6 +1,14 @@
+## 1.5.0（2025-09-03）
+1.外包FaceAISDK之UTS插件(uni-app兼容模式组件) 开发 
+ https://github.com/FaceAISDK/FaceAISDK_Android/blob/publish/FaceAISDK%E4%B9%8BUTS%E6%8F%92%E4%BB%B6(uni-app%E5%85%BC%E5%AE%B9%E6%A8%A1%E5%BC%8F%E7%BB%84%E4%BB%B6)%E5%BC%80%E5%8F%91.md
 
-## 1.3.0（2025-08-23）
-1. 压缩包体积
+## 1.4.0（2025-08-27）
+1. uniApp 接入报错可以先使用老版本UniApp插件： https://github.com/FaceAISDK/UniPlugin-FaceAISDK
+2. 我们将完善uniApp接入UTS 版本插件问题,本插件接入Demo https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS
+
+## 1.3.0（2025-08-25）
+UTS 人脸识别API插件，先运行成功Demo 项目 https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS 
+1. 工信部安全合规要求以及Google Play上架合规
 2. 低配设备性能优化
 3. 更新Android原生SDK
 4. 添加相机权限基础管理
