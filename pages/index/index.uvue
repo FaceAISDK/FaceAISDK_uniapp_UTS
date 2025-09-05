@@ -1,17 +1,17 @@
 <template>
 	<view>
-		<button @tap="getStringTest"style="font-size: 20rpx;">请自行管理相机权限,UVC协议摄像头需成像清晰宽动态大于100Db</button>
 		<button @tap="addFaceImageDemo">录入人脸</button>
 		<button @tap="checkFaceExistDemo">检测人脸是否存在</button>
 		<button @tap="faceVerifyDemo">人脸识别活体检测</button>
 		<button @tap="insertFace">同步Base64编码人脸图</button>
 		<button @tap="AndroidAllDemo">V20250822(修改API，升级人脸特征向量)</button>
+		<button @tap="getStringTest">getStringTest</button>
 		<text>{{faceAIResult}}</text>
 	</view>
 </template>
 
 <script> 
-	import {onGetString,onCheckFaceExist,addFaceImage, faceVerify, insertFace,FaceVerifyParam,ResultJSON,onAndroidAllDemo} from "@/uni_modules/FaceAISDK-Core";
+	import {onCheckFaceExist,addFaceImage, faceVerify, insertFace,FaceVerifyParam,ResultJSON,onGetString,onAndroidAllDemo} from "@/uni_modules/FaceAISDK-Core";
  
 	export default {
 		 
@@ -28,19 +28,6 @@
 		
 		methods: {
 			
-			AndroidAllDemo: function () {
-				onAndroidAllDemo(
-				    (res: ResultJSON) => {
-					this.faceAIResult ="返回：" + JSON.stringify(res)
-				    })
-			},
-			
-			getStringTest: function () {
-				onGetString(
-				    (res: ResultJSON) => {
-					this.faceAIResult ="返回1：" + JSON.stringify(res)
-				    })
-			},
 			
 			/**
 			* 1. 检测是否有人脸照片
@@ -108,7 +95,20 @@
 						this.faceAIResult =JSON.stringify(result)
 					})
 			},
-
+			
+			AndroidAllDemo: function () {
+				onAndroidAllDemo(
+				    (res: ResultJSON) => {
+					this.faceAIResult ="返回：" + JSON.stringify(res)
+				    })
+			},
+			
+			getStringTest: function () {
+				onGetString(
+				    (res: ResultJSON) => {
+					this.faceAIResult ="返回1：" + JSON.stringify(res)
+				    })
+			}
 
 		}
 	}
