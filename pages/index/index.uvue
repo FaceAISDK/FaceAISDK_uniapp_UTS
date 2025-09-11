@@ -3,18 +3,18 @@
 		<button @tap="addFaceImageDemo">录入人脸</button>
 		<button @tap="checkFaceExistDemo">检测人脸是否存在</button>
 		<button @tap="faceVerifyDemo">人脸识别活体检测</button>
+		<button @tap="livenessVerifyDemo">仅活体检测</button>
 		<button @tap="insertFace">同步Base64编码人脸图</button>
-		<button @tap="AndroidAllDemo">V20250822(修改API，升级人脸特征向量)</button>
 		<button @tap="getStringTest">getStringTest</button>
 		<text>{{faceAIResult}}</text>
 	</view>
 </template>
 
 <script> 
-	import {onCheckFaceExist,addFaceImage, faceVerify, insertFace,FaceVerifyParam,ResultJSON,onGetString,onAndroidAllDemo} from "@/uni_modules/FaceAISDK-Core";
+	import {LivenessParam,addFaceImage,faceVerify,insertFace,FaceVerifyParam,ResultJSON,onGetString, livenessVerify,onCheckFaceExist} from "@/uni_modules/FaceAISDK-Core";
  
 	export default {
-		 
+		  
 		data() {
 			return {
 				faceID: '18812345678',
@@ -27,7 +27,6 @@
 		},
 		
 		methods: {
-			
 			
 			/**
 			* 1. 检测是否有人脸照片
@@ -85,8 +84,35 @@
 			},
 			
 			
+		   /**
+			* 4. 活体检测
+		    * Code
+		    * 0 用户取消
+		    * 1 人脸识别成功
+		    * 2 活体分数过低
+		    * 3 活体检测超时
+		    * 4 人脸识别相似度低于阈值
+		    * 5 多次检测到画面无人脸
+		    */
+			livenessVerifyDemo: function () {
+						
+				var param : LivenessParam = {
+                     faceLivenessType: 0,          // 活体检测类型 //0 SILENT_MOTION; 1 MOTION; 2 SILENT;
+                     verifyTimeOut: 9,             // 动作活体检测超时时间，仅仅含有MOTION（动作活体）
+                     motionStepSize: 2,     //动作活体的步骤个数（1-2个）
+                     exceptMotionType: 0    //5 种动作活体去除某一种
+                }  
+				 
+				livenessVerify(
+					param,
+					 (result: ResultJSON) => {
+						this.faceAIResult =JSON.stringify(result)
+					})
+			},
+			
+			
 			/**
-			* 4. 演示同步人脸照片到SDK
+			* 5. 演示同步人脸照片到SDK
 			*/
 			insertFace: function () {
 				insertFace(
@@ -95,13 +121,7 @@
 						this.faceAIResult =JSON.stringify(result)
 					})
 			},
-			
-			AndroidAllDemo: function () {
-				onAndroidAllDemo(
-				    (res: ResultJSON) => {
-					this.faceAIResult ="返回：" + JSON.stringify(res)
-				    })
-			},
+		
 			
 			getStringTest: function () {
 				onGetString(

@@ -1,11 +1,12 @@
-import {OnGetString,OnCheckFaceExist,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace, ResultJSON } from '../interface.uts'
+import {OnGetString,OnCheckFaceExist,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace, ResultJSON, LivenessVerify, LivenessVerifyParam } from '../interface.uts'
 
 export const onGetString:OnGetString = function(callback: (res: ResultJSON) => void){
 	const resultJson:ResultJSON={
 		code:11,
 		msg:"20250619",
 		faceID:"faceID8",
-		faceBase64:"64"
+		faceBase64:"64",
+		silentLivenessScore:0
 	}
     callback(resultJson)
 } 
@@ -24,7 +25,8 @@ export const addFaceImage : AddFaceImage = function (
 		code:11,
 		msg:"addFaceImage",
 		faceID:"faceID8",
-		faceBase64:"64"
+		faceBase64:"64",
+		silentLivenessScore:0
 	}
     callback(resultJson)
 }
@@ -45,7 +47,8 @@ export const faceVerify : FaceVerify = function (
 		code:11,
 		msg:"faceVerify",
 		faceID:"faceID8",
-		faceBase64:"64"
+		faceBase64:"64",
+		silentLivenessScore:0
 	}
 	
     callback(resultJson)
@@ -59,11 +62,34 @@ export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, ca
 	const resultJson:ResultJSON={
 		code:11,
 		msg:"onCheckFaceExist",
-		faceID:"faceID8",
-		faceBase64:"64"
+		faceID:"faceID",
+		faceBase64:"64",
+		silentLivenessScore:0
 	}
 	
     callback(resultJson)
+}
+
+
+/**
+ * 跳转到Android SDK 中原生页面处理人脸识别活体检测
+ * 
+ * @param faceID 用户ID
+ * @param callback 结果回调
+ */
+export const livenessVerify : LivenessVerify = function (
+	param : LivenessVerifyParam,
+	callback : (result : ResultJSON) => void
+) {
+	const resultJson:ResultJSON={
+		code:11,
+		msg:"livenessVerify",
+		faceID:"faceID",
+		faceBase64:"64",
+		silentLivenessScore:0
+	}
+	
+	callback(resultJson)
 }
  
 /**
@@ -75,7 +101,8 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
 		code:1,
 		msg:"insertFace",
 		faceID:"faceID8",
-		faceBase64:"64"
+		faceBase64:"64",
+		silentLivenessScore:0
 	}
 	
     callback(resultJson)
