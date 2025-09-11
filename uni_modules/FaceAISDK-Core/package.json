@@ -1,7 +1,7 @@
 {
   "id": "FaceAISDK-Core",
   "displayName": "FaceAISDK",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "FaceAISDK，人脸识别，活体检测，全部离线工作不收集数据更安全",
   "keywords": [
     "离线识别",
@@ -29,8 +29,8 @@
       "qq": ""
     },
     "declaration": {
-      "ads": "无\n先运行成功Demo 工程再集成到项目\n插件更多说明 https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS\n体验APK下载： https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS",
-      "data": "离线识别。不采集任何数据\n插件授权更多说明https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS",
+      "ads": "无\n先运行成功Demo 工程再集成到项目\n1.外包FaceAISDK之UTS插件(uni-app兼容模式组件) 开发 \n https://github.com/FaceAISDK/FaceAISDK_Android/blob/publish/FaceAISDK%E4%B9%8BUTS%E6%8F%92%E4%BB%B6(uni-app%E5%85%BC%E5%AE%B9%E6%A8%A1%E5%BC%8F%E7%BB%84%E4%BB%B6)%E5%BC%80%E5%8F%91.md\n\n体验APK下载：  https://www.pgyer.com/faceVerify",
+      "data": "离线识别。不采集任何数据\n1.外包FaceAISDK之UTS插件(uni-app兼容模式组件) 开发 \n https://github.com/FaceAISDK/FaceAISDK_Android/blob/publish/FaceAISDK%E4%B9%8BUTS%E6%8F%92%E4%BB%B6(uni-app%E5%85%BC%E5%AE%B9%E6%A8%A1%E5%BC%8F%E7%BB%84%E4%BB%B6)%E5%BC%80%E5%8F%91.md\n",
       "permissions": "相机"
     },
     "npmurl": "",

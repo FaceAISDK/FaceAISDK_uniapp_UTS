@@ -19,7 +19,7 @@ export type AddFaceImage = (
 
 
 /**
- * 人脸识别
+ * 人脸识别+活体检测
  * 
  * @param param 人脸识别参数
  * @param callback 结果回调
@@ -27,28 +27,52 @@ export type AddFaceImage = (
 export type FaceVerify = (
 	param : FaceVerifyParam,
 	callback : (result : ResultJSON) => void) => void
-
-
-
+	
+	
+	
 /**
- * 业务方传给FaceAISDK 插件基础参数
+ * 人脸识别,业务方传给FaceAISDK 插件基础参数
  */
 export type FaceVerifyParam = {
   faceID: string,
   threshold: number,        // 人脸识别通过的相似度阈值 0.85到0.95
-  faceLivenessType: number, // 活体检测类型 //0 SILENT_MOTION; 1 MOTION; 2 SILENT; 3 NONE;
+  faceLivenessType: number, // 活体检测类型 //0 SILENT_MOTION; 1 MOTION（动作活体）; 2 SILENT（RGB图像静默活体）; 3 NONE;
   verifyTimeOut: number     // 活体检测超时时间 秒
 } 
+
+
+/**
+ * 活体检测,业务方传给FaceAISDK 插件基础参数
+ */
+export type LivenessParam = {
+  faceLivenessType: number,         
+  verifyTimeOut: number,           
+  motionStepSize: number,  
+  exceptMotionType: number
+} 
+ 
+/**
+ * 仅活体检测
+ * 
+ * @param param 人脸识别参数
+ * @param callback 结果回调
+ */
+export type LivenessVerify = (
+	param : LivenessParam,
+	callback : (result : ResultJSON) => void) => void	
+
+
 
 
 /**
  * 业务方传给FaceAISDK 插件基础参数
  */
 export type ResultJSON = {
-  code: number,        
+  code: number,       //code 含义参考Readme 
   msg: string, 
-  faceID: string,
-  faceBase64: string     
+  faceID: string,     
+  faceBase64: string,  //人脸图Base64 编码
+  silentLivenessScore:number //RGB 静默活体分数（非必返回字段），摄像头成像清晰大于105Db. 否则数据可信度低
 }
 
 
@@ -63,13 +87,10 @@ export type InsertFace = (
 	faceBase64 : string,
 	callback : (result : ResultJSON) => void) => void
 
-
-
-
-/**
- * 所有的Android 原生 FaceAISDK Demo
- * 
- * @param faceID 用户ID
- * @param callback 结果回调
- */
-export type OnAndroidAllDemo = (callback: (res: ResultJSON) => void) => void
+// /**
+//  * 所有的Android 原生 FaceAISDK Demo
+//  * 
+//  * @param faceID 用户ID
+//  * @param callback 结果回调
+//  */
+// export type OnAndroidAllDemo = (callback: (res: ResultJSON) => void) => void
