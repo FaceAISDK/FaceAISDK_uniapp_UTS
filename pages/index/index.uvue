@@ -95,7 +95,7 @@
 		    * 5 多次检测到画面无人脸
 		    */
 			livenessVerifyDemo: function () {
-						
+				//目前参数不会生效，都是原生SDK默认的		
 				var param : LivenessParam = {
                      faceLivenessType: 0,          // 活体检测类型 //0 SILENT_MOTION; 1 MOTION; 2 SILENT;
                      verifyTimeOut: 9,             // 动作活体检测超时时间，仅仅含有MOTION（动作活体）

@@ -140,8 +140,7 @@ export const livenessVerify : LivenessVerify = function (
 	const context = UTSAndroid.getUniActivity() as Activity
 	FaceImageConfig.init(context);
 	const intent = new Intent(context, LivenessDetectActivity().javaClass)
-	// intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_VERIFY");
-	// intent.putExtra("USER_FACE_ID_KEY", param.faceID);
+	//暂时先不传递参数，都是默认模式 
 	context.startActivityForResult(intent, 10087)
 
 	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ? : Intent) => {
@@ -149,13 +148,19 @@ export const livenessVerify : LivenessVerify = function (
 			if(data!=null){
 				const codeNow:number = data.getIntExtra("code",0) as number
 				const msgNow:string=data.getStringExtra("msg") as string
+				
+				//应该是float ，这样会精度丢失，下一版本处理
 			    const livenessScore:number = data.getIntExtra("code",0) as number
+	
+	            //活体检测通过后的人脸图，用户可以用这张图做进一步其他处理
+				const livefaceBase64:string=BitmapUtils.bitmapToBase64(FaceImageConfig.CACHE_BASE_FACE_DIR+"liveBitmap")
+				
 			
 				const resultJson:ResultJSON={
 					code:codeNow,
 					msg:msgNow,
 					faceID:"",
-					faceBase64:"",
+					faceBase64:livefaceBase64,
 					silentLivenessScore:livenessScore
 				} 
 				callback(resultJson)
