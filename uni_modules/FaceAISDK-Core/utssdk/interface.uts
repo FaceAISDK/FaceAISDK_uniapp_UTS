@@ -37,7 +37,9 @@ export type FaceVerifyParam = {
   faceID: string,
   threshold: number,        // 人脸识别通过的相似度阈值 0.85到0.95
   faceLivenessType: number, // 活体检测类型 //0 SILENT_MOTION; 1 MOTION（动作活体）; 2 SILENT（RGB图像静默活体）; 3 NONE;
-  verifyTimeOut: number     // 活体检测超时时间 秒
+  verifyTimeOut: number,     // 活体检测超时时间 秒
+  motionStepSize: number,
+  silentThreshold: number   
 } 
 
 
@@ -48,7 +50,7 @@ export type LivenessParam = {
   faceLivenessType: number,         
   verifyTimeOut: number,           
   motionStepSize: number,  
-  exceptMotionType: number
+  silentThreshold:number
 } 
  
 /**
