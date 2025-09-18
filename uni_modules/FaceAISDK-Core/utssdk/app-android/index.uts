@@ -45,12 +45,12 @@ export const addFaceImage : AddFaceImage = function (
 	context.startActivityForResult(intent, 10086)
 
     //语法不熟悉，先保证主流程跑通
-	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ? : Intent) => {
+	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, intentAct: Intent) => {
 		if (requestCode == 10086) {
-			if(data!=null){
+			if(intentAct!=null){
 				let faceBase64="?"
-				const codeNow:number = data.getIntExtra("code",0) as number
-				const msgNow:string=data.getStringExtra("msg") as string
+				const codeNow:number = intentAct.getIntExtra("code",0) as number
+				const msgNow:string=intentAct.getStringExtra("msg") as string
 				if(0!=codeNow){
 					//用户取消了就不应该有这个值
 					faceBase64=BitmapUtils.bitmapToBase64(FaceImageConfig.CACHE_BASE_FACE_DIR+faceID)
@@ -99,16 +99,16 @@ export const faceVerify : FaceVerify = function (
     intent.putExtra(FaceVerificationActivity.THRESHOLD_KEY,param.threshold);
     intent.putExtra(FaceVerificationActivity.FACE_LIVENESS_TYPE,param.faceLivenessType);
 	intent.putExtra(FaceVerificationActivity.MOTION_TIMEOUT,param.verifyTimeOut);
-    intent.putExtra(FaceVerificationActivity.MOTION_STEP_SIZE,param);
+    intent.putExtra(FaceVerificationActivity.MOTION_STEP_SIZE,param.motionStepSize);
     intent.putExtra(FaceVerificationActivity.SILENT_THRESHOLD_KEY,param.silentThreshold);
 	context.startActivityForResult(intent, 10087)
 
-	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ? : Intent) => {
+	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, intentAct: Intent) => {
 		if (requestCode == 10087) {
-			if(data!=null){
-				const codeNow:number = data.getIntExtra("code",0) as number
-				const msgNow:string=data.getStringExtra("msg") as string
-				const silent:Float=data.getFloatExtra("silentLivenessScore") as Float
+			if(intentAct!=null){
+				const codeNow:number = intentAct.getIntExtra("code",0) as number
+				const msgNow:string=intentAct.getStringExtra("msg") as string
+				const silent:Float=intentAct.getFloatExtra("silentLivenessScore") as Float
 				
 			    //活体检测通过后的人脸图，用户可以用这张图做进一步其他处理
 		    	const livefaceBase64:string=BitmapUtils.bitmapToBase64(FaceImageConfig.CACHE_FACE_LOG_DIR+"verifyBitmap")
@@ -128,15 +128,12 @@ export const faceVerify : FaceVerify = function (
 					faceID:param.faceID,
 					faceBase64:"faceBase64",
 					silentLivenessScore: 0
-	
 				}	
 				callback(resultJson)
 			}
 		} 
 	});
 }
-
-
 
 
 /**
@@ -154,19 +151,19 @@ export const livenessVerify : LivenessVerify = function (
 	const intent = new Intent(context, LivenessDetectActivity().javaClass)
     intent.putExtra(LivenessDetectActivity.FACE_LIVENESS_TYPE,param.faceLivenessType);
 	intent.putExtra(LivenessDetectActivity.MOTION_TIMEOUT,param.verifyTimeOut);
-    intent.putExtra(LivenessDetectActivity.MOTION_STEP_SIZE,param);
+    intent.putExtra(LivenessDetectActivity.MOTION_STEP_SIZE,param.motionStepSize);
     intent.putExtra(LivenessDetectActivity.SILENT_THRESHOLD_KEY,param.silentThreshold);
 	
-	context.startActivityForResult(intent, 10087)
+	context.startActivityForResult(intent, 10089)
 
-	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, data ? : Intent) => {
-		if (requestCode == 10087) {
-			if(data!=null){
-				const codeNow:number = data.getIntExtra("code",0) as number
-				const msgNow:string=data.getStringExtra("msg") as string
+	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, intentAct : Intent) => {
+		if (requestCode == 10089) {
+			if(intentAct!=null){
+				const codeNow:number = intentAct.getIntExtra("code",0) as number
+				const msgNow:string=intentAct.getStringExtra("msg") as string
 				
 				//应该是float ，这样会精度丢失，下一版本处理
-	           const silent:Float=data.getFloatExtra("silentLivenessScore") as Float
+	           const silent:Float=intentAct.getFloatExtra("silentLivenessScore") as Float
 	
 	            //活体检测通过后的人脸图，用户可以用这张图做进一步其他处理
 				const livefaceBase64:string=BitmapUtils.bitmapToBase64(FaceImageConfig.CACHE_FACE_LOG_DIR+"liveBitmap")
