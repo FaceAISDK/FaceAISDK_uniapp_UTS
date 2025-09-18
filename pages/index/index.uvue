@@ -11,6 +11,7 @@
 </template>
 
 <script> 
+    //欢迎插件制作大佬联系我们完善iOS 插件制作
 	import {LivenessParam,addFaceImage,faceVerify,insertFace,FaceVerifyParam,ResultJSON,onGetString, livenessVerify,onCheckFaceExist} from "@/uni_modules/FaceAISDK-Core";
  
 	export default {
