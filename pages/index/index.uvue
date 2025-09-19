@@ -44,10 +44,12 @@
 
 			/**
 			* 2. 演示如何调用SDK录入人脸，人脸照片保存在本地
+			* 
 			*/
 			addFaceImageDemo: function () {
 				addFaceImage(
 					this.faceID,
+					2,  //1.快速模式，  2.精确模式
 					 (result: ResultJSON)  => {
 						//录入的人脸
 						this.faceAIResult =JSON.stringify(result)

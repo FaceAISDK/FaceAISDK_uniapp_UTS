@@ -37,11 +37,9 @@ object FaceAISDKNative {
         val faceFilePath = FaceImageConfig.CACHE_BASE_FACE_DIR + faceID
         val baseBitmap = BitmapFactory.decodeFile(faceFilePath)
  
-
         if (faceEmbedding.size == 0||baseBitmap==null) {
 			isExist=false;
 		}
-
 
        var result: UTSJSONObject = object : UTSJSONObject() {
 			var code = if(isExist) 1 else 0
