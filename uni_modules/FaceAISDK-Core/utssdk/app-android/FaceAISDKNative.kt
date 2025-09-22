@@ -14,7 +14,7 @@ import io.dcloud.uts.UTSJSONObject
 import android.graphics.BitmapFactory;
 
 import com.ai.face.base.baseImage.FaceEmbedding;
-import com.faceAI.demo.FaceImageConfig
+import com.faceAI.demo.FaceSDKConfig
 import com.ai.face.base.baseImage.FaceAIUtils
 import com.faceAI.demo.base.utils.VoicePlayer 
 import com.faceAI.demo.base.utils.BitmapUtils
@@ -34,7 +34,7 @@ object FaceAISDKNative {
         val faceEmbedding = FaceEmbedding.loadEmbedding(context, faceID)
 
         // 去Path 路径读取有没有faceID 对应的处理好的人脸Bitmap
-        val faceFilePath = FaceImageConfig.CACHE_BASE_FACE_DIR + faceID
+        val faceFilePath = FaceSDKConfig.CACHE_BASE_FACE_DIR + faceID
         val baseBitmap = BitmapFactory.decodeFile(faceFilePath)
  
         if (faceEmbedding.size == 0||baseBitmap==null) {
@@ -76,7 +76,7 @@ object FaceAISDKNative {
 						  fun onSuccess(bitmap: Bitmap,faceEmbedding: FloatArray) {
 							  
 							 FaceEmbedding.saveEmbedding(context, faceID, faceEmbedding); //本地保存人脸特征向量，后期可以用这个了
-							 BitmapUtils.saveDisposedBitmap(bitmap, FaceImageConfig.CACHE_BASE_FACE_DIR,faceID) //裁剪好的人脸保存本地
+							 BitmapUtils.saveDisposedBitmap(bitmap, FaceSDKConfig.CACHE_BASE_FACE_DIR,faceID) //裁剪好的人脸保存本地
 
 							  var result: UTSJSONObject = object : UTSJSONObject() {
 							  		var code =  1
