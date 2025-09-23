@@ -1,7 +1,7 @@
 # FaceAISDK
 ### 开发文档
 
-此插件共4个API实现人脸识别活体检测在uniApp,uniAppX 中使用
+此插件共5个API实现人脸识别活体检测在uniApp,uniAppX 中使用
 
 
 使用示例:
@@ -10,10 +10,10 @@
 <template>
 	<view>
 		<button @tap="getStringTest">返回一个String</button>
-				
 		<button @tap="checkFaceExistDemo">检测人脸是否存在</button>
 		<button @tap="addFaceImageDemo">录入人脸照片</button>
 		<button @tap="faceVerifyDemo">人脸识别活体检测</button>
+		<button @tap="livenessVerifyDemo">仅活体检测</button>
 		<button @tap="insertFaceDemo">同步人脸照片</button>
 		<text>{{faceAIResult}}</text>
 	</view>
@@ -99,8 +99,35 @@
 			},
 			
 			
+		   /**
+			* 4. 活体检测
+            * Code 说明
+            * 0 用户取消
+            * 1 人脸识别成功
+            * 2 活体分数过低
+            * 3 活体检测超时
+            * 4 人脸识别相似度低于阈值
+            * 5 多次检测到画面无人脸
+            */
+			livenessVerifyDemo: function () {
+				//目前参数不会生效，都是原生SDK默认的		
+				var param : LivenessParam = {
+					faceLivenessType: 3, //活体检测类型 //0 NONE无活体;  1 SILENT静默活体和摄像头成像能力有关;  2 MOTION动作活体;  3 SILENT_MOTION;  
+                    verifyTimeOut: 9,     // 动作活体检测超时时间，仅仅含有MOTION（动作活体）
+                    motionStepSize: 2,     //动作活体的步骤个数（1-2个）
+                    silentThreshold: 0.85    //5 静默活体阈值
+                }  
+				 
+				livenessVerify(
+					param,
+					 (result: ResultJSON) => {
+						this.faceAIResult =JSON.stringify(result)
+					})
+			},
+			
+			
 			/**
-			* 4. 演示同步人脸照片到SDK
+			* 5. 演示同步人脸照片到SDK
 			*/
 			insertFaceDemo: function () {
 				insertFace(

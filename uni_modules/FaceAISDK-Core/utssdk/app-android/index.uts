@@ -9,6 +9,8 @@ import { AddFaceImageActivity } from "com.faceAI.demo.SysCamera.addFace"
 import { FaceVerificationActivity } from "com.faceAI.demo.SysCamera.verify"
 import { LivenessDetectActivity } from "com.faceAI.demo.SysCamera.verify"
 import { BitmapUtils } from "com.faceAI.demo.base.utils"
+import Log from "android.util.Log";
+
 
 
 /**
@@ -61,9 +63,9 @@ export const addFaceImage : AddFaceImage = function (
 				const resultJson:ResultJSON={
 					code:codeNow,
 					msg:msgNow,
+					silentLivenessScore: 0,
 					faceID:faceID,
-					faceBase64:faceBase64,
-					silentLivenessScore: 0
+					faceBase64:faceBase64
 				}		
 				console.log("添加人脸人脸："+resultJson)
 				callback(resultJson)
@@ -71,9 +73,9 @@ export const addFaceImage : AddFaceImage = function (
 				const resultJson:ResultJSON={
 					code:-1,
 					msg:"添加失败",
+					silentLivenessScore: 0,
 					faceID:faceID,
-					faceBase64:"?",
-					silentLivenessScore: 0
+					faceBase64:"?"
 				}
 				
 				callback(resultJson)
@@ -121,18 +123,18 @@ export const faceVerify : FaceVerify = function (
 				const resultJson:ResultJSON={
 					code:codeNow,
 					msg:msgNow,
+					silentLivenessScore: silent,
 					faceID:param.faceID,
-					faceBase64:livefaceBase64,
-					silentLivenessScore: silent
+					faceBase64:livefaceBase64
 				}
 				callback(resultJson)
 			}else{
 				const resultJson:ResultJSON={
 					code:1,
 					msg:"12345",
+					silentLivenessScore: 0,
 					faceID:param.faceID,
-					faceBase64:"faceBase64",
-					silentLivenessScore: 0
+					faceBase64:"faceBase64"
 				}	
 				callback(resultJson)
 			}
@@ -167,19 +169,22 @@ export const livenessVerify : LivenessVerify = function (
 				const codeNow:number = intentAct.getIntExtra("code",0) as number
 				const msgNow:string=intentAct.getStringExtra("msg") as string
 				
+				//这个对应的Java float 类型，转number 会丢失精度，怎么写？
+				const silent:number=intentAct.getIntExtra("silentLivenessScore"，0) as number
+				
+                // const floatValue:Float = intentAct.getFloatExtra("silentLivenessScore", 0.0) as Float;
+
+                // Log.e("Sign","silentliveness:"+intentAct.getFloatExtra("silentLivenessScore", 0.0));
+
 				//活体检测通过后的人脸图，用户可以用这张图做进一步其他处理
 				const livefaceBase64:string=BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR+"liveBitmap")
 				
-				//这个对应的Java float 类型，转number 会丢失精度，怎么写？
-				const silent:number=intentAct.getIntExtra("silentLivenessScore"，0) as number
-
-
 				const resultJson:ResultJSON={
+					silentLivenessScore:silent,
 					code:codeNow,
 					msg:msgNow,
 					faceID:"",
-					faceBase64:livefaceBase64,
-					silentLivenessScore:silent
+					faceBase64:livefaceBase64
 				} 
 				callback(resultJson)
 			}else{

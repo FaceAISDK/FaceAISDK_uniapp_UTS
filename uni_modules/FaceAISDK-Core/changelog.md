@@ -1,3 +1,9 @@
+## 1.6.0（2025-09-22）
+1.Google Play 上架合规问题处理
+2.完善录入人脸角度处理
+3.脸部光线判断
+4.相机等级判断
+
 ## 1.5.0（2025-09-05）
 1.外包FaceAISDK之UTS插件(uni-app兼容模式组件) 开发 
  https://github.com/FaceAISDK/FaceAISDK_Android/blob/publish/FaceAISDK%E4%B9%8BUTS%E6%8F%92%E4%BB%B6(uni-app%E5%85%BC%E5%AE%B9%E6%A8%A1%E5%BC%8F%E7%BB%84%E4%BB%B6)%E5%BC%80%E5%8F%91.md
