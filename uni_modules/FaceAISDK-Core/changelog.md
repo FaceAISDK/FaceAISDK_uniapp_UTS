@@ -1,3 +1,9 @@
+## 1.6.0（2025.09.29）
+1.完善插件各种参数传递
+2.添加人脸可选择精确模式或快速模式
+3.完善不同场景使用，解决bug
+4.修复低配设备摄像头画面卡顿问题
+
 ## 1.5.0（2025-09-05）
 1.外包FaceAISDK之UTS插件(uni-app兼容模式组件) 开发 
  https://github.com/FaceAISDK/FaceAISDK_Android/blob/publish/FaceAISDK%E4%B9%8BUTS%E6%8F%92%E4%BB%B6(uni-app%E5%85%BC%E5%AE%B9%E6%A8%A1%E5%BC%8F%E7%BB%84%E4%BB%B6)%E5%BC%80%E5%8F%91.md
