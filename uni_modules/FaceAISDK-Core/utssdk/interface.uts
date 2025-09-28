@@ -72,10 +72,10 @@ export type LivenessVerify = (
  */
 export type ResultJSON = {
   code: number,       //code 含义参考Readme 
+  silentLivenessScore:number, //RGB 静默活体分数（非必返回字段），摄像头成像清晰大于105Db. 否则数据可信度低
   msg: string, 
   faceID: string,     
-  faceBase64: string,  //人脸图Base64 编码
-  silentLivenessScore:number //RGB 静默活体分数（非必返回字段），摄像头成像清晰大于105Db. 否则数据可信度低
+  faceBase64: string  //人脸图Base64 编码
 }
 
 
