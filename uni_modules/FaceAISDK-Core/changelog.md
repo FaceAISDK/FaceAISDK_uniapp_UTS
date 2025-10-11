@@ -1,20 +1,19 @@
-<<<<<<< HEAD
-## 1.6.0（2025.09.29）
+## 1.7.0（2025-09-29）
 1.完善插件各种参数传递
 2.添加人脸可选择精确模式或快速模式
 3.完善不同场景使用，解决bug
 4.修复低配设备摄像头画面卡顿问题
-=======
+
 ## 1.6.0（2025-09-22）
 1.Google Play 上架合规问题处理
 2.完善录入人脸角度处理
 3.脸部光线判断
 4.相机等级判断
->>>>>>> 55d4db4bf58dfe4ac33af6e591fd724b2cd4d35a
 
 ## 1.5.0（2025-09-05）
 1.外包FaceAISDK之UTS插件(uni-app兼容模式组件) 开发 
  https://github.com/FaceAISDK/FaceAISDK_Android/blob/publish/FaceAISDK%E4%B9%8BUTS%E6%8F%92%E4%BB%B6(uni-app%E5%85%BC%E5%AE%B9%E6%A8%A1%E5%BC%8F%E7%BB%84%E4%BB%B6)%E5%BC%80%E5%8F%91.md
+
 ## 1.4.0（2025-08-27）
 1. uniApp 接入报错可以先使用老版本UniApp插件： https://github.com/FaceAISDK/UniPlugin-FaceAISDK
 2. 我们将完善uniApp接入UTS 版本插件问题,本插件接入Demo https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS

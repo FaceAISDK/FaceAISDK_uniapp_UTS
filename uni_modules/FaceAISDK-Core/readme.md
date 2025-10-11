@@ -79,7 +79,9 @@
 					faceID: this.faceID,
 					threshold: 0.85,        //人脸识别通过的相似度阈值 0.85到0.95
 					faceLivenessType: 1,    //活体检测类型 //0 SILENT_MOTION; 1 MOTION; 2 SILENT; 3 NONE;
-					verifyTimeOut: 12       //动作活体检测超时时间 秒
+					verifyTimeOut: 12,       //动作活体检测超时时间 秒
+                    motionStepSize:1,         //动作活体检测步骤个数
+                    silentThreshold: 0.85    //5 静默活体阈值通过阈值
 				}
 				
 				/**

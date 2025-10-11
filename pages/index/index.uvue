@@ -49,7 +49,7 @@
 			addFaceImageDemo: function () {
 				addFaceImage(
 					this.faceID,
-					2,  //1.快速模式，  2.精确模式
+					1,  //1.快速模式，  2.精确模式
 					 (result: ResultJSON)  => {
 						//录入的人脸
 						this.faceAIResult =JSON.stringify(result)
@@ -69,7 +69,7 @@
 					faceLivenessType: 3, //活体检测类型 //0 NONE无活体;  1 SILENT静默活体和摄像头成像能力有关;  2 MOTION动作活体;  3 SILENT_MOTION;  
 					verifyTimeOut: 12,       //动作活体检测超时时间 秒
 					motionStepSize:1,         //动作活体检测步骤个数
-					silentThreshold: 0.85    //5 静默活体阈值？
+					silentThreshold: 0.85    //5 静默活体阈值通过阈值
 				}
 				
 				/**
