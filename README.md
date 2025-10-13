@@ -11,7 +11,7 @@
 ```
 根据官方描述FaceAISDK开发出UTS插件以便在uniApp和uniAppX中使用；目前Android UTS插件全部功能开发完毕。  
  
-iOS UTS插件已经定义好API接口，需要能在uniApp以及uniAppX中使用，插件原生部分全部采用kotlin,Swift6.1 编写
+iOS UTS插件已经定义好API接口，需要能在uniApp以及uniAppX中使用，插件原生部分全部采用kotlin,Swift6.0 编写
 
 建议开发人员先熟悉官方关于UTS 插件基础知识，跑成功本Demo 工程后再接入到你的主工程。
 
