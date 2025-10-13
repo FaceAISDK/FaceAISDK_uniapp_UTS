@@ -1,7 +1,7 @@
 # FaceAISDK
 ### 开发文档
 
-此插件共5个API实现人脸识别活体检测在uniApp,uniAppX 中使用
+此插件共5个API实现人脸识别活体检测，可在uniApp,uniAppX 中使用
 
 
 使用示例:
