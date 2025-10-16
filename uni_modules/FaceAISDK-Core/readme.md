@@ -79,7 +79,7 @@
 					faceID: this.faceID,
 					threshold: 0.85,        //人脸识别通过的相似度阈值 0.85到0.95
 					faceLivenessType: 1,    //活体检测类型 //0 SILENT_MOTION; 1 MOTION; 2 SILENT; 3 NONE;
-					verifyTimeOut: 12,       //动作活体检测超时时间 秒
+					verifyTimeOut: 7,       //动作活体检测超时时间[3,22]秒
                     motionStepSize:1,         //动作活体检测步骤个数
                     silentThreshold: 0.85    //5 静默活体阈值通过阈值
 				}
@@ -115,7 +115,7 @@
 				//目前参数不会生效，都是原生SDK默认的		
 				var param : LivenessParam = {
 					faceLivenessType: 3, //活体检测类型 //0 NONE无活体;  1 SILENT静默活体和摄像头成像能力有关;  2 MOTION动作活体;  3 SILENT_MOTION;  
-                    verifyTimeOut: 9,     // 动作活体检测超时时间，仅仅含有MOTION（动作活体）
+                    verifyTimeOut: 6,     // 动作活体检测超时时间[3,22]，仅仅含有MOTION（动作活体）
                     motionStepSize: 2,     //动作活体的步骤个数（1-2个）
                     silentThreshold: 0.85    //5 静默活体阈值
                 }  
