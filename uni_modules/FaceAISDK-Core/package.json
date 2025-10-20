@@ -12,7 +12,7 @@
   "repository": "https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS",
   "engines": {
     "HBuilderX": "^4.53",
-    "uni-app": "",
+    "uni-app": "^4.82",
     "uni-app-x": "^4.57"
   },
   "dcloudext": {

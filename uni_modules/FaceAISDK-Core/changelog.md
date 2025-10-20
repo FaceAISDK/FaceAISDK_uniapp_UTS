@@ -4,7 +4,6 @@
 3. setCameraType API 更改为FaceAICameraType类型（SYSTEM,UVC_RGB,UVC_RGB_IR）
 4. 优化人脸过小，未检测到人脸判断
 5. 优化交互过程的提示错误
-
 ## 1.7.0（2025-09-29）
 1.完善插件各种参数传递
 2.添加人脸可选择精确模式或快速模式
