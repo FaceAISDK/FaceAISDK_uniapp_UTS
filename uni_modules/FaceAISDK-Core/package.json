@@ -1,7 +1,7 @@
 {
   "id": "FaceAISDK-Core",
   "displayName": "FaceAISDK",
-  "version": "2025.10.20",
+  "version": "2025.10.30",
   "description": "FaceAISDK，人脸识别活体检测，SDK为离线工作模式不收集数据更安全",
   "keywords": [
     "离线识别",
