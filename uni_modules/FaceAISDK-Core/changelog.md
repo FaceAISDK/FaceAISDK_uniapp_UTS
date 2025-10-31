@@ -1,5 +1,4 @@
-
-##  V2025.10.31
+## 2025.10.31（2025-10-31）
 - 排除某种动作活体setExceptMotionLivenessType，改为支持哪些类型setMotionLivenessTypes
 - 动作活体支持 1.张张嘴 2.微笑 3.眨眨眼 4.摇头 5.点头
 - 设备配置检测并分为高中低3个档次
@@ -7,6 +6,7 @@
 - 去除多人脸检测回调提醒，自动取最大的人脸分析
 - 升级工程Android Studio到Narwhal4 和AGP8.13等，以便更好的使用AI辅助以及调试Bitmap
   更多：https://mp.weixin.qq.com/s/048q5A1D3U_bdJY6tfsAwQ
+
 
 ##  V2025.10.21
 - 去除Debug模式的弹窗调试信息
