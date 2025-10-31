@@ -1,9 +1,27 @@
+
+##  V2025.10.31
+- 排除某种动作活体setExceptMotionLivenessType，改为支持哪些类型setMotionLivenessTypes
+- 动作活体支持 1.张张嘴 2.微笑 3.眨眨眼 4.摇头 5.点头
+- 设备配置检测并分为高中低3个档次
+- 添加本地人脸缓存清除接口，以便相关合规整改
+- 去除多人脸检测回调提醒，自动取最大的人脸分析
+- 升级工程Android Studio到Narwhal4 和AGP8.13等，以便更好的使用AI辅助以及调试Bitmap
+  更多：https://mp.weixin.qq.com/s/048q5A1D3U_bdJY6tfsAwQ
+
+##  V2025.10.21
+- 去除Debug模式的弹窗调试信息
+- 近距离但人脸完整不提示过近
+- 人脸搜索中 提示优化
+- UVC协议默认分辨率不支持情况处理
+- 完善返回给三方插件交互code message
+- 
 ## 1.8.0（2025-10-16）
 1. 添加英文文案（软件翻译可能词不达意）
 2. SDK支持切换使用3种相机类型
 3. setCameraType API 更改为FaceAICameraType类型（SYSTEM,UVC_RGB,UVC_RGB_IR）
 4. 优化人脸过小，未检测到人脸判断
 5. 优化交互过程的提示错误
+6. 
 ## 1.7.0（2025-09-29）
 1.完善插件各种参数传递
 2.添加人脸可选择精确模式或快速模式

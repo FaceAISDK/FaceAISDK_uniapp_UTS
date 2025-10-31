@@ -65,10 +65,10 @@
 						
 				var faceVerifyParam : FaceVerifyParam = {
 					faceID: this.faceID,
-					threshold: 0.85,         //人脸识别通过的相似度阈值 0.85到0.95
-					faceLivenessType: 3, //活体检测类型 //0 NONE无活体;  1 SILENT静默活体和摄像头成像能力有关;  2 MOTION动作活体;  3 SILENT_MOTION;  
-					verifyTimeOut: 7,       //动作活体检测超时时间[3,22] 秒
-					motionStepSize:2,         //动作活体检测步骤个数
+					threshold: 0.83,         //人脸识别通过的相似度阈值 0.75到0.95. 根据场景自行调整
+					faceLivenessType: 3,     //活体检测类型 //0 NONE无活体;  1 SILENT静默活体和摄像头成像能力有关;  2 MOTION动作活体;  3 SILENT_MOTION;  
+					verifyTimeOut: 7,        //动作活体检测超时时间[3,22] 秒
+					motionStepSize:2,        //动作活体检测步骤个数
 					silentThreshold: 0.85    //5 静默活体阈值通过阈值
 				}
 				
