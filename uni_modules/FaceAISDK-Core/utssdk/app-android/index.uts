@@ -1,4 +1,4 @@
-import {LivenessParam,OnGetString,AddFaceImage,FaceVerifyParam,FaceVerify,InsertFace,OnCheckFaceExist,ResultJSON, LivenessVerify} from '../interface.uts'
+import {FaceSearch,DeleteFace,LivenessParam,OnGetString,AddFaceImage,FaceVerifyParam,FaceVerify,InsertFace,OnCheckFaceExist,ResultJSON, LivenessVerify} from '../interface.uts'
 
 import Application from 'android.app.Application';
 import Activity from 'android.app.Activity';
@@ -20,6 +20,21 @@ export const onGetString:OnGetString = function(callback: (res: ResultJSON) => v
 	const resultJson:ResultJSON={
 		code: 11,
 		msg: "onGetString",
+		faceID: "faceID8",
+		faceBase64: "64",
+		silentLivenessScore: 0
+	}
+    callback(resultJson)
+} 
+
+
+/**
+ * 人脸搜索，开发测试中
+ */
+export const faceSearch:FaceSearch = function(callback: (res: ResultJSON) => void){
+	const resultJson:ResultJSON={
+		code: 1,
+		msg: "开发测试中",
 		faceID: "faceID8",
 		faceBase64: "64",
 		silentLivenessScore: 0
@@ -114,7 +129,7 @@ export const faceVerify : FaceVerify = function (
 				const msgNow:string=intentAct.getStringExtra("msg") as string		
 						
 				//这个对应的Java float 类型，转number 会丢失精度
-				const silent:number=intentAct.getIntExtra("silentLivenessScore"，0) as number
+				const silent:number=intentAct.getIntExtra("silentLivenessScore",0) as number
 				// const silent=intentAct.getFloatExtra("silentLivenessScore",0) as number
 			
 			    //活体检测通过后的人脸图，用户可以用这张图做进一步其他处理
@@ -170,11 +185,7 @@ export const livenessVerify : LivenessVerify = function (
 				const msgNow:string=intentAct.getStringExtra("msg") as string
 				
 				//这个对应的Java float 类型，转number 会丢失精度，怎么写？
-				const silent:number=intentAct.getIntExtra("silentLivenessScore"，0) as number
-				
-                // const floatValue:Float = intentAct.getFloatExtra("silentLivenessScore", 0.0) as Float;
-
-                // Log.e("Sign","silentliveness:"+intentAct.getFloatExtra("silentLivenessScore", 0.0));
+				const silent:number=intentAct.getIntExtra("silentLivenessScore",0) as number
 
 				//活体检测通过后的人脸图，用户可以用这张图做进一步其他处理
 				const livefaceBase64:string=BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR+"liveBitmap")
@@ -242,4 +253,27 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
 	})
 }
  
+ 
+ 
+ 
+ /**
+  *  删除人脸信息
+  */
+ export const deleteFace : DeleteFace = function (faceID : string, callback : (result : ResultJSON) => void) {
+ 	const context = UTSAndroid.getAppContext() as Application
+ 	FaceSDKConfig.init(context);
+	
+ 	
+ 	FaceAISDKNative.deleteFaceKotlin(context, faceID,function (result : UTSJSONObject) {
+ 		const resultJson:ResultJSON={
+ 				code:result.getNumber("code") as number,
+ 				msg:result.getString("msg") as string,
+ 				faceID:faceID,
+ 				faceBase64:"?",
+ 				silentLivenessScore:0
+ 			}	
+ 		callback(resultJson)
+ 	})
+ }
+  
  
