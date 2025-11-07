@@ -85,7 +85,7 @@
     <string name="motion_shake_head">Please shake head</string>
     <string name="motion_smile">Please smile </string>
     <string name="multiple_faces_tips">Multiple faces</string>
-    <string name="no_base_face_bitmap">No base face bitmap error</string>
+    <string name="no_base_face_image">No base face image error</string>
     <string name="no_close_eye_tips">Do not close eye</string>
     <string name="no_face_detected_tips">No face detected</string>
     <string name="no_face_image_found">No face image found</string>

@@ -16,8 +16,8 @@ export function main(app: IApp) {
 export class UniAppConfig extends io.dcloud.uniapp.appframe.AppConfig {
     override name: string = "人脸识别_UTS"
     override appid: string = "__UNI__A6AD04B"
-    override versionName: string = "2025.11.01"
-    override versionCode: string = "20251101"
+    override versionName: string = "2025.11.03"
+    override versionCode: string = "20251103"
     override uniCompilerVersion: string = "4.85"
     
     constructor() { super() }

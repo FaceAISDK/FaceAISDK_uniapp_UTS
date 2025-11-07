@@ -24,7 +24,7 @@ export type AddFaceImage = (
 
 
 /**
- * 录入一张人脸照片
+ * 录入一张人脸照片for 人脸搜索
  * 
  * @param faceID 用户ID
  * @param callback 结果回调

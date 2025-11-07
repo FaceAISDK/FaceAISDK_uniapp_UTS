@@ -319,8 +319,7 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
   */
  export const deleteFace : DeleteFace = function (faceID : string, callback : (result : ResultJSON) => void) {
  	const context = UTSAndroid.getAppContext() as Application
- 	FaceSDKConfig.init(context);
-	
+ 	FaceSDKConfig.init(context);	
  	
  	FaceAISDKNative.deleteFaceKotlin(context, faceID,function (result : UTSJSONObject) {
  		const resultJson:ResultJSON={

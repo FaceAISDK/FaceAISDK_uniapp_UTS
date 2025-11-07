@@ -103,7 +103,7 @@ const __sfc__ = defineComponent({
             });
         },
         /**
-        * 人脸搜索人脸录入，Beta版本
+        * 人脸搜索人脸录入，Beta版本仅供演示
         *
         */
         addFaceSearchImageDemo: function () {

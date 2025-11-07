@@ -14,10 +14,10 @@ import io.dcloud.uts.UTSJSONObject
 import android.graphics.BitmapFactory;
 
 import com.ai.face.base.baseImage.FaceEmbedding;
-import com.faceAI.demo.FaceSDKConfig
-import com.ai.face.base.baseImage.FaceAIUtils
-import com.faceAI.demo.base.utils.VoicePlayer 
-import com.faceAI.demo.base.utils.BitmapUtils
+import com.ai.face.base.baseImage.FaceAIUtils;
+import com.faceAI.demo.base.utils.VoicePlayer;
+import com.faceAI.demo.base.utils.BitmapUtils;
+import com.faceAI.demo.FaceSDKConfig;
 
  
 /**

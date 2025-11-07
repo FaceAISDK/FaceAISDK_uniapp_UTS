@@ -277,3 +277,4 @@ export const deleteFace: DeleteFace = function (faceID: string, callback: (resul
         callback(resultJson);
     });
 };
+//# sourceMappingURL=index.uts.map

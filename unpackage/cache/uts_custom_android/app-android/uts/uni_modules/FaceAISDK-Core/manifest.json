@@ -5,10 +5,10 @@
   },
   "files": {
     "utssdk/app-android/index.uts": {
-      "md5": "260b8dcb1632bc78a26eecc4c6c751a3"
+      "md5": "de87679df1c88f3181035c719115e877"
     },
     "utssdk/interface.uts": {
-      "md5": "11460e68d3467289a2a907283ba93385"
+      "md5": "c0322b4c7f2bf97342842d9dd24cd4eb"
     },
     "utssdk/unierror.uts": {
       "md5": "d41d8cd98f00b204e9800998ecf8427e"
@@ -20,13 +20,13 @@
       "md5": "7cfbe703911bcc1e066588b8852946cf"
     },
     "utssdk/app-android/FaceAISDKNative.kt": {
-      "md5": "2370b24046a4647433b482518a234759"
+      "md5": "da0ae091a3487496e1d10d5737fd5743"
     },
     "utssdk/app-android/config.json": {
       "md5": "142f5093fad701bac8058b753c4378e1"
     },
     "utssdk/app-android/libs/faceAILib-release.aar": {
-      "md5": "eb955008bc119cc168f9d4221f61bd24"
+      "md5": "e126e482cb58dc8d0c0f198c04040265"
     },
     "utssdk/app-android/res/values/colors.xml": {
       "md5": "c0312ef1ae5dca53c76b3119b27e5eda"

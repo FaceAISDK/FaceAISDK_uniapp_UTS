@@ -90,8 +90,8 @@ fun main(app: IApp) {
 open class UniAppConfig : io.dcloud.uniapp.appframe.AppConfig {
     override var name: String = "人脸识别_UTS"
     override var appid: String = "__UNI__A6AD04B"
-    override var versionName: String = "2025.11.01"
-    override var versionCode: String = "20251101"
+    override var versionName: String = "2025.11.02"
+    override var versionCode: String = "20251102"
     override var uniCompilerVersion: String = "4.85"
     constructor() : super() {}
 }

@@ -71,7 +71,7 @@
     <string name="motion_shake_head">请左右摇头</string>
     <string name="motion_smile">重复微笑,自然表情 </string>
     <string name="multiple_faces_tips">多张人脸出现</string>
-    <string name="no_base_face_bitmap">没有录入人脸底片</string>
+    <string name="no_base_face_image">没有录入人脸底片</string>
     <string name="no_close_eye_tips">请勿闭眼</string>
     <string name="no_face_detected_tips">未检测到人脸</string>
     <string name="no_face_image_found">未找到对应的人脸</string>
@@ -88,7 +88,7 @@
     <string name="parameter_setting">摄像头参数设置</string>
     <string name="repeat_open_close_mouse">请重复张闭嘴</string>
     <string name="retry">重试</string>
-    <string name="sdk_init">准备中…</string>
+    <string name="sdk_init">人脸搜索准备中…</string>
     <string name="search_threshold_scope_tips">阈值Threshold范围为[0.85,0.95]</string>
     <string name="share_faceai_sdk">分享人脸识别SDK</string>
     <string name="share_faceai_sdk_content">FaceAISDK 人脸识别 活体检测接入源码\n\n

@@ -1874,6 +1874,7 @@ int string motion_shake_head 0x0
 int string motion_smile 0x0
 int string multiple_faces_tips 0x0
 int string no_base_face_bitmap 0x0
+int string no_base_face_image 0x0
 int string no_close_eye_tips 0x0
 int string no_device 0x0
 int string no_face_detected_tips 0x0
