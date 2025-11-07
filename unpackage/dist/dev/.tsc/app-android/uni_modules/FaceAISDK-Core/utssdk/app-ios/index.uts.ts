@@ -1,0 +1,110 @@
+import {OnGetString,OnCheckFaceExist,AddFaceImage, FaceVerifyParam, FaceVerify,InsertFace, ResultJSON, LivenessVerify, LivenessVerifyParam } from '../interface.uts'
+
+export const onGetString:OnGetString = function(callback: (res: ResultJSON) => void){
+	const resultJson:ResultJSON={
+		code:11,
+		msg:"20250619",
+		faceID:"faceID8",
+		faceBase64:"64",
+		silentLivenessScore:0
+	}
+    callback(resultJson)
+} 
+
+/**
+ * 跳转到Android SDK 中原生页面处理人脸录入
+ * 
+ * @param faceID 用户ID
+ * @param callback 结果回调
+ */
+export const addFaceImage : AddFaceImage = function (
+	faceID : string,
+	callback : (result : ResultJSON) => void
+) {
+	const resultJson:ResultJSON={
+		code:11,
+		msg:"addFaceImage",
+		faceID:"faceID8",
+		faceBase64:"64",
+		silentLivenessScore:0
+	}
+    callback(resultJson)
+}
+
+
+
+/**
+ * 跳转到Android SDK 中原生页面处理人脸识别活体检测
+ * 
+ * @param faceID 用户ID
+ * @param callback 结果回调
+ */
+export const faceVerify : FaceVerify = function (
+	param : FaceVerifyParam,
+	callback : (result : ResultJSON) => void
+) {
+	const resultJson:ResultJSON={
+		code:11,
+		msg:"faceVerify",
+		faceID:"faceID8",
+		faceBase64:"64",
+		silentLivenessScore:0
+	}
+	
+    callback(resultJson)
+}
+
+
+/**
+ * 调用原生的FaceAISDK 功能 人脸是否存在
+ */
+export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, callback : (result : ResultJSON) => void) {
+	const resultJson:ResultJSON={
+		code:11,
+		msg:"onCheckFaceExist",
+		faceID:"faceID",
+		faceBase64:"64",
+		silentLivenessScore:0
+	}
+	
+    callback(resultJson)
+}
+
+
+/**
+ * 跳转到Android SDK 中原生页面处理人脸识别活体检测
+ * 
+ * @param faceID 用户ID
+ * @param callback 结果回调
+ */
+export const livenessVerify : LivenessVerify = function (
+	param : LivenessVerifyParam,
+	callback : (result : ResultJSON) => void
+) {
+	const resultJson:ResultJSON={
+		code:11,
+		msg:"livenessVerify",
+		faceID:"faceID",
+		faceBase64:"64",
+		silentLivenessScore:0
+	}
+	
+	callback(resultJson)
+}
+ 
+/**
+ * 同步人脸图片Base64编码到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
+ * 
+ */
+export const insertFace : InsertFace = function (faceID : string, faceBase64 : string, callback : (result : ResultJSON) => void) {
+	const resultJson:ResultJSON={
+		code:1,
+		msg:"insertFace",
+		faceID:"faceID8",
+		faceBase64:"64",
+		silentLivenessScore:0
+	}
+	
+    callback(resultJson)
+}
+ 
