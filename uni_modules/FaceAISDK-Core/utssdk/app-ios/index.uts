@@ -11,6 +11,7 @@ export const onGetString:OnGetString = function(callback: (res: ResultJSON) => v
     callback(resultJson)
 } 
 
+
 /**
  * 跳转到Android SDK 中原生页面处理人脸录入
  * 
@@ -100,11 +101,28 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
 	const resultJson:ResultJSON={
 		code:1,
 		msg:"insertFace",
-		faceID:"faceID8",
-		faceBase64:"64",
+		faceID:"faceID",
+ 		faceBase64:"base64",
 		silentLivenessScore:0
 	}
 	
     callback(resultJson)
 }
  
+ 
+ 
+ /**
+  * 删除设备端缓存的人脸信息
+  * 
+  */
+ export const deleteFace : DeleteFace = function (faceID : string, callback : (result : ResultJSON) => void) {
+ 	const resultJson:ResultJSON={
+ 		code:1,
+ 		msg:"insertFace",
+ 		faceID:"faceID",
+ 		faceBase64:"base64",
+ 		silentLivenessScore:0
+ 	}
+ 	
+     callback(resultJson)
+ }

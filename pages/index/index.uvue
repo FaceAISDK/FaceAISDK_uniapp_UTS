@@ -5,14 +5,15 @@
 		<button @tap="faceVerifyDemo">人脸识别活体检测</button>
 		<button @tap="livenessVerifyDemo">仅活体检测</button>
 		<button @tap="insertFace">同步Base64编码人脸图</button>
-		<button @tap="getStringTest">getStringTest</button>
+		<button @tap="deleteFaceDemo">删除本地人脸信息</button>
+		<button @tap="faceSearchDemo">1:N人脸搜索识别</button>
 		<text>{{faceAIResult}}</text>
 	</view>
 </template>
 
 <script> 
     //欢迎插件制作大佬联系我们完善iOS 插件制作
-	import {LivenessParam,addFaceImage,faceVerify,insertFace,FaceVerifyParam,ResultJSON,onGetString, livenessVerify,onCheckFaceExist} from "@/uni_modules/FaceAISDK-Core";
+	import {faceSearch,deleteFace,addFaceImage,faceVerify,insertFace,FaceVerifyParam,LivenessParam,ResultJSON,onGetString, livenessVerify,onCheckFaceExist} from "@/uni_modules/FaceAISDK-Core";
  
 	export default {
 		  
@@ -126,6 +127,29 @@
 						this.faceAIResult =JSON.stringify(result)
 					})
 			},
+		
+		/**
+		* 5. 演示同步人脸照片到SDK
+		*/
+		faceSearch: function () {
+			insertFace(
+			    this.faceID,this.faceBase64,
+				(result: ResultJSON) => {
+					this.faceAIResult =JSON.stringify(result)
+				})
+		},
+		
+		/**
+		* 6. 演示同步人脸照片到SDK
+		*/
+		deleteFaceDemo: function () {
+			deleteFace(
+			    this.faceID,
+				(result: ResultJSON) => {
+					this.faceAIResult =JSON.stringify(result)
+				})
+		},
+		
 		
 			
 			getStringTest: function () {
