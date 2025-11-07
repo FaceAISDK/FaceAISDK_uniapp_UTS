@@ -2,18 +2,20 @@
 	<view>
 		<button @tap="addFaceImageDemo">录入人脸</button>
 		<button @tap="checkFaceExistDemo">检测人脸是否存在</button>
-		<button @tap="faceVerifyDemo">人脸识别活体检测</button>
-		<button @tap="livenessVerifyDemo">仅活体检测</button>
 		<button @tap="insertFace">同步Base64编码人脸图</button>
 		<button @tap="deleteFaceDemo">删除本地人脸信息</button>
-		<button @tap="faceSearchDemo">1:N人脸搜索识别</button>
+		<button @tap="faceVerifyDemo">人脸识别活体检测</button>
+		<button @tap="livenessVerifyDemo">仅活体检测</button>
+		
+		<button @tap="faceSearchDemo">1:N人脸搜索识别</button> 
+		<button @tap="addFaceSearchImageDemo">录入人脸for1:N搜索</button>
 		<text>{{faceAIResult}}</text>
 	</view>
 </template>
 
 <script> 
-    //欢迎插件制作大佬联系我们完善iOS 插件制作
-	import {faceSearch,deleteFace,addFaceImage,faceVerify,insertFace,FaceVerifyParam,LivenessParam,ResultJSON,onGetString, livenessVerify,onCheckFaceExist} from "@/uni_modules/FaceAISDK-Core";
+    //欢迎插件制作大佬联系我们完善iOS插件制作
+	import {addFaceSearchImage,faceSearch,deleteFace,addFaceImage,faceVerify,insertFace,FaceVerifyParam,LivenessParam,ResultJSON,onGetString, livenessVerify,onCheckFaceExist} from "@/uni_modules/FaceAISDK-Core";
  
 	export default {
 		  
@@ -62,8 +64,7 @@
 			* 3. 演示传参进行人脸识别
 			* 
 			*/
-			faceVerifyDemo: function () {
-						
+			faceVerifyDemo: function () {	
 				var faceVerifyParam : FaceVerifyParam = {
 					faceID: this.faceID,
 					threshold: 0.83,         //人脸识别通过的相似度阈值 0.75到0.95. 根据场景自行调整
@@ -127,38 +128,50 @@
 						this.faceAIResult =JSON.stringify(result)
 					})
 			},
-		
-		/**
-		* 5. 演示同步人脸照片到SDK
-		*/
-		faceSearch: function () {
-			insertFace(
-			    this.faceID,this.faceBase64,
-				(result: ResultJSON) => {
-					this.faceAIResult =JSON.stringify(result)
-				})
-		},
-		
-		/**
-		* 6. 演示同步人脸照片到SDK
-		*/
-		deleteFaceDemo: function () {
-			deleteFace(
-			    this.faceID,
-				(result: ResultJSON) => {
-					this.faceAIResult =JSON.stringify(result)
-				})
-		},
-		
-		
+			
+			/**
+			* 6. 演示同步人脸照片到SDK
+			*/
+			deleteFaceDemo: function () {
+				deleteFace(
+				    this.faceID,
+					(result: ResultJSON) => {
+						this.faceAIResult =JSON.stringify(result)
+					})
+			},
+			
+			/**
+			* 人脸搜索，插件beta版本
+			*/
+			faceSearchDemo: function () {
+				faceSearch(
+					(result: ResultJSON) => {
+						this.faceAIResult =JSON.stringify(result)
+					})
+			},
+			
+			
+			/**
+			* 人脸搜索人脸录入，Beta版本仅供演示
+			* 
+			*/
+			addFaceSearchImageDemo: function () {
+				addFaceSearchImage(
+					 1,  //1.快速模式，  2.精确模式
+					 (result: ResultJSON)  => {
+						//录入的人脸
+						this.faceAIResult =JSON.stringify(result)
+					})
+			},
 			
 			getStringTest: function () {
 				onGetString(
-				    (res: ResultJSON) => {
+					(res: ResultJSON) => {
 					this.faceAIResult ="返回1：" + JSON.stringify(res)
-				    })
+				})
 			}
 
-		}
+	   }			
+
 	}
 </script>

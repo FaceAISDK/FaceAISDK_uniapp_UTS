@@ -1,15 +1,15 @@
-import {LivenessParam,OnGetString,AddFaceImage,FaceVerifyParam,FaceVerify,InsertFace,OnCheckFaceExist,ResultJSON, LivenessVerify} from '../interface.uts'
+import {AddFaceSearchImage,FaceSearch,DeleteFace,LivenessParam,OnGetString,AddFaceImage,FaceVerifyParam,FaceVerify,InsertFace,OnCheckFaceExist,ResultJSON, LivenessVerify} from '../interface.uts'
 
 import Application from 'android.app.Application';
 import Activity from 'android.app.Activity';
 import Intent from 'android.content.Intent';
-import { FaceSDKConfig } from "com.faceAI.demo"
-import { FaceAISDKNative } from "uts.sdk.modules.uniFaceAISDK"
-import { AddFaceImageActivity } from "com.faceAI.demo.SysCamera.addFace"
-import { FaceVerificationActivity } from "com.faceAI.demo.SysCamera.verify"
-import { LivenessDetectActivity } from "com.faceAI.demo.SysCamera.verify"
-import { BitmapUtils } from "com.faceAI.demo.base.utils"
-import Log from "android.util.Log";
+import FaceSDKConfig from "com.faceAI.demo.FaceSDKConfig";
+import FaceAISDKNative from "uts.sdk.modules.uniFaceAISDK.FaceAISDKNative";
+import AddFaceImageActivity from "com.faceAI.demo.SysCamera.addFace.AddFaceImageActivity";
+import FaceVerificationActivity from "com.faceAI.demo.SysCamera.verify.FaceVerificationActivity";
+import LivenessDetectActivity from "com.faceAI.demo.SysCamera.verify.LivenessDetectActivity";
+import BitmapUtils from "com.faceAI.demo.base.utils.BitmapUtils";
+import FaceSearch1NActivity from 'com.faceAI.demo.SysCamera.search.FaceSearch1NActivity';
 
 
 
@@ -20,6 +20,79 @@ export const onGetString:OnGetString = function(callback: (res: ResultJSON) => v
 	const resultJson:ResultJSON={
 		code: 11,
 		msg: "onGetString",
+		faceID: "faceID8",
+		faceBase64: "64",
+		silentLivenessScore: 0
+	}
+    callback(resultJson)
+} 
+
+
+/**
+ * 跳转到Android SDK 中原生页面处理人脸录入
+ * 
+ * @param faceID 用户ID
+ * @param addFacePerformanceMode 添加人脸角度检测模式. 1 快速模式   2 精确模式
+ * @param callback 结果回调
+ */
+export const addFaceSearchImage : AddFaceSearchImage = function (
+	addFacePerformanceMode:number,
+	callback : (result : ResultJSON) => void
+) {
+	const context = UTSAndroid.getUniActivity() as Activity
+	FaceSDKConfig.init(context);
+	const intent = new Intent(context, AddFaceImageActivity().javaClass)
+	intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_SEARCH");
+	intent.putExtra(AddFaceImageActivity.ADD_FACE_PERFORMANCE_MODE, addFacePerformanceMode);
+	context.startActivityForResult(intent, 10086)
+
+    //语法不熟悉，先保证主流程跑通
+	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, intentAct?: Intent) => {
+		if (requestCode == 10086) {
+			if(intentAct!=null){
+				const codeNow:number = intentAct.getIntExtra("code",0) as number
+				const msgNow:string=intentAct.getStringExtra("msg") as string
+ 
+				const resultJson:ResultJSON={
+					code:codeNow,
+					msg:msgNow,
+					silentLivenessScore: 0,
+					faceID:"",
+					faceBase64:""
+				}		
+				__f__('log','at uni_modules/FaceAISDK-Core/utssdk/app-android/index.uts:63',"添加人脸人脸："+resultJson)
+				callback(resultJson)
+			}else{
+				const resultJson:ResultJSON={
+					code:-1,
+					msg:"添加失败",
+					silentLivenessScore: 0,
+					faceID:"",
+					faceBase64:""
+				}
+				
+				callback(resultJson)
+			}
+		} 
+	});
+}
+
+
+
+/**
+ * 人脸搜索，开发测试中
+ */
+export const faceSearch:FaceSearch = function(callback: (res: ResultJSON) => void){
+	
+	const context = UTSAndroid.getUniActivity() as Activity
+	FaceSDKConfig.init(context);
+	
+	const intent = new Intent(context, FaceSearch1NActivity().javaClass)
+	context.startActivity(intent)
+	
+	const resultJson:ResultJSON={
+		code: 1,
+		msg: "开发测试中",
 		faceID: "faceID8",
 		faceBase64: "64",
 		silentLivenessScore: 0
@@ -67,7 +140,7 @@ export const addFaceImage : AddFaceImage = function (
 					faceID:faceID,
 					faceBase64:faceBase64
 				}		
-				__f__('log','at uni_modules/FaceAISDK-Core/utssdk/app-android/index.uts:70',"添加人脸人脸："+resultJson)
+				__f__('log','at uni_modules/FaceAISDK-Core/utssdk/app-android/index.uts:143',"添加人脸人脸："+resultJson)
 				callback(resultJson)
 			}else{
 				const resultJson:ResultJSON={
@@ -114,7 +187,7 @@ export const faceVerify : FaceVerify = function (
 				const msgNow:string=intentAct.getStringExtra("msg") as string		
 						
 				//这个对应的Java float 类型，转number 会丢失精度
-				const silent:number=intentAct.getIntExtra("silentLivenessScore"，0) as number
+				const silent:number=intentAct.getIntExtra("silentLivenessScore",0) as number
 				// const silent=intentAct.getFloatExtra("silentLivenessScore",0) as number
 			
 			    //活体检测通过后的人脸图，用户可以用这张图做进一步其他处理
@@ -170,11 +243,7 @@ export const livenessVerify : LivenessVerify = function (
 				const msgNow:string=intentAct.getStringExtra("msg") as string
 				
 				//这个对应的Java float 类型，转number 会丢失精度，怎么写？
-				const silent:number=intentAct.getIntExtra("silentLivenessScore"，0) as number
-				
-                // const floatValue:Float = intentAct.getFloatExtra("silentLivenessScore", 0.0) as Float;
-
-                // Log.e("Sign","silentliveness:"+intentAct.getFloatExtra("silentLivenessScore", 0.0));
+				const silent:number=intentAct.getIntExtra("silentLivenessScore",0) as number
 
 				//活体检测通过后的人脸图，用户可以用这张图做进一步其他处理
 				const livefaceBase64:string=BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR+"liveBitmap")
@@ -242,4 +311,27 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
 	})
 }
  
+ 
+ 
+ 
+ /**
+  *  删除人脸信息
+  */
+ export const deleteFace : DeleteFace = function (faceID : string, callback : (result : ResultJSON) => void) {
+ 	const context = UTSAndroid.getAppContext() as Application
+ 	FaceSDKConfig.init(context);
+	
+ 	
+ 	FaceAISDKNative.deleteFaceKotlin(context, faceID,function (result : UTSJSONObject) {
+ 		const resultJson:ResultJSON={
+ 				code:result.getNumber("code") as number,
+ 				msg:result.getString("msg") as string,
+ 				faceID:faceID,
+ 				faceBase64:"?",
+ 				silentLivenessScore:0
+ 			}	
+ 		callback(resultJson)
+ 	})
+ }
+  
  

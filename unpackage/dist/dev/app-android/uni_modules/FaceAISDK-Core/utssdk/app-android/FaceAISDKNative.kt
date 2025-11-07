@@ -14,16 +14,34 @@ import io.dcloud.uts.UTSJSONObject
 import android.graphics.BitmapFactory;
 
 import com.ai.face.base.baseImage.FaceEmbedding;
-import com.faceAI.demo.FaceSDKConfig
-import com.ai.face.base.baseImage.FaceAIUtils
-import com.faceAI.demo.base.utils.VoicePlayer 
-import com.faceAI.demo.base.utils.BitmapUtils
+import com.ai.face.base.baseImage.FaceAIUtils;
+import com.faceAI.demo.base.utils.VoicePlayer;
+import com.faceAI.demo.base.utils.BitmapUtils;
+import com.faceAI.demo.FaceSDKConfig;
 
  
 /**
  *  启动一个新的Activity 并监测结果
  */
 object FaceAISDKNative {
+
+	
+	/**
+	 * 删除本地人脸
+	 */
+	fun deleteFaceKotlin(context:Application,faceID: String,callback: (UTSJSONObject) -> Unit){
+		
+	   var isSuccess=FaceSDKConfig.deleteFace(context,FaceSDKConfig.CACHE_BASE_FACE_DIR+faceID,faceID)
+	
+	   var result: UTSJSONObject = object : UTSJSONObject() {
+			var code = if(isSuccess) 1 else 0
+			var msg = if(isSuccess) "Delete Success" else "Delete  Failed"
+	        var faceID = faceID
+	    }
+		callback(result)
+	}
+	
+	
  
 	/**
 	 * 判断人脸是否存在

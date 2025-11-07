@@ -1,6 +1,6 @@
  
-    //欢迎插件制作大佬联系我们完善iOS 插件制作
-	import {LivenessParam,addFaceImage,faceVerify,insertFace,FaceVerifyParam,ResultJSON,onGetString, livenessVerify,onCheckFaceExist} from "@/uni_modules/FaceAISDK-Core";
+    //欢迎插件制作大佬联系我们完善iOS插件制作
+	import {addFaceSearchImage,faceSearch,deleteFace,addFaceImage,faceVerify,insertFace,FaceVerifyParam,LivenessParam,ResultJSON,onGetString, livenessVerify,onCheckFaceExist} from "@/uni_modules/FaceAISDK-Core";
  
 	const __sfc__ = defineComponent({
 		  
@@ -49,8 +49,7 @@
 			* 3. 演示传参进行人脸识别
 			* 
 			*/
-			faceVerifyDemo: function () {
-						
+			faceVerifyDemo: function () {	
 				var faceVerifyParam : FaceVerifyParam = {
 					faceID: this.faceID,
 					threshold: 0.83,         //人脸识别通过的相似度阈值 0.75到0.95. 根据场景自行调整
@@ -114,16 +113,51 @@
 						this.faceAIResult =JSON.stringify(result)
 					})
 			},
-		
+			
+			/**
+			* 6. 演示同步人脸照片到SDK
+			*/
+			deleteFaceDemo: function () {
+				deleteFace(
+				    this.faceID,
+					(result: ResultJSON) => {
+						this.faceAIResult =JSON.stringify(result)
+					})
+			},
+			
+			/**
+			* 人脸搜索，插件beta版本
+			*/
+			faceSearchDemo: function () {
+				faceSearch(
+					(result: ResultJSON) => {
+						this.faceAIResult =JSON.stringify(result)
+					})
+			},
+			
+			
+			/**
+			* 人脸搜索人脸录入，Beta版本仅供演示
+			* 
+			*/
+			addFaceSearchImageDemo: function () {
+				addFaceSearchImage(
+					 1,  //1.快速模式，  2.精确模式
+					 (result: ResultJSON)  => {
+						//录入的人脸
+						this.faceAIResult =JSON.stringify(result)
+					})
+			},
 			
 			getStringTest: function () {
 				onGetString(
-				    (res: ResultJSON) => {
+					(res: ResultJSON) => {
 					this.faceAIResult ="返回1：" + JSON.stringify(res)
-				    })
+				})
 			}
 
-		}
+	   }			
+
 	})
 
 export default __sfc__
@@ -133,10 +167,12 @@ const _cache = this.$.renderCache
   return _cE("view", null, [
     _cE("button", _uM({ onClick: _ctx.addFaceImageDemo }), "录入人脸", 8 /* PROPS */, ["onClick"]),
     _cE("button", _uM({ onClick: _ctx.checkFaceExistDemo }), "检测人脸是否存在", 8 /* PROPS */, ["onClick"]),
+    _cE("button", _uM({ onClick: _ctx.insertFace }), "同步Base64编码人脸图", 8 /* PROPS */, ["onClick"]),
+    _cE("button", _uM({ onClick: _ctx.deleteFaceDemo }), "删除本地人脸信息", 8 /* PROPS */, ["onClick"]),
     _cE("button", _uM({ onClick: _ctx.faceVerifyDemo }), "人脸识别活体检测", 8 /* PROPS */, ["onClick"]),
     _cE("button", _uM({ onClick: _ctx.livenessVerifyDemo }), "仅活体检测", 8 /* PROPS */, ["onClick"]),
-    _cE("button", _uM({ onClick: _ctx.insertFace }), "同步Base64编码人脸图", 8 /* PROPS */, ["onClick"]),
-    _cE("button", _uM({ onClick: _ctx.getStringTest }), "getStringTest", 8 /* PROPS */, ["onClick"]),
+    _cE("button", _uM({ onClick: _ctx.faceSearchDemo }), "1:N人脸搜索识别", 8 /* PROPS */, ["onClick"]),
+    _cE("button", _uM({ onClick: _ctx.addFaceSearchImageDemo }), "录入人脸for1:N搜索", 8 /* PROPS */, ["onClick"]),
     _cE("text", null, _tD(_ctx.faceAIResult), 1 /* TEXT */)
   ])
 }

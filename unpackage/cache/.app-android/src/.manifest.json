@@ -1,16 +1,1 @@
-{
-  "version": "1",
-  "env": {
-    "compiler_version": "4.76"
-  },
-  "files": {
-    "pages/index/index.kt": {
-      "class": "GenPagesIndexIndex",
-      "md5": "a503d9338f6848ef477044e019c38901d0bb0033"
-    },
-    "index.kt": {
-      "md5": "cf1bb5891a9503f7b88422369638b18dbdf01028",
-      "class": ""
-    }
-  }
-}
+{"version":"1","env":{"compiler_version":"4.85"},"files":{"index.kt":{"md5":"a5a3a302c3dfcb308fff5b8bec71794f89b7fc46","class":""}}}

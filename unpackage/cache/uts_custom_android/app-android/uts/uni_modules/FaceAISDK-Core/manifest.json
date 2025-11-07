@@ -1,32 +1,32 @@
 {
   "version": "1",
   "env": {
-    "compilerVersion": "4.76"
+    "compilerVersion": "4.85"
   },
   "files": {
     "utssdk/app-android/index.uts": {
-      "md5": "640bad1e559008913c20547eba58a4fb"
+      "md5": "260b8dcb1632bc78a26eecc4c6c751a3"
     },
     "utssdk/interface.uts": {
-      "md5": "249d1ff2beafd3c660d36109474b422a"
+      "md5": "11460e68d3467289a2a907283ba93385"
     },
     "utssdk/unierror.uts": {
       "md5": "d41d8cd98f00b204e9800998ecf8427e"
     },
     "package.json": {
-      "md5": "055e05d445581a87c59feba08c4f9c7e"
+      "md5": "4a9e21b458a0feacafbd3a8ca03b1c38"
     },
     "utssdk/app-android/AndroidManifest.xml": {
       "md5": "7cfbe703911bcc1e066588b8852946cf"
     },
     "utssdk/app-android/FaceAISDKNative.kt": {
-      "md5": "63effa745ea9e6494d7db4f11ac6964a"
+      "md5": "2370b24046a4647433b482518a234759"
     },
     "utssdk/app-android/config.json": {
-      "md5": "72100a6ac7bbfd9a5ff7be2cc13f5561"
+      "md5": "142f5093fad701bac8058b753c4378e1"
     },
     "utssdk/app-android/libs/faceAILib-release.aar": {
-      "md5": "75c9062d6165b47b59a9086387763759"
+      "md5": "eb955008bc119cc168f9d4221f61bd24"
     },
     "utssdk/app-android/res/values/colors.xml": {
       "md5": "c0312ef1ae5dca53c76b3119b27e5eda"

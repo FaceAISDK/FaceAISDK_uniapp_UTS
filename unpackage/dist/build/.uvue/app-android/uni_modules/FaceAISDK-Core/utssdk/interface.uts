@@ -2,6 +2,7 @@
 export type OnGetString = (callback: (res: ResultJSON) => void) => void;
 //检测人脸是否存在
 export type OnCheckFaceExist = (faceID: string, callback: (result: ResultJSON) => void) => void;
+export type FaceSearch = (callback: (res: ResultJSON) => void) => void;
 /**
  * 录入一张人脸照片
  *
@@ -9,6 +10,13 @@ export type OnCheckFaceExist = (faceID: string, callback: (result: ResultJSON) =
  * @param callback 结果回调
  */
 export type AddFaceImage = (faceID: string, addFacePerformanceMode: number, callback: (result: ResultJSON) => void) => void;
+/**
+ * 录入一张人脸照片
+ *
+ * @param faceID 用户ID
+ * @param callback 结果回调
+ */
+export type AddFaceSearchImage = (addFacePerformanceMode: number, callback: (result: ResultJSON) => void) => void;
 /**
  * 人脸识别+活体检测
  *
@@ -60,10 +68,10 @@ export type ResultJSON = {
  * @param callback 结果回调
  */
 export type InsertFace = (faceID: string, faceBase64: string, callback: (result: ResultJSON) => void) => void;
-// /**
-//  * 所有的Android 原生 FaceAISDK Demo
-//  * 
-//  * @param faceID 用户ID
-//  * @param callback 结果回调
-//  */
-// export type OnAndroidAllDemo = (callback: (res: ResultJSON) => void) => void
+/**
+ * 删除设备缓存的人脸信息
+ *
+ * @param faceID 人脸faceID
+ * @param callback 结果回调
+ */
+export type DeleteFace = (faceID: string, callback: (result: ResultJSON) => void) => void;

@@ -11,11 +11,15 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
-import uts.sdk.modules.FaceAISDKCore.LivenessParam
+import kotlin.properties.Delegates
+import uts.sdk.modules.FaceAISDKCore.addFaceSearchImage
+import uts.sdk.modules.FaceAISDKCore.faceSearch
+import uts.sdk.modules.FaceAISDKCore.deleteFace
 import uts.sdk.modules.FaceAISDKCore.addFaceImage
 import uts.sdk.modules.FaceAISDKCore.faceVerify
 import uts.sdk.modules.FaceAISDKCore.insertFace
 import uts.sdk.modules.FaceAISDKCore.FaceVerifyParam
+import uts.sdk.modules.FaceAISDKCore.LivenessParam
 import uts.sdk.modules.FaceAISDKCore.ResultJSON
 import uts.sdk.modules.FaceAISDKCore.onGetString
 import uts.sdk.modules.FaceAISDKCore.livenessVerify
@@ -35,16 +39,22 @@ open class GenPagesIndexIndex : BasePage {
             _cE("button", _uM("onClick" to _ctx.checkFaceExistDemo), "检测人脸是否存在", 8, _uA(
                 "onClick"
             )),
+            _cE("button", _uM("onClick" to _ctx.insertFace), "同步Base64编码人脸图", 8, _uA(
+                "onClick"
+            )),
+            _cE("button", _uM("onClick" to _ctx.deleteFaceDemo), "删除本地人脸信息", 8, _uA(
+                "onClick"
+            )),
             _cE("button", _uM("onClick" to _ctx.faceVerifyDemo), "人脸识别活体检测", 8, _uA(
                 "onClick"
             )),
             _cE("button", _uM("onClick" to _ctx.livenessVerifyDemo), "仅活体检测", 8, _uA(
                 "onClick"
             )),
-            _cE("button", _uM("onClick" to _ctx.insertFace), "同步Base64编码人脸图", 8, _uA(
+            _cE("button", _uM("onClick" to _ctx.faceSearchDemo), "1:N人脸搜索识别", 8, _uA(
                 "onClick"
             )),
-            _cE("button", _uM("onClick" to _ctx.getStringTest), "getStringTest", 8, _uA(
+            _cE("button", _uM("onClick" to _ctx.addFaceSearchImageDemo), "录入人脸for1:N搜索", 8, _uA(
                 "onClick"
             )),
             _cE("text", null, _tD(_ctx.faceAIResult), 1)
@@ -90,6 +100,27 @@ open class GenPagesIndexIndex : BasePage {
     open var insertFace = ::gen_insertFace_fn
     open fun gen_insertFace_fn() {
         insertFace(this.faceID, this.faceBase64, fun(result: ResultJSON){
+            this.faceAIResult = JSON.stringify(result)
+        }
+        )
+    }
+    open var deleteFaceDemo = ::gen_deleteFaceDemo_fn
+    open fun gen_deleteFaceDemo_fn() {
+        deleteFace(this.faceID, fun(result: ResultJSON){
+            this.faceAIResult = JSON.stringify(result)
+        }
+        )
+    }
+    open var faceSearchDemo = ::gen_faceSearchDemo_fn
+    open fun gen_faceSearchDemo_fn() {
+        faceSearch(fun(result: ResultJSON){
+            this.faceAIResult = JSON.stringify(result)
+        }
+        )
+    }
+    open var addFaceSearchImageDemo = ::gen_addFaceSearchImageDemo_fn
+    open fun gen_addFaceSearchImageDemo_fn() {
+        addFaceSearchImage(1, fun(result: ResultJSON){
             this.faceAIResult = JSON.stringify(result)
         }
         )

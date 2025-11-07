@@ -11,6 +11,7 @@ import io.dcloud.uts.*
 import io.dcloud.uts.Map
 import io.dcloud.uts.Set
 import io.dcloud.uts.UTSAndroid
+import kotlin.properties.Delegates
 import io.dcloud.uniapp.extapi.exit as uni_exit
 import io.dcloud.uniapp.extapi.showToast as uni_showToast
 val runBlock1 = run {
@@ -92,7 +93,7 @@ open class UniAppConfig : io.dcloud.uniapp.appframe.AppConfig {
     override var appid: String = "__UNI__A6AD04B"
     override var versionName: String = "2025.11.01"
     override var versionCode: String = "20251101"
-    override var uniCompilerVersion: String = "4.76"
+    override var uniCompilerVersion: String = "4.85"
     constructor() : super() {}
 }
 fun definePageRoutes() {
