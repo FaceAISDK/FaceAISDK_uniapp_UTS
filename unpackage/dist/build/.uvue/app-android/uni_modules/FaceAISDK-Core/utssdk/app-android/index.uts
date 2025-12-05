@@ -1,4 +1,4 @@
-import { AddFaceSearchFeature, FaceSearch, InsertFaceFeature, ResultJSON } from '../interface.uts';
+import { AddFaceSearchFeature, FaceSearch, InsertFaceSearchFeature, ResultJSON } from '../interface.uts';
 import Application from 'android.app.Application';
 import Activity from 'android.app.Activity';
 import Intent from 'android.content.Intent';
@@ -13,7 +13,7 @@ import FaceSearch1NActivity from 'com.faceAI.demo.SysCamera.search.FaceSearch1NA
 /**
  *  人脸搜索人脸特征更新同步
  */
-export const insertFaceFeature: InsertFaceFeature = function (faceID: string, faceFeature: string, tag: string, group: string, callback: (result: ResultJSON) => void) {
+export const insertFaceSearchFeature: InsertFaceSearchFeature = function (faceID: string, faceFeature: string, tag: string, group: string, callback: (result: ResultJSON) => void) {
     const context = UTSAndroid.getAppContext() as Application;
     FaceSDKConfig.init(context);
     // FaceAISDKNative.deleteFaceKotlin(context, faceID,function (result : UTSJSONObject) {

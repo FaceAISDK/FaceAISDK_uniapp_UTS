@@ -22,7 +22,7 @@ export type FaceSearch = (callback: (res: ResultJSON) => void) => void
  * @param callback 结果回调
  */
 
-export type InsertFaceFeature = (
+export type InsertFaceSearchFeature = (
 	faceID : string,
 	faceFeature : string, 
 	tag : string, 

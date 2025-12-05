@@ -14,7 +14,7 @@ export type FaceSearch = (callback: (res: ResultJSON) => void) => void;
  * @param needShowConfirmDialog 是否需要显示确认框
  * @param callback 结果回调
  */
-export type InsertFaceFeature = (faceID: string, faceFeature: string, tag: string, group: string, callback: (result: ResultJSON) => void) => void;
+export type InsertFaceSearchFeature = (faceID: string, faceFeature: string, tag: string, group: string, callback: (result: ResultJSON) => void) => void;
 // ---------------------------  下面是1:1 人脸识别相关方法  ---------------------------------
 //检测人脸是否存在
 export type OnCheckFaceExist = (faceID: string, callback: (result: ResultJSON) => void) => void;

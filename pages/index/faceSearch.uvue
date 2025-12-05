@@ -2,8 +2,8 @@
 	<view>
 		<button class="gray-button" @tap="faceSearchDemo">1:N人脸搜索识别</button> 
 		<button class="gray-button" @tap="addFaceSearchFeatureDemo">1:N人脸搜索录入人脸</button>
-		<button class="gray-button" @tap="insertFaceFeatureDemo">同步人脸搜索特征值</button>
-		<button class="gray-button" @tap="insertFaceFeatureListDemo">批量同步人脸搜索特征值</button>
+		<button class="gray-button" @tap="insertFaceSearchFeatureDemo">同步人脸搜索特征值</button>
+		<button class="gray-button" @tap="insertFaceSearchFeatureSDemo">批量同步人脸搜索特征值</button>
 		
 		<view class="result-box">
 		      <view> Email: FaceAISDK.Service@gmail.com</view>
@@ -16,7 +16,7 @@
 
 
 <script> 
-	import {insertFaceFeature,addFaceSearchFeature,faceSearch,ResultJSON,onGetString} from "@/uni_modules/FaceAISDK-Core";
+	import {insertFaceSearchFeature,addFaceSearchFeature,faceSearch,ResultJSON,onGetString} from "@/uni_modules/FaceAISDK-Core";
  
 	export default {
 		  
@@ -62,8 +62,8 @@
 			* 人脸搜索人脸特征更新同步
 			* 
 			*/
-			insertFaceFeatureDemo: function () {
-				insertFaceFeature(
+			insertFaceSearchFeatureDemo: function () {
+				insertFaceSearchFeature(
 				   this.faceID,
 				   this.faceFeature,
 				   "tag",
@@ -73,15 +73,16 @@
 						this.faceAIResult =JSON.stringify(result)
 					})
 			},
+			
 			/**
 			* 批量操作人脸搜索人脸特征更新同步
 			* 
 			*/
-			insertFaceFeatureListDemo: function () {
+			insertFaceSearchFeatureSDemo: function () {
 
-			},
+			}
 			
-			
+	
 
 	   }			
 
