@@ -1,0 +1,35 @@
+<!-- AndroidManifest.xml -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="uts.sdk.modules.uniFaceAISDK">
+
+    <application>
+
+<!-- 			<activity
+			    android:name="com.faceAI.demo.SysCamera.addFace.AddFaceImageActivity"
+			    android:theme="@style/FaceAITheme"
+			    android:exported="false" />
+	
+	        <activity
+	            android:name="com.faceAI.demo.SysCamera.verify.FaceVerificationActivity"
+	            android:theme="@style/FaceAITheme"
+	            android:exported="false"/>
+				
+          <activity
+              android:name="com.faceAI.demo.SysCamera.verify.LivenessDetectActivity"
+              android:theme="@style/FaceAITheme"
+              android:exported="false"/>
+	        
+	        <activity
+	            android:name="com.faceAI.demo.SysCamera.search.FaceSearch1NActivity"
+	            android:theme="@style/FaceAITheme"
+	            android:exported="false" />
+				
+	        <activity
+	            android:name="com.faceAI.demo.SysCamera.search.FaceSearchImageMangerActivity"
+	            android:theme="@style/AppTheme"
+	            android:exported="false">
+	        </activity>	 	 -->	
+		
+    </application>
+
+</manifest> 

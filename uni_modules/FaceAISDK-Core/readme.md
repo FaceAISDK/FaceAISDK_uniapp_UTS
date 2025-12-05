@@ -1,24 +1,30 @@
+# FaceAISDK
+### 开发文档
+
+此插件共5个API实现人脸识别活体检测，可在uniApp,uniAppX 中使用. 人脸特征值是个1024 长度的字符串
+
+
+使用示例:
+
+```
+uvue
 <template>
 	<view>
-		<button @tap="addFaceFeatureDemo">录入人脸信息</button>
+		<button @tap="addFaceImageDemo">录入人脸信息</button>
 		<button @tap="checkFaceExistDemo">检测人脸是否存在</button>
 		<button @tap="insertFaceFeature">同步人脸特征信息</button>
 		<button @tap="deleteFaceDemo">删除本地人脸信息</button>
 		<button @tap="faceVerifyDemo">人脸识别+活体检测</button>
 		<button @tap="livenessVerifyDemo">仅活体检测</button>
-		<button class="gray-button" @tap="faceSearchDemoPage">1:N人脸搜索识别演示</button>
-		<view class="result-box">
-		      <view> Email: FaceAISDK.Service@gmail.com</view>
-		       <scroll-view scroll-y="true" class="scroll-view-box">
-		       <text class="text-content">{{faceAIResult}}</text>
-		       </scroll-view>
-		</view>
+		<button class="gray-button" @tap="faceSearchDemo">1:N人脸搜索识别</button> 
+		<button class="gray-button" @tap="addFaceSearchFeatureDemo">1:N人脸搜索录入人脸</button>
 	</view>
 </template>
 
 
+
 <script> 
-	import {deleteFaceFeature,addFaceFeature,faceVerify,insertFace,FaceVerifyParam,LivenessParam,ResultJSON,livenessVerify,onCheckFaceExist} from "@/uni_modules/FaceAISDK-Core";
+	import {addFaceSearchFeature,faceSearch,deleteFace,addFaceImage,faceVerify,insertFace,FaceVerifyParam,LivenessParam,ResultJSON,onGetString, livenessVerify,onCheckFaceExist} from "@/uni_modules/FaceAISDK-Core";
  
 	export default {
 		  
@@ -49,13 +55,13 @@
 			
 
 			/**
-			* 2. 演示如何调用SDK 相机录入人脸特征值
+			* 2. 演示如何调用SDK录入人脸特征值
 			* 
 			*/
-			addFaceFeatureDemo: function () {
-				addFaceFeature(
+			addFaceImageDemo: function () {
+				addFaceImage(
 					this.faceID,
-					1,    //1.快速模式，  2.精确模式(人脸品质高)
+					1,  //1.快速模式，  2.精确模式(人脸品质高)
 					true, //是否需要显示确认框，强烈建议需要
 					 (result: ResultJSON)  => {
 						//录入的人脸
@@ -123,7 +129,7 @@
 			
 			
 			/**
-			* 5. 演示同步1:1人脸特征值到SDK
+			* 5. 演示同步人脸特征值到SDK
 			*/
 			insertFaceFeature: function () {
 				insertFace(
@@ -134,44 +140,45 @@
 			},
 			
 			/**
-			* 6. 演示删除1:1人脸特征值
+			* 6. 演示删除人脸特征值
 			*/
 			deleteFaceDemo: function () {
-				deleteFaceFeature(
+				deleteFace(
 				    this.faceID,
 					(result: ResultJSON) => {
 						this.faceAIResult =JSON.stringify(result)
 					})
 			},
 			
+			/**
+			* 人脸搜索，插件beta版本
+			*/
+			faceSearchDemo: function () {
+				faceSearch(
+					(result: ResultJSON) => {
+						this.faceAIResult =JSON.stringify(result)
+					})
+			},
 			
-			// --- 1:N人脸搜索识别 新的页面演示吧---
-			faceSearchDemoPage: function () {
-				const systemInfo = uni.getSystemInfoSync();
-				const platform = systemInfo.platform;
-				
-				if (platform === 'android') {
-					// Android 设备，执行跳转到 faceSearch.uvue 页面
-					uni.navigateTo({
-						url: '/pages/index/faceSearch' // 请确保你的 faceSearch 页面路径正确
-					});					
-				} else if (platform === 'ios') {
-					// iOS 设备，提供提示信息
-					this.faceAIResult = "iOS 平台人脸搜索请自行参考文档实现！";
-					uni.showToast({
-						title: 'iOS人脸搜索功能请参考文档',
-						icon: 'none',
-						duration: 2000
-					});
-				} else {
-					// 其他平台（如H5，小程序等）
-					this.faceAIResult = `当前平台 ${platform} 不支持人脸识别功能。`;
-					uni.showToast({
-						title: `平台 ${platform} 不支持`,
-						icon: 'none',
-						duration: 2000
-					});
-				}
+			
+			/**
+			* 人脸搜索人脸录入，Beta版本仅供演示
+			* 
+			*/
+			addFaceSearchFeatureDemo: function () {
+				addFaceSearchFeature(
+					 1,  //1.快速模式，  2.精确模式
+					 (result: ResultJSON)  => {
+						//录入的人脸
+						this.faceAIResult =JSON.stringify(result)
+					})
+			},
+			
+			getStringTest: function () {
+				onGetString(
+					(res: ResultJSON) => {
+					this.faceAIResult ="返回1：" + JSON.stringify(res)
+				})
 			}
 
 	   }			
@@ -179,36 +186,6 @@
 	}
 </script>
 
-<style>
-    /* 给滚动区域一个固定高度和边框 */
-    .result-box {
-        margin: 20rpx;
-    }
-    
-    .scroll-view-box {
-        height: 400rpx; /* 必须指定高度，否则无法滚动 */
-        border: 1px solid #ccc;
-        border-radius: 10rpx;
-        background-color: #f8f8f8;
-        padding: 15rpx;
-        box-sizing: border-box; /* 确保padding不撑大宽高 */
-    }
-
-    .text-content {
-        font-size: 28rpx;
-        color: #333; /* word-break: break-all; 关键：解决长JSON字符串不换行的问题 */
-        white-space: pre-wrap; /* 保留格式并自动换行 */
-    }
-</style>
 
 
-<style>
-    .gray-button {
-    	background-color: #ffffff; /* 灰色背景 */
-    	color: #800080;            /* 深灰色文字 */
-    	/* 如果需要，可以覆盖默认的边框 */
-    	border: none;
-    }
-
-</style>
-    
+```
