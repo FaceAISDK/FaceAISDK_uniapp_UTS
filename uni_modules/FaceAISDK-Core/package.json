@@ -1,7 +1,7 @@
 {
   "id": "FaceAISDK-Core",
   "displayName": "FaceAISDK",
-  "version": "2025.11.07",
+  "version": "2025.12.02",
   "description": "FaceAISDK，人脸识别活体检测，SDK为离线工作模式不收集数据更安全",
   "keywords": [
     "离线识别",
@@ -12,8 +12,8 @@
   "repository": "https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS",
   "engines": {
     "HBuilderX": "^4.53",
-    "uni-app": "^4.82",
-    "uni-app-x": "^4.57"
+    "uni-app": "^4.61",
+    "uni-app-x": "^4.63"
   },
   "dcloudext": {
     "type": "uts",

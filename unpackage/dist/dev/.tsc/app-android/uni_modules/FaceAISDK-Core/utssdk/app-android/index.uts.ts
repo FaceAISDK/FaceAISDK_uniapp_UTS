@@ -22,7 +22,7 @@ export const onGetString:OnGetString = function(callback: (res: ResultJSON) => v
 		msg: "onGetString",
 		faceID: "faceID8",
 		faceBase64: "64",
-		silentLivenessScore: 0
+		faceFeature: ""
 	}
     callback(resultJson)
 } 
@@ -52,21 +52,22 @@ export const addFaceSearchImage : AddFaceSearchImage = function (
 			if(intentAct!=null){
 				const codeNow:number = intentAct.getIntExtra("code",0) as number
 				const msgNow:string=intentAct.getStringExtra("msg") as string
+                const faceFeatureNoew:string=intentAct.getStringExtra("faceFeature") as string
  
 				const resultJson:ResultJSON={
 					code:codeNow,
 					msg:msgNow,
-					silentLivenessScore: 0,
+					faceFeature: faceFeatureNoew,
 					faceID:"",
 					faceBase64:""
 				}		
-				__f__('log','at uni_modules/FaceAISDK-Core/utssdk/app-android/index.uts:63',"添加人脸人脸："+resultJson)
+				__f__('log','at uni_modules/FaceAISDK-Core/utssdk/app-android/index.uts:64',"添加人脸人脸："+resultJson)
 				callback(resultJson)
 			}else{
 				const resultJson:ResultJSON={
 					code:-1,
 					msg:"添加失败",
-					silentLivenessScore: 0,
+					faceFeature: "",
 					faceID:"",
 					faceBase64:""
 				}
@@ -95,7 +96,7 @@ export const faceSearch:FaceSearch = function(callback: (res: ResultJSON) => voi
 		msg: "开发测试中",
 		faceID: "faceID8",
 		faceBase64: "64",
-		silentLivenessScore: 0
+		faceFeature: ""
 	}
     callback(resultJson)
 } 
@@ -128,6 +129,8 @@ export const addFaceImage : AddFaceImage = function (
 				let faceBase64="?"
 				const codeNow:number = intentAct.getIntExtra("code",0) as number
 				const msgNow:string=intentAct.getStringExtra("msg") as string
+				const faceFeatureNoew:string=intentAct.getStringExtra("faceFeature") as string
+				
 				if(0!=codeNow){
 					//用户取消了就不应该有这个值
 					faceBase64=BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_BASE_FACE_DIR+faceID)
@@ -136,17 +139,17 @@ export const addFaceImage : AddFaceImage = function (
 				const resultJson:ResultJSON={
 					code:codeNow,
 					msg:msgNow,
-					silentLivenessScore: 0,
+					faceFeature: faceFeatureNoew,
 					faceID:faceID,
 					faceBase64:faceBase64
 				}		
-				__f__('log','at uni_modules/FaceAISDK-Core/utssdk/app-android/index.uts:143',"添加人脸人脸："+resultJson)
+				__f__('log','at uni_modules/FaceAISDK-Core/utssdk/app-android/index.uts:146',"添加人脸人脸："+resultJson)
 				callback(resultJson)
 			}else{
 				const resultJson:ResultJSON={
 					code:-1,
 					msg:"添加失败",
-					silentLivenessScore: 0,
+					faceFeature: "",
 					faceID:faceID,
 					faceBase64:"?"
 				}
@@ -188,7 +191,6 @@ export const faceVerify : FaceVerify = function (
 						
 				//这个对应的Java float 类型，转number 会丢失精度
 				const silent:number=intentAct.getIntExtra("silentLivenessScore",0) as number
-				// const silent=intentAct.getFloatExtra("silentLivenessScore",0) as number
 			
 			    //活体检测通过后的人脸图，用户可以用这张图做进一步其他处理
 		    	const livefaceBase64:string=BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR+"verifyBitmap")
@@ -196,7 +198,7 @@ export const faceVerify : FaceVerify = function (
 				const resultJson:ResultJSON={
 					code:codeNow,
 					msg:msgNow,
-					silentLivenessScore: silent,
+					faceFeature: "",
 					faceID:param.faceID,
 					faceBase64:livefaceBase64
 				}
@@ -205,7 +207,7 @@ export const faceVerify : FaceVerify = function (
 				const resultJson:ResultJSON={
 					code:1,
 					msg:"12345",
-					silentLivenessScore: 0,
+					faceFeature: "",
 					faceID:param.faceID,
 					faceBase64:"faceBase64"
 				}	
@@ -241,15 +243,12 @@ export const livenessVerify : LivenessVerify = function (
 			if(intentAct!=null){
 				const codeNow:number = intentAct.getIntExtra("code",0) as number
 				const msgNow:string=intentAct.getStringExtra("msg") as string
-				
-				//这个对应的Java float 类型，转number 会丢失精度，怎么写？
-				const silent:number=intentAct.getIntExtra("silentLivenessScore",0) as number
 
 				//活体检测通过后的人脸图，用户可以用这张图做进一步其他处理
 				const livefaceBase64:string=BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR+"liveBitmap")
 				
 				const resultJson:ResultJSON={
-					silentLivenessScore:silent,
+					faceFeature:"",
 					code:codeNow,
 					msg:msgNow,
 					faceID:"",
@@ -262,7 +261,7 @@ export const livenessVerify : LivenessVerify = function (
 					msg:"data == null",
 					faceID:"",
 					faceBase64:"",
-					silentLivenessScore:0
+					faceFeature:""
 				}	
 				callback(resultJson)
 			}
@@ -273,7 +272,7 @@ export const livenessVerify : LivenessVerify = function (
 
 
 /**
- *  调用原生的FaceAISDK 功能人脸是否存在
+ * 调用原生的FaceAISDK 检测功能人脸是否存在
  */
 export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, callback : (re : ResultJSON) => void) {
 	const context = UTSAndroid.getAppContext() as Application
@@ -285,7 +284,7 @@ export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, ca
 				msg:result.getString("msg") as string,
 				faceID:faceID,
 				faceBase64:"?",
-				silentLivenessScore:0
+				faceFeature:result.getString("faceFeature") as string
 			}
 			
 		callback(resultJson)
@@ -305,7 +304,7 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
 				msg:result.getString("msg") as string,
 				faceID:faceID,
 				faceBase64:"?",
-				silentLivenessScore:0
+				faceFeature:""
 			}	
 		callback(resultJson)
 	})
@@ -327,7 +326,7 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
  				msg:result.getString("msg") as string,
  				faceID:faceID,
  				faceBase64:"?",
- 				silentLivenessScore:0
+ 				faceFeature:""
  			}	
  		callback(resultJson)
  	})

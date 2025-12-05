@@ -1202,6 +1202,7 @@ int drawable ic_arrow_back_white 0x0
 int drawable icon_delete_normal 0x0
 int drawable icon_delete_selected 0x0
 int drawable info_icon_24 0x0
+int drawable launcher 0x0
 int drawable notification_action_background 0x0
 int drawable notification_bg 0x0
 int drawable notification_bg_low 0x0
@@ -1215,6 +1216,10 @@ int drawable notification_template_icon_low_bg 0x0
 int drawable notification_tile_bg 0x0
 int drawable notify_panel_notification_icon_bg 0x0
 int drawable photo_add 0x0
+int drawable radio_btn 0x0
+int drawable radio_disable 0x0
+int drawable radio_select 0x0
+int drawable radio_unselect 0x0
 int drawable share 0x0
 int drawable test_level_drawable 0x0
 int drawable tooltip_frame_dark 0x0
@@ -1481,6 +1486,8 @@ int id position 0x0
 int id postLayout 0x0
 int id preview 0x0
 int id previewView 0x0
+int id privacy_read_checkbox 0x0
+int id privacy_read_content_view 0x0
 int id progress_circular 0x0
 int id progress_horizontal 0x0
 int id radio 0x0
@@ -1561,6 +1568,7 @@ int id system_camera_add_face 0x0
 int id system_camera_search 0x0
 int id system_camera_search_mn 0x0
 int id system_camera_search_navi 0x0
+int id system_camera_search_with_live 0x0
 int id system_camera_tips 0x0
 int id system_info 0x0
 int id tabMode 0x0
@@ -1813,6 +1821,7 @@ int string device_list_cancel_button 0x0
 int string device_list_confirm_button 0x0
 int string device_list_dialog_title 0x0
 int string device_list_empty_tip 0x0
+int string dis_agree 0x0
 int string error_busy_need_replug 0x0
 int string error_messge_camera_open_busy 0x0
 int string error_messge_camera_open_unknown 0x0
@@ -1823,6 +1832,7 @@ int string face_image_manage 0x0
 int string face_image_size_small 0x0
 int string face_search 0x0
 int string face_search_1fromN 0x0
+int string face_search_1fromN_liveness 0x0
 int string face_search_MfromN 0x0
 int string face_search_by_system_camera 0x0
 int string face_search_by_uvc_camera 0x0
@@ -1865,6 +1875,7 @@ int string liveness_detection 0x0
 int string liveness_detection_done 0x0
 int string liveness_step_size 0x0
 int string liveness_type_size_error 0x0
+int string login_privacy_policy 0x0
 int string long_press_copy_msg 0x0
 int string motion_blink_eye 0x0
 int string motion_liveness_detection_failed 0x0
@@ -3116,6 +3127,15 @@ int styleable DrawerArrowToggle_drawableSize 4
 int styleable DrawerArrowToggle_gapBetweenBars 5
 int styleable DrawerArrowToggle_spinBars 6
 int styleable DrawerArrowToggle_thickness 7
+int[] styleable FaceVerifyCoverView { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }
+int styleable FaceVerifyCoverView_background_color 0
+int styleable FaceVerifyCoverView_circle_margin 1
+int styleable FaceVerifyCoverView_progress_end_color 2
+int styleable FaceVerifyCoverView_progress_start_color 3
+int styleable FaceVerifyCoverView_show_progress 4
+int styleable FaceVerifyCoverView_tip_text 5
+int styleable FaceVerifyCoverView_tip_text_color 6
+int styleable FaceVerifyCoverView_tip_text_size 7
 int[] styleable FaceView { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }
 int styleable FaceView_background_color 0
 int styleable FaceView_circle_margin 1
@@ -3125,15 +3145,6 @@ int styleable FaceView_show_progress 4
 int styleable FaceView_tip_text 5
 int styleable FaceView_tip_text_color 6
 int styleable FaceView_tip_text_size 7
-int[] styleable FaceViewDemo { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }
-int styleable FaceViewDemo_background_color 0
-int styleable FaceViewDemo_circle_margin 1
-int styleable FaceViewDemo_progress_end_color 2
-int styleable FaceViewDemo_progress_start_color 3
-int styleable FaceViewDemo_show_progress 4
-int styleable FaceViewDemo_tip_text 5
-int styleable FaceViewDemo_tip_text_color 6
-int styleable FaceViewDemo_tip_text_size 7
 int[] styleable FontFamily { 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }
 int styleable FontFamily_fontProviderAuthority 0
 int styleable FontFamily_fontProviderCerts 1

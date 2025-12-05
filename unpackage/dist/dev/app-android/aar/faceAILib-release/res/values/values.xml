@@ -16,8 +16,8 @@
     <color name="white">#FFFFFFFF</color>
     <string name="about_us">- About us - </string>
     <string name="add_a_face_image">Add a face image </string>
-    <string name="add_face_from_camera">add by camera</string>
-    <string name="add_face_from_photo">add from album</string>
+    <string name="add_face_from_camera">Add by SDK camera</string>
+    <string name="add_face_from_photo">Add from album</string>
     <string name="add_face_image">Add face Image</string>
     <string name="align_face_error_tips">Align face error</string>
     <string name="camera_degree_set">Change Camera Degree  Now is:</string>
@@ -36,11 +36,13 @@
     <string name="device_list_confirm_button">Confirm</string>
     <string name="device_list_dialog_title">Devices</string>
     <string name="device_list_empty_tip">Please connect a USB Camera</string>
+    <string name="dis_agree">DisAgree</string>
     <string name="face_dir_empty">Face dir empty</string>
     <string name="face_image_manage">Face manage</string>
     <string name="face_search">Face Search</string>
     <string name="face_search_1fromN">1:N face search</string>
-    <string name="face_search_MfromN">M:N face search</string>
+    <string name="face_search_1fromN_liveness">liveness and 1:N face search</string>
+    <string name="face_search_MfromN">M:N face search(Beta)</string>
     <string name="face_search_by_system_camera">Face Search by system camera</string>
     <string name="face_search_by_uvc_camera">Face Search by UVC camera</string>
     <string name="face_search_camera_tips">Camera WDR >105Db indoors,>120 outdoors; use a fill light when need</string>
@@ -77,6 +79,7 @@
     <string name="know">I know</string>
     <string name="liveness_detection">Liveness detection</string>
     <string name="liveness_detection_done">Detection completed</string>
+    <string name="login_privacy_policy">Agree with privacy policy</string>
     <string name="long_press_copy_msg">Tips: Long press to copy msg</string>
     <string name="motion_blink_eye">Please blink eye</string>
     <string name="motion_liveness_detection_failed">Motion liveness detection failed</string>
@@ -172,7 +175,7 @@
     <style name="positiveBtnStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:textColor">@color/face_main_color</item>
     </style>
-    <declare-styleable name="FaceViewDemo">
+    <declare-styleable name="FaceVerifyCoverView">
         
         <attr format="dimension" name="circle_margin"/>
         

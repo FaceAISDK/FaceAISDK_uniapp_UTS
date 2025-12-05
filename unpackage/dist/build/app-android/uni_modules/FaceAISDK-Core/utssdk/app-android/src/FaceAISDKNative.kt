@@ -12,12 +12,12 @@ import io.dcloud.uts.console
 import org.json.JSONObject
 import io.dcloud.uts.UTSJSONObject
 import android.graphics.BitmapFactory;
-
-import com.ai.face.base.baseImage.FaceEmbedding;
-import com.ai.face.base.baseImage.FaceAIUtils;
+import android.text.TextUtils;
+import com.tencent.mmkv.MMKV;
 import com.faceAI.demo.base.utils.VoicePlayer;
 import com.faceAI.demo.base.utils.BitmapUtils;
 import com.faceAI.demo.FaceSDKConfig;
+import com.ai.face.faceSearch.search.Image2FaceFeature;
 
  
 /**
@@ -27,15 +27,21 @@ object FaceAISDKNative {
 
 	
 	/**
-	 * 删除本地人脸
+	 * 删除本地人脸特征值，同时缓存的图片也删除
+	 * 
 	 */
 	fun deleteFaceKotlin(context:Application,faceID: String,callback: (UTSJSONObject) -> Unit){
 		
-	   var isSuccess=FaceSDKConfig.deleteFace(context,FaceSDKConfig.CACHE_BASE_FACE_DIR+faceID,faceID)
+       //1:1 的人脸特征清除
+       MMKV.defaultMMKV().removeValueForKey(faceID)
+       //如果缓存了图片也删除
+       Image2FaceFeature.getInstance(context).deleteFaceImage(FaceSDKConfig.CACHE_BASE_FACE_DIR+faceID)
+		
+	   // var isSuccess=FaceSDKConfig.deleteFace(context,FaceSDKConfig.CACHE_BASE_FACE_DIR+faceID,faceID)
 	
 	   var result: UTSJSONObject = object : UTSJSONObject() {
-			var code = if(isSuccess) 1 else 0
-			var msg = if(isSuccess) "Delete Success" else "Delete  Failed"
+			var code = 1
+			var msg = "Delete Success"
 	        var faceID = faceID
 	    }
 		callback(result)
@@ -49,17 +55,13 @@ object FaceAISDKNative {
 	fun isFaceExistKotlin(context:Application,faceID: String,callback: (UTSJSONObject) -> Unit){
 	    var isExist=true;
 
-        val faceEmbedding = FaceEmbedding.loadEmbedding(context, faceID)
-
-        // 去Path 路径读取有没有faceID 对应的处理好的人脸Bitmap
-        val faceFilePath = FaceSDKConfig.CACHE_BASE_FACE_DIR + faceID
-        val baseBitmap = BitmapFactory.decodeFile(faceFilePath)
- 
-        if (faceEmbedding.size == 0||baseBitmap==null) {
+        //从本地MMKV读取人脸特征值(2025.11.23版本使用MMKV，老的人脸数据请做好迁移)
+        val faceFeature = MMKV.defaultMMKV().decodeString(faceID)
+        if (TextUtils.isEmpty(faceFeature)) {
 			isExist=false;
-		}
+        }
 
-       var result: UTSJSONObject = object : UTSJSONObject() {
+        var result: UTSJSONObject = object : UTSJSONObject() {
 			var code = if(isExist) 1 else 0
 			var msg = if(isExist) "Face exist" else "Face not exist"
             var faceID = faceID
@@ -71,9 +73,20 @@ object FaceAISDKNative {
     /**
      * 同步Base64人脸到SDK
      */
-    fun insertFaceKotlin(faceID: String,faceBase64 : String,context:Application,callback: (UTSJSONObject) -> Unit){
-    	
-          val bitmap = BitmapUtils.base64ToBitmap(faceBase64)
+    fun insertFaceKotlin(faceID: String,faceFeature : String,context:Application,callback: (UTSJSONObject) -> Unit){
+        //保存1:1 人脸识别特征数据，直接以KEY-Value的形式保存在MMKV中
+		MMKV.defaultMMKV().encode(faceID, faceFeature); //保存人脸faceID 对应的特征值,SDK 只要这个
+    }
+	
+	
+	
+	
+	/**
+	 * 同步Base64人脸到SDK
+	 */
+	fun insertFaceByImage(faceID: String,faceBase64 : String,context:Application,callback: (UTSJSONObject) -> Unit){
+		
+	      val bitmap = BitmapUtils.base64ToBitmap(faceBase64)
 		   
 		  if (bitmap == null) { 
 			  var result: UTSJSONObject = object : UTSJSONObject() {
@@ -84,39 +97,10 @@ object FaceAISDKNative {
 			  callback(result)
 			  return
 		  }else {
-			  //其他地方同步过来的人脸可能是不规范的没有经过校准的人脸图（证件照，多人脸，过小等）。disposeBaseFaceImage处理
-			  FaceAIUtils.Companion.getInstance(context)
-			      .disposeBaseFaceImage(context, bitmap,object : FaceAIUtils.Callback {
-			              /**
-						   * 返回裁剪成功后的人脸图和特征向量编码
-						   */
-			              override 
-						  fun onSuccess(bitmap: Bitmap,faceEmbedding: FloatArray) {
-							  
-							 FaceEmbedding.saveEmbedding(context, faceID, faceEmbedding); //本地保存人脸特征向量，后期可以用这个了
-							 BitmapUtils.saveDisposedBitmap(bitmap, FaceSDKConfig.CACHE_BASE_FACE_DIR,faceID) //裁剪好的人脸保存本地
 
-							  var result: UTSJSONObject = object : UTSJSONObject() {
-							  		var code =  1
-							  		var msg = "insertFace2SDK 成功"
-							        var faceID = faceID
-							   }
-							  callback(result)
-			              } 
-			   
-			              //底片处理异常的信息回调
-			              override 
-						  fun onFailed(msg: String, errorCode: Int) {
-							  var result: UTSJSONObject = object : UTSJSONObject() {
-							  		var code =  0
-							  		var msg = "$msg-$errorCode"
-							        var faceID = faceID
-							   }
-							  callback(result)
-			              }
-			          })
+ 
 		  }
-    }
+	}
 
 }
 

@@ -67,6 +67,10 @@
             android:exported="false"
             android:theme="@style/FaceAITheme" />
         <activity
+            android:name="com.faceAI.demo.SysCamera.search.FaceSearch1NActivity"
+            android:exported="false"
+            android:theme="@style/FaceAITheme" />
+        <activity
             android:name="com.faceAI.demo.SysCamera.search.FaceSearch1NWithMotionLivenessActivity"
             android:exported="false"
             android:theme="@style/FaceAITheme" />

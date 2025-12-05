@@ -21,6 +21,9 @@ FaceAI SDK is on_device Offline Android Face Detection 、Recognition 、Livenes
 
 FaceAI SDK是设备端可离线不联网Android 人脸识别、动作及近红外IR活体检测、人脸图质量检测以及人脸搜索（1:N和M:N）SDK，可快速集成实现人脸识别，人脸搜索功能。
 
+![SDK Work Flow](SDK_WORK_FLOW.png)
+
+
 原生工程如下，大佬可以根据原生工程自行封装拓展完善UTS插件（当前插件暂无人脸搜索功能）
 iOS SDK： https://github.com/FaceAISDK/FaceAISDK_iOS  
 Android： https://github.com/FaceAISDK/FaceAISDK_Android

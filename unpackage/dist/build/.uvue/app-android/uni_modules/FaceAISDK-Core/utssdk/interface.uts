@@ -56,18 +56,18 @@ export type LivenessVerify = (param: LivenessParam, callback: (result: ResultJSO
  */
 export type ResultJSON = {
     code: number; //code 含义参考Readme 
-    silentLivenessScore: number; //RGB 静默活体分数（非必返回字段），摄像头成像清晰大于105Db. 否则数据可信度低
     msg: string;
     faceID: string;
-    faceBase64: string; //人脸图Base64 编码
+    faceFeature: string; //人脸特征值
+    faceBase64: string; //人脸图Base64编码
 };
 /**
- * 同步人脸图片Base64编码到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
+ * 同步人脸特征指到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
  *
- * @param faceBase64 人脸图片Base64
+ * @param faceFeature 人脸特征值得长度1024.20251202新版本SDK人脸数据合规处理不在接收人脸图参数
  * @param callback 结果回调
  */
-export type InsertFace = (faceID: string, faceBase64: string, callback: (result: ResultJSON) => void) => void;
+export type InsertFace = (faceID: string, faceFeature: string, callback: (result: ResultJSON) => void) => void;
 /**
  * 删除设备缓存的人脸信息
  *

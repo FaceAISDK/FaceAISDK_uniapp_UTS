@@ -61,18 +61,18 @@ open class ResultJSON (
     @JsonNotNull
     open var code: Number,
     @JsonNotNull
-    open var silentLivenessScore: Number,
-    @JsonNotNull
     open var msg: String,
     @JsonNotNull
     open var faceID: String,
     @JsonNotNull
+    open var faceFeature: String,
+    @JsonNotNull
     open var faceBase64: String,
 ) : UTSObject()
-typealias InsertFace = (faceID: String, faceBase64: String, callback: (result: ResultJSON) -> Unit) -> Unit
+typealias InsertFace = (faceID: String, faceFeature: String, callback: (result: ResultJSON) -> Unit) -> Unit
 typealias DeleteFace = (faceID: String, callback: (result: ResultJSON) -> Unit) -> Unit
 val onGetString: OnGetString = fun(callback: (res: ResultJSON) -> Unit) {
-    val resultJson = ResultJSON(code = 11, msg = "onGetString", faceID = "faceID8", faceBase64 = "64", silentLivenessScore = 0)
+    val resultJson = ResultJSON(code = 11, msg = "onGetString", faceID = "faceID8", faceBase64 = "64", faceFeature = "")
     callback(resultJson)
 }
 val addFaceSearchImage: AddFaceSearchImage = fun(addFacePerformanceMode: Number, callback: (result: ResultJSON) -> Unit) {
@@ -87,11 +87,12 @@ val addFaceSearchImage: AddFaceSearchImage = fun(addFacePerformanceMode: Number,
             if (intentAct != null) {
                 val codeNow: Number = intentAct.getIntExtra("code", 0) as Number
                 val msgNow: String = intentAct.getStringExtra("msg") as String
-                val resultJson = ResultJSON(code = codeNow, msg = msgNow, silentLivenessScore = 0, faceID = "", faceBase64 = "")
+                val faceFeatureNoew: String = intentAct.getStringExtra("faceFeature") as String
+                val resultJson = ResultJSON(code = codeNow, msg = msgNow, faceFeature = faceFeatureNoew, faceID = "", faceBase64 = "")
                 console.log("添加人脸人脸：" + resultJson)
                 callback(resultJson)
             } else {
-                val resultJson = ResultJSON(code = -1, msg = "添加失败", silentLivenessScore = 0, faceID = "", faceBase64 = "")
+                val resultJson = ResultJSON(code = -1, msg = "添加失败", faceFeature = "", faceID = "", faceBase64 = "")
                 callback(resultJson)
             }
         }
@@ -103,7 +104,7 @@ val faceSearch: FaceSearch = fun(callback: (res: ResultJSON) -> Unit) {
     FaceSDKConfig.init(context)
     val intent = Intent(context, FaceSearch1NActivity().javaClass)
     context.startActivity(intent)
-    val resultJson = ResultJSON(code = 1, msg = "开发测试中", faceID = "faceID8", faceBase64 = "64", silentLivenessScore = 0)
+    val resultJson = ResultJSON(code = 1, msg = "开发测试中", faceID = "faceID8", faceBase64 = "64", faceFeature = "")
     callback(resultJson)
 }
 val addFaceImage: AddFaceImage = fun(faceID: String, addFacePerformanceMode: Number, callback: (result: ResultJSON) -> Unit) {
@@ -120,14 +121,15 @@ val addFaceImage: AddFaceImage = fun(faceID: String, addFacePerformanceMode: Num
                 var faceBase64 = "?"
                 val codeNow: Number = intentAct.getIntExtra("code", 0) as Number
                 val msgNow: String = intentAct.getStringExtra("msg") as String
+                val faceFeatureNoew: String = intentAct.getStringExtra("faceFeature") as String
                 if (0 != codeNow) {
                     faceBase64 = BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_BASE_FACE_DIR + faceID)
                 }
-                val resultJson = ResultJSON(code = codeNow, msg = msgNow, silentLivenessScore = 0, faceID = faceID, faceBase64 = faceBase64)
+                val resultJson = ResultJSON(code = codeNow, msg = msgNow, faceFeature = faceFeatureNoew, faceID = faceID, faceBase64 = faceBase64)
                 console.log("添加人脸人脸：" + resultJson)
                 callback(resultJson)
             } else {
-                val resultJson = ResultJSON(code = -1, msg = "添加失败", silentLivenessScore = 0, faceID = faceID, faceBase64 = "?")
+                val resultJson = ResultJSON(code = -1, msg = "添加失败", faceFeature = "", faceID = faceID, faceBase64 = "?")
                 callback(resultJson)
             }
         }
@@ -152,10 +154,10 @@ val faceVerify: FaceVerify = fun(param: FaceVerifyParam, callback: (result: Resu
                 val msgNow: String = intentAct.getStringExtra("msg") as String
                 val silent: Number = intentAct.getIntExtra("silentLivenessScore", 0) as Number
                 val livefaceBase64: String = BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR + "verifyBitmap")
-                val resultJson = ResultJSON(code = codeNow, msg = msgNow, silentLivenessScore = silent, faceID = param.faceID, faceBase64 = livefaceBase64)
+                val resultJson = ResultJSON(code = codeNow, msg = msgNow, faceFeature = "", faceID = param.faceID, faceBase64 = livefaceBase64)
                 callback(resultJson)
             } else {
-                val resultJson = ResultJSON(code = 1, msg = "12345", silentLivenessScore = 0, faceID = param.faceID, faceBase64 = "faceBase64")
+                val resultJson = ResultJSON(code = 1, msg = "12345", faceFeature = "", faceID = param.faceID, faceBase64 = "faceBase64")
                 callback(resultJson)
             }
         }
@@ -176,12 +178,11 @@ val livenessVerify: LivenessVerify = fun(param: LivenessParam, callback: (result
             if (intentAct != null) {
                 val codeNow: Number = intentAct.getIntExtra("code", 0) as Number
                 val msgNow: String = intentAct.getStringExtra("msg") as String
-                val silent: Number = intentAct.getIntExtra("silentLivenessScore", 0) as Number
                 val livefaceBase64: String = BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR + "liveBitmap")
-                val resultJson = ResultJSON(silentLivenessScore = silent, code = codeNow, msg = msgNow, faceID = "", faceBase64 = livefaceBase64)
+                val resultJson = ResultJSON(faceFeature = "", code = codeNow, msg = msgNow, faceID = "", faceBase64 = livefaceBase64)
                 callback(resultJson)
             } else {
-                val resultJson = ResultJSON(code = 1, msg = "data == null", faceID = "", faceBase64 = "", silentLivenessScore = 0)
+                val resultJson = ResultJSON(code = 1, msg = "data == null", faceID = "", faceBase64 = "", faceFeature = "")
                 callback(resultJson)
             }
         }
@@ -192,7 +193,7 @@ val onCheckFaceExist: OnCheckFaceExist = fun(faceID: String, callback: (re: Resu
     val context = UTSAndroid.getAppContext() as Application
     FaceSDKConfig.init(context)
     FaceAISDKNative.isFaceExistKotlin(context, faceID, fun(result: UTSJSONObject) {
-        val resultJson = ResultJSON(code = result.getNumber("code") as Number, msg = result.getString("msg") as String, faceID = faceID, faceBase64 = "?", silentLivenessScore = 0)
+        val resultJson = ResultJSON(code = result.getNumber("code") as Number, msg = result.getString("msg") as String, faceID = faceID, faceBase64 = "?", faceFeature = "")
         callback(resultJson)
     }
     )
@@ -201,7 +202,7 @@ val insertFace: InsertFace = fun(faceID: String, faceBase64: String, callback: (
     val context = UTSAndroid.getAppContext() as Application
     FaceSDKConfig.init(context)
     FaceAISDKNative.insertFaceKotlin(faceID, faceBase64, context, fun(result: UTSJSONObject) {
-        val resultJson = ResultJSON(code = result.getNumber("code") as Number, msg = result.getString("msg") as String, faceID = faceID, faceBase64 = "?", silentLivenessScore = 0)
+        val resultJson = ResultJSON(code = result.getNumber("code") as Number, msg = result.getString("msg") as String, faceID = faceID, faceBase64 = "?", faceFeature = "")
         callback(resultJson)
     }
     )
@@ -210,7 +211,7 @@ val deleteFace: DeleteFace = fun(faceID: String, callback: (result: ResultJSON) 
     val context = UTSAndroid.getAppContext() as Application
     FaceSDKConfig.init(context)
     FaceAISDKNative.deleteFaceKotlin(context, faceID, fun(result: UTSJSONObject) {
-        val resultJson = ResultJSON(code = result.getNumber("code") as Number, msg = result.getString("msg") as String, faceID = faceID, faceBase64 = "?", silentLivenessScore = 0)
+        val resultJson = ResultJSON(code = result.getNumber("code") as Number, msg = result.getString("msg") as String, faceID = faceID, faceBase64 = "?", faceFeature = "")
         callback(resultJson)
     }
     )
