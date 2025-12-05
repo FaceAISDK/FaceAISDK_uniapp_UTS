@@ -1,27 +1,5 @@
 // 插件对外暴露能力的总入口在 interface.uts ，他与Android/ios 目录下的 index.uts的关系是声明和实现的关系。
 
-export type OnGetString = (callback: (res: ResultJSON) => void) => void
-
-
-//检测人脸是否存在
-export type OnCheckFaceExist = (faceID: string, callback: (result: ResultJSON) => void) => void
-
-
-export type FaceSearch = (callback: (res: ResultJSON) => void) => void
-
-
-  
-/**
- * 录入一张人脸照片
- * 
- * @param faceID 用户ID
- * @param callback 结果回调
- */
-export type AddFaceImage = (
-	faceID : string,
-	addFacePerformanceMode:number,
-	callback : (result : ResultJSON) => void) => void
-
 
 /**
  * 录入一张人脸照片for 人脸搜索
@@ -29,9 +7,52 @@ export type AddFaceImage = (
  * @param faceID 用户ID
  * @param callback 结果回调
  */
-export type AddFaceSearchImage = (
+export type AddFaceSearchFeature = (
 	addFacePerformanceMode:number,
 	callback : (result : ResultJSON) => void) => void
+
+export type FaceSearch = (callback: (res: ResultJSON) => void) => void
+
+
+/**
+ * 录入一张人脸照片
+ * 
+ * @param faceID 用户ID
+ * @param needShowConfirmDialog 是否需要显示确认框
+ * @param callback 结果回调
+ */
+
+export type InsertFaceFeature = (
+	faceID : string,
+	faceFeature : string, 
+	tag : string, 
+	group : string
+	callback : (result : ResultJSON) => void) => void
+
+
+// ---------------------------  下面是1:1 人脸识别相关方法  ---------------------------------
+
+
+//检测人脸是否存在
+export type OnCheckFaceExist = (
+    faceID: string, 
+	callback: (result: ResultJSON) => void) => void
+
+  
+/**
+ * 录入一张人脸照片
+ * 
+ * @param faceID 用户ID
+ * @param needShowConfirmDialog 是否需要显示确认框
+ * @param callback 结果回调
+ */
+export type AddFaceFeature = (
+	faceID : string,
+	addFacePerformanceMode:number,
+	needShowConfirmDialog:boolean,
+	callback : (result : ResultJSON) => void) => void
+
+
 
 /**
  * 人脸识别+活体检测
@@ -106,13 +127,12 @@ export type InsertFace = (
 
 
 
-
 /**
  * 删除设备缓存的人脸信息
  * 
  * @param faceID 人脸faceID
  * @param callback 结果回调
  */
-export type DeleteFace = (
+export type DeleteFaceFeature = (
     faceID : string,
 	callback : (result : ResultJSON) => void) => void

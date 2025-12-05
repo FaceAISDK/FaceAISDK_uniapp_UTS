@@ -2,8 +2,8 @@
 	"name": "人脸识别_UTS",
 	"appid": "__UNI__A6AD04B",
 	"description": "FaceAI SDK是设备端可离线不联网Android 人脸识别、动作及近红外IR活体检测、人脸图质量检测以及人脸搜索（1:N和M:N）SDK，可快速集成实现人脸识别，人脸搜索功能",
-	"versionName": "2025.11.03",
-	"versionCode": "20251103",
+	"versionName": "2025.12.04",
+	"versionCode": "20251204",
 	"uni-app-x": {},
 	"quickapp": {},
 	"mp-weixin": {

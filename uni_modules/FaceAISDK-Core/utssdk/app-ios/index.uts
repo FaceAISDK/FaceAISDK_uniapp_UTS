@@ -1,4 +1,4 @@
-import {AddFaceSearchImage,FaceSearch,DeleteFace,LivenessParam,OnGetString,AddFaceImage,FaceVerifyParam,FaceVerify,InsertFace,OnCheckFaceExist,ResultJSON, LivenessVerify} from '../interface.uts'
+import {AddFaceSearchFeature,FaceSearch,DeleteFace,LivenessParam,OnGetString,AddFaceImage,FaceVerifyParam,FaceVerify,InsertFace,OnCheckFaceExist,ResultJSON, LivenessVerify} from '../interface.uts'
 
 import Application from 'android.app.Application';
 import Activity from 'android.app.Activity';
@@ -12,7 +12,6 @@ import BitmapUtils from "com.faceAI.demo.base.utils.BitmapUtils";
 import FaceSearch1NActivity from 'com.faceAI.demo.SysCamera.search.FaceSearch1NActivity';
 
 
-
 /**
  * 仅仅用于测试 
  */
@@ -21,8 +20,7 @@ export const onGetString:OnGetString = function(callback: (res: ResultJSON) => v
 		code: 11,
 		msg: "onGetString",
 		faceID: "faceID8",
-		faceBase64: "64",
-		silentLivenessScore: 0
+		faceBase64: "64"
 	}
     callback(resultJson)
 } 
@@ -35,7 +33,7 @@ export const onGetString:OnGetString = function(callback: (res: ResultJSON) => v
  * @param addFacePerformanceMode 添加人脸角度检测模式. 1 快速模式   2 精确模式
  * @param callback 结果回调
  */
-export const addFaceSearchImage : AddFaceSearchImage = function (
+export const addFaceSearchFeature : AddFaceSearchFeature = function (
 	addFacePerformanceMode:number,
 	callback : (result : ResultJSON) => void
 ) {
@@ -56,7 +54,6 @@ export const addFaceSearchImage : AddFaceSearchImage = function (
 				const resultJson:ResultJSON={
 					code:codeNow,
 					msg:msgNow,
-					silentLivenessScore: 0,
 					faceID:"",
 					faceBase64:""
 				}		
@@ -66,7 +63,6 @@ export const addFaceSearchImage : AddFaceSearchImage = function (
 				const resultJson:ResultJSON={
 					code:-1,
 					msg:"添加失败",
-					silentLivenessScore: 0,
 					faceID:"",
 					faceBase64:""
 				}
@@ -95,7 +91,6 @@ export const faceSearch:FaceSearch = function(callback: (res: ResultJSON) => voi
 		msg: "开发测试中",
 		faceID: "faceID8",
 		faceBase64: "64",
-		silentLivenessScore: 0
 	}
     callback(resultJson)
 } 
@@ -136,7 +131,6 @@ export const addFaceImage : AddFaceImage = function (
 				const resultJson:ResultJSON={
 					code:codeNow,
 					msg:msgNow,
-					silentLivenessScore: 0,
 					faceID:faceID,
 					faceBase64:faceBase64
 				}		
@@ -146,7 +140,6 @@ export const addFaceImage : AddFaceImage = function (
 				const resultJson:ResultJSON={
 					code:-1,
 					msg:"添加失败",
-					silentLivenessScore: 0,
 					faceID:faceID,
 					faceBase64:"?"
 				}
@@ -196,7 +189,6 @@ export const faceVerify : FaceVerify = function (
 				const resultJson:ResultJSON={
 					code:codeNow,
 					msg:msgNow,
-					silentLivenessScore: silent,
 					faceID:param.faceID,
 					faceBase64:livefaceBase64
 				}
@@ -205,7 +197,6 @@ export const faceVerify : FaceVerify = function (
 				const resultJson:ResultJSON={
 					code:1,
 					msg:"12345",
-					silentLivenessScore: 0,
 					faceID:param.faceID,
 					faceBase64:"faceBase64"
 				}	
@@ -249,7 +240,6 @@ export const livenessVerify : LivenessVerify = function (
 				const livefaceBase64:string=BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR+"liveBitmap")
 				
 				const resultJson:ResultJSON={
-					silentLivenessScore:silent,
 					code:codeNow,
 					msg:msgNow,
 					faceID:"",
@@ -261,8 +251,7 @@ export const livenessVerify : LivenessVerify = function (
 					code:1,
 					msg:"data == null",
 					faceID:"",
-					faceBase64:"",
-					silentLivenessScore:0
+					faceBase64:""
 				}	
 				callback(resultJson)
 			}
@@ -284,8 +273,7 @@ export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, ca
 				code:result.getNumber("code") as number,
 				msg:result.getString("msg") as string,
 				faceID:faceID,
-				faceBase64:"?",
-				silentLivenessScore:0
+				faceBase64:"?"
 			}
 			
 		callback(resultJson)
@@ -304,8 +292,7 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
 				code:result.getNumber("code") as number,
 				msg:result.getString("msg") as string,
 				faceID:faceID,
-				faceBase64:"?",
-				silentLivenessScore:0
+				faceBase64:"?"
 			}	
 		callback(resultJson)
 	})
@@ -327,8 +314,7 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
  				code:result.getNumber("code") as number,
  				msg:result.getString("msg") as string,
  				faceID:faceID,
- 				faceBase64:"?",
- 				silentLivenessScore:0
+ 				faceBase64:"?"
  			}	
  		callback(resultJson)
  	})

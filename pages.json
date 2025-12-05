@@ -3,7 +3,13 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "FaceAISDK Demo演示"
+				"navigationBarTitleText": "FaceAISDK 功能演示"
+			}
+		},
+		{
+			"path": "pages/index/faceSearch",
+			"style": {
+				"navigationBarTitleText": "人脸搜索识别演示"
 			}
 		}
 	],

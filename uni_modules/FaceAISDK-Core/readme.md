@@ -17,14 +17,14 @@ uvue
 		<button @tap="faceVerifyDemo">人脸识别+活体检测</button>
 		<button @tap="livenessVerifyDemo">仅活体检测</button>
 		<button class="gray-button" @tap="faceSearchDemo">1:N人脸搜索识别</button> 
-		<button class="gray-button" @tap="addFaceSearchImageDemo">1:N人脸搜索录入人脸</button>
+		<button class="gray-button" @tap="addFaceSearchFeatureDemo">1:N人脸搜索录入人脸</button>
 	</view>
 </template>
 
 
 
 <script> 
-	import {addFaceSearchImage,faceSearch,deleteFace,addFaceImage,faceVerify,insertFace,FaceVerifyParam,LivenessParam,ResultJSON,onGetString, livenessVerify,onCheckFaceExist} from "@/uni_modules/FaceAISDK-Core";
+	import {addFaceSearchFeature,faceSearch,deleteFace,addFaceImage,faceVerify,insertFace,FaceVerifyParam,LivenessParam,ResultJSON,onGetString, livenessVerify,onCheckFaceExist} from "@/uni_modules/FaceAISDK-Core";
  
 	export default {
 		  
@@ -62,6 +62,7 @@ uvue
 				addFaceImage(
 					this.faceID,
 					1,  //1.快速模式，  2.精确模式(人脸品质高)
+					true, //是否需要显示确认框，强烈建议需要
 					 (result: ResultJSON)  => {
 						//录入的人脸
 						this.faceAIResult =JSON.stringify(result)
@@ -164,8 +165,8 @@ uvue
 			* 人脸搜索人脸录入，Beta版本仅供演示
 			* 
 			*/
-			addFaceSearchImageDemo: function () {
-				addFaceSearchImage(
+			addFaceSearchFeatureDemo: function () {
+				addFaceSearchFeature(
 					 1,  //1.快速模式，  2.精确模式
 					 (result: ResultJSON)  => {
 						//录入的人脸

@@ -21,7 +21,8 @@ import com.ai.face.faceSearch.search.Image2FaceFeature;
 
  
 /**
- *  启动一个新的Activity 并监测结果
+ *  kotlin 方法集  
+ *
  */
 object FaceAISDKNative {
 
@@ -37,7 +38,6 @@ object FaceAISDKNative {
        //如果缓存了图片也删除
        Image2FaceFeature.getInstance(context).deleteFaceImage(FaceSDKConfig.CACHE_BASE_FACE_DIR+faceID)
 		
-	   // var isSuccess=FaceSDKConfig.deleteFace(context,FaceSDKConfig.CACHE_BASE_FACE_DIR+faceID,faceID)
 	
 	   var result: UTSJSONObject = object : UTSJSONObject() {
 			var code = 1
