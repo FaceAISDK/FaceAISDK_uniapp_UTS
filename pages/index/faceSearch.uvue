@@ -2,6 +2,7 @@
 	<view>
 		<button class="gray-button" @tap="faceSearchDemo">1:N人脸搜索识别</button> 
 		<button class="gray-button" @tap="addFaceSearchFeatureDemo">1:N人脸搜索录入人脸</button>
+		<button class="gray-button" @tap="deleteFaceSearchFeatureDemo">删除人脸搜索特征值</button>
 		<button class="gray-button" @tap="insertFaceSearchFeatureDemo">同步人脸搜索特征值</button>
 		<button class="gray-button" @tap="insertFaceSearchFeatureSDemo">批量同步人脸搜索特征值</button>
 		
@@ -16,13 +17,13 @@
 
 
 <script> 
-	import {insertFaceSearchFeature,addFaceSearchFeature,faceSearch,ResultJSON} from "@/uni_modules/FaceAISDK-Core";
+	import {insertFaceSearchFeature,addFaceSearchFeature,deleteFaceSearchFeature,faceSearch,ResultJSON} from "@/uni_modules/FaceAISDK-Core";
  
 	export default {
 		  
 		data() {
 			return {
-				faceID: '18812345678',
+				faceID: 'faceSearchID',
 				faceFeature: 'faceFeature is a string with lenth 1024',
 				faceAIResult: 'faceAIResult'
 			}
@@ -58,6 +59,18 @@
 					})
 			},
 			
+			/**
+			* 删除人脸搜索人脸特征
+			* 
+			*/
+			deleteFaceSearchFeatureDemo: function () {
+				deleteFaceSearchFeature(
+				     this.faceID,
+					 (result: ResultJSON)  => {
+						this.faceAIResult =JSON.stringify(result)
+					})
+			},
+			
 			
 			/**
 			* 人脸搜索人脸特征更新同步
@@ -83,8 +96,6 @@
 
 			}
 			
-	
-
 	   }			
 
 	}

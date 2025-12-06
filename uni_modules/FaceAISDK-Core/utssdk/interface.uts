@@ -2,7 +2,7 @@
 
 
 /**
- * 「1:N人脸搜索」录入一张人脸照片
+ * 「1:N人脸搜索」录入人脸特征值
  * 
  * @param faceID 用户ID
  * @param callback 结果回调
@@ -11,9 +11,23 @@ export type AddFaceSearchFeature = (
     faceID:string,
 	addFacePerformanceMode:number,
 	callback : (result : ResultJSON) => void) => void
+	
+	
+	
+/**
+ * 「1:N人脸搜索」删除一张人脸照片
+ * 
+ * @param faceID 用户ID
+ * @param callback 结果回调
+ */
+export type DeleteFaceSearchFeature = (
+    faceID:string,
+	callback : (result : ResultJSON) => void) => void
 
 
-
+/**
+ * 「1:N人脸搜索」更多个性化参数完善中
+ */
 export type FaceSearch = (callback: (res: ResultJSON) => void) => void
 
 

@@ -29,7 +29,6 @@ import com.ai.face.core.engine.FaceAISDKEngine;
 object FaceAISDKNative {
 	
 	
-	
 	/**
 	 * 「1:1人脸识别」从照片中提取人脸特征
 	 * 
@@ -82,7 +81,6 @@ object FaceAISDKNative {
        MMKV.defaultMMKV().removeValueForKey(faceID)
        //如果缓存了图片也删除
        Image2FaceFeature.getInstance(context).deleteFaceImage(FaceSDKConfig.CACHE_BASE_FACE_DIR+faceID)
-		
 	
 	   var result: UTSJSONObject = object : UTSJSONObject() {
 			var code = 1
@@ -149,30 +147,6 @@ object FaceAISDKNative {
 		callback(result)
 		
     }
-	
-	
-	
-	
-	// /**
-	//  * 通过人脸Base64图片 提取人脸特征值，从已有的人脸图片中
-	//  */
-	// fun insertFaceByImage(faceID: String,faceBase64 : String,context:Application,callback: (UTSJSONObject) -> Unit){
-		
-	//       val bitmap = BitmapUtils.base64ToBitmap(faceBase64)
-		   
-	// 	  if (bitmap == null) { 
-	// 		  var result: UTSJSONObject = object : UTSJSONObject() {
-	// 		  		var code =  0
-	// 		  		var msg = "base64ToBitmap 失败"
-	// 		        var faceID = faceID
-	// 		   }
-	// 		  callback(result)
-	// 		  return
-	// 	  }else {
-
- 
-	// 	  }
-	// }
 
 }
 

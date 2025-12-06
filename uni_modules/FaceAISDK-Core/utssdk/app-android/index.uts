@@ -1,4 +1,4 @@
-import {AddFaceBySDKCamera, AddFaceSearchFeature,DeleteFaceFeature,FaceSearch,FaceVerify,FaceVerifyParam,GetFaceFeatureByImage,InsertFace,InsertFaceSearchFeature,LivenessParam,LivenessVerify,OnCheckFaceExist,ResultJSON} from '../interface.uts'
+import {AddFaceBySDKCamera, AddFaceSearchFeature,DeleteFaceFeature,DeleteFaceSearchFeature,FaceSearch,FaceVerify,FaceVerifyParam,GetFaceFeatureByImage,InsertFace,InsertFaceSearchFeature,LivenessParam,LivenessVerify,OnCheckFaceExist,ResultJSON} from '../interface.uts'
 
 import Application from 'android.app.Application';
 import Activity from 'android.app.Activity';
@@ -10,6 +10,7 @@ import FaceVerificationActivity from "com.faceAI.demo.SysCamera.verify.FaceVerif
 import LivenessDetectActivity from "com.faceAI.demo.SysCamera.verify.LivenessDetectActivity";
 import BitmapUtils from "com.faceAI.demo.base.utils.BitmapUtils";
 import FaceSearch1NActivity from 'com.faceAI.demo.SysCamera.search.FaceSearch1NActivity';
+import FaceSearchFeatureManger from 'com.ai.face.faceSearch.search.FaceSearchFeatureManger';
 
 
 
@@ -17,26 +18,52 @@ import FaceSearch1NActivity from 'com.faceAI.demo.SysCamera.search.FaceSearch1NA
 
  /**
   *  「1:N人脸搜索」人脸搜索人脸特征更新同步
+  *   自行保证人脸特征值长度为1024
   */
  export const insertFaceSearchFeature : InsertFaceSearchFeature = 
- function (faceID : string, faceFeature : string, tag : string, group : string, 
- callback : (result : ResultJSON) => void) {
- 	const context = UTSAndroid.getAppContext() as Application
- 	FaceSDKConfig.init(context);	
- 	
- 	// FaceAISDKNative.deleteFaceKotlin(context, faceID,function (result : UTSJSONObject) {
- 	// 	const resultJson:ResultJSON={
- 	// 			code:result.getNumber("code") as number,
- 	// 			msg:result.getString("msg") as string,
- 	// 			faceID:faceID,
- 	// 			faceBase64:"?",
- 	// 			faceFeature:""
- 	// 		}	
- 	// 	callback(resultJson)
- 	// })
+   function (faceID : string, faceFeature : string, tag : string, group : string, 
+   callback : (result : ResultJSON) => void) {
+ 	    const context = UTSAndroid.getAppContext() as Application
+ 	    FaceSDKConfig.init(context);	
+	
+        //tag 和 group 可以用来做标记和分组。人脸搜索的时候可以加快速度降低误差
+        FaceSearchFeatureManger.getInstance(context)
+                        .insertFaceFeature(faceID, faceFeature, System.currentTimeMillis(),tag,group);
+	
+ 		const resultJson:ResultJSON={
+ 				code:1,
+ 				msg:"success",
+ 				faceID:faceID,
+ 				faceBase64:"",
+ 				faceFeature:""
+ 			}	
+ 		callback(resultJson)
+ 	})
  }
-
-
+ 
+ 
+ /**
+  *  「1:N人脸搜索」人脸搜索人脸特征更新同步
+  */
+ export const deleteFaceSearchFeature : DeleteFaceSearchFeature = 
+   function (faceID : string, callback : (result : ResultJSON) => void) {
+ 	    const context = UTSAndroid.getAppContext() as Application
+ 	    FaceSDKConfig.init(context);	
+ 	
+        //清除所有人脸搜索所有特征
+        FaceSearchFeatureManger.getInstance(context).deleteFaceFaceFeature(faceID);
+ 	
+ 		const resultJson:ResultJSON={
+ 				code:1,
+ 				msg:"delete success",
+ 				faceID:faceID,
+ 				faceBase64:"",
+ 				faceFeature:""
+ 			}	
+ 		callback(resultJson)
+ 	})
+ }
+ 
 
 /**
  * 「1:N人脸搜索」跳转到Android SDK 中原生页面处理人脸录入
