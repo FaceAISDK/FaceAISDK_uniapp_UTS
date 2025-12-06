@@ -2,6 +2,7 @@ package uts.sdk.modules.uniFaceAISDK;
 
 import android.content.Intent
 import android.app.Application
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.app.ActivityManager
 import android.graphics.Bitmap
@@ -18,6 +19,7 @@ import com.faceAI.demo.base.utils.VoicePlayer;
 import com.faceAI.demo.base.utils.BitmapUtils;
 import com.faceAI.demo.FaceSDKConfig;
 import com.ai.face.faceSearch.search.Image2FaceFeature;
+import com.ai.face.core.engine.FaceAISDKEngine;
 
  
 /**
@@ -25,10 +27,53 @@ import com.ai.face.faceSearch.search.Image2FaceFeature;
  *
  */
 object FaceAISDKNative {
+	
+	
+	
+	/**
+	 * 「1:1人脸识别」从照片中提取人脸特征
+	 * 
+	 */
+	fun getFaceFeatureByImageNative(context:Context,faceID: String,base64FaceImage: String,callback: (UTSJSONObject) -> Unit){
+		
+	   val bitmap = BitmapUtils.base64ToBitmap(base64FaceImage)
+		
+	   Image2FaceFeature.getInstance(context).getFaceFeatureByBitmap(bitmap,faceID,object : Image2FaceFeature.Callback{
+	       override fun onFailed(msg: String) {
+	           // Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
+			   var result: UTSJSONObject = object : UTSJSONObject() {
+			   			var code = 0
+			   			var msg = "getFaceFeature failed"
+			            var faceID = faceID
+			    }
+			   	callback(result)
+	       }
+	   
+	       override fun onSuccess(
+	           bitmap: Bitmap,
+	           faceID: String,
+	           faceFeature: String
+	       ) {
+			   FaceAISDKEngine.getInstance(context).saveCroppedFaceImage(bitmap, FaceSDKConfig.CACHE_BASE_FACE_DIR, faceID);
+               //保存1:1 人脸识别特征数据，直接以KEY-Value的形式保存在MMKV中
+               MMKV.defaultMMKV().encode(faceID, faceFeature); //保存人脸faceID 对应的特征值,SDK 只要这个
+			   var result: UTSJSONObject = object : UTSJSONObject() {
+			   			var code = 1
+			   			var msg = "getFaceFeature Success"
+			            var faceID = faceID
+						var faceFeature =faceFeature
+			    }
+			   	callback(result)
+	       }
+	   })
+		
+
+	}
+	
 
 	
 	/**
-	 * 删除本地人脸特征值，同时缓存的图片也删除
+	 * 「1:1人脸识别」删除本地人脸特征值，同时缓存的图片也删除
 	 * 
 	 */
 	fun deleteFaceKotlin(context:Application,faceID: String,callback: (UTSJSONObject) -> Unit){
@@ -50,7 +95,7 @@ object FaceAISDKNative {
 	
  
 	/**
-	 * 判断人脸是否存在
+	 * 「1:1人脸识别」判断人脸是否存在
 	 */
 	fun isFaceExistKotlin(context:Application,faceID: String,callback: (UTSJSONObject) -> Unit){
 	    var isExist=true;
@@ -78,7 +123,7 @@ object FaceAISDKNative {
        
 	   
     /**
-     * 同步人脸特征值到SDK
+     * 「1:1人脸识别」同步人脸特征值到SDK
      */
     fun insertFaceKotlin(faceID: String,faceFeature : String,context:Application,callback: (UTSJSONObject) -> Unit){
 		
@@ -108,26 +153,26 @@ object FaceAISDKNative {
 	
 	
 	
-	/**
-	 * 通过人脸Base64 提取人脸特征值
-	 */
-	fun insertFaceByImage(faceID: String,faceBase64 : String,context:Application,callback: (UTSJSONObject) -> Unit){
+	// /**
+	//  * 通过人脸Base64图片 提取人脸特征值，从已有的人脸图片中
+	//  */
+	// fun insertFaceByImage(faceID: String,faceBase64 : String,context:Application,callback: (UTSJSONObject) -> Unit){
 		
-	      val bitmap = BitmapUtils.base64ToBitmap(faceBase64)
+	//       val bitmap = BitmapUtils.base64ToBitmap(faceBase64)
 		   
-		  if (bitmap == null) { 
-			  var result: UTSJSONObject = object : UTSJSONObject() {
-			  		var code =  0
-			  		var msg = "base64ToBitmap 失败"
-			        var faceID = faceID
-			   }
-			  callback(result)
-			  return
-		  }else {
+	// 	  if (bitmap == null) { 
+	// 		  var result: UTSJSONObject = object : UTSJSONObject() {
+	// 		  		var code =  0
+	// 		  		var msg = "base64ToBitmap 失败"
+	// 		        var faceID = faceID
+	// 		   }
+	// 		  callback(result)
+	// 		  return
+	// 	  }else {
 
  
-		  }
-	}
+	// 	  }
+	// }
 
 }
 
