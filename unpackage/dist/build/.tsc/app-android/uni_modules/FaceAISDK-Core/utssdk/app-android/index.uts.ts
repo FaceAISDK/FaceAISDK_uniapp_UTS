@@ -1,4 +1,4 @@
-import {AddFaceFeature, AddFaceSearchFeature,DeleteFaceFeature,FaceSearch,FaceVerify,FaceVerifyParam,InsertFace,InsertFaceSearchFeature,LivenessParam,LivenessVerify,OnCheckFaceExist,ResultJSON} from '../interface.uts'
+import {AddFaceBySDKCamera, AddFaceSearchFeature,DeleteFaceFeature,DeleteFaceSearchFeature,FaceSearch,FaceVerify,FaceVerifyParam,GetFaceFeatureByImage,InsertFace,InsertFaceSearchFeature,LivenessParam,LivenessVerify,OnCheckFaceExist,ResultJSON} from '../interface.uts'
 
 import Application from 'android.app.Application';
 import Activity from 'android.app.Activity';
@@ -10,36 +10,63 @@ import FaceVerificationActivity from "com.faceAI.demo.SysCamera.verify.FaceVerif
 import LivenessDetectActivity from "com.faceAI.demo.SysCamera.verify.LivenessDetectActivity";
 import BitmapUtils from "com.faceAI.demo.base.utils.BitmapUtils";
 import FaceSearch1NActivity from 'com.faceAI.demo.SysCamera.search.FaceSearch1NActivity';
+import FaceSearchFeatureManger from 'com.ai.face.faceSearch.search.FaceSearchFeatureManger';
 
 
 
 //*******************************     下面是1:N 人脸搜索识别的方法（仅Android） ************************************************
 
  /**
-  *  人脸搜索人脸特征更新同步
+  *  「1:N人脸搜索」人脸搜索人脸特征更新同步
+  *   自行保证人脸特征值长度为1024
   */
  export const insertFaceSearchFeature : InsertFaceSearchFeature = 
- function (faceID : string, faceFeature : string, tag : string, group : string, 
- callback : (result : ResultJSON) => void) {
- 	const context = UTSAndroid.getAppContext() as Application
- 	FaceSDKConfig.init(context);	
- 	
- 	// FaceAISDKNative.deleteFaceKotlin(context, faceID,function (result : UTSJSONObject) {
- 	// 	const resultJson:ResultJSON={
- 	// 			code:result.getNumber("code") as number,
- 	// 			msg:result.getString("msg") as string,
- 	// 			faceID:faceID,
- 	// 			faceBase64:"?",
- 	// 			faceFeature:""
- 	// 		}	
- 	// 	callback(resultJson)
- 	// })
+   function (faceID : string, faceFeature : string, tag : string, group : string, 
+   callback : (result : ResultJSON) => void) {
+ 	    const context = UTSAndroid.getAppContext() as Application
+ 	    FaceSDKConfig.init(context);	
+	
+        //tag 和 group 可以用来做标记和分组。人脸搜索的时候可以加快速度降低误差
+        FaceSearchFeatureManger.getInstance(context)
+                        .insertFaceFeature(faceID, faceFeature, System.currentTimeMillis(),tag,group);
+	
+ 		const resultJson:ResultJSON={
+ 				code:1,
+ 				msg:"success",
+ 				faceID:faceID,
+ 				faceBase64:"",
+ 				faceFeature:""
+ 			}	
+ 		callback(resultJson)
+ 	})
  }
-
-
+ 
+ 
+ /**
+  *  「1:N人脸搜索」人脸搜索人脸特征更新同步
+  */
+ export const deleteFaceSearchFeature : DeleteFaceSearchFeature = 
+   function (faceID : string, callback : (result : ResultJSON) => void) {
+ 	    const context = UTSAndroid.getAppContext() as Application
+ 	    FaceSDKConfig.init(context);	
+ 	
+        //清除所有人脸搜索所有特征
+        FaceSearchFeatureManger.getInstance(context).deleteFaceFaceFeature(faceID);
+ 	
+ 		const resultJson:ResultJSON={
+ 				code:1,
+ 				msg:"delete success",
+ 				faceID:faceID,
+ 				faceBase64:"",
+ 				faceFeature:""
+ 			}	
+ 		callback(resultJson)
+ 	})
+ }
+ 
 
 /**
- * 跳转到Android SDK 中原生页面处理人脸录入
+ * 「1:N人脸搜索」跳转到Android SDK 中原生页面处理人脸录入
  * 
  * @param faceID 用户ID
  * @param addFacePerformanceMode 添加人脸角度检测模式. 1 快速模式   2 精确模式
@@ -124,14 +151,14 @@ export const faceSearch:FaceSearch = function(callback: (res: ResultJSON) => voi
 
 
 /**
- * 跳转到Android SDK 中原生页面处理人脸录入
+ * 「1:1人脸识别」跳转到Android SDK 中原生页面处理人脸录入
  * 
  * @param faceID 用户ID
  * @param addFacePerformanceMode 添加人脸角度检测模式. 1 快速模式   2 精确模式
  * @param needShowConfirmDialog 是否需要显示确认框,强烈建议需要
  * @param callback 结果回调
  */
-export const addFaceFeature : AddFaceFeature = function (
+export const addFaceBySDKCamera : AddFaceBySDKCamera = function (
 	faceID : string,
 	addFacePerformanceMode:number,
 	needShowConfirmDialog:boolean,
@@ -185,8 +212,49 @@ export const addFaceFeature : AddFaceFeature = function (
 }
 
 
+
+
+
 /**
- * 跳转到Android SDK 中原生页面处理人脸识别+活体检测
+ * 「1:1人脸识别」从照片中提取人脸特征
+ * 
+ * @param faceID 用户ID
+ * @param base64FaceImage 人脸照片，Base64编码
+ * @param callback 结果回调
+ */
+export const getFaceFeatureByImage : GetFaceFeatureByImage = function (
+	faceID : string,
+	base64FaceImage:string,
+	callback : (result : ResultJSON) => void
+) {
+	const context = UTSAndroid.getUniActivity() as Activity
+	FaceSDKConfig.init(context);
+	
+
+	FaceAISDKNative.getFaceFeatureByImageNative(context,faceID,base64FaceImage,function (result : UTSJSONObject) {
+		
+			const resultJson:ResultJSON={
+				code:result.getNumber("code") as number,
+				msg:result.getString("msg") as string,
+				faceID:faceID,
+				faceBase64:"?",
+				faceFeature:result.getString("faceFeature") as string
+			}
+			
+		callback(resultJson)
+	})
+
+	});
+}
+
+
+
+
+
+
+
+/**
+ * 「1:1人脸识别」跳转到Android SDK 中原生页面处理人脸识别+活体检测
  * 
  * @param faceID 用户ID
  * @param callback 结果回调
@@ -296,7 +364,7 @@ export const livenessVerify : LivenessVerify = function (
 
 
 /**
- * 调用原生的FaceAISDK 检测功能人脸是否存在
+ * 「1:1人脸识别」调用原生的FaceAISDK 检测功能人脸是否存在
  */
 export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, callback : (re : ResultJSON) => void) {
 	const context = UTSAndroid.getAppContext() as Application
@@ -317,18 +385,18 @@ export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, ca
 }
  
 /**
- *  同步人脸图片到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
+ *  「1:1人脸识别」同步人脸图片到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
  */
-export const insertFace : InsertFace = function (faceID : string, faceBase64 : string, callback : (result : ResultJSON) => void) {
+export const insertFace : InsertFace = function (faceID : string, faceFeature : string, callback : (result : ResultJSON) => void) {
 	const context = UTSAndroid.getAppContext() as Application
 	FaceSDKConfig.init(context);
 	
-	FaceAISDKNative.insertFaceKotlin(faceID,faceBase64,context, function (result : UTSJSONObject) {
+	FaceAISDKNative.insertFaceKotlin(faceID,faceFeature,context, function (result : UTSJSONObject) {
 		const resultJson:ResultJSON={
 				code:result.getNumber("code") as number,
 				msg:result.getString("msg") as string,
 				faceID:faceID,
-				faceBase64:"?",
+				faceBase64:"",
 				faceFeature:""
 			}	
 		callback(resultJson)
@@ -339,7 +407,7 @@ export const insertFace : InsertFace = function (faceID : string, faceBase64 : s
  
  
  /**
-  *  删除人脸信息
+  *  「1:1人脸识别」删除人脸信息
   */
  export const deleteFaceFeature : DeleteFaceFeature = function (faceID : string, callback : (result : ResultJSON) => void) {
  	const context = UTSAndroid.getAppContext() as Application

@@ -2,7 +2,7 @@
 
 
 /**
- * 录入一张人脸照片for 人脸搜索
+ * 「1:N人脸搜索」录入人脸特征值
  * 
  * @param faceID 用户ID
  * @param callback 结果回调
@@ -11,14 +11,28 @@ export type AddFaceSearchFeature = (
     faceID:string,
 	addFacePerformanceMode:number,
 	callback : (result : ResultJSON) => void) => void
+	
+	
+	
+/**
+ * 「1:N人脸搜索」删除一张人脸照片
+ * 
+ * @param faceID 用户ID
+ * @param callback 结果回调
+ */
+export type DeleteFaceSearchFeature = (
+    faceID:string,
+	callback : (result : ResultJSON) => void) => void
 
 
-
+/**
+ * 「1:N人脸搜索」更多个性化参数完善中
+ */
 export type FaceSearch = (callback: (res: ResultJSON) => void) => void
 
 
 /**
- * 录入一张人脸照片
+ * 「1:N人脸搜索」录入一张人脸照片
  * 
  * @param faceID 用户ID
  * @param needShowConfirmDialog 是否需要显示确认框
@@ -36,20 +50,20 @@ export type InsertFaceSearchFeature = (
 // ---------------------------  下面是1:1 人脸识别相关方法  ---------------------------------
 
 
-//检测人脸是否存在
+//「1:1人脸识别」检测人脸是否存在
 export type OnCheckFaceExist = (
     faceID: string, 
 	callback: (result: ResultJSON) => void) => void
 
   
 /**
- * 录入一张人脸照片
+ * 「1:1人脸识别」录入人脸信息
  * 
  * @param faceID 用户ID
  * @param needShowConfirmDialog 是否需要显示确认框
  * @param callback 结果回调
  */
-export type AddFaceFeature = (
+export type AddFaceBySDKCamera = (
 	faceID : string,
 	addFacePerformanceMode:number,
 	needShowConfirmDialog:boolean,
@@ -57,8 +71,23 @@ export type AddFaceFeature = (
 
 
 
+
 /**
- * 人脸识别+活体检测
+ * 「1:1人脸识别」从照片中提取人脸特征
+ * 
+ * @param faceID 用户ID
+ * @param base64FaceImage 人脸照片，Base64编码
+ * @param callback 结果回调
+ */
+export type GetFaceFeatureByImage = (
+	faceID : string,
+	base64FaceImage:string,
+	callback : (result : ResultJSON) => void) => void
+
+
+
+/**
+ * 「1:1人脸识别」人脸识别+活体检测
  * 
  * @param param 人脸识别参数
  * @param callback 结果回调
@@ -70,7 +99,7 @@ export type FaceVerify = (
 	
 	
 /**
- * 人脸识别,业务方传给FaceAISDK 插件基础参数
+ * 「1:1人脸识别」人脸识别,业务方传给FaceAISDK 插件基础参数
  */
 export type FaceVerifyParam = {
   faceID: string,
@@ -118,7 +147,7 @@ export type ResultJSON = {
 
 
 /**
- * 同步人脸特征指到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
+ * 「1:1人脸识别」同步人脸特征指到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
  * 
  * @param faceFeature 人脸特征值得长度1024.20251202新版本SDK人脸数据合规处理不在接收人脸图参数
  * @param callback 结果回调
@@ -131,7 +160,7 @@ export type InsertFace = (
 
 
 /**
- * 删除设备缓存的人脸信息
+ * 「1:1人脸识别」删除设备缓存的人脸信息
  * 
  * @param faceID 人脸faceID
  * @param callback 结果回调

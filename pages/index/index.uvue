@@ -113,7 +113,7 @@
 					faceLivenessType: 3,     //活体检测类型 //0 NONE无活体;  1 SILENT静默活体和摄像头成像能力有关;  2 MOTION动作活体;  3 SILENT_MOTION;  
 					verifyTimeOut: 7,        //动作活体检测超时时间[3,22] 秒
 					motionStepSize:2,        //动作活体检测步骤个数
-					silentThreshold: 0.7    //5 静默活体阈值通过阈值（后期会改为炫彩活体检测）
+					silentThreshold: 0.7     //5 静默活体阈值通过阈值（后期会改为炫彩活体检测）
 				}
 				
 				/**
