@@ -15,7 +15,7 @@ uvue
 		<button @tap="insertFaceFeature">同步人脸特征信息</button>
 		<button @tap="deleteFaceDemo">删除本地人脸信息</button>
 		<button @tap="faceVerifyDemo">人脸识别+活体检测</button>
-		<button @tap="livenessVerifyDemo">仅活体检测</button>
+		<button @tap="livenessVerifyDemo">炫彩｜动作 活体检测</button>
 		<button class="gray-button" @tap="faceSearchDemo">1:N人脸搜索识别</button> 
 		<button class="gray-button" @tap="addFaceSearchFeatureDemo">1:N人脸搜索录入人脸</button>
 	</view>

@@ -122,7 +122,7 @@ export type LivenessParam = {
 } 
  
 /**
- * 仅活体检测
+ * 炫彩｜动作 活体检测
  * 
  * @param param 人脸识别参数
  * @param callback 结果回调

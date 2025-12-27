@@ -1,4 +1,4 @@
-import {AddFaceBySDKCamera, ResultJSON} from '../interface.uts'
+import {AddFaceBySDKCamera, DeleteFaceFeature, FaceVerify, FaceVerifyParam, GetFaceFeatureByImage, InsertFace, LivenessParam, LivenessVerify, OnCheckFaceExist, ResultJSON} from '../interface.uts'
 
 
 
@@ -19,7 +19,15 @@ export const addFaceBySDKCamera : AddFaceBySDKCamera = function (
 	needShowConfirmDialog:boolean,
 	callback : (result : ResultJSON) => void) {
 	
+	const resultJson:ResultJSON={
+		code:-1,
+		msg:"添加失败",
+		faceFeature: "",
+		faceID:faceID,
+		faceBase64:"?"
+	}
 	
+	callback(resultJson)
 }
 
 
