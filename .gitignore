@@ -3,3 +3,7 @@ unpackage/*
 /unpackage/
 /unpackage 
 .DS_Store
+.hbuilderx/*
+*/.hbuilderx/*
+/.hbuilderx/
+/.hbuilderx 

@@ -1,114 +1,168 @@
-import {AddFaceBySDKCamera, DeleteFaceFeature, FaceVerify, FaceVerifyParam, GetFaceFeatureByImage, InsertFace, LivenessParam, LivenessVerify, OnCheckFaceExist, ResultJSON} from '../interface.uts'
-
-
-
-//*********************************************  下面是iOS 1:1 人脸识别+活体检测 的方法  **********************************************************
-
+import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON } from '../interface.uts'
 
 /**
- * 「1:1人脸识别」跳转到Android SDK 中原生页面处理人脸录入
+ * 实现录入人脸接口
  * 
- * @param faceID 用户ID
- * @param addFacePerformanceMode 添加人脸角度检测模式. 1 快速模式   2 精确模式
- * @param needShowConfirmDialog 是否需要显示确认框,强烈建议需要
- * @param callback 结果回调
  */
-export const addFaceBySDKCamera : AddFaceBySDKCamera = function (
-	faceID : string,
-	addFacePerformanceMode:number,
-	needShowConfirmDialog:boolean,
-	callback : (result : ResultJSON) => void) {
-	
-	const resultJson:ResultJSON={
-		code:-1,
-		msg:"添加失败",
-		faceFeature: "",
-		faceID:faceID,
-		faceBase64:"?"
-	}
-	
-	callback(resultJson)
+export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
+    faceID: string, 
+    addFacePerformanceMode: number, 
+    needShowConfirmDialog: boolean, 
+    callback: (result: ResultJSON) => void
+) {
+
+    FaceSDKSwiftManager.showAddFaceByCamera(
+        faceID, 
+        addFacePerformanceMode, 
+        needShowConfirmDialog, 
+        (resultCode: number) => {
+			//resultCode ：0用户取消  1添加成功
+            let message = "";
+            if (resultCode == 1) {
+                message = "人脸录入成功";
+            } else if (resultCode == 0) {
+                message = "用户取消录入";
+            } else {
+                message = "未知状态";
+            }
+            let feature = FaceSDKSwiftManager.getFaceFeature(faceID)
+
+		    	const resultJson : ResultJSON = {
+                code: resultCode,
+                msg: message,   
+                faceID: faceID,
+                faceFeature: feature,  
+                faceBase64: ""
+            };
+            callback(resultJson);
+        }
+    );
 }
 
 
-
+/**
+ * 【新增】工具函数：根据状态码获取提示文案
+ * 统一管理所有接口的返回状态
+ */
+function getMsgByCode(code: number): string {
+    switch (code) {
+        case 0: return "用户取消/中断操作";
+        case 1: return "操作成功verifySuccess";  
+        case 2: return "人脸相似度过低(认证失败)";
+        case 3: return "动作活体检测成功";
+        case 4: return "动作活体检测超时";
+        case 5: return "多次未检测到人脸";
+        case 6: return "本地无对应人脸特征值";
+        case 7: return "炫彩活体成功";
+        case 8: return "炫彩活体失败";
+        case 9: return "环境光线过强(炫彩失败)";
+        case 10: return "活体检测全部通过";
+        default: return "未知状态码" ;
+    }
+}
 
 
 /**
- * 「1:1人脸识别」从照片中提取人脸特征
- * 
- * @param faceID 用户ID
- * @param base64FaceImage 人脸照片，Base64编码
- * @param callback 结果回调
+ * 「1:1人脸识别」跳转到Android SDK 中原生页面处理人脸识别+活体检测
  */
-export const getFaceFeatureByImage : GetFaceFeatureByImage = function (
-	faceID : string,
-	base64FaceImage:string,
+export const faceVerify : FaceVerify = function (
+	faceID: string ,
+	threshold: number,
+	faceLivenessType:number,
+	motionLivenessTypes:string,
 	callback : (result : ResultJSON) => void
 ) {
-	
-	
+	FaceSDKSwiftManager.showFaceVerify(
+	    faceID, 
+		threshold,
+		faceLivenessType,
+		motionLivenessTypes,
+	    (resultCode: number) => {
+		    	const resultJson : ResultJSON = {
+			    code: resultCode,
+			    msg: getMsgByCode(resultCode),
+			    faceID: faceID,
+			    faceFeature: "-",
+			    faceBase64: "-"
+			};
+			callback(resultJson);
+	    }
+	);
+
 }
-
-
-
-
 
 
 
 /**
  * 「1:1人脸识别」跳转到Android SDK 中原生页面处理人脸识别+活体检测
- * 
- * @param faceID 用户ID
- * @param callback 结果回调
- */
-export const faceVerify : FaceVerify = function (
-	param : FaceVerifyParam,
-	callback : (result : ResultJSON) => void
-) {
-	
-	
-}
-
-
-/**
- * 跳转到iOS SDK 中原生页面处理人脸识别活体检测
- * 
- * @param faceID 用户ID
- * @param callback 结果回调
  */
 export const livenessVerify : LivenessVerify = function (
-	param : LivenessParam,
+	faceLivenessType:number,
+	motionLivenessTypes:string,
 	callback : (result : ResultJSON) => void
 ) {
-
-	});
+	FaceSDKSwiftManager.showLivenessVerify(
+		faceLivenessType,
+		motionLivenessTypes,
+	    (resultCode: number) => {
+		   let msg = getMsgByCode(resultCode);
+           const resultJson = {
+                code: resultCode,
+                msg: msg,
+                faceID: "-",
+                faceFeature: "-",  
+                faceBase64: "-"    
+            } as ResultJSON;
+			callback(resultJson);
+	    }
+	);
 }
+
 
 
 
 /**
  * 「1:1人脸识别」调用原生的FaceAISDK 检测功能人脸是否存在
  */
-export const onCheckFaceExist : OnCheckFaceExist = function (faceID : string, callback : (re : ResultJSON) => void) {
-
+export const getFaceFeature : GetFaceFeature = function 
+             (faceID : string, callback : (re : ResultJSON) => void) {
+				 
+		let faceFeature= FaceSDKSwiftManager.getFaceFeature(faceID)		 
+		FaceSDKSwiftManager.isFaceFeatureExist(
+			faceID,
+		    (resultCode: number) => {
+		    	const resultJson : ResultJSON = {
+				    code: resultCode,
+				    msg: "1:exist  0:not exist",
+				    faceID: "",
+				    faceFeature: faceFeature,
+				    faceBase64: ""
+				};
+				callback(resultJson);
+		    }
+		);
 }
  
 /**
  *  「1:1人脸识别」同步人脸图片到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
  */
-export const insertFace : InsertFace = function (faceID : string, faceFeature : string, callback : (result : ResultJSON) => void) {
+export const insertFaceFeature : InsertFaceFeature = function 
+              (faceID : string, faceFeature : string, callback : (result : ResultJSON) => void) {
+
+        FaceSDKSwiftManager.insertFaceFeature(
+        	faceID,
+        	faceFeature,
+            (resultCode: number) => {
+        		
+		    	const resultJson : ResultJSON = {
+        		    code: resultCode,
+				    msg: "1:success  0:failed",
+        		    faceID: "",
+        		    faceFeature: "",
+        		    faceBase64: ""
+        		};
+        		callback(resultJson);
+            }
+        );
 
 }
- 
- 
- 
- 
- /**
-  *  「1:1人脸识别」删除人脸信息
-  */
- export const deleteFaceFeature : DeleteFaceFeature = function (faceID : string, callback : (result : ResultJSON) => void) {
-
- }
-  
- 

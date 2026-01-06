@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
     <key>NSCameraUsageDescription</key>
-    <string>人脸识别需要访问您的相机以验证身份</string>
+    <string>App需要访问相机才能人脸识别活体检测</string>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>需要访问相册以保存或读取人脸数据</string>
+    <string>需要访问相册添加图片人脸</string>
 </dict>
 </plist>

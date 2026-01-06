@@ -1,34 +1,22 @@
 <!-- AndroidManifest.xml -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="uts.sdk.modules.uniFaceAISDK">
 
-    <application>
+    <application
+        android:largeHeap="true"
+        android:hardwareAccelerated="true">
+		
+        <activity
+            android:name=".SysCamera.verify.FaceVerificationActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FaceAISDK.Fullscreen"
+			tools:replace="android:theme" />
 
-<!-- 			<activity
-			    android:name="com.faceAI.demo.SysCamera.addFace.AddFaceImageActivity"
-			    android:theme="@style/FaceAITheme"
-			    android:exported="false" />
-	
-	        <activity
-	            android:name="com.faceAI.demo.SysCamera.verify.FaceVerificationActivity"
-	            android:theme="@style/FaceAITheme"
-	            android:exported="false"/>
-				
-          <activity
-              android:name="com.faceAI.demo.SysCamera.verify.LivenessDetectActivity"
-              android:theme="@style/FaceAITheme"
-              android:exported="false"/>
-	        
-	        <activity
-	            android:name="com.faceAI.demo.SysCamera.search.FaceSearch1NActivity"
-	            android:theme="@style/FaceAITheme"
-	            android:exported="false" />
-				
-	        <activity
-	            android:name="com.faceAI.demo.SysCamera.search.FaceSearchImageMangerActivity"
-	            android:theme="@style/AppTheme"
-	            android:exported="false">
-	        </activity>	 	 -->	
+        <activity
+            android:name=".SysCamera.verify.LivenessDetectActivity"
+            android:exported="false"
+            android:theme="@style/Theme.FaceAISDK.Fullscreen" />
 		
     </application>
 

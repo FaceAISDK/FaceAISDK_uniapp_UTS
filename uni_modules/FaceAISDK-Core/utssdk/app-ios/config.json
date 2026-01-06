@@ -1,6 +1,10 @@
 {
-    "frameworks": [
-        "Frameworks/FaceAISDK_LIb.xcframework"
-    ],
-    "deploymentTarget": "16.0"
+  "deploymentTarget": "16",
+  "frameworks": [],
+  "dependencies-pods": [      
+	{
+	  	"name": "FaceAISDK_Core",
+	  	"version": "2026.01.01"
+	}
+	]
 }
