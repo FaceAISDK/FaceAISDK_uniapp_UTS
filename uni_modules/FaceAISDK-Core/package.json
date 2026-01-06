@@ -1,10 +1,10 @@
 {
-	"id": "HelloKitty-FaceAI",
-	"displayName": "iOS，Android人脸识别+活体检测",
-	"version": "1.0.3",
+	"id": "FaceAISDK-Core",
+	"displayName": "人脸识别活体检测API插件，支持iOS和Android",
+	"version": "2.0.0",
 	"description": "人脸识别+活体检测；支持iOS 和Android",
 	"keywords": [
-        "HelloKitty-FaceAI"
+        "人脸识别，活体检测，iOS"
     ],
 	"repository": "",
 	"engines": {
@@ -47,8 +47,14 @@
 			"client": {
 				"uni-app": {
 					"vue": {
-						"vue2": "-",
-						"vue3": "-"
+						"vue2": {
+                            "extVersion": "2.0.0",
+                            "minVersion": ""
+                        },
+						"vue3": {
+                            "extVersion": "2.0.0",
+                            "minVersion": ""
+                        }
 					},
 					"web": {
 						"safari": "x",
@@ -56,19 +62,19 @@
 					},
 					"app": {
 						"vue": {
-                            "extVersion": "1.0.0",
+                            "extVersion": "2.0.0",
                             "minVersion": ""
                         },
 						"nvue": {
-                            "extVersion": "1.0.0",
+                            "extVersion": "2.0.0",
                             "minVersion": ""
                         },
 						"android": {
-                            "extVersion": "1.0.0",
+                            "extVersion": "2.0.0",
                             "minVersion": "21"
                         },
 						"ios": {
-                            "extVersion": "1.0.0",
+                            "extVersion": "2.0.0",
                             "minVersion": "15"
                         },
 						"harmony": "x"
@@ -96,11 +102,11 @@
 					},
 					"app": {
 						"android": {
-                            "extVersion": "1.0.0",
+                            "extVersion": "",
                             "minVersion": "21"
                         },
 						"ios": {
-                            "extVersion": "1.0.0",
+                            "extVersion": "",
                             "minVersion": "15"
                         },
 						"harmony": "-"
