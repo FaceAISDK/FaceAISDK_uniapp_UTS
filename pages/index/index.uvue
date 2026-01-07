@@ -14,7 +14,7 @@
 	</view>
 </template>
 
-//请修改manifest.json 中vueVersion字段切换uniapp/uniapp X，重新打自定义基座包生效
+//uniappX page
 
 <script> 
 	import {addFaceBySDKCamera,faceVerify,livenessVerify,getFaceFeature,insertFaceFeature,ResultJSON} from "@/uni_modules/FaceAISDK-Core";
