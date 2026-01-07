@@ -1,14 +1,14 @@
 ## 插件简介
+
 人脸识别，活体检测UTS API插件，支持iOS，Android 双端。
 后面我们会支持主题色定制等功能，更多可根据原生工程项目修改升级插件
 
-**原生工程：**  
-iOS SDK： https://github.com/FaceAISDK/FaceAISDK_iOS
-Android： https://github.com/FaceAISDK/FaceAISDK_Android
+**插件Demo工程：**  
+[先跑通这个插件接入Demo工程](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS)
 
 ![demo](https://i.postimg.cc/LXfzpb4z/da-da165b6781-fu-ben.png)
 
-Android 人脸搜索识别插件已经拆分独立为：FaceAISDK.Service@gmail.com
+Android 人脸搜索识别插件已经拆分独立为：https://ext.dcloud.net.cn/plugin?id=26467
 
 
 ## 使用方法
@@ -16,7 +16,7 @@ Android 人脸搜索识别插件已经拆分独立为：FaceAISDK.Service@gmail.
 
   - 1. 下载到对应的本地项目(你也可以先跑同单独的API插件工程)
 
-  - 2. 按照文档 -》把插件引入项目（即 import { FaceAI } from '@/uni_modules/HelloKitty-FaceAI' 需要先引入），
+  - 2. 按照文档 -》把插件引入项目（即 import {faceVerify,livenessVerify,getFaceFeature等方法} from "@/uni_modules/FaceAISDK-Core";）
 
   - 3. 运行-》运行到手机或模拟器 -》制作自定义调试基座 -》打包 等基座制作完成
     ![制作自定义调试基座](https://i.postimg.cc/QVZFgycd/1.png)
@@ -35,7 +35,7 @@ Android 人脸搜索识别插件已经拆分独立为：FaceAISDK.Service@gmail.
    Analyzing dependencies
    CocoaPods could not find compatible versions for pod "FaceAISDK_Core":
    in Podfile:
-   FaceAISDK_Core (= 2025.12.31)
+   FaceAISDK_Core (= 2026.01.01)
    None of your spec sources contain a spec satisfying the dependency: `FaceAISDK_Core (= 2025.12.31)`.
    ```
     基本重新运行就可以了，在线打包机器有时候会无法科学上网有问题无法访问GitHub  
@@ -46,7 +46,7 @@ Android 人脸搜索识别插件已经拆分独立为：FaceAISDK.Service@gmail.
    项目 [FaceAI_API_Plugin] 已启动。请点击手机/模拟器的运行基座App（uni-app x）查看效果。
    如应用未更新，请在手机上杀掉基座进程重启
   ```
-   根据提示杀掉基座进程重启，然后点击启动2个其他App后再重新启动基本就没问题了，本情况只会在第一次安装新基座出现
+   低配老手机根据提示杀掉基座进程重启，然后点击启动2个其他App后再重新启动基本就没问题了，本情况只会在第一次安装新基座出现
    
  - 3. 炫彩活体提示光线太亮导致失败
    这个基本上只能规避强光环境了，或引导用户用手遮住强烈光线，让手机彩色光能照到脸部

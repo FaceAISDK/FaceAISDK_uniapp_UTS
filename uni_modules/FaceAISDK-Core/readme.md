@@ -1,10 +1,11 @@
 ## HelloKitty-FaceAI
+
 人脸识别，活体检测UTS API插件，支持iOS，Android 双端。
 后面我们会支持主题色定制等功能，更多可根据原生工程项目修改升级插件
 
 **原生工程：**  
-iOS SDK： https://github.com/FaceAISDK/FaceAISDK_iOS
-Android： https://github.com/FaceAISDK/FaceAISDK_Android
+[先跑通这个插件接入Demo工程](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS)
+
 
 ![demo](https://i.postimg.cc/LXfzpb4z/da-da165b6781-fu-ben.png)
 
@@ -15,7 +16,7 @@ Android： https://github.com/FaceAISDK/FaceAISDK_Android
 
   - 1. 下载到对应的本地项目(你也可以先跑同单独的API插件工程)
 
-  - 2. 按照文档 -》把插件引入项目（即 import { FaceAI } from '@/uni_modules/HelloKitty-FaceAI' 需要先引入），
+  - 2. 按照文档 -》把插件引入项目（即 import {faceVerify,livenessVerify,getFaceFeature等方法} from "@/uni_modules/FaceAISDK-Core";）
 
   - 3. 运行-》运行到手机或模拟器 -》制作自定义调试基座 -》打包 等基座制作完成
     ![制作自定义调试基座](https://i.postimg.cc/QVZFgycd/1.png)
