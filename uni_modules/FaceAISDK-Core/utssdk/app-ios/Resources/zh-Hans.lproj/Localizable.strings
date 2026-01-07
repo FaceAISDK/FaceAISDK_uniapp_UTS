@@ -1,23 +1,19 @@
-/* General UI */
-"🧭 FaceAISDK" = "🧭 FaceAISDK";
+/* 中文国际化资源 */
+
 "About us" = "关于我们";
 "Add Face By Camera" = "SDK相机添加人脸";
 "Add Face From Album" = "从相册添加一人脸";
 "Confirm" = "确认";
-"Confirm Add Face" = "确认添加人脸";
-"Confirm Add Face Tips" = "请录入无遮挡正脸清晰图";
-"Confirm Add Face Title" = "确认录入次人脸图？";
-"Ensure face is clear" = "确保人脸清晰";
+"Confirm Add Face" = "确认录入此人脸图？";
+"Ensure face is clear" = "请录入无遮挡正脸清晰图";
 "Face Verify and Liveness Detection" = "人脸识别+活体检测";
 "I Know" = "知道了";
-"Retry" = "重试";
-
-/* Mixed Keys */
 "is Face Feature Exist" = "人脸特征值是否存在";
 "ONLY Liveness Detection" = "炫彩|动作 活体检测";
-"保存人脸数据" = "保存人脸数据";
-"请从相册中选择一张图片" = "请从相册中选择一张图片";
-"选择图片" = "选择图片";
+"Retry" = "重试";
+"Save Face Feature" = "保存人脸特征";
+"Select from album" = "从相册选择";
+"Select Image" = "选择图片";
 
 /* Face Tips Codes */
 "Face_Tips_Code_0" = "请正对摄像头";
@@ -34,29 +30,21 @@
 "Face_Tips_Code_11" = "人脸采集确认中";
 "Face_Tips_Code_12" = " ";
 "Face_Tips_Code_13" = "人脸太小了";
-
-/* Errors & Status */
 "Face_Tips_Code_31" = "没有找到对应的人脸底片";
 "Face_Tips_Code_32" = "人脸底片处理失败";
 "Face_Tips_Code_33" = "SDK 内部错误";
 "Face_Tips_Code_34" = "动作活体检测完成";
 "Face_Tips_Code_35" = "动作活体检验超时";
 "Face_Tips_Code_38" = "多次切换人脸或检测失败";
-
-/* Actions */
 "Face_Tips_Code_41" = "请张张嘴";
 "Face_Tips_Code_42" = "请微笑";
 "Face_Tips_Code_43" = "请眨眼";
 "Face_Tips_Code_44" = "请摇头";
 "Face_Tips_Code_45" = "请点头";
-
-/* Color Liveness (Flash) */
-"Face_Tips_Code_50" = "屏幕即将闪烁,请靠近";
+"Face_Tips_Code_50" = "请靠近,屏幕即将闪烁";
 "Face_Tips_Code_51" = "炫彩活体成功";
 "Face_Tips_Code_52" = "炫彩活体失败";
 "Face_Tips_Code_53" = "炫彩活体检测失败,光线亮度过高;如图遮挡高亮光源或室内光线柔和环境使用";
-
-/* Results */
 "Face_Tips_Code_61" = "活体检测完成";
 "Face_Tips_Code_62" = "人脸识别成功";
 "Face_Tips_Code_63" = "人脸识别失败";

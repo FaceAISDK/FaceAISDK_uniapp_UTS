@@ -31,14 +31,16 @@ export const addFaceBySDKCamera : AddFaceBySDKCamera = function (
 	needShowConfirmDialog:boolean,
 	callback : (result : ResultJSON) => void
 ) {
-	const context = UTSAndroid.getUniActivity() as Activity
-	FaceSDKConfig.init(context);
-	const intent = new Intent(context, AddFaceImageActivity().javaClass)
-	intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_VERIFY");
-	intent.putExtra("USER_FACE_ID_KEY", faceID);
-	intent.putExtra("NEED_CONFIRM_ADD_FACE", needShowConfirmDialog);
-	intent.putExtra("ADD_FACE_PERFORMANCE_MODE", addFacePerformanceMode);
-	context.startActivityForResult(intent, 10086)
+	UTSAndroid.getUniActivity()!.runOnUiThread(() => {
+		const context = UTSAndroid.getUniActivity() as Activity
+		FaceSDKConfig.init(context);
+		const intent = new Intent(context, AddFaceImageActivity().javaClass)
+		intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_VERIFY");
+		intent.putExtra("USER_FACE_ID_KEY", faceID);
+		intent.putExtra("NEED_CONFIRM_ADD_FACE", needShowConfirmDialog);
+		intent.putExtra("ADD_FACE_PERFORMANCE_MODE", addFacePerformanceMode);
+		context.startActivityForResult(intent, 10086)
+	});
 
     //语法不熟悉，先保证主流程跑通
 	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, intentAct?: Intent) => {
@@ -91,17 +93,24 @@ export const faceVerify : FaceVerify = function (
 	threshold:number,
 	faceLivenessType:number,
 	motionLivenessTypes:string,
+	motionLivenessTimeOut : number,
+	motionLivenessSteps : number,
 	callback : (result : ResultJSON) => void
 ) {
-	const context = UTSAndroid.getUniActivity() as Activity
-	FaceSDKConfig.init(context);
 	
-	const intent = new Intent(context, FaceVerificationActivity().javaClass)
-	intent.putExtra(FaceVerificationActivity.USER_FACE_ID_KEY, faceID);
-    intent.putExtra(FaceVerificationActivity.THRESHOLD_KEY,threshold);
-    intent.putExtra(FaceVerificationActivity.FACE_LIVENESS_TYPE,faceLivenessType);
-    intent.putExtra(FaceVerificationActivity.MOTION_LIVENESS_TYPES,motionLivenessTypes);
-	context.startActivityForResult(intent, 10087)
+	UTSAndroid.getUniActivity()!.runOnUiThread(() => {
+		const context = UTSAndroid.getUniActivity() as Activity
+		FaceSDKConfig.init(context);
+		const intent = new Intent(context, FaceVerificationActivity().javaClass)
+		intent.putExtra(FaceVerificationActivity.USER_FACE_ID_KEY, faceID);
+		intent.putExtra(FaceVerificationActivity.THRESHOLD_KEY,threshold);
+		intent.putExtra(FaceVerificationActivity.FACE_LIVENESS_TYPE,faceLivenessType);
+		intent.putExtra(FaceVerificationActivity.MOTION_LIVENESS_TYPES,motionLivenessTypes);
+		intent.putExtra(FaceVerificationActivity.MOTION_TIMEOUT,motionLivenessTimeOut);
+		intent.putExtra(FaceVerificationActivity.MOTION_STEP_SIZE,motionLivenessSteps);
+		context.startActivityForResult(intent, 10087)
+	});
+	
 
 	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, intentAct?: Intent) => {
 		if (requestCode == 10087) {
@@ -147,15 +156,22 @@ export const faceVerify : FaceVerify = function (
 export const livenessVerify : LivenessVerify = function (
 	faceLivenessType:number,
 	motionLivenessTypes:string,
+	motionLivenessTimeOut : number,
+	motionLivenessSteps : number,
 	callback : (result : ResultJSON) => void
 ) {
-	const context = UTSAndroid.getUniActivity() as Activity
-	FaceSDKConfig.init(context);
-	const intent = new Intent(context, LivenessDetectActivity().javaClass)
-    intent.putExtra(LivenessDetectActivity.FACE_LIVENESS_TYPE,faceLivenessType);
-	intent.putExtra(LivenessDetectActivity.MOTION_LIVENESS_TYPES,motionLivenessTypes);
 	
-	context.startActivityForResult(intent, 10089)
+	UTSAndroid.getUniActivity()!.runOnUiThread(() => {
+		const context = UTSAndroid.getUniActivity() as Activity
+		FaceSDKConfig.init(context);
+		const intent = new Intent(context, LivenessDetectActivity().javaClass)
+		intent.putExtra(LivenessDetectActivity.FACE_LIVENESS_TYPE,faceLivenessType);
+		intent.putExtra(LivenessDetectActivity.MOTION_LIVENESS_TYPES,motionLivenessTypes);
+		intent.putExtra(LivenessDetectActivity.MOTION_TIMEOUT,motionLivenessTimeOut);
+		intent.putExtra(LivenessDetectActivity.MOTION_STEP_SIZE,motionLivenessSteps);
+		context.startActivityForResult(intent, 10089)
+	});
+
 
 	UTSAndroid.onAppActivityResult((requestCode : Int, resultCode : Int, intentAct?: Intent) => {
 		if (requestCode == 10089) {

@@ -13,10 +13,13 @@ struct LivenessDetectView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var originalBrightness: CGFloat = UIScreen.main.brightness
     
-    //0.无需活体检测 1.仅仅动作 2.动作+炫彩 3.炫彩
+    // 0.无需活体检测 1.仅仅动作 2.动作+炫彩 3.炫彩
     let livenessType:Int
     //动作活体种类：1. 张张嘴  2.微笑  3.眨眨眼  4.摇摇头  5.点头
     let motionLiveness:String
+    
+    let motionLivenessTimeOut:Int //时间为秒
+    let motionLivenessSteps:Int  //动作活体个数
     
     let onDismiss: (Int) -> Void
     
@@ -27,18 +30,17 @@ struct LivenessDetectView: View {
         return NSLocalizedString(key, value: defaultValue, comment: "")
     }
     
+    
     var body: some View {
         ZStack {
             VStack {
                 HStack {
                     Button(action: {
-                        // 0 代表用户取消
-                        onDismiss(0)
+                        onDismiss(0) // 0 代表用户取消
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
-                            .fontWeight(.semibold)
-                            .font(.system(size: 16))
+                            .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.black)
                             .padding(10)
                             .background(Color.gray.opacity(0.1))
@@ -76,7 +78,7 @@ struct LivenessDetectView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity) // 确保主视图撑满
             .background(viewModel.colorFlash.ignoresSafeArea())
             .navigationBarBackButtonHidden(true)
-            .toolbar(.hidden, for: .navigationBar)
+            .navigationBarHidden(true)  
 
              if showToast {
                 VStack {
@@ -145,7 +147,12 @@ struct LivenessDetectView: View {
                 UIScreen.main.brightness = 1.0
             }
             
-            viewModel.initFaceAISDK(faceIDFeature: "", livenessType: livenessType, onlyLiveness: true, motionLiveness: motionLiveness)
+            viewModel.initFaceAISDK(faceIDFeature: "", 
+                                    livenessType: livenessType,
+                                    onlyLiveness: true,
+                                    motionLiveness: motionLiveness,
+                                    motionLivenessTimeOut:motionLivenessTimeOut,
+                                    motionLivenessSteps:motionLivenessSteps)
         }
         .onChange(of: viewModel.faceVerifyResult.code) { newValue in
             if newValue == VerifyResultCode.COLOR_LIVENESS_LIGHT_TOO_HIGH{

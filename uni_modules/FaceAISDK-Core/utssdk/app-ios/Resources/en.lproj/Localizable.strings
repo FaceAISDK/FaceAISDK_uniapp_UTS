@@ -1,23 +1,19 @@
-/* General UI */
-"🧭 FaceAISDK" = "🧭 FaceAISDK";
+/* 英文国际化资源 */
+
 "About us" = "About us";
 "Add Face By Camera" = "Add Face By Camera";
 "Add Face From Album" = "Add Face From Album";
 "Confirm" = "Confirm";
 "Confirm Add Face" = "Confirm Add Face";
-"Confirm Add Face Tips" = "Confirm is frontal photo";
-"Confirm Add Face Title" = "Confirm Add This Face？ ";
 "Ensure face is clear" = "Ensure face is clear";
 "Face Verify and Liveness Detection" = "Face Verify and Liveness Detection";
 "I Know" = "I Know";
-"Retry" = "Retry";
-
-/* Missing Translations in Source - Using Key as Default */
 "is Face Feature Exist" = "is Face Feature Exist";
 "ONLY Liveness Detection" = "ONLY Liveness Detection";
-"保存人脸数据" = "Save Face Data";
-"请从相册中选择一张图片" = "Please select an image from album";
-"选择图片" = "Select Image";
+"Retry" = "Retry";
+"Save Face Feature" = "Save Face Feature";
+"Select from album" = "Select from album";
+"Select Image" = "Select Image";
 
 /* Face Tips Codes */
 "Face_Tips_Code_0" = "Keep Face Frontal";
@@ -34,29 +30,21 @@
 "Face_Tips_Code_11" = "Confirm  Add Face";
 "Face_Tips_Code_12" = " ";
 "Face_Tips_Code_13" = "Too Small Face";
-
-/* Errors & Status */
 "Face_Tips_Code_31" = "Face Image Not Found ";
 "Face_Tips_Code_32" = "Face Image Dispose Failed";
 "Face_Tips_Code_33" = "SDK Error";
 "Face_Tips_Code_34" = "Motion Liveness Complete";
 "Face_Tips_Code_35" = "Motion Liveness  Timeout";
 "Face_Tips_Code_38" = "No Face Detected Multi Time";
-
-/* Actions */
 "Face_Tips_Code_41" = "Open Mouse";
 "Face_Tips_Code_42" = "Please Smile";
 "Face_Tips_Code_43" = "Please Blink";
 "Face_Tips_Code_44" = "Please Shake Head";
 "Face_Tips_Code_45" = "Please Nod Head";
-
-/* Color Liveness (Flash) */
 "Face_Tips_Code_50" = "Start Color Flash";
 "Face_Tips_Code_51" = "Color Flash Success";
 "Face_Tips_Code_52" = "Color Flash Failed";
 "Face_Tips_Code_53" = "Detection failed: Too bright.Please avoid direct light as below and use in a softly lit indoor environment";
-
-/* Results */
 "Face_Tips_Code_61" = "Face Liveness Success";
 "Face_Tips_Code_62" = "Face Verify Success";
 "Face_Tips_Code_63" = "Face Verify Failed";

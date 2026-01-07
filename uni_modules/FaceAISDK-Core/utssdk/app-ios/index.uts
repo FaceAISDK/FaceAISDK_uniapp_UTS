@@ -1,5 +1,28 @@
 import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON } from '../interface.uts'
 
+
+/**
+ * 工具函数：根据状态码获取提示文案
+ * 统一管理所有接口的返回状态
+ */
+function getMsgByCode(code: number): string {
+    switch (code) {
+        case 0: return "用户取消/中断操作";
+        case 1: return "操作成功verifySuccess";  
+        case 2: return "人脸相似度过低(认证失败)";
+        case 3: return "动作活体检测成功";
+        case 4: return "动作活体检测超时";
+        case 5: return "多次未检测到人脸";
+        case 6: return "本地无对应人脸特征值";
+        case 7: return "炫彩活体成功";
+        case 8: return "炫彩活体失败";
+        case 9: return "环境光线过强(炫彩失败)";
+        case 10: return "活体检测全部通过";
+        default: return "未知状态码" ;
+    }
+}
+
+
 /**
  * 实现录入人脸接口
  * 
@@ -40,26 +63,7 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
 }
 
 
-/**
- * 【新增】工具函数：根据状态码获取提示文案
- * 统一管理所有接口的返回状态
- */
-function getMsgByCode(code: number): string {
-    switch (code) {
-        case 0: return "用户取消/中断操作";
-        case 1: return "操作成功verifySuccess";  
-        case 2: return "人脸相似度过低(认证失败)";
-        case 3: return "动作活体检测成功";
-        case 4: return "动作活体检测超时";
-        case 5: return "多次未检测到人脸";
-        case 6: return "本地无对应人脸特征值";
-        case 7: return "炫彩活体成功";
-        case 8: return "炫彩活体失败";
-        case 9: return "环境光线过强(炫彩失败)";
-        case 10: return "活体检测全部通过";
-        default: return "未知状态码" ;
-    }
-}
+
 
 
 /**
@@ -70,6 +74,8 @@ export const faceVerify : FaceVerify = function (
 	threshold: number,
 	faceLivenessType:number,
 	motionLivenessTypes:string,
+	motionLivenessTimeOut : number,
+	motionLivenessSteps : number,
 	callback : (result : ResultJSON) => void
 ) {
 	FaceSDKSwiftManager.showFaceVerify(
@@ -77,6 +83,8 @@ export const faceVerify : FaceVerify = function (
 		threshold,
 		faceLivenessType,
 		motionLivenessTypes,
+		motionLivenessTimeOut,
+		motionLivenessSteps,
 	    (resultCode: number) => {
 		    	const resultJson : ResultJSON = {
 			    code: resultCode,
@@ -99,11 +107,15 @@ export const faceVerify : FaceVerify = function (
 export const livenessVerify : LivenessVerify = function (
 	faceLivenessType:number,
 	motionLivenessTypes:string,
+	motionLivenessTimeOut : number,
+	motionLivenessSteps : number,
 	callback : (result : ResultJSON) => void
 ) {
 	FaceSDKSwiftManager.showLivenessVerify(
 		faceLivenessType,
 		motionLivenessTypes,
+		motionLivenessTimeOut,
+		motionLivenessSteps,
 	    (resultCode: number) => {
 		   let msg = getMsgByCode(resultCode);
            const resultJson = {
