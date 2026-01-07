@@ -10,11 +10,10 @@
 
 Android 人脸搜索识别插件已经拆分独立为：https://ext.dcloud.net.cn/plugin?id=26467
 
-
 ## 使用方法
   如果你是第一次运行UTS插件工程/引入UTS API插件，你应先安装官方说明配置好基础环境 [基础环境](https://doc.dcloud.net.cn/uni-app-x/plugin/uts-plugin.html) 
 
-  - 1. 下载到对应的本地项目(你也可以先跑同单独的API插件工程)
+  - 1. 下载Demo工程[](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS)先跑通。熟悉后参考文档集成到主项目
 
   - 2. 按照文档 -》把插件引入项目（即 import {faceVerify,livenessVerify,getFaceFeature等方法} from "@/uni_modules/FaceAISDK-Core";）
 
