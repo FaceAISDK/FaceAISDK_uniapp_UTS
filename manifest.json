@@ -5,27 +5,7 @@
 	"versionName": "2026.01.07",
 	"versionCode": "20260107",
 	"uni-app-x": {},
-	"quickapp": {},
-	"mp-weixin": {
-		"appid": "",
-		"setting": {
-			"urlCheck": false
-		},
-		"usingComponents": true
-	},
-	"mp-alipay": {
-		"usingComponents": true
-	},
-	"mp-baidu": {
-		"usingComponents": true
-	},
-	"mp-toutiao": {
-		"usingComponents": true
-	},
-	"uniStatistics": {
-		"enable": false
-	},
-	"vueVersion": "3",
+	"vueVersion": "3", //重新自定义基座才能生效。设置 "unix" 代表启用 UniApp X 编译器；设置 "3" 代表启用标准 Vue3 编译器为uniapp
 	"app": {
 		"distribute": {
 			"icons": {

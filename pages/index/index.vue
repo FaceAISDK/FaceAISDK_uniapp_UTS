@@ -16,6 +16,7 @@
 
 <script>
 	// 注意：在普通 UniApp 中，需要确保该插件支持 JS 端的调用方式
+	// 请修改manifest.json 中vueVersion字段切换uniapp/uniapp X，重新打自定义基座包生效
 	import {
 		addFaceBySDKCamera,
 		faceVerify,
@@ -137,7 +138,7 @@
 
 	.text-content {
 		font-size: 28rpx;
-		color: #333;
+		color: #fc0280;
 		/* word-break: break-all; 关键：解决长JSON字符串不换行的问题 */
 		white-space: pre-wrap;
 		/* 保留格式并自动换行 */

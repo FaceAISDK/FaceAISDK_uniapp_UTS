@@ -22,11 +22,22 @@ Android 人脸搜索识别插件已经拆分独立为：https://ext.dcloud.net.c
 
   - 4. 运行 -》 运行到手机或模拟器-》运行到iOS/Android基座-》选择使用自定义基座运行-》选择手机-》运行
     ![运行到手机](https://i.postimg.cc/QdwtZM60/2.png)
+	**请手动勾选对正确的运行方式，很多朋友辛苦打好了自定义基座包，结果运行的时候没选对导致运行不了**  
+	
+	
   若之前手机安装过基座需要先卸载之前的基座，iOS 可能会提示你安装好后杀死应进程后重新启动(可以点击几个其他应用加快彻底杀死重启)
   注：只支持真机调试，需要用到硬件摄像头
 
+## Demo工程怎么切换uniapp 和uniAppX
+   **请修改manifest.json 中vueVersion字段，重新打自定义基座包生效**
+ ```
+ 	"name": "人脸识别_UTS",
+    "appid": "__UNI__A6AD04B",
+    "versionCode": "20260107",
+    "uni-app-x": {},
+    "vueVersion": "3", //重新自定义基座才能生效。设置 "unix" 代表启用 UniApp X 编译器；设置 "3" 代表启用标准 Vue3 编译器为uniapp
 
-
+ ```
 
 ## 常见错误与解决方法
  - 1. iOS 自定义基座首次运行找不到iOS原生SDK FaceAISDK_Core
@@ -34,7 +45,7 @@ Android 人脸搜索识别插件已经拆分独立为：https://ext.dcloud.net.c
    Analyzing dependencies
    CocoaPods could not find compatible versions for pod "FaceAISDK_Core":
    in Podfile:
-   FaceAISDK_Core (= 2026.01.01)
+   FaceAISDK_Core (= 2026.01.04)
    None of your spec sources contain a spec satisfying the dependency: `FaceAISDK_Core (= 2025.12.31)`.
    ```
     基本重新运行就可以了，在线打包机器有时候会无法科学上网有问题无法访问GitHub  
