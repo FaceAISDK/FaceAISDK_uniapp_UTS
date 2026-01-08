@@ -1,12 +1,14 @@
 {
 	"id": "FaceAISDK-Core",
 	"displayName": "人脸识别活体检测API插件，支持iOS和Android",
-	"version": "2.0.0",
-	"description": "人脸识别+活体检测；支持iOS 和Android",
+	"version": "3.0.1",
+	"description": "支持iOS,Android;uniapp,uniapp x",
 	"keywords": [
-        "人脸识别，活体检测，iOS"
+        "人脸识别，活体检测,",
+        "iOS,",
+        "uniapp"
     ],
-	"repository": "",
+	"repository": "https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS",
 	"engines": {
 		"HBuilderX": "^3.6.8",
 		"uni-app": "^4.71",
@@ -26,7 +28,7 @@
 			"qq": ""
 		},
 		"declaration": {
-			"ads": "无。\n\n有问题随时沟通，FaceAISDK.Service@gmail.com",
+			"ads": "无。\n有问题随时沟通，FaceAISDK.Service@gmail.com",
 			"data": "插件可以开飞行模型运行，不收集用户业务数据",
 			"permissions": "仅仅需要相机"
 		},
@@ -48,11 +50,11 @@
 				"uni-app": {
 					"vue": {
 						"vue2": {
-                            "extVersion": "2.0.0",
+                            "extVersion": "3.0.0",
                             "minVersion": ""
                         },
 						"vue3": {
-                            "extVersion": "2.0.0",
+                            "extVersion": "3.0.0",
                             "minVersion": ""
                         }
 					},
@@ -62,11 +64,11 @@
 					},
 					"app": {
 						"vue": {
-                            "extVersion": "2.0.0",
+                            "extVersion": "3.0.0",
                             "minVersion": ""
                         },
 						"nvue": {
-                            "extVersion": "2.0.0",
+                            "extVersion": "3.0.0",
                             "minVersion": ""
                         },
 						"android": {
@@ -102,11 +104,11 @@
 					},
 					"app": {
 						"android": {
-                            "extVersion": "",
+                            "extVersion": "3.0.0",
                             "minVersion": "21"
                         },
 						"ios": {
-                            "extVersion": "",
+                            "extVersion": "3.0.0",
                             "minVersion": "15"
                         },
 						"harmony": "-"

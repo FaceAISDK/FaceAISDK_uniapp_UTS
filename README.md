@@ -17,7 +17,7 @@ Android 人脸搜索识别插件已经拆分独立为：https://ext.dcloud.net.c
 
   - 2. 按照文档 -》把插件引入项目（即 import {faceVerify,livenessVerify,getFaceFeature等方法} from "@/uni_modules/FaceAISDK-Core";）
 
-  - 3. 运行-》运行到手机或模拟器 -》制作自定义调试基座 -》打包 等基座制作完成
+  - 3. 运行-》运行到手机或模拟器 -》制作自定义调试基座 -》打包 等基座制作完成   
     ![制作自定义调试基座](https://i.postimg.cc/QVZFgycd/1.png)
 
   - 4. 运行 -》 运行到手机或模拟器-》运行到iOS/Android基座-》选择使用自定义基座运行-》选择手机-》运行

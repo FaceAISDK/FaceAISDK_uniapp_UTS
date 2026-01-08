@@ -1,4 +1,4 @@
-## HelloKitty-FaceAI
+## FaceAISDK-UTS API 插件
 
 人脸识别，活体检测UTS API插件，支持iOS，Android 双端，支持uniappX和uniapp。
 后面我们会支持主题色定制等功能，更多可根据原生工程项目修改升级插件
