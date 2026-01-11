@@ -71,3 +71,5 @@
     public static let COLOR_LIVENESS_LIGHT_TOO_HIGH = 9 // 9   炫彩活体失败，光线亮度过高
     public static let ALL_LIVENESS_SUCCESS = 10    // 10  所有的活体检测完成(包括动作和炫彩)
 ```
+
+  Copyright © 2026 FaceAISDK. All rights reserved           Email:FaceAISDK.Service@gmail.com
