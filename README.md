@@ -1,14 +1,16 @@
-## 插件简介
+## FaceAISDK-UTS API 插件
 
-人脸识别，活体检测UTS API插件，支持iOS，Android 双端，支持uniappX和uniapp。
-后面我们会支持主题色定制等功能，更多可根据原生工程项目修改升级插件
+人脸识别，活体检测UTS API插件，支持iOS，Android 双端，支持uniappX和uniapp。    
+人脸识别活体检测都是设备端侧AI能力，无需后台API服务可完全离线运行，高性能无依赖
 
-**插件Demo工程：**  
-[先跑通这个插件接入Demo工程](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS)
+**感谢大家收藏与点赞**，如有问题可描述你的使用场景说明发送邮件到FaceAISDK.Service@gmial.com  
+或提issues 到本插件GitHub托管工程：https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS
 
-![demo](https://i.postimg.cc/LXfzpb4z/da-da165b6781-fu-ben.png)
+快速体验完整人脸识别功能可以下载Demo APP：
+<div align=center>
+<img src="https://www.pgyer.com/app/qrcode/faceVerify" width = 19%   alt="扫一扫下载Demo"/>
+</div>
 
-Android 人脸搜索识别插件已经拆分独立为：https://ext.dcloud.net.cn/plugin?id=26467
 
 ## 使用方法
   如果你是第一次运行UTS插件工程/引入UTS API插件，你应先安装官方说明配置好基础环境 [基础环境](https://doc.dcloud.net.cn/uni-app-x/plugin/uts-plugin.html) 
@@ -17,17 +19,15 @@ Android 人脸搜索识别插件已经拆分独立为：https://ext.dcloud.net.c
 
   - 2. 按照文档 -》把插件引入项目（即 import {faceVerify,livenessVerify,getFaceFeature等方法} from "@/uni_modules/FaceAISDK-Core";）
 
-  - 3. 运行-》运行到手机或模拟器 -》制作自定义调试基座 -》打包 等基座制作完成   
+  - 3. 运行-》运行到手机或模拟器 -》制作自定义调试基座 -》打包 等基座制作完成
     ![制作自定义调试基座](https://i.postimg.cc/QVZFgycd/1.png)
 
   - 4. 运行 -》 运行到手机或模拟器-》运行到iOS/Android基座-》选择使用自定义基座运行-》选择手机-》运行
     ![运行到手机](https://i.postimg.cc/QdwtZM60/2.png)
-	**请手动勾选对正确的运行方式，很多朋友辛苦打好了自定义基座包，结果运行的时候没选对导致运行不了**  
-	
+	**请手动勾选对正确的运行方式，很多朋友辛苦打好了自定义基座包，结果运行的时候没选对导致运行不了**
 	
   若之前手机安装过基座需要先卸载之前的基座，iOS 可能会提示你安装好后杀死应进程后重新启动(可以点击几个其他应用加快彻底杀死重启)
   注：只支持真机调试，需要用到硬件摄像头
-
 
 
 ## 常见错误与解决方法
@@ -47,7 +47,7 @@ Android 人脸搜索识别插件已经拆分独立为：https://ext.dcloud.net.c
    项目 [FaceAI_API_Plugin] 已启动。请点击手机/模拟器的运行基座App（uni-app x）查看效果。
    如应用未更新，请在手机上杀掉基座进程重启
   ```
-   低配老手机根据提示杀掉基座进程重启，然后点击启动2个其他App后再重新启动基本就没问题了，本情况只会在第一次安装新基座出现
+   根据提示杀掉基座进程重启，然后点击启动2个其他App后再重新启动基本就没问题了，本情况只会在第一次安装新基座出现
    
  - 3. 炫彩活体提示光线太亮导致失败
    这个基本上只能规避强光环境了，或引导用户用手遮住强烈光线，让手机彩色光能照到脸部
@@ -71,3 +71,4 @@ Android 人脸搜索识别插件已经拆分独立为：https://ext.dcloud.net.c
     public static let COLOR_LIVENESS_LIGHT_TOO_HIGH = 9 // 9   炫彩活体失败，光线亮度过高
     public static let ALL_LIVENESS_SUCCESS = 10    // 10  所有的活体检测完成(包括动作和炫彩)
 ```
+

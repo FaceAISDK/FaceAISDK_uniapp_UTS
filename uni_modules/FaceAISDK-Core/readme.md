@@ -1,6 +1,6 @@
 ## FaceAISDK-UTS API 插件
 
-人脸识别，活体检测UTS API插件，支持iOS，Android 双端，支持uniappX和uniapp。
+人脸识别，活体检测UTS API插件，支持iOS，Android 双端，支持uniappX和uniapp。    
 人脸识别活体检测都是设备端侧AI能力，无需后台API服务可完全离线运行，高性能无依赖
 
 **感谢大家收藏与点赞**，如有问题可描述你的使用场景说明发送邮件到FaceAISDK.Service@gmial.com  
@@ -11,14 +11,6 @@
 <img src="https://www.pgyer.com/app/qrcode/faceVerify" width = 19%   alt="扫一扫下载Demo"/>
 </div>
 
-
-**原生工程：**  
-[先跑通这个插件接入Demo工程](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS)
-
-
-![demo](https://i.postimg.cc/LXfzpb4z/da-da165b6781-fu-ben.png)
-
-注：iOS 插件使用MacOS 开发,真机iPhone系统26（Window有问题联系FaceAISDK.Service@gmail.com）
 
 ## 使用方法
   如果你是第一次运行UTS插件工程/引入UTS API插件，你应先安装官方说明配置好基础环境 [基础环境](https://doc.dcloud.net.cn/uni-app-x/plugin/uts-plugin.html) 
