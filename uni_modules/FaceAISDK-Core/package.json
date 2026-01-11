@@ -4,9 +4,7 @@
 	"version": "3.0.1",
 	"description": "支持iOS,Android;uniapp,uniapp x",
 	"keywords": [
-        "人脸识别，活体检测,",
-        "iOS,",
-        "uniapp"
+        "人脸识别，活体检测，高性能，无依赖"
     ],
 	"repository": "https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS",
 	"engines": {
@@ -49,13 +47,9 @@
 			"client": {
 				"uni-app": {
 					"vue": {
-						"vue2": {
-                            "extVersion": "3.0.0",
-                            "minVersion": ""
+                        "vue2": {
                         },
-						"vue3": {
-                            "extVersion": "3.0.0",
-                            "minVersion": ""
+                        "vue3": {
                         }
 					},
 					"web": {
@@ -63,13 +57,9 @@
 						"chrome": "x"
 					},
 					"app": {
-						"vue": {
-                            "extVersion": "3.0.0",
-                            "minVersion": ""
+                        "vue": {
                         },
-						"nvue": {
-                            "extVersion": "3.0.0",
-                            "minVersion": ""
+                        "nvue": {
                         },
 						"android": {
                             "extVersion": "2.0.0",
