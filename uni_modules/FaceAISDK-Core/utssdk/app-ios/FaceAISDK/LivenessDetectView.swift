@@ -59,7 +59,7 @@ struct LivenessDetectView: View {
                     .padding(.horizontal, 20)
                     .padding(.vertical, 9)
                     .foregroundColor(.white)
-                    .background(Color.brown)  
+                    .background(Color.faceMain)  
                     .cornerRadius(20)
                 
                 Text(localizedTip(for: viewModel.sdkInterfaceTipsExtra.code))
@@ -127,7 +127,7 @@ struct LivenessDetectView: View {
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
                                 .padding(.vertical, 10)
-                                .background(Color.brown)
+                                .background(Color.faceMain)
                                 .cornerRadius(10)
                         }
                         .padding(.horizontal, 30)

@@ -145,7 +145,7 @@
 
     .text-content {
         font-size: 28rpx;
-        color: #800002; /* word-break: break-all; 关键：解决长JSON字符串不换行的问题 */
+        color: #0B4D46; /* word-break: break-all; 关键：解决长JSON字符串不换行的问题 */
         white-space: pre-wrap; /* 保留格式并自动换行 */
     }
 </style>

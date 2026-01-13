@@ -1,5 +1,16 @@
 
 /**
+ * 业务方传给FaceAISDK 插件基础参数
+ */
+export type ResultJSON = {
+  code: number,       //code 含义参考Readme 
+  msg: string, 
+  faceID: string,     
+  faceFeature: string,  //人脸特征值
+  faceBase64: string    //人脸图Base64编码 换个含义
+}
+
+/**
  * 「1:1人脸识别」录入人脸信息
  * 
  * @param faceID 用户ID
@@ -73,15 +84,6 @@ export type InsertFaceFeature = (
 	
 	
 
-/**
- * 业务方传给FaceAISDK 插件基础参数
- */
-export type ResultJSON = {
-  code: number,       //code 含义参考Readme 
-  msg: string, 
-  faceID: string,     
-  faceFeature: string,  //人脸特征值
-  faceBase64: string    //人脸图Base64编码 换个含义
-}
+
 
 
