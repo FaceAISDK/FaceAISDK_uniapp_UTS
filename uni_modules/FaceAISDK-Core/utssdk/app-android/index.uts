@@ -13,10 +13,6 @@ import FaceSearch1NActivity from 'com.faceAI.demo.SysCamera.search.FaceSearch1NA
 import FaceSearchFeatureManger from 'com.ai.face.faceSearch.search.FaceSearchFeatureManger';
 
 
-
-//*********************************************  下面是1:1 人脸识别+活体检测 的方法  **********************************************************
-
-
 /**
  * 「1:1人脸识别」跳转到Android SDK 中原生页面处理人脸录入
  * 

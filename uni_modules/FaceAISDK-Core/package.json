@@ -1,7 +1,7 @@
 {
 	"id": "FaceAISDK-Core",
 	"displayName": "人脸识别活体检测API插件，支持iOS和Android",
-	"version": "3.0.1",
+	"version": "3.0.4",
 	"description": "支持iOS,Android;uniapp,uniapp x",
 	"keywords": [
         "人脸识别，活体检测，高性能，无依赖"
@@ -9,8 +9,8 @@
 	"repository": "https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS",
 	"engines": {
 		"HBuilderX": "^3.6.8",
-		"uni-app": "^4.71",
-		"uni-app-x": "^4.71"
+		"uni-app": "^4.52",
+		"uni-app-x": "^4.62"
 	},
 	"dcloudext": {
 		"type": "uts",

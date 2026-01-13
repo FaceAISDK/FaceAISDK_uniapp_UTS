@@ -101,7 +101,7 @@
 			
 			
 			/**
-			* 4. 1:1人脸识别检测是否本地有faceID人脸特征值,长度为1024的加密字符串
+			* 4. 检测本地是否有faceID对应的人脸特征值,长度为1024的加密字符串（没有就从服务端同步或录入一个）
 			*/
 			getFaceFeatureDemo: function () {
 				getFaceFeature(
