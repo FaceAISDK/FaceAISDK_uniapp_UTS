@@ -33,7 +33,7 @@
 
 
 ## 常见错误与解决方法
-- 0. iOS 自定义基座首次运行找不到iOS原生SDK FaceAISDK_Core
+ - 0. iOS 自定义基座首次运行找不到iOS原生SDK FaceAISDK_Core
    ```
    Analyzing dependencies
    CocoaPods could not find compatible versions for pod "FaceAISDK_Core":
@@ -43,18 +43,18 @@
    ```
     增加版本号，清除缓存，基本重新运行就可以了，在线打包机器有时候会无法科学上网有问题无法访问GitHub  
 	
- - 1. 下载依赖TensorFlowLiteSwift出错了
+  - 1. 下载依赖TensorFlowLiteSwift出错了
    ```
 	[!] Error installing TensorFlowLiteSwift
-	[!] /usr/bin/git clone https://github.com/tensorflow/tensorflow.git /var/folders/ft/7cxjq5ss2094sj67mbhnzjrc0000gn/T/d20260113-17932-1xwealt --template=
-	
+	[!] /usr/bin/git clone https://github.com/tensorflow/tensorflow.git /var/folders/ft/7c temp
 	Cloning into '/var/folders/ft/7cxjq5ss2094sj67mbhnzjrc0000gn/T/d20260113-17932-1xwealt'...
 	error: RPC failed; curl 18 transfer closed with outstanding read data remaining
 	error: 3926 bytes of body are still expected
 	fetch-pack: unexpected disconnect while reading sideband packet
 	fatal: early EOF
    ```
-    这表明：
+   
+	这表明：
     1. 仓库过大：TensorFlowLiteSwift 的源仓库（TensorFlow）非常庞大（几个 GB）。
     2. 网络中断：编译环境（无论是本地还是云端）连接 GitHub 的速度不够快，或者发生了超时，导致在下载完成前连接被切断。
 	如果是本地 Mac 编译（推荐尝试）
