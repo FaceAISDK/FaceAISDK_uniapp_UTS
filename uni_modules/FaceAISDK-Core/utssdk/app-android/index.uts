@@ -5,7 +5,7 @@ import Activity from 'android.app.Activity';
 import Intent from 'android.content.Intent';
 import FaceSDKConfig from "com.faceAI.demo.FaceSDKConfig";
 import FaceAISDKNative from "uts.sdk.modules.uniFaceAISDK.FaceAISDKNative";
-import AddFaceImageActivity from "com.faceAI.demo.SysCamera.addFace.AddFaceImageActivity";
+import AddFaceFeatureActivity from "com.faceAI.demo.SysCamera.addFace.AddFaceFeatureActivity";
 import FaceVerificationActivity from "com.faceAI.demo.SysCamera.verify.FaceVerificationActivity";
 import LivenessDetectActivity from "com.faceAI.demo.SysCamera.verify.LivenessDetectActivity";
 import BitmapUtils from "com.faceAI.demo.base.utils.BitmapUtils";
@@ -30,7 +30,7 @@ export const addFaceBySDKCamera : AddFaceBySDKCamera = function (
 	UTSAndroid.getUniActivity()!.runOnUiThread(() => {
 		const context = UTSAndroid.getUniActivity() as Activity
 		FaceSDKConfig.init(context);
-		const intent = new Intent(context, AddFaceImageActivity().javaClass)
+		const intent = new Intent(context, AddFaceFeatureActivity().javaClass)
 		intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_VERIFY");
 		intent.putExtra("USER_FACE_ID_KEY", faceID);
 		intent.putExtra("NEED_CONFIRM_ADD_FACE", needShowConfirmDialog);
