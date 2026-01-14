@@ -1,7 +1,7 @@
 ## FaceAISDK-UTS API 插件
 
 1:1人脸识别，活体检测UTS API插件，支持iOS，Android，支持uniappX和uniapp。    
-人脸识别活体检测都是设备端侧AI能力，无需后台API服务可完全离线运行，高性能无依赖
+所有功能都是设备端侧AI能力可开飞行模式体验，无需后台API服务可完全离线运行，高性能无依赖
 
 **感谢大家收藏与点赞**，如有问题可描述你的使用场景说明发送邮件到FaceAISDK.Service@gmial.com  
 或提issues 到本插件GitHub托管工程：https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS
@@ -11,7 +11,7 @@
 <img src="https://www.pgyer.com/app/qrcode/faceVerify" width = 19%   alt="扫一扫下载Demo"/>
 </div>
 
-1:N 人脸搜索插件应用市场地址：https://ext.dcloud.net.cn/plugin?id=26467
+1:N 人脸搜索插件应用市场地址：https://ext.dcloud.net.cn/plugin?id=26467  
 1:1人脸识别+活体检测插件地址：https://ext.dcloud.net.cn/plugin?id=23881
 
 ## 使用方法
@@ -43,7 +43,7 @@
    ```
     增加版本号，清除缓存，基本重新运行就可以了，在线打包机器有时候会无法科学上网有问题无法访问GitHub  
 	
-  - 1. 下载依赖TensorFlowLiteSwift出错了
+  - 1. 下载依赖TensorFlowLiteSwift超时出错了(高峰期打包容易超时)
    ```
 	[!] Error installing TensorFlowLiteSwift
 	[!] /usr/bin/git clone https://github.com/tensorflow/tensorflow.git /var/folders/ft/7c temp
@@ -56,12 +56,10 @@
    
 	这表明：
     1. 仓库过大：TensorFlowLiteSwift 的源仓库（TensorFlow）非常庞大。
-    2. 网络中断：编译环境（无论是本地还是云端）连接 GitHub 的速度不够快，或者发生了超时，导致在下载完成前连接被切断。
-	如果是本地 Mac 编译（推荐尝试）
+    2. 网络中断：编译环境（无论是本地还是云端）连接GitHub的速度不够快，高峰期打包发生超时，导致在下载完成前连接被切断。
+	如果是本地 Mac 编译 
     如果你是在自己的 Mac 上运行 HBuilderX 进行打包，可以通过修改 Git 配置来解决：
-    打开终端 (Terminal)。
     增加 Git 缓存大小（这是最直接的修复方法，将缓存设为 1GB）：
-    Bash
     git config --global http.postBuffer 1048576000
     git config --global https.postBuffer 1048576000
 
@@ -99,4 +97,4 @@
     public static let ALL_LIVENESS_SUCCESS = 10    // 10  所有的活体检测完成(包括动作和炫彩)
 ```
 
-  Copyright © 2026 FaceAISDK. All rights reserved。FaceAISDK.Service@gmail.com 
+  Copyright © 2026 FaceAISDK. All rights reserved。 FaceAISDK.Service@gmail.com 
