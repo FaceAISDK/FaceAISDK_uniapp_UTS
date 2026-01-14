@@ -1,7 +1,7 @@
 {
 	"id": "FaceAISDK-Core",
 	"displayName": "人脸识别活体检测API插件，支持iOS和Android",
-	"version": "3.0.4",
+	"version": "3.0.5",
 	"description": "支持iOS,Android;uniapp,uniapp x",
 	"keywords": [
         "人脸识别，活体检测，高性能，无依赖"
