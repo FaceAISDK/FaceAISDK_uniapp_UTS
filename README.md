@@ -17,14 +17,14 @@
 ## 使用方法
   如果你是第一次运行UTS插件工程/引入UTS API插件，你应先安装官方说明配置好基础环境 [基础环境](https://doc.dcloud.net.cn/uni-app-x/plugin/uts-plugin.html) 
 
-  - 1. 下载Demo工程[](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS)先跑通。熟悉后参考文档集成到主项目
+  - 1.下载Demo工程[](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS)先跑通。熟悉后参考文档集成到主项目
 
-  - 2. 按照文档 -》把插件引入项目（即 import {faceVerify,livenessVerify,getFaceFeature等方法} from "@/uni_modules/FaceAISDK-Core";）
+  - 2.按照文档 -》把插件引入项目（即 import {faceVerify,livenessVerify,getFaceFeature等方法} from "@/uni_modules/FaceAISDK-Core";）
 
-  - 3. 运行-》运行到手机或模拟器 -》制作自定义调试基座 -》打包 等基座制作完成
+  - 3.运行-》运行到手机或模拟器 -》制作自定义调试基座 -》打包 等基座制作完成
     ![制作自定义调试基座](https://i.postimg.cc/QVZFgycd/1.png)
 
-  - 4. 运行 -》 运行到手机或模拟器-》运行到iOS/Android基座-》选择使用自定义基座运行-》选择手机-》运行
+  - 4.运行 -》 运行到手机或模拟器-》运行到iOS/Android基座-》选择使用自定义基座运行-》选择手机-》运行
     ![运行到手机](https://i.postimg.cc/QdwtZM60/2.png)
 	**请手动勾选对正确的运行方式，很多朋友辛苦打好了自定义基座包，结果运行的时候没选对导致运行不了**
 	
@@ -33,7 +33,7 @@
 
 
 ## 常见错误与解决方法
- - 0. iOS 自定义基座首次运行找不到iOS原生SDK FaceAISDK_Core
+ - 1.iOS自定义基座相比Android很容易打包失败
    ```
    Analyzing dependencies
    CocoaPods could not find compatible versions for pod "FaceAISDK_Core":
@@ -41,9 +41,12 @@
    FaceAISDK_Core (= 2026.01.04)
    None of your spec sources contain a spec satisfying the dependency: `FaceAISDK_Core (= 2026.01.04)`.
    ```
-    增加版本号，清除缓存，基本重新运行就可以了，在线打包机器有时候会无法科学上网有问题无法访问GitHub  
+    - 1 尽量在云服务器不忙的时候打包   
+    - 2 增加版本号并手动清除缓存   
+    - 3 切换网络环境，尽量用Mac电脑打包（作者HbuilderX 版本4.8.7）   
+	    
 	
-  - 1. 下载依赖TensorFlowLiteSwift超时出错了(高峰期打包容易超时)
+  - 2.下载依赖TensorFlowLiteSwift超时出错了(高峰期打包容易超时)
    ```
 	[!] Error installing TensorFlowLiteSwift
 	[!] /usr/bin/git clone https://github.com/tensorflow/tensorflow.git /var/folders/ft/7c temp
@@ -66,7 +69,7 @@
     开启 VPN/代理：确保终端走了代理流量，因为 TensorFlow 的服务器在海外。
     设置完后，重新在 HBuilderX 中点击打包。TensorFlowLiteSwift只要成功同步一次后就好了
 	
- - 2. iOS 基座安装到手机后很久都是白屏/黑屏幕
+ - 3.iOS 基座安装到手机后很久都是白屏/黑屏幕
   ```
    控制台输出
    项目 [FaceAI_API_Plugin] 已启动。请点击手机/模拟器的运行基座App（uni-app x）查看效果。
@@ -74,10 +77,10 @@
   ```
    根据提示杀掉基座进程重启，然后点击启动2个其他App后再重新启动基本就没问题了，本情况只会在第一次安装新基座出现
    
- - 3. 炫彩活体提示光线太亮导致失败
+ - 4.炫彩活体提示光线太亮导致失败
    这个基本上只能规避强光环境了，或引导用户用手遮住强烈光线，让手机彩色光能照到脸部
    
- - 4. 改动原生swift/kotlin 代码导致基座不能正常运行
+ - 5.改动原生swift/kotlin 代码导致基座不能正常运行
    只能重新制作自定义调试基座，UTS API插件使用方如果不需要修改插件底层实现尽量不用改原生代码
    
 
