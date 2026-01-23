@@ -42,6 +42,7 @@ object FaceAISDKNative {
 	       errorResult["code"] = 0 // 0 代表失败
 	       errorResult["msg"] = "base64ToBitmap failed" // 明确提示转码失败
 	       errorResult["faceID"] = faceID
+		   errorResult["faceFeature"] = " "
 	       callback(errorResult)
 	       return // 结束执行
 	   }
@@ -54,6 +55,7 @@ object FaceAISDKNative {
 			   			var code = 0
 			   			var msg = "getFaceFeature failed"
 			            var faceID = faceID
+						var faceFeature =" "
 			    }
 			   	callback(result)
 	       }
