@@ -59,12 +59,10 @@ public class FaceSDKSwiftManager: NSObject {
           DispatchQueue.main.async {
                 guard let topVC = getTopViewController() else { return }
                 
-                // 1. 【Manager 主动控制】解决 UTS/Native 混合开发的时序问题
-                ScreenBrightnessHelper.shared.maximizeBrightness()
+                 ScreenBrightnessHelper.shared.maximizeBrightness()
                 
                 var hostingController: UIHostingController<VerifyFaceView>? = nil
                 
-                // 2. 初始化 View
                 var sdkView = VerifyFaceView(
                     faceID: faceID,
                     threshold: threshold.floatValue,
@@ -74,7 +72,6 @@ public class FaceSDKSwiftManager: NSObject {
                     motionLivenessSteps: motionLivenessSteps.intValue,
                     onDismiss: { (resultCode: Int) in
                         DispatchQueue.main.async {
-                            // 4. 【Manager 主动恢复】
                             ScreenBrightnessHelper.shared.restoreBrightness()
                             
                             hostingController?.dismiss(animated: true) {
@@ -84,7 +81,6 @@ public class FaceSDKSwiftManager: NSObject {
                     }
                 )
                 
-                // 3. 【关键】关闭 View 内部的自动亮度控制，防止冲突
                 sdkView.autoControlBrightness = false
                 
                 hostingController = UIHostingController(rootView: sdkView)
@@ -93,7 +89,7 @@ public class FaceSDKSwiftManager: NSObject {
             }
         }
     
-        // MARK: - 活体检测 (更新版)
+        //  活体检测 
         public static func showLivenessVerify(_ livenessType: NSNumber,
                                               _ motionLivenessTypes: String,
                                               _ motionLivenessTimeOut : NSNumber,
@@ -102,7 +98,6 @@ public class FaceSDKSwiftManager: NSObject {
             DispatchQueue.main.async {
                 guard let topVC = getTopViewController() else { return }
                 
-                // 1. 调亮
                 ScreenBrightnessHelper.shared.maximizeBrightness()
                 
                 var hostingController: UIHostingController<LivenessDetectView>? = nil
@@ -114,9 +109,7 @@ public class FaceSDKSwiftManager: NSObject {
                     motionLivenessSteps: motionLivenessSteps.intValue,
                     onDismiss: { (resultCode: Int) in
                         DispatchQueue.main.async {
-                            // 4. 恢复
                             ScreenBrightnessHelper.shared.restoreBrightness()
-                            
                             hostingController?.dismiss(animated: true) {
                                 callback(NSNumber(value: resultCode))
                             }
@@ -124,7 +117,6 @@ public class FaceSDKSwiftManager: NSObject {
                     }
                 )
                 
-                // 3. 关闭 View 内部控制
                 sdkView.autoControlBrightness = false
                 
                 hostingController = UIHostingController(rootView: sdkView)
@@ -141,7 +133,7 @@ public class FaceSDKSwiftManager: NSObject {
             DispatchQueue.main.async {
                 guard let topVC = getTopViewController() else { return }
                 
-                // 1. 调亮
+            
                 ScreenBrightnessHelper.shared.maximizeBrightness()
                 
                 var hostingController: UIHostingController<AddFaceByCamera>? = nil
@@ -150,7 +142,6 @@ public class FaceSDKSwiftManager: NSObject {
                     faceID: faceID,
                     onDismiss: { (resultCode: Int) in
                         DispatchQueue.main.async {
-                            // 4. 恢复
                             ScreenBrightnessHelper.shared.restoreBrightness()
                             
                             hostingController?.dismiss(animated: true) {
@@ -160,9 +151,8 @@ public class FaceSDKSwiftManager: NSObject {
                     }
                 )
                 
-                // 3. 关闭 View 内部控制
                 sdkView.autoControlBrightness = false
-                
+        
                 hostingController = UIHostingController(rootView: sdkView)
                 hostingController?.modalPresentationStyle = .fullScreen
                 topVC.present(hostingController!, animated: true)
