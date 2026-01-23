@@ -38,6 +38,8 @@ export type AddFaceByImage = (
 	callback : (result : ResultJSON) => void) => void	
 	
 	
+export type ToastMessage = (message : string) => void	
+		
 	
 /**
  * 「1:1人脸识别」校验是否当前用户

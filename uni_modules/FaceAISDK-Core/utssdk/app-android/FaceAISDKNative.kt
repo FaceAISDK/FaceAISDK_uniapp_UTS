@@ -20,6 +20,7 @@ import com.faceAI.demo.base.utils.BitmapUtils;
 import com.faceAI.demo.FaceSDKConfig;
 import com.ai.face.faceSearch.search.Image2FaceFeature;
 import com.ai.face.core.engine.FaceAISDKEngine;
+import com.faceAI.demo.SysCamera.search.ImageToast
 
  
 /**
@@ -27,6 +28,14 @@ import com.ai.face.core.engine.FaceAISDKEngine;
  *
  */
 object FaceAISDKNative {
+	
+	/**
+	 * Toast 信息
+	 * 
+	 */
+	fun toastMessage(context:Context,message: String){
+	    ImageToast().show(context, null, message)
+	}
 	
 	
 	/**

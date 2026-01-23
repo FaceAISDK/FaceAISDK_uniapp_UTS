@@ -1,4 +1,4 @@
-import {AddFaceBySDKCamera,FaceVerify,InsertFaceFeature,LivenessVerify,GetFaceFeature,ResultJSON, AddFaceByImage} from '../interface.uts'
+import {AddFaceBySDKCamera,FaceVerify,InsertFaceFeature,LivenessVerify,GetFaceFeature,ResultJSON, AddFaceByImage, ToastMessage} from '../interface.uts'
 
 import Application from 'android.app.Application';
 import Activity from 'android.app.Activity';
@@ -227,8 +227,13 @@ export const livenessVerify : LivenessVerify = function (
 	});
 }
 
-
-
+export const toastMessage : ToastMessage = function (
+	message : string
+) {
+	const context = UTSAndroid.getUniActivity() as Activity
+	FaceSDKConfig.init(context);
+	FaceAISDKNative.toastMessage(context,message)
+}
 
  
 /**
