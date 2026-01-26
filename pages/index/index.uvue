@@ -13,6 +13,7 @@
 		      <text class="text-content">{{faceAIResult}}</text>
 		      </scroll-view>
 		</view>
+		
 	</view>
 </template>
 

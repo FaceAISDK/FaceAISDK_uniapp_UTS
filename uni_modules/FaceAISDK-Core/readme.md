@@ -17,19 +17,21 @@
 ## 使用方法
   如果你是第一次运行UTS插件工程/引入UTS API插件，你应先安装官方说明配置好基础环境 [基础环境](https://doc.dcloud.net.cn/uni-app-x/plugin/uts-plugin.html) 
 
-  #### 1. 下载[Demo工程](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS)先跑通。熟悉后参考文档集成到主项目
+  #### 1. 下载[Demo工程](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS)先跑通；熟悉后参考文档集成到主项目
 
-  #### 2. 把插件引入项目（即 import {faceVerify,**等方法} from "@/uni_modules/FaceAISDK-Core";）
-
-  #### 3. 运行 -》 运行到手机或模拟器 -》**制作自定义调试基座** -》打包 等基座制作完成  
+  #### 2. 运行 -》 运行到手机或模拟器 -》**制作自定义调试基座** -》打包 等基座制作完成  
    .
     ![制作自定义调试基座](https://i.postimg.cc/QVZFgycd/1.png)
 
-  #### 4. 运行 -》运行到iOS/Android基座-》**使用自定义基座运行**-》选择手机-》运行 
+  #### 3. 运行 -》运行到iOS/Android基座-》**使用自定义基座运行**-》选择手机-》运行 
    .
     ![运行到手机](https://i.postimg.cc/QdwtZM60/2.png)
 	
+		
   **一定要先制作自定义调试基准，然后运行的时候使用自定义基准，看图片步骤引导**
+  
+  #### 4. 把插件引入到你的主项目（即 import {faceVerify,**等方法} from "@/uni_modules/FaceAISDK-Core";）
+
 	
   若之前手机安装过基座需要先卸载之前的基座，iOS 可能会提示你安装好后杀死应进程后重新启动(可以点击几个其他应用加快彻底杀死重启)
   注：只支持真机调试，需要用到硬件摄像头。**不可用于金融场景**

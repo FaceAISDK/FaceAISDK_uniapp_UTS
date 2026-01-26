@@ -7,14 +7,6 @@
         android:largeHeap="true"
         android:hardwareAccelerated="true">
 		
-        <activity
-            android:name=".SysCamera.verify.FaceVerificationActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".SysCamera.verify.LivenessDetectActivity"
-            android:exported="false" />
-			
 		
     </application>
 
