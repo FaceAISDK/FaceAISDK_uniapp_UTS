@@ -48,6 +48,9 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
             } else {
                 message = "未知状态";
             }
+			
+			//补全获取faceBase64
+			
             let feature = FaceSDKSwiftManager.getFaceFeature(faceID)
 
 		    	const resultJson : ResultJSON = {
@@ -62,6 +65,15 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
     );
 }
 
+
+//ios提取人脸图片中的特征值。不建议通过此方式录入人脸，品质不高
+export const addFaceByImage : AddFaceByImage = function (
+	faceID : string,
+	base64FaceImage:string,
+	callback : (result : ResultJSON) => void
+) {
+	//非必要不实现
+}
 
 
 
