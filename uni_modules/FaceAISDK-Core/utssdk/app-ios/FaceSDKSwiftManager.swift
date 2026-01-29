@@ -4,6 +4,18 @@ import FaceAISDK_Core
 
 @objcMembers
 public class FaceSDKSwiftManager: NSObject {
+	
+	
+	// 临时操作的图片转Base64 编码
+	public static func getFaceImageBase64(_ faceName: String) -> String {
+	    guard let faceImageBase64 = FaceImageManger.faceImageToBase64(fileName: faceName) else {
+	        print("❌ getFaceImageBase64 failed")
+	        return ""
+	    }
+	    	    
+	    return faceImageBase64
+	}
+	
         
     // 获取并校验人脸特征值 (同步)
     public static func getFaceFeature(_ faceID: String) -> String {
@@ -17,7 +29,7 @@ public class FaceSDKSwiftManager: NSObject {
             return ""
         }
         
-        print("✅ [Swift] isFaceFeatureExist: OK (Length 1024)")
+        // print("✅ [Swift] isFaceFeatureExist: OK (Length 1024)")
         return faceFeature
     }
     
@@ -48,7 +60,7 @@ public class FaceSDKSwiftManager: NSObject {
     }
 
 
-    // MARK: - 1:1 人脸识别 (更新版)  <-- 已修复此处缺少斜杠的问题
+    // MARK: - 1:1 人脸识别 
     public static func showFaceVerify(_ faceID: String,
                                           _ threshold: NSNumber,
                                           _ livenessType: NSNumber,
