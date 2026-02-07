@@ -86,7 +86,7 @@ export const addFaceByImage : AddFaceByImage = function (
 	const context = UTSAndroid.getUniActivity() as Activity
 	FaceSDKConfig.init(context);
 	
-	FaceAISDKNative.getFaceFeatureByImageNative(context,faceID, base64FaceImage，function (result : UTSJSONObject) {
+	FaceAISDKNative.getFaceFeatureByImageNative(context,faceID, base64FaceImage,function (result : UTSJSONObject) {
 		
 			const resultJson:ResultJSON={
 				code:result.getNumber("code") as number,
