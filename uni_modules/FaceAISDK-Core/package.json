@@ -72,19 +72,19 @@
 						"harmony": "x"
 					},
 					"mp": {
-						"weixin": "-",
-						"alipay": "-",
-						"toutiao": "-",
-						"baidu": "-",
-						"kuaishou": "-",
-						"jd": "-",
-						"harmony": "-",
-						"qq": "-",
-						"lark": "-"
+						"weixin": "x",
+						"alipay": "x",
+						"toutiao": "x",
+						"baidu": "x",
+						"kuaishou": "x",
+						"jd": "x",
+						"harmony": "x",
+						"qq": "x",
+						"lark": "x"
 					},
 					"quickapp": {
-						"huawei": "-",
-						"union": "-"
+						"huawei": "x",
+						"union": "x"
 					}
 				},
 				"uni-app-x": {
