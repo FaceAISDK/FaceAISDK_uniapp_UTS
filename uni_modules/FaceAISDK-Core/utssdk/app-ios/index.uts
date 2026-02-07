@@ -1,4 +1,4 @@
-import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON } from '../interface.uts'
+import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceByImage } from '../interface.uts'
 
 
 /**
@@ -41,21 +41,24 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
         (resultCode: number) => {
 			//resultCode ：0用户取消  1添加成功
             let message = "";
+			let base64Str = "";
+			
             if (resultCode == 1) {
                 message = "人脸录入成功";
+				base64Str = FaceSDKSwiftManager.getFaceImageBase64(faceID)
             } else if (resultCode == 0) {
                 message = "用户取消录入";
             } else {
                 message = "未知状态";
             }
+			
             let feature = FaceSDKSwiftManager.getFaceFeature(faceID)
-
 		    	const resultJson : ResultJSON = {
                 code: resultCode,
                 msg: message,   
                 faceID: faceID,
                 faceFeature: feature,  
-                faceBase64: ""
+                faceBase64: base64Str
             };
             callback(resultJson);
         }
@@ -63,6 +66,14 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
 }
 
 
+//ios提取人脸图片中的特征值。不建议通过此方式录入人脸，品质不高
+export const addFaceByImage : AddFaceByImage = function (
+	faceID : string,
+	base64FaceImage:string,
+	callback : (result : ResultJSON) => void
+) {
+	//非必要不实现
+}
 
 
 
@@ -78,6 +89,7 @@ export const faceVerify : FaceVerify = function (
 	motionLivenessSteps : number,
 	callback : (result : ResultJSON) => void
 ) {
+	
 	FaceSDKSwiftManager.showFaceVerify(
 	    faceID, 
 		threshold,
@@ -86,12 +98,18 @@ export const faceVerify : FaceVerify = function (
 		motionLivenessTimeOut,
 		motionLivenessSteps,
 	    (resultCode: number) => {
-		    	const resultJson : ResultJSON = {
+			let base64Str = "";
+			
+			if (resultCode == 1 ||resultCode == 10) {
+				base64Str = FaceSDKSwiftManager.getFaceImageBase64(faceID)
+			}
+			
+		    const resultJson : ResultJSON = {
 			    code: resultCode,
 			    msg: getMsgByCode(resultCode),
 			    faceID: faceID,
 			    faceFeature: "-",
-			    faceBase64: "-"
+			    faceBase64: base64Str
 			};
 			callback(resultJson);
 	    }
@@ -117,20 +135,24 @@ export const livenessVerify : LivenessVerify = function (
 		motionLivenessTimeOut,
 		motionLivenessSteps,
 	    (resultCode: number) => {
+			
+			let base64Str = "";
+			if (resultCode == 1 ||resultCode == 10) {
+				base64Str = FaceSDKSwiftManager.getFaceImageBase64("Liveness")
+			}
+			
 		   let msg = getMsgByCode(resultCode);
            const resultJson = {
                 code: resultCode,
                 msg: msg,
                 faceID: "-",
                 faceFeature: "-",  
-                faceBase64: "-"    
+                faceBase64: base64Str    
             } as ResultJSON;
 			callback(resultJson);
 	    }
 	);
 }
-
-
 
 
 /**

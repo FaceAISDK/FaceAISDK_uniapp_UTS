@@ -1,6 +1,6 @@
 import SwiftUI
 
-// 1. 扩展 Color 类
+// 1. 如果想改变主题颜色
 extension Color {
     // 2. 定义静态属性主题颜色 faceMain
     // 直接使用 RGB 数值 (对应 #0B4D46，不会算的用AI辅助计算一下)
