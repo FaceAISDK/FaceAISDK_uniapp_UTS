@@ -26,12 +26,12 @@
 			"qq": ""
 		},
 		"declaration": {
-			"ads": "无\n更多VIP授权服务联系FaceAISDK.Service@gmail.com",
-			"data": "插件可以开飞行模型运行，不收集用户业务数据",
-			"permissions": "仅仅需要相机"
+			"ads": "无。更多VIP服务联系FaceAISDK.Service@gmail.com",
+			"data": "插件可离线运行，不收集数据",
+			"permissions": "相机"
 		},
 		"npmurl": "",
-		"darkmode": "x",
+		"darkmode": "√",
 		"i18n": "√",
 		"widescreen": "√"
 	},
@@ -47,20 +47,16 @@
 			"client": {
 				"uni-app": {
 					"vue": {
-                        "vue2": {
-                        },
-                        "vue3": {
-                        }
+                        "vue2": "√",
+                        "vue3": "√"
 					},
 					"web": {
 						"safari": "x",
 						"chrome": "x"
 					},
 					"app": {
-                        "vue": {
-                        },
-                        "nvue": {
-                        },
+                        "vue": "√",
+                        "nvue": "√",
 						"android": {
                             "extVersion": "2.0.0",
                             "minVersion": "21"
@@ -77,13 +73,14 @@
 						"toutiao": "x",
 						"baidu": "x",
 						"kuaishou": "x",
-						"jd": "x",
-						"harmony": "x",
-						"qq": "x",
-						"lark": "x"
+						"jd": "-",
+						"harmony": "-",
+						"qq": "-",
+                        "lark": "-",
+                        "xhs": "-"
 					},
 					"quickapp": {
-						"huawei": "x",
+						"huawei": "-",
 						"union": "x"
 					}
 				},
