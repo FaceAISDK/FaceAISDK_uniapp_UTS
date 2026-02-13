@@ -6,6 +6,8 @@ export type ResultJSON = {
   code: number,       //code 含义参考Readme 
   msg: string, 
   faceID: string,     
+  similarity:number,
+  liveness:number,      //保留字段
   faceFeature: string,  //人脸特征值
   faceBase64: string    //人脸图Base64编码 换个含义
 }

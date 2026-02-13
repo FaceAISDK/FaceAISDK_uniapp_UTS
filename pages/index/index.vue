@@ -41,10 +41,10 @@
 		methods: {
 
 			/**
-			 * 1. 1:1 人脸识别调用SDK相机录入人脸特征值
+			 * 1. 1:1 人脸识别调用SDK相机录入人脸特征值(也可以用于检测人脸后裁剪好后用于自身服务器验证)
+			 * 
 			 * */
 			addFaceFeatureBySDKCameraDemo: function() {
-				// 转换说明：移除了 (result: ResultJSON) 中的类型注解
 				addFaceBySDKCamera(
 					this.faceID,
 					1, //1.快速模式，  2.精确模式(人脸品质高)
@@ -54,7 +54,6 @@
 						this.faceAIResult = JSON.stringify(result)
 					})
 			},
-
 
 
 			/**

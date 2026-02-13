@@ -56,6 +56,8 @@ export const addFaceBySDKCamera : AddFaceBySDKCamera = function (
 					code:codeNow,
 					msg:msgNow,
 					faceFeature: faceFeatureNoew,
+					similarity:0,
+					liveness:0,
 					faceID:faceID,
 					faceBase64:faceBase64
 				}		
@@ -66,6 +68,8 @@ export const addFaceBySDKCamera : AddFaceBySDKCamera = function (
 					code:-1,
 					msg:"添加失败",
 					faceFeature: "",
+					similarity:0,
+					liveness:0,
 					faceID:faceID,
 					faceBase64:"?"
 				}
@@ -92,6 +96,8 @@ export const addFaceByImage : AddFaceByImage = function (
 				code:result.getNumber("code") as number,
 				msg:result.getString("msg") as string,
 				faceID:faceID,
+				similarity:0,
+				liveness:0,
 				faceBase64:"",
 				faceFeature:result.getString("faceFeature") as string
 			}
@@ -137,7 +143,10 @@ export const faceVerify : FaceVerify = function (
 		if (requestCode == 10087) {
 			if(intentAct!=null){
 				const codeNow:number = intentAct.getIntExtra("code",0) as number
-				const msgNow:string=intentAct.getStringExtra("msg") as string		
+				const msgNow:string=intentAct.getStringExtra("msg") as string
+                const defaultVal: Float = 0;
+				// const similarity: number = intentAct.getFloatExtra("similarity", defaultVal) as number 
+				// const liveness: number = intentAct.getFloatExtra("livenessValue", defaultVal) as number
 						
 			    //活体检测通过后的人脸图，用户可以用这张图做进一步其他处理
 		    	const livefaceBase64:string=BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR+"verifyBitmap")
@@ -146,6 +155,8 @@ export const faceVerify : FaceVerify = function (
 					code:codeNow,
 					msg:msgNow,
 					faceFeature: "",
+					similarity:0,
+					liveness:0,
 					faceID:faceID,
 					faceBase64:livefaceBase64
 				}
@@ -155,6 +166,8 @@ export const faceVerify : FaceVerify = function (
 					code:1,
 					msg:"intentAct=null",
 					faceFeature: "",
+					similarity:0,
+					liveness:0,
 					faceID:faceID,
 					faceBase64:"faceBase64"
 				}	
@@ -163,8 +176,6 @@ export const faceVerify : FaceVerify = function (
 		} 
 	});
 }
-
-
 
 
 
@@ -209,6 +220,8 @@ export const livenessVerify : LivenessVerify = function (
 					faceFeature:"",
 					code:codeNow,
 					msg:msgNow,
+					similarity:0,
+					liveness:0,
 					faceID:"",
 					faceBase64:faceBase64
 				} 
@@ -218,6 +231,8 @@ export const livenessVerify : LivenessVerify = function (
 					code:1,
 					msg:"data == null",
 					faceID:"",
+					similarity:0,
+					liveness:0,
 					faceBase64:"",
 					faceFeature:""
 				}	
@@ -249,6 +264,8 @@ export const getFaceFeature : GetFaceFeature = function (faceID : string, callba
 				code:result.getNumber("code") as number,
 				msg:result.getString("msg") as string,
 				faceID:faceID,
+				similarity:0,
+				liveness:0,
 				faceBase64:"?",
 				faceFeature:result.getString("faceFeature") as string
 			}
@@ -269,6 +286,8 @@ export const insertFaceFeature : InsertFaceFeature = function (faceID : string, 
 				code:result.getNumber("code") as number,
 				msg:result.getString("msg") as string,
 				faceID:faceID,
+				similarity:0,
+				liveness:0,
 				faceBase64:"",
 				faceFeature:""
 			}	
