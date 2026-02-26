@@ -23,7 +23,7 @@ public class FaceSDKSwiftManager: NSObject {
             print("❌ [Swift] isFaceFeatureExist: No data found for \(faceID)")
             return ""
         }
-        
+        //不要写死1024
         if faceFeature.count != 1024 {
             print("❌ [Swift] isFaceFeatureExist: Invalid Length! Current: \(faceFeature.count), Expected: 1024")
             return ""
