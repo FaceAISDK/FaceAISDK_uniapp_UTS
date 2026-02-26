@@ -1,6 +1,5 @@
 import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceByImage } from '../interface.uts'
 
-
 /**
  * 工具函数：根据状态码获取提示文案
  * 统一管理所有接口的返回状态
@@ -45,9 +44,8 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
 			
             if (resultCode == 1) {
                 message = "人脸录入成功";
-				
 				//排查问题，暂时注释
-				//base64Str = FaceSDKSwiftManager.getFaceImageBase64(faceID)
+				base64Str = FaceSDKSwiftManager.getFaceImageBase64(faceID)
             } else if (resultCode == 0) {
                 message = "用户取消录入";
             } else {
@@ -57,7 +55,9 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
             let feature = FaceSDKSwiftManager.getFaceFeature(faceID)
 		    	const resultJson : ResultJSON = {
                 code: resultCode,
-                msg: message,   
+                msg: message,  
+				similarity:0,
+				liveness:0,
                 faceID: faceID,
                 faceFeature: feature,  
                 faceBase64: base64Str
@@ -110,6 +110,8 @@ export const faceVerify : FaceVerify = function (
 			    code: resultCode,
 			    msg: getMsgByCode(resultCode),
 			    faceID: faceID,
+				similarity:0,
+				liveness:0,
 			    faceFeature: "-",
 			    faceBase64: base64Str
 			};
@@ -148,6 +150,8 @@ export const livenessVerify : LivenessVerify = function (
                 code: resultCode,
                 msg: msg,
                 faceID: "-",
+				similarity:0,
+				liveness:0,
                 faceFeature: "-",  
                 faceBase64: base64Str    
             } as ResultJSON;
@@ -171,6 +175,8 @@ export const getFaceFeature : GetFaceFeature = function
 				    code: resultCode,
 				    msg: "1:exist  0:not exist",
 				    faceID: "",
+					similarity:0,
+					liveness:0,
 				    faceFeature: faceFeature,
 				    faceBase64: ""
 				};
@@ -194,6 +200,8 @@ export const insertFaceFeature : InsertFaceFeature = function
         		    code: resultCode,
 				    msg: "1:success  0:failed",
         		    faceID: "",
+					similarity:0,
+					liveness:0,
         		    faceFeature: "",
         		    faceBase64: ""
         		};

@@ -85,7 +85,6 @@ public class FaceSDKSwiftManager: NSObject {
                     onDismiss: { (resultCode: Int) in
                         DispatchQueue.main.async {
                             ScreenBrightnessHelper.shared.restoreBrightness()
-                            
                             hostingController?.dismiss(animated: true) {
                                 callback(NSNumber(value: resultCode))
                             }
