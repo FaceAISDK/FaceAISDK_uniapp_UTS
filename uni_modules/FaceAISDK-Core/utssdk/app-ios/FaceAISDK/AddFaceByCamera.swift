@@ -78,14 +78,13 @@ public struct AddFaceByCamera: View {
                             viewModel: viewModel,
                             cameraSize: FaceCameraSize,
                             onConfirm: {
-//                                print("FaceFeature: \(String(describing: viewModel.faceFeatureBySDKCamera))")
                                 // 保存人脸特征值
                                 UserDefaults.standard.set(viewModel.faceFeatureBySDKCamera, forKey: faceID)
                                 
                                 // 报错人脸图（可选操作，非SDK运行必须）
-                                if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage){
-                                    print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:faceID)))")
-                                }
+                                // if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage){
+                                //     print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:faceID)))")
+                                // }
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                     onDismiss(1)  // 传递取消状态

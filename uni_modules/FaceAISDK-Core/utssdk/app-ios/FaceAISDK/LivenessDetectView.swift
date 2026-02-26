@@ -173,7 +173,6 @@ struct LivenessDetectView: View {
                     // print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:"Liveness")))")
                 }
                 
-                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     withAnimation {
                         showToast = false

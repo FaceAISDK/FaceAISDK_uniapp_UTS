@@ -45,7 +45,9 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
 			
             if (resultCode == 1) {
                 message = "人脸录入成功";
-				base64Str = FaceSDKSwiftManager.getFaceImageBase64(faceID)
+				
+				//排查问题，暂时注释
+				//base64Str = FaceSDKSwiftManager.getFaceImageBase64(faceID)
             } else if (resultCode == 0) {
                 message = "用户取消录入";
             } else {

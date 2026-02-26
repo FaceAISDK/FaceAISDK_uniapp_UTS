@@ -40,7 +40,7 @@
 		methods: {
 			
 			/**
-			* 1. 1:1 人脸识别调用SDK相机录入人脸特征值(也可以用于检测人脸后裁剪好后用于自身服务器验证)
+			* 1. 人脸识别调用SDK相机录入人脸特征值(也可以用于检测人脸后裁剪好后用于自身服务器验证)
 			* 
 			*/
 			addFaceFeatureBySDKCameraDemo: function () {
@@ -49,8 +49,7 @@
 					1,    //1.快速模式，  2.精确模式(人脸品质高)
 					true, //是否需要显示确认框，强烈建议需要
 					 (result: ResultJSON)  => {
-						//录入的人脸
-						this.faceAIResult =JSON.stringify(result)
+						//this.faceAIResult =JSON.stringify(result)
 					})
 			},
 			
