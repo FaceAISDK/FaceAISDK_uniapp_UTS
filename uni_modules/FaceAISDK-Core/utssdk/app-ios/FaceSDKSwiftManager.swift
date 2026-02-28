@@ -43,16 +43,34 @@ public class FaceSDKSwiftManager: NSObject {
         callback(1)
     }
     
-    // 同步人脸特征到SDK
+    /**
+     * 同步人脸特征到 SDK
+     * * @param faceID      用户唯一标识
+     * @param faceFeature 人脸特征值字符串（长度需 >= 1024）
+     * @param callback    结果回调：1 表示成功，0 表示失败
+     */
     public static func insertFaceFeature(_ faceID: String,
                                          _ faceFeature: String,
                                          _ callback: @escaping (NSNumber) -> Void) {
-        guard !faceFeature.isEmpty else {  
-            print("FaceAISDK: 特征值为空，插入失败")
+        
+        // 1. 同时校验是否为空以及长度是否满足业务要求 (1024)
+        guard !faceFeature.isEmpty, faceFeature.count >= 1024 else {
+            if faceFeature.isEmpty {
+                print("FaceAISDK: 插入失败，特征值不能为空")
+            } else {
+                print("FaceAISDK: 插入失败，特征值长度不足")
+            }
             callback(0)
             return
         }
+        
+        // 2. 只有校验通过后才进行持久化操作
         UserDefaults.standard.set(faceFeature, forKey: faceID)
+        
+        // 3. 确保数据即时写入（iOS 12+ 之后通常由系统自动处理，但手动调用可确保一致性）
+        UserDefaults.standard.synchronize()
+        
+        print("FaceAISDK: 特征值插入成功 (FaceID: \(faceID))")
         callback(1)
     }
 
