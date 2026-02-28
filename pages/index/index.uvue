@@ -139,7 +139,7 @@
 				    this.faceID,
 					"this.faceFeature",
 					(result: ResultJSON) => {
-						// this.faceAIResult =JSON.stringify(result)
+						this.faceAIResult =JSON.stringify(result)
 						console.log("【insertFaceFeature】: "+ this.faceAIResult);
 					})
 			},

@@ -141,16 +141,18 @@ export const livenessVerify: LivenessVerify = function (
 
 /**
  * 提取 Kotlin 原生调用的公共结果组装逻辑
+ * 优化：移除危险的非空强转，增强容错能力
  */
 function buildNativeResult(result: UTSJSONObject, faceID: string): ResultJSON {
     return {
-        code: result.getNumber("code") as number,
-        msg: result.getString("msg") as string,
+        // getNumber 和 getString 如果没取到会返回 null，使用 ?? 提供安全的默认值
+        code: (result.getNumber("code") ?? -1) as number,
+        msg: result.getString("msg") ?? "操作完成，未返回提示",
         faceID: faceID,
         similarity: 0,
         liveness: 0,
         faceBase64: "?",
-        faceFeature: result.getString("faceFeature") as string ?? ""
+        faceFeature: result.getString("faceFeature") ?? ""
     } as ResultJSON;
 }
 
