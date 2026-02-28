@@ -44,7 +44,6 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
 			
             if (resultCode == 1) {
                 message = "人脸录入成功";
-				//排查问题，暂时注释
 				base64Str = FaceSDKSwiftManager.getFaceImageBase64(faceID)
             } else if (resultCode == 0) {
                 message = "用户取消录入";
@@ -52,8 +51,8 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
                 message = "未知状态";
             }
 			
-            let feature = FaceSDKSwiftManager.getFaceFeature(faceID)
-		    	const resultJson : ResultJSON = {
+            let feature = FaceSDKSwiftManager.getFaceFeature(faceID)//人脸特征字符串 
+		    const resultJson : ResultJSON = {
                 code: resultCode,
                 msg: message,  
 				similarity:0,

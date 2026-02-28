@@ -30,7 +30,7 @@
 				motionLivenessType:'1,2,3,4,5',
 				faceFeature: 'faceFeature，1024 length',
 				faceAIResult: 'faceAIResult',
-				base64FaceImage:'data:image/png;base64,你的人脸Base64图，注意控制大小无损压缩，人脸部分宽高300-600为佳'
+				base64FaceImage:'data:image/jpg;base64,你的人脸Base64图，注意控制大小无损压缩，人脸部分宽高300-600为佳'
 			}
 		},
 		onLoad() {
@@ -50,6 +50,7 @@
 					true, //是否需要显示确认框，强烈建议需要
 					 (result: ResultJSON)  => {
 						this.faceAIResult =JSON.stringify(result)
+						console.log("【addFaceBySDKCamera】: ***");
 					})
 			},
 			
@@ -62,7 +63,6 @@
 					 (result: ResultJSON)  => {
 						this.faceAIResult =JSON.stringify(result)
 						console.log("【FaceSDK Result】: " + this.faceAIResult);
-
 					})
 			},
 			
@@ -79,6 +79,8 @@
 			 * @param callback 结果回调
 			 */
 			faceVerifyDemo: function () {	
+				console.log("【faceVerify】: 请求开始 ");
+			
 				faceVerify(
 					this.faceID,
 					0.85,       // 阈值设置，范围限 [0.75,0.95] ,默认0.85
@@ -88,6 +90,7 @@
 					2,         //动作活体步骤，2个
 					 (result: ResultJSON) => {
 						this.faceAIResult =JSON.stringify(result)
+						console.log("【faceVerify】: 返回 "+ this.faceAIResult);
 					})
 			},
 			
@@ -121,19 +124,23 @@
 				getFaceFeature(
 					this.faceID,
 					 (result: ResultJSON) => {
-						this.faceAIResult ="OK："+JSON.stringify(result)						
+						this.faceAIResult ="OK："+JSON.stringify(result)		
+						console.log("【getFaceFeature】: "+ this.faceAIResult);
 					})
 			}, 
 			
 			/**
-			* 5. 演示同步1:1人脸特征值到SDK（账号换设备需要此功能）
+			* 5. 演示同步1:1人脸特征值到SDK（账号换设备需要此功能把已经录入的人脸特征同步到新设备）
 			*/
 			insertFaceFeatureDemo: function () {
+				console.log("【insertFaceFeature】: 请求开始 ");
+				
 				insertFaceFeature(
 				    this.faceID,
-					this.faceFeature,
+					"this.faceFeature",
 					(result: ResultJSON) => {
-						this.faceAIResult =JSON.stringify(result)
+						// this.faceAIResult =JSON.stringify(result)
+						console.log("【insertFaceFeature】: "+ this.faceAIResult);
 					})
 			},
 			
