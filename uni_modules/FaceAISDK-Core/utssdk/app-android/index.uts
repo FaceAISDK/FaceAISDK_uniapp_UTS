@@ -81,7 +81,6 @@ UTSAndroid.onAppActivityResult((requestCode: Int, resultCode: Int, intentAct?: I
             case REQ_CODE_VERIFY:
                 res.similarity = intentAct.getFloatExtra("similarity", defFloat) as number;
                 res.liveness = intentAct.getFloatExtra("livenessValue", defFloat) as number;
-                // 验证场景通常需要留底，无论成功失败都去获取图片
                 res.faceBase64 = BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR + "verifyBitmap");
                 break;
 

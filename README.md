@@ -16,17 +16,17 @@
 ## 使用方法
   如果你是第一次运行UTS插件工程/引入UTS API插件，你应先安装官方说明配置好基础环境 [基础环境](https://doc.dcloud.net.cn/uni-app-x/plugin/uts-plugin.html) 
  
-  #### 1. 下载[Demo工程](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS)先跑通；熟悉半天后参考文档集成到主项目
+  ### 1. 下载[Demo工程](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS)先跑通；熟悉半天后参考文档集成到主项目
 
-  #### 2. 运行 -》 运行到手机或模拟器 -》**制作自定义调试基座** -》打包 等基座制作完成  
+  ### 2. 运行 -》 运行到手机或模拟器 -》**制作自定义调试基座** -》打包 等基座制作完成  
    .
     ![制作自定义调试基座](https://i.postimg.cc/QVZFgycd/1.png)
 
-  #### 3. 运行 -》运行到iOS/Android基座-》**使用自定义基座运行**-》选择手机-》运行 
+  ### 3. 运行 -》运行到iOS/Android基座-》**使用自定义基座运行**-》选择手机-》运行 
    .
     ![运行到手机](https://i.postimg.cc/QdwtZM60/2.png)
 	
-  #### 4. 把插件引入到你的主项目（即 import {faceVerify,**等方法} from "@/uni_modules/FaceAISDK-Core";）
+  ### 4. 把插件引入到你的主项目（即 import {faceVerify,**等方法} from "@/uni_modules/FaceAISDK-Core";）
 	
 	
   **一定一定要先制作自定义调试基准，然后运行的时候使用自定义基准，请看图片步骤引导说明**
@@ -36,7 +36,7 @@
 
 
 ## 常见错误与解决方法
- #### 1.iOS自定义基座相比Android很容易打包失败
+ ### 1.iOS自定义基座相比Android很容易打包失败
    ```
    Analyzing dependencies
    CocoaPods could not find compatible versions for pod "FaceAISDK_Core":
@@ -50,7 +50,7 @@
   3. 切换网络环境，尽量用Mac电脑打包（作者HbuilderX 版本4.87）   
 	    
 	
-  #### 2.下载依赖TensorFlowLiteSwift超时出错了(高峰期打包容易超时)
+  ### 2.下载依赖TensorFlowLiteSwift超时出错了(高峰期打包容易超时)
    ```
 	[!] Error installing TensorFlowLiteSwift
 	[!] /usr/bin/git clone https://github.com/tensorflow/tensorflow.git /var/folders/ft/7c temp
@@ -73,7 +73,7 @@
     开启 VPN/代理：确保终端走了代理流量，因为TensorFlow的服务器在海外。
     设置完后，重新在 HBuilderX 中点击打包。TensorFlowLiteSwift只要成功同步一次后就好了
 	
- #### 3.iOS 基座安装到手机后很久都是白屏/黑屏幕
+ ### 3.iOS 基座安装到手机后很久都是白屏/黑屏幕
   ```
    控制台输出
    项目 [FaceAI_API_Plugin] 已启动。请点击手机/模拟器的运行基座App（uni-app x）查看效果。
@@ -81,10 +81,10 @@
   ```
    根据提示确保杀死基座进程，稍后重启App就可以了
    
- #### 4.炫彩活体提示光线太亮导致失败
+ ### 4.炫彩活体提示光线太亮导致失败
    这个基本上只能规避强光环境了，或引导用户用手遮住强烈光线，让手机彩色光能照到脸部
    
- #### 5.改动原生swift/kotlin 代码导致基座不能正常运行
+ ### 5.改动原生swift/kotlin 代码导致基座不能正常运行
    只能重新制作自定义调试基座，UTS API插件使用方如果不需要修改插件底层实现尽量不用改原生代码
    
 
