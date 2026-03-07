@@ -8,6 +8,7 @@ import AddFaceFeatureActivity from "com.faceAI.demo.SysCamera.addFace.AddFaceFea
 import FaceVerificationActivity from "com.faceAI.demo.SysCamera.verify.FaceVerificationActivity";
 import LivenessDetectActivity from "com.faceAI.demo.SysCamera.verify.LivenessDetectActivity";
 import BitmapUtils from "com.faceAI.demo.base.utils.BitmapUtils";
+import Context from "android.content.Context";
 
 // --- 内部常量与状态 ---
 const REQ_CODE_ADD_FACE = 10086;
@@ -17,19 +18,18 @@ const REQ_CODE_LIVENESS = 10088;
 let currentCallback: ((result: ResultJSON) => void) | null = null;
 let currentFaceID: string = "";
 
-
 /**
  * 核心抽象：统一启动原生页面的发射器
  * 自动处理线程切换、初始化、以及变量缓存
  */
 function launchActivity(
-    targetClass: Class<any>, 
+    targetClassName: string,  // 🌟 修复：改为接收类名字符串
     requestCode: Int, 
     faceID: string, 
     callback: (result: ResultJSON) => void,
     putExtrasParams: (intent: Intent) => void
 ) {
-    UTSAndroid.getUniActivity()!.runOnUiThread(() => {
+    UTSAndroid.getUniActivity()?.runOnUiThread(() => {
         const context = UTSAndroid.getUniActivity() as Activity;
         FaceSDKConfig.init(context);
         
@@ -37,8 +37,10 @@ function launchActivity(
         currentCallback = callback;
         currentFaceID = faceID;
 
-        const intent = new Intent(context, targetClass);
-        putExtrasParams(intent); // 传入特有参数
+        const intent = new Intent();
+        // 🌟 修复：通过包名和类名安全绑定目标，避免在后台 JS 线程错误实例化 Activity
+        intent.setClassName(context as Context, targetClassName);
+        putExtrasParams(intent); 
         context.startActivityForResult(intent, requestCode);
     });
 }
@@ -47,12 +49,10 @@ function launchActivity(
  * 全局统一的结果监听分发
  */
 UTSAndroid.onAppActivityResult((requestCode: Int, resultCode: Int, intentAct?: Intent) => {
-    // 过滤非本插件的请求或回调丢失的情况
-    if (currentCallback==null || ![REQ_CODE_ADD_FACE, REQ_CODE_VERIFY, REQ_CODE_LIVENESS].includes(requestCode)) {
+    if (currentCallback == null || ![REQ_CODE_ADD_FACE, REQ_CODE_VERIFY, REQ_CODE_LIVENESS].includes(requestCode)) {
         return;
     }
 
-    // 1. 构建基础默认结果模型
     let res: ResultJSON = {
         code: 0,
         msg: "用户取消/中断操作",
@@ -63,36 +63,30 @@ UTSAndroid.onAppActivityResult((requestCode: Int, resultCode: Int, intentAct?: I
         faceBase64: "?" 
     };
 
-    // 2. 只有当 Intent 不为空时才去解析具体数据
     if (intentAct != null) {
         res.code = intentAct.getIntExtra("code", 0);
         res.msg = intentAct.getStringExtra("msg") ?? res.msg;
-        const defFloat: Float = 0.0.toFloat(); // UTS 要求的浮点数默认值写法
+        const defFloat: Float = 0.0.toFloat(); 
 
         switch (requestCode) {
             case REQ_CODE_ADD_FACE:
                 res.faceFeature = intentAct.getStringExtra("faceFeature") ?? "";
-                // 优化：仅在操作有效时去读盘转 Base64
                 if (res.code !== 0) {
                     res.faceBase64 = BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_BASE_FACE_DIR + currentFaceID);
                 }
                 break;
-
             case REQ_CODE_VERIFY:
                 res.similarity = intentAct.getFloatExtra("similarity", defFloat) as number;
                 res.liveness = intentAct.getFloatExtra("livenessValue", defFloat) as number;
                 res.faceBase64 = BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR + "verifyBitmap");
                 break;
-
             case REQ_CODE_LIVENESS:
                 res.liveness = intentAct.getFloatExtra("livenessValue", defFloat) as number;
                 res.faceBase64 = BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR + "liveBitmap");
-
                 break;
         }
     }
 
-    // 3. 执行回调并清理内存
     currentCallback!(res);
     currentCallback = null;
     currentFaceID = "";
@@ -106,7 +100,8 @@ UTSAndroid.onAppActivityResult((requestCode: Int, resultCode: Int, intentAct?: I
 export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
     faceID: string, addFacePerformanceMode: number, needShowConfirmDialog: boolean, callback: (result: ResultJSON) => void
 ) {
-    launchActivity(AddFaceFeatureActivity().javaClass, REQ_CODE_ADD_FACE as Int, faceID, callback, (intent: Intent) => {
+    // 🌟 修复：直接传入完整类名
+    launchActivity("com.faceAI.demo.SysCamera.addFace.AddFaceFeatureActivity", REQ_CODE_ADD_FACE as Int, faceID, callback, (intent: Intent) => {
         intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_VERIFY");
         intent.putExtra("USER_FACE_ID_KEY", faceID);
         intent.putExtra("NEED_CONFIRM_ADD_FACE", needShowConfirmDialog);
@@ -117,7 +112,8 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
 export const faceVerify: FaceVerify = function (
     faceID: string, threshold: number, faceLivenessType: number, motionLivenessTypes: string, motionLivenessTimeOut: number, motionLivenessSteps: number, callback: (result: ResultJSON) => void
 ) {
-    launchActivity(FaceVerificationActivity().javaClass, REQ_CODE_VERIFY as Int, faceID, callback, (intent: Intent) => {
+    // 🌟 修复：直接传入完整类名
+    launchActivity("com.faceAI.demo.SysCamera.verify.FaceVerificationActivity", REQ_CODE_VERIFY as Int, faceID, callback, (intent: Intent) => {
         intent.putExtra(FaceVerificationActivity.USER_FACE_ID_KEY, faceID);
         intent.putExtra(FaceVerificationActivity.THRESHOLD_KEY, threshold);
         intent.putExtra(FaceVerificationActivity.FACE_LIVENESS_TYPE, faceLivenessType);
@@ -130,7 +126,8 @@ export const faceVerify: FaceVerify = function (
 export const livenessVerify: LivenessVerify = function (
     faceLivenessType: number, motionLivenessTypes: string, motionLivenessTimeOut: number, motionLivenessSteps: number, callback: (result: ResultJSON) => void
 ) {
-    launchActivity(LivenessDetectActivity().javaClass, REQ_CODE_LIVENESS as Int, "", callback, (intent: Intent) => {
+    // 🌟 修复：直接传入完整类名
+    launchActivity("com.faceAI.demo.SysCamera.verify.LivenessDetectActivity", REQ_CODE_LIVENESS as Int, "", callback, (intent: Intent) => {
         intent.putExtra(LivenessDetectActivity.FACE_LIVENESS_TYPE, faceLivenessType);
         intent.putExtra(LivenessDetectActivity.MOTION_LIVENESS_TYPES, motionLivenessTypes);
         intent.putExtra(LivenessDetectActivity.MOTION_TIMEOUT, motionLivenessTimeOut);
@@ -140,11 +137,9 @@ export const livenessVerify: LivenessVerify = function (
 
 /**
  * 提取 Kotlin 原生调用的公共结果组装逻辑
- * 优化：移除危险的非空强转，增强容错能力
  */
 function buildNativeResult(result: UTSJSONObject, faceID: string): ResultJSON {
     return {
-        // getNumber 和 getString 如果没取到会返回 null，使用 ?? 提供安全的默认值
         code: (result.getNumber("code") ?? -1) as number,
         msg: result.getString("msg") ?? "操作完成，未返回提示",
         faceID: faceID,
@@ -156,31 +151,39 @@ function buildNativeResult(result: UTSJSONObject, faceID: string): ResultJSON {
 }
 
 export const addFaceByImage: AddFaceByImage = function (faceID: string, base64FaceImage: string, callback: (result: ResultJSON) => void) {
-    const context = UTSAndroid.getUniActivity() as Activity;
-    FaceSDKConfig.init(context);
-    FaceAISDKNative.getFaceFeatureByImageNative(context, faceID, base64FaceImage, (result: UTSJSONObject) => {
-        callback(buildNativeResult(result, faceID));
+    UTSAndroid.getUniActivity()?.runOnUiThread(() => {
+        const context = UTSAndroid.getUniActivity() as Activity;
+        FaceSDKConfig.init(context);
+        FaceAISDKNative.getFaceFeatureByImageNative(context, faceID, base64FaceImage, (result: UTSJSONObject) => {
+            callback(buildNativeResult(result, faceID));
+        });
     });
 }
 
 export const getFaceFeature: GetFaceFeature = function (faceID: string, callback: (result: ResultJSON) => void) {
-    const context = UTSAndroid.getAppContext() as Application;
-    FaceSDKConfig.init(context);
-    FaceAISDKNative.isFaceExistKotlin(context, faceID, (result: UTSJSONObject) => {
-        callback(buildNativeResult(result, faceID));
+    UTSAndroid.getUniActivity()?.runOnUiThread(() => {
+        const context = UTSAndroid.getAppContext() as Application;
+        FaceSDKConfig.init(context);
+        FaceAISDKNative.isFaceExistKotlin(context, faceID, (result: UTSJSONObject) => {
+            callback(buildNativeResult(result, faceID));
+        });
     });
 }
 
 export const insertFaceFeature: InsertFaceFeature = function (faceID: string, faceFeature: string, callback: (result: ResultJSON) => void) {
-    const context = UTSAndroid.getAppContext() as Application;
-    FaceSDKConfig.init(context);
-    FaceAISDKNative.insertFaceKotlin(faceID, faceFeature, context, (result: UTSJSONObject) => {
-        callback(buildNativeResult(result, faceID));
+    UTSAndroid.getUniActivity()?.runOnUiThread(() => {
+        const context = UTSAndroid.getAppContext() as Application;
+        FaceSDKConfig.init(context);
+        FaceAISDKNative.insertFaceKotlin(faceID, faceFeature, context, (result: UTSJSONObject) => {
+            callback(buildNativeResult(result, faceID));
+        });
     });
 }
 
 export const toastMessage: ToastMessage = function (message: string) {
-    const context = UTSAndroid.getUniActivity() as Activity;
-    FaceSDKConfig.init(context);
-    FaceAISDKNative.toastMessage(context, message);
+    UTSAndroid.getUniActivity()?.runOnUiThread(() => {
+        const context = UTSAndroid.getUniActivity() as Activity;
+        FaceSDKConfig.init(context);
+        FaceAISDKNative.toastMessage(context, message);
+    });
 }

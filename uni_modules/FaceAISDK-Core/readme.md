@@ -49,7 +49,6 @@
   2. 增加版本号并手动清除缓存   
   3. 切换网络环境，尽量用Mac电脑打包（作者HbuilderX 版本4.87）   
 	    
-	
   ### 2.下载依赖TensorFlowLiteSwift超时出错了(高峰期打包容易超时)
    ```
 	[!] Error installing TensorFlowLiteSwift
@@ -73,7 +72,7 @@
     开启 VPN/代理：确保终端走了代理流量，因为TensorFlow的服务器在海外。
     设置完后，重新在 HBuilderX 中点击打包。TensorFlowLiteSwift只要成功同步一次后就好了
 	
- ### 3.iOS 基座安装到手机后很久都是白屏/黑屏幕
+ ### 3.iOS 基座安装到手机后很久都是白屏/黑屏
   ```
    控制台输出
    项目 [FaceAI_API_Plugin] 已启动。请点击手机/模拟器的运行基座App（uni-app x）查看效果。
