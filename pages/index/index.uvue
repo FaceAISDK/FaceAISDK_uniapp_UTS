@@ -50,7 +50,7 @@
 					true, //是否需要显示确认框，强烈建议需要
 					 (result: ResultJSON)  => {
 						this.faceAIResult =JSON.stringify(result)
-						console.log("【addFaceBySDKCamera】: ***");
+						// console.log("【addFaceBySDKCamera】: ***"+this.faceAIResult);
 					})
 			},
 			
