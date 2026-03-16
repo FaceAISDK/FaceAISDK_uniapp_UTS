@@ -23,7 +23,7 @@ let currentFaceID: string = "";
  * 自动处理线程切换、初始化、以及变量缓存
  */
 function launchActivity(
-    targetClassName: string,  // 🌟 修复：改为接收类名字符串
+    targetClassName: string,  
     requestCode: Int, 
     faceID: string, 
     callback: (result: ResultJSON) => void,
@@ -38,7 +38,6 @@ function launchActivity(
         currentFaceID = faceID;
 
         const intent = new Intent();
-        // 🌟 修复：通过包名和类名安全绑定目标，避免在后台 JS 线程错误实例化 Activity
         intent.setClassName(context as Context, targetClassName);
         putExtrasParams(intent); 
         context.startActivityForResult(intent, requestCode);
@@ -201,7 +200,7 @@ export const switchCamera: SwitchCamera = function (cameraID: number) {
     UTSAndroid.getUniActivity()?.runOnUiThread(() => {
         const context = UTSAndroid.getAppContext() as Application;
         FaceSDKConfig.init(context);
-        FaceSDKConfig.setCameraID(context,cameraID)
+        FaceSDKConfig.setCameraID(context,cameraID.toInt())
     });
 }
 
