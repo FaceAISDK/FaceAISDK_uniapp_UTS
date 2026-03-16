@@ -1,4 +1,4 @@
-import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceByImage, ToastMessage } from '../interface.uts'
+import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceByImage, ToastMessage, DeleteFaceFeature, SwitchCamera } from '../interface.uts'
 import Application from 'android.app.Application';
 import Activity from 'android.app.Activity';
 import Intent from 'android.content.Intent';
@@ -100,7 +100,6 @@ UTSAndroid.onAppActivityResult((requestCode: Int, resultCode: Int, intentAct?: I
 export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
     faceID: string, addFacePerformanceMode: number, needShowConfirmDialog: boolean, callback: (result: ResultJSON) => void
 ) {
-    // 🌟 修复：直接传入完整类名
     launchActivity("com.faceAI.demo.SysCamera.addFace.AddFaceFeatureActivity", REQ_CODE_ADD_FACE as Int, faceID, callback, (intent: Intent) => {
         intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_VERIFY");
         intent.putExtra("USER_FACE_ID_KEY", faceID);
@@ -112,7 +111,6 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
 export const faceVerify: FaceVerify = function (
     faceID: string, threshold: number, faceLivenessType: number, motionLivenessTypes: string, motionLivenessTimeOut: number, motionLivenessSteps: number, callback: (result: ResultJSON) => void
 ) {
-    // 🌟 修复：直接传入完整类名
     launchActivity("com.faceAI.demo.SysCamera.verify.FaceVerificationActivity", REQ_CODE_VERIFY as Int, faceID, callback, (intent: Intent) => {
         intent.putExtra(FaceVerificationActivity.USER_FACE_ID_KEY, faceID);
         intent.putExtra(FaceVerificationActivity.THRESHOLD_KEY, threshold);
@@ -126,7 +124,6 @@ export const faceVerify: FaceVerify = function (
 export const livenessVerify: LivenessVerify = function (
     faceLivenessType: number, motionLivenessTypes: string, motionLivenessTimeOut: number, motionLivenessSteps: number, callback: (result: ResultJSON) => void
 ) {
-    // 🌟 修复：直接传入完整类名
     launchActivity("com.faceAI.demo.SysCamera.verify.LivenessDetectActivity", REQ_CODE_LIVENESS as Int, "", callback, (intent: Intent) => {
         intent.putExtra(LivenessDetectActivity.FACE_LIVENESS_TYPE, faceLivenessType);
         intent.putExtra(LivenessDetectActivity.MOTION_LIVENESS_TYPES, motionLivenessTypes);
@@ -187,3 +184,24 @@ export const toastMessage: ToastMessage = function (message: string) {
         FaceAISDKNative.toastMessage(context, message);
     });
 }
+
+
+//删除人脸特征
+export const deleteFaceFeature: DeleteFaceFeature = function (faceID: string) {
+    UTSAndroid.getUniActivity()?.runOnUiThread(() => {
+        const context = UTSAndroid.getAppContext() as Application;
+        FaceSDKConfig.init(context);
+        FaceSDKConfig.deleteFaceVerifyData(context,faceID)
+    });
+}
+
+
+//切换摄像头
+export const switchCamera: SwitchCamera = function (cameraID: number) {
+    UTSAndroid.getUniActivity()?.runOnUiThread(() => {
+        const context = UTSAndroid.getAppContext() as Application;
+        FaceSDKConfig.init(context);
+        FaceSDKConfig.setCameraID(context,cameraID)
+    });
+}
+

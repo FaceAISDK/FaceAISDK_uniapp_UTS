@@ -6,6 +6,8 @@
 		<button @tap="getFaceFeatureDemo">获取人脸特征信息</button>
 		<button @tap="insertFaceFeatureDemo">同步人脸特征信息</button>
 		<button @tap="addFaceFeatureByImageDemo">Base64人脸图提取特征</button>
+	    <button @tap="switchCameraDemo">切换摄像头</button>
+	    <button @tap="deleteFaceFeatureDemo">删除人脸特征信息</button>
 	
 		<view class="result-box">
 		      <view> Email: FaceAISDK.Service@gmail.com</view>
@@ -20,7 +22,8 @@
 //uniappX page
 
 <script> 
-	import {addFaceBySDKCamera,addFaceByImage,faceVerify,livenessVerify,getFaceFeature,insertFaceFeature,ResultJSON} from "@/uni_modules/FaceAISDK-Core";
+    //deleteFaceFeature，switchCamera 暂时只提供Android，iOS 3月底提供
+	import {deleteFaceFeature,switchCamera,addFaceBySDKCamera,addFaceByImage,faceVerify,livenessVerify,getFaceFeature,insertFaceFeature,ResultJSON} from "@/uni_modules/FaceAISDK-Core";
  
 	export default {
 		  
@@ -142,6 +145,21 @@
 						this.faceAIResult =JSON.stringify(result)
 						console.log("【insertFaceFeature】: "+ this.faceAIResult);
 					})
+			},
+			
+			
+			/**
+			* 6. 切换摄像头，一般0是前置，1是后置。但是部分Android自定义设备可能不是很标准
+			*/
+			switchCameraDemo: function () {
+				switchCamera(0)
+			},
+			
+			/**
+			* 7. 删除人脸特征信息
+			*/
+			deleteFaceFeatureDemo: function () {
+				deleteFaceFeature(this.faceID)
 			},
 			
 	   }			

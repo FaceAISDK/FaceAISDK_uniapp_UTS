@@ -40,7 +40,6 @@ export type AddFaceByImage = (
 	callback : (result : ResultJSON) => void) => void	
 	
 	
-export type ToastMessage = (message : string) => void	
 		
 	
 /**
@@ -101,5 +100,11 @@ export type InsertFaceFeature = (
 	callback : (result : ResultJSON) => void) => void	
 	
 	
+export type ToastMessage = (message : string) => void	
 	
-
+	
+//「1:1人脸识别」检测人脸是否存在
+export type DeleteFaceFeature = (faceID: string) => void
+	
+// 切换摄像头	
+export type SwitchCamera = (cameraID: number) => void
