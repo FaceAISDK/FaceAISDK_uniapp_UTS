@@ -29,7 +29,7 @@
 		  
 		data() {
 			return {
-				faceID: '18812345678',
+				faceID: 'youFaceID',
 				motionLivenessType:'1,2,3,4,5',
 				faceFeature: 'faceFeature，1024 length',
 				faceAIResult: 'faceAIResult',
@@ -57,19 +57,7 @@
 					})
 			},
 			
-			
-			//仅仅用于Android 提取人脸图片中的特征值。不建议通过此方式录入人脸特征，品质不高
-			addFaceFeatureByImageDemo: function () {
-				addFaceByImage(
-					this.faceID,
-					this.base64FaceImage,
-					 (result: ResultJSON)  => {
-						this.faceAIResult =JSON.stringify(result)
-						console.log("【FaceSDK Result】: " + this.faceAIResult);
-					})
-			},
-			
-	
+
 			/**
 			 * 2. 「1:1人脸识别」校验是否当前用户
 			 * 
@@ -147,16 +135,26 @@
 					})
 			},
 			
-			
-			/**
-			* 6. 切换摄像头，一般0是前置，1是后置。但是部分Android自定义设备可能不是很标准
-			*/
-			switchCameraDemo: function () {
-				switchCamera(0)
+			//6. 仅仅用于Android 提取人脸图片中的特征值。不建议通过此方式录入人脸特征，品质不高
+			addFaceFeatureByImageDemo: function () {
+				addFaceByImage(
+					this.faceID,
+					this.base64FaceImage,
+					 (result: ResultJSON)  => {
+						this.faceAIResult =JSON.stringify(result)
+						console.log("【FaceSDK Result】: " + this.faceAIResult);
+					})
 			},
 			
 			/**
-			* 7. 删除人脸特征信息
+			* 7. 切换摄像头，一般0是前置，1是后置。但是部分Android自定义设备可能不是很标准
+			*/
+			switchCameraDemo: function () {
+				switchCamera(1)
+			},
+			
+			/**
+			* 8. 删除人脸特征信息
 			*/
 			deleteFaceFeatureDemo: function () {
 				deleteFaceFeature(this.faceID)

@@ -5,6 +5,11 @@
 		<button @tap="livenessVerifyDemo">炫彩｜动作 活体检测</button>
 		<button @tap="getFaceFeatureDemo">获取人脸特征信息</button>
 		<button @tap="insertFaceFeatureDemo">同步人脸特征信息</button>
+		<button @tap="addFaceFeatureByImageDemo">Base64人脸图提取特征</button>
+		<button @tap="switchCameraDemo">切换摄像头</button>
+		<button @tap="deleteFaceFeatureDemo">删除人脸特征信息</button>
+		
+		
 		<view class="result-box">
 			<view> Email: FaceAISDK.Service@gmail.com</view>
 			<scroll-view scroll-y="true" class="scroll-view-box">
@@ -17,6 +22,7 @@
 <script>
 	//uniapp Page 注意：在普通 UniApp 中，需要确保该插件支持 JS 端的调用方式
 	import {
+		deleteFaceFeature,switchCamera,addFaceByImage,
 		addFaceBySDKCamera,
 		faceVerify,
 		livenessVerify,
@@ -27,7 +33,7 @@
 	export default {
 		data() {
 			return {
-				faceID: '18812345678',
+				faceID: 'youFaceID',
 				motionLivenessType: '1,2,3,4,5',
 				faceFeature: 'faceFeature，1024 length',
 				faceAIResult: 'faceAIResult',
@@ -110,6 +116,30 @@
 					(result) => {
 						this.faceAIResult = JSON.stringify(result)
 					})
+			},
+			
+			//6. 仅仅用于Android 提取人脸图片中的特征值。不建议通过此方式录入人脸特征，品质不高
+			addFaceFeatureByImageDemo: function () {
+				addFaceByImage(
+					this.faceID,
+					this.base64FaceImage,
+					 (result: ResultJSON)  => {
+						this.faceAIResult =JSON.stringify(result)
+					})
+			},
+			
+			/**
+			* 7. 切换摄像头，一般0是前置，1是后置。但是部分Android自定义设备可能不是很标准
+			*/
+			switchCameraDemo: function () {
+				switchCamera(1)
+			},
+			
+			/**
+			* 8. 删除人脸特征信息
+			*/
+			deleteFaceFeatureDemo: function () {
+				deleteFaceFeature(this.faceID)
 			},
 
 		}

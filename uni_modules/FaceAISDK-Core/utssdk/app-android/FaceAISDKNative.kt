@@ -34,7 +34,7 @@ object FaceAISDKNative {
 	 * 
 	 */
 	fun toastMessage(context:Context,message: String){
-	    ImageToast().show(context, null, message)
+	    ImageToast().show(context, message)
 	}
 	
 	
