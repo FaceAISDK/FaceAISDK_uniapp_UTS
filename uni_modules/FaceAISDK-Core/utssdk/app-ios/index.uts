@@ -1,8 +1,7 @@
-import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceByImage } from '../interface.uts'
+import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceByImage, DeleteFaceFeature } from '../interface.uts'
 
 /**
  * 工具函数：根据状态码获取提示文案
- * 统一管理所有接口的返回状态
  */
 function getMsgByCode(code: number): string {
     switch (code) {
@@ -17,6 +16,7 @@ function getMsgByCode(code: number): string {
         case 8: return "炫彩活体失败";
         case 9: return "环境光线过强(炫彩失败)";
         case 10: return "活体检测全部通过";
+        case 11: return "静默活体检测失败";
         default: return "未知状态码" ;
     }
 }
@@ -24,7 +24,6 @@ function getMsgByCode(code: number): string {
 
 /**
  * 实现录入人脸接口
- * 
  */
 export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
     faceID: string, 
@@ -37,8 +36,10 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
         faceID, 
         addFacePerformanceMode, 
         needShowConfirmDialog, 
-        (resultCode: number) => {
+        // 修改：回调增加 feature 参数
+        (resultCode: number, feature: string) => {
 			//resultCode ：0用户取消  1添加成功
+         
             let message = "";
 			let base64Str = "";
 			
@@ -51,21 +52,22 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
                 message = "未知状态";
             }
 			
-            let feature = FaceSDKSwiftManager.getFaceFeature(faceID)//人脸特征字符串 
+            // 修改：优先使用 Swift 闭包直接传回的 feature，为空则 fallback
+            let finalFeature = feature.length > 0 ? feature : FaceSDKSwiftManager.getFaceFeature(faceID);
+            
 		    const resultJson : ResultJSON = {
                 code: resultCode,
                 msg: message,  
-				similarity:0,
-				liveness:0,
+				similarity: 0,
+				liveness: 0,
                 faceID: faceID,
-                faceFeature: feature,  
+                faceFeature: finalFeature,  // 使用传入的 feature
                 faceBase64: base64Str
             };
             callback(resultJson);
         }
     );
 }
-
 
 //ios提取人脸图片中的特征值。不建议通过此方式录入人脸，品质不高
 export const addFaceByImage : AddFaceByImage = function (
@@ -74,12 +76,11 @@ export const addFaceByImage : AddFaceByImage = function (
 	callback : (result : ResultJSON) => void
 ) {
 	//非必要不实现
+	
 }
 
-
-
 /**
- * 「1:1人脸识别」跳转到Android SDK 中原生页面处理人脸识别+活体检测
+ * 「1:1人脸识别」跳转到 SDK 中原生页面处理人脸识别+活体检测
  */
 export const faceVerify : FaceVerify = function (
 	faceID: string ,
@@ -98,7 +99,8 @@ export const faceVerify : FaceVerify = function (
 		motionLivenessTypes,
 		motionLivenessTimeOut,
 		motionLivenessSteps,
-	    (resultCode: number) => {
+        // 修改：增加 similarity 和 liveness 参数
+	    (resultCode: number, similarity: number, liveness: number) => {
 			let base64Str = "";
 			
 			if (resultCode == 1 ||resultCode == 10) {
@@ -109,21 +111,18 @@ export const faceVerify : FaceVerify = function (
 			    code: resultCode,
 			    msg: getMsgByCode(resultCode),
 			    faceID: faceID,
-				similarity:0,
-				liveness:0,
+				similarity: similarity, // 赋值真实数据
+				liveness: liveness,     // 赋值真实数据
 			    faceFeature: "-",
 			    faceBase64: base64Str
 			};
 			callback(resultJson);
 	    }
 	);
-
 }
 
-
-
 /**
- * 「1:1人脸识别」跳转到Android SDK 中原生页面处理人脸识别+活体检测
+ * 活体检测
  */
 export const livenessVerify : LivenessVerify = function (
 	faceLivenessType:number,
@@ -137,7 +136,8 @@ export const livenessVerify : LivenessVerify = function (
 		motionLivenessTypes,
 		motionLivenessTimeOut,
 		motionLivenessSteps,
-	    (resultCode: number) => {
+        // 修改：增加 liveness 参数
+	    (resultCode: number, liveness: number) => {
 			
 			let base64Str = "";
 			if (resultCode == 1 ||resultCode == 10) {
@@ -149,8 +149,8 @@ export const livenessVerify : LivenessVerify = function (
                 code: resultCode,
                 msg: msg,
                 faceID: "-",
-				similarity:0,
-				liveness:0,
+				similarity: 0,
+				liveness: liveness, // 赋值真实数据
                 faceFeature: "-",  
                 faceBase64: base64Str    
             } as ResultJSON;
@@ -159,9 +159,8 @@ export const livenessVerify : LivenessVerify = function (
 	);
 }
 
-
 /**
- * 「1:1人脸识别」调用原生的FaceAISDK 检测功能人脸是否存在
+ * 获取特征值
  */
 export const getFaceFeature : GetFaceFeature = function 
              (faceID : string, callback : (re : ResultJSON) => void) {
@@ -174,8 +173,8 @@ export const getFaceFeature : GetFaceFeature = function
 				    code: resultCode,
 				    msg: "1:exist  0:not exist",
 				    faceID: "",
-					similarity:0,
-					liveness:0,
+					similarity: 0,
+					liveness: 0,
 				    faceFeature: faceFeature,
 				    faceBase64: ""
 				};
@@ -183,9 +182,16 @@ export const getFaceFeature : GetFaceFeature = function
 		    }
 		);
 }
+
+
+//删除人脸特征
+export const deleteFaceFeature: DeleteFaceFeature = function (faceID: string) {
+		FaceSDKSwiftManager.deleteFaceFeature(faceID);
+}
+
  
 /**
- *  「1:1人脸识别」同步人脸图片到SDK，比如用户换设备登陆了，把上次录入到你的业务服务器上的人脸同步就行
+ * 同步特征值
  */
 export const insertFaceFeature : InsertFaceFeature = function 
               (faceID : string, faceFeature : string, callback : (result : ResultJSON) => void) {
@@ -199,13 +205,12 @@ export const insertFaceFeature : InsertFaceFeature = function
         		    code: resultCode,
 				    msg: "1:success  0:failed",
         		    faceID: "",
-					similarity:0,
-					liveness:0,
+					similarity: 0,
+					liveness: 0,
         		    faceFeature: "",
         		    faceBase64: ""
         		};
         		callback(resultJson);
             }
         );
-
 }

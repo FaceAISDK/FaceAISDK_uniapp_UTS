@@ -2,12 +2,12 @@
 	<view>
 		<button @tap="addFaceFeatureBySDKCameraDemo">SDK相机录入人脸</button>
 		<button @tap="faceVerifyDemo">人脸识别+活体检测</button>
-		<button @tap="livenessVerifyDemo">炫彩｜动作 活体检测</button>
+		<button @tap="livenessVerifyDemo">检测人脸是否活体</button>
 		<button @tap="getFaceFeatureDemo">获取人脸特征信息</button>
 		<button @tap="insertFaceFeatureDemo">同步人脸特征信息</button>
 		<button @tap="addFaceFeatureByImageDemo">Base64人脸图提取特征</button>
-		<button @tap="switchCameraDemo">切换摄像头</button>
 		<button @tap="deleteFaceFeatureDemo">删除人脸特征信息</button>
+		<!-- <button @tap="switchCameraDemo">切换摄像头</button> -->
 		
 		
 		<view class="result-box">
@@ -33,11 +33,11 @@
 	export default {
 		data() {
 			return {
-				faceID: 'youFaceID',
-				motionLivenessType: '1,2,3,4,5',
-				faceFeature: 'faceFeature，1024 length',
+				faceID: 'youFaceID', //你的业务系统定义用户唯一的字符串（手机号/身份证等）
+				motionLivenessType:'1,2,3,4,5',  //动作活体种类，见接口
+				faceFeature: 'faceFeature，1024 length', //录入的人脸提取的特征值，加密后长度1024
 				faceAIResult: 'faceAIResult',
-				base64FaceImage: ''
+				base64FaceImage:'data:image/jpg;base64,你的人脸Base64图，注意控制大小无损压缩，人脸部分宽高300-600为佳'
 			}
 		},
 		onLoad() {
@@ -69,7 +69,7 @@
 				faceVerify(
 					this.faceID,
 					0.85, // 阈值设置，范围限 [0.75,0.95] ,默认0.85
-					1,    // 1.动作活体(视频可欺骗)  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用)
+					1,    // 1.动作活体 2.动作+炫彩活体 3.炫彩活体(不能强光环境使用) 4.静默活体
 					"1,2,3,4,5", //动作活体种类用英文","隔开； 1.张张嘴 2.微笑 3.眨眨眼 4.摇头 5.点头
 					7,    //动作活体超时时间,低端机应该适当加点时间
 					2,    //动作活体步骤，1个
@@ -84,7 +84,7 @@
 			 */
 			livenessVerifyDemo: function() {
 				livenessVerify(
-					2, // 1.动作活体  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用)
+					2, // 1.动作活体  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用) 4.静默活体 
 					"1,2,3,4,5", //动作活体种类用英文","隔开； 1.张张嘴 2.微笑 3.眨眨眼 4.摇头 5.点头
 					7, //动作活体超时时间,低端机应该适当加点时间
 					2, //动作活体步骤个数

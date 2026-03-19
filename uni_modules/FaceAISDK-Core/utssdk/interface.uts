@@ -3,11 +3,11 @@
  * 业务方传给FaceAISDK 插件基础参数
  */
 export type ResultJSON = {
-  code: number,       //code 含义参考Readme 
-  msg: string, 
-  faceID: string,     
-  similarity:number,
-  liveness:number,      //保留字段
+  code: number,         //code 含义参考Readme 
+  msg: string,          //消息
+  faceID: string,       //1:1 要对比的faceID,你的业务系统定义用户的唯一字符串（手机/身份证）
+  similarity:number,    //相似度 
+  liveness:number,      //静默活体分数
   faceFeature: string,  //人脸特征值
   faceBase64: string    //人脸图Base64编码 换个含义
 }
