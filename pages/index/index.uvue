@@ -53,7 +53,7 @@
 					true, //是否需要显示确认框，强烈建议需要
 					 (result: ResultJSON)  => {
 						this.faceAIResult =JSON.stringify(result)
-						// console.log("【addFaceBySDKCamera】: ***"+this.faceAIResult);
+						console.log("【addFaceBySDKCamera】: ***"+this.faceAIResult);
 					})
 			},
 			
@@ -81,7 +81,7 @@
 					2,          //动作活体步骤个数
 					 (result: ResultJSON) => {
 						this.faceAIResult =JSON.stringify(result)
-						// console.log("【faceVerify】: 返回 "+ this.faceAIResult);
+						console.log("【faceVerify】: 返回 "+ this.faceAIResult);
 					})
 			},
 			

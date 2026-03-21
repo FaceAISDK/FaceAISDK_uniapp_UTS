@@ -61,7 +61,7 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
 				similarity: 0,
 				liveness: 0,
                 faceID: faceID,
-                faceFeature: finalFeature,  // 使用传入的 feature
+                faceFeature: finalFeature,   
                 faceBase64: base64Str
             };
             callback(resultJson);
@@ -99,7 +99,6 @@ export const faceVerify : FaceVerify = function (
 		motionLivenessTypes,
 		motionLivenessTimeOut,
 		motionLivenessSteps,
-        // 修改：增加 similarity 和 liveness 参数
 	    (resultCode: number, similarity: number, liveness: number) => {
 			let base64Str = "";
 			
@@ -107,12 +106,17 @@ export const faceVerify : FaceVerify = function (
 				base64Str = FaceSDKSwiftManager.getFaceImageBase64(faceID)
 			}
 			
+			// 1. 使用 toFixed(2) 得到两位小数的字符串
+			// 2. 使用 Number() 转换回数值类型，保持 ResultJSON 定义一致性 [cite: 10]
+			// const formattedSimilarity = Number(similarity.toFixed(2));
+			// const formattedLiveness = Number(liveness.toFixed(2));
+			
 		    const resultJson : ResultJSON = {
 			    code: resultCode,
 			    msg: getMsgByCode(resultCode),
 			    faceID: faceID,
-				similarity: similarity, // 赋值真实数据
-				liveness: liveness,     // 赋值真实数据
+                similarity: similarity, 
+				liveness: liveness,
 			    faceFeature: "-",
 			    faceBase64: base64Str
 			};
@@ -150,7 +154,7 @@ export const livenessVerify : LivenessVerify = function (
                 msg: msg,
                 faceID: "-",
 				similarity: 0,
-				liveness: liveness, // 赋值真实数据
+				liveness: liveness,
                 faceFeature: "-",  
                 faceBase64: base64Str    
             } as ResultJSON;
@@ -213,4 +217,8 @@ export const insertFaceFeature : InsertFaceFeature = function
         		callback(resultJson);
             }
         );
+}
+
+function Float(arg0: string): number {
+	throw new Error('Function not implemented.');
 }

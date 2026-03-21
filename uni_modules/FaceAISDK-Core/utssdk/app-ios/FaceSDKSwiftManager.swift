@@ -149,7 +149,6 @@ public class FaceSDKSwiftManager: NSObject {
     public static func showAddFaceByCamera(_ faceID: String,
                                                _ mode: NSNumber,
                                                _ showConfirm: Bool,
-                                               // 修改 1：将 NSString 改为 String
                                                _ callback: @escaping (NSNumber, String) -> Void) {
             DispatchQueue.main.async {
                 guard let topVC = self.getTopViewController() else { return }
