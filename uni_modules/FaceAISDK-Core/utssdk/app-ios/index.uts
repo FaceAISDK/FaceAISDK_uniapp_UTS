@@ -1,4 +1,4 @@
-import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceByImage, DeleteFaceFeature } from '../interface.uts'
+import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceBySDKImage, DeleteFaceFeature } from '../interface.uts'
 
 /**
  * 工具函数：根据状态码获取提示文案
@@ -70,7 +70,7 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
 }
 
 //ios提取人脸图片中的特征值。不建议通过此方式录入人脸，品质不高
-export const addFaceByImage : AddFaceByImage = function (
+export const addFaceBySDKImage : AddFaceBySDKImage = function (
 	faceID : string,
 	base64FaceImage:string,
 	callback : (result : ResultJSON) => void

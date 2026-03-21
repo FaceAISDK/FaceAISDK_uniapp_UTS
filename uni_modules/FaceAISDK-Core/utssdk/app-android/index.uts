@@ -1,4 +1,4 @@
-import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceByImage, ToastMessage, DeleteFaceFeature, SwitchCamera } from '../interface.uts'
+import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceBySDKImage, ToastMessage, DeleteFaceFeature, SwitchCamera } from '../interface.uts'
 import Application from 'android.app.Application';
 import Activity from 'android.app.Activity';
 import Intent from 'android.content.Intent';
@@ -146,7 +146,7 @@ function buildNativeResult(result: UTSJSONObject, faceID: string): ResultJSON {
     } as ResultJSON;
 }
 
-export const addFaceByImage: AddFaceByImage = function (faceID: string, base64FaceImage: string, callback: (result: ResultJSON) => void) {
+export const addFaceBySDKImage: AddFaceBySDKImage = function (faceID: string, base64FaceImage: string, callback: (result: ResultJSON) => void) {
     UTSAndroid.getUniActivity()?.runOnUiThread(() => {
         const context = UTSAndroid.getUniActivity() as Activity;
         FaceSDKConfig.init(context);

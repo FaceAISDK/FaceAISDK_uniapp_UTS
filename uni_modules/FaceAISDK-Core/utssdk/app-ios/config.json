@@ -1,10 +1,15 @@
 {
   "deploymentTarget": "15.5",
-  "frameworks": [],
+  "frameworks": [
+    "libc++.tbd",
+    "Accelerate.framework",
+    "Metal.framework",
+    "CoreGraphics.framework"
+  ],
   "dependencies-pods": [      
-	{
-	  	"name": "FaceAISDK_Core",
-	  	"version": "2026.03.16"
-	}
-	]
+    {
+      "name": "FaceAISDK_Core",
+      "version": "2026.03.16"
+    }
+  ]
 }

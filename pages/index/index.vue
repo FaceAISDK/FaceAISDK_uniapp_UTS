@@ -22,7 +22,9 @@
 <script>
 	//uniapp Page 注意：在普通 UniApp 中，需要确保该插件支持 JS 端的调用方式
 	import {
-		deleteFaceFeature,switchCamera,addFaceByImage,
+		deleteFaceFeature,
+		switchCamera,
+		addFaceBySDKImage,
 		addFaceBySDKCamera,
 		faceVerify,
 		livenessVerify,

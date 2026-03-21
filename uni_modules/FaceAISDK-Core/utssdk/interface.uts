@@ -34,7 +34,7 @@ export type AddFaceBySDKCamera = (
  * @param needShowConfirmDialog 是否需要显示确认框
  * @param callback 结果回调
  */
-export type AddFaceByImage = (
+export type AddFaceBySDKImage = (
 	faceID : string,
 	base64FaceImage:string,
 	callback : (result : ResultJSON) => void) => void	

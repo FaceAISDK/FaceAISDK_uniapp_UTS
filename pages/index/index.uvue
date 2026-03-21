@@ -23,7 +23,7 @@
 
 <script> 
     //deleteFaceFeature，switchCamera 暂时只提供Android，iOS 3月底提供
-	import {deleteFaceFeature,switchCamera,addFaceBySDKCamera,addFaceByImage,faceVerify,livenessVerify,getFaceFeature,insertFaceFeature,ResultJSON} from "@/uni_modules/FaceAISDK-Core";
+	import {deleteFaceFeature,switchCamera,addFaceBySDKCamera,addFaceBySDKImage,faceVerify,livenessVerify,getFaceFeature,insertFaceFeature,ResultJSON} from "@/uni_modules/FaceAISDK-Core";
  
 	export default {
 		  
@@ -136,7 +136,7 @@
 			
 			//6. 仅仅用于Android 提取人脸图片中的特征值。不建议通过此方式录入人脸特征，品质不高
 			addFaceFeatureByImageDemo: function () {
-				addFaceByImage(
+				addFaceBySDKImage(
 					this.faceID,
 					this.base64FaceImage,
 					 (result: ResultJSON)  => {
