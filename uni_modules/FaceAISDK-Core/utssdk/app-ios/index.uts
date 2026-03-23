@@ -17,6 +17,7 @@ function getMsgByCode(code: number): string {
         case 9: return "环境光线过强(炫彩失败)";
         case 10: return "活体检测全部通过";
         case 11: return "静默活体检测失败";
+		case 12: return "静默活体引擎加载失败";
         default: return "未知状态码" ;
     }
 }
@@ -219,6 +220,3 @@ export const insertFaceFeature : InsertFaceFeature = function
         );
 }
 
-function Float(arg0: string): number {
-	throw new Error('Function not implemented.');
-}

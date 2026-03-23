@@ -3,7 +3,10 @@
   "dependencies-pods": [      
     {
       "name": "FaceAISDK_Core",
-      "version": "2026.03.16"
+      "repo": {
+        "git": "https://github.com/FaceAISDK/FaceAISDK_Core.git",
+        "tag": "2026.03.17.beta2"
+      }
     }
   ]
 }
