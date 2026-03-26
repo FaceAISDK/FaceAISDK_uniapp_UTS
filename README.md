@@ -4,7 +4,7 @@
 所有功能都是设备端侧AI能力可开飞行模式体验无需网络，无需后台API服务可完全离线运行，高性能无依赖
 
 **感谢大家收藏与点赞**，如有问题可描述你的使用场景说明发送邮件：FaceAISDK.Service@gmial.com  
-或**提issues到本插件GitHub**：https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues
+或**提issues到GitHub排期**：https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues
 
 快速体验完整人脸识别功能可以下载Demo App：
 <div align=center>
@@ -106,4 +106,4 @@
 
 ```
 
-  Copyright © 2026 FaceAISDK. All rights reserved。 FaceAISDK.Service@gmail.com 
+  Copyright © 2024-2026 FaceAISDK. All rights reserved。FaceAISDK.Service@gmail.com 

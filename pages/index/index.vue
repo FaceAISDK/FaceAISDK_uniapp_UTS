@@ -82,7 +82,7 @@
 
 
 			/**
-			 * 3. 活体检测，包含动作+炫彩活体
+			 * 3. 活体检测，包含动作+炫彩活体 。静默活体默认都包含
 			 */
 			livenessVerifyDemo: function() {
 				livenessVerify(
@@ -131,7 +131,8 @@
 			},
 			
 			/**
-			* 7. 切换摄像头，一般0是前置，1是后置。但是部分Android自定义设备可能不是很标准
+			* 7. 切换摄像头仅仅支持Android，一般0是前置，1是后置。
+			* 但是部分Android自定义设备可能不是很标准
 			*/
 			switchCameraDemo: function () {
 				switchCamera(1)

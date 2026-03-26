@@ -22,7 +22,7 @@
 //uniappX page
 
 <script> 
-    //deleteFaceFeature，switchCamera 暂时只提供Android，iOS 3月底提供
+
 	import {deleteFaceFeature,switchCamera,addFaceBySDKCamera,addFaceBySDKImage,faceVerify,livenessVerify,getFaceFeature,insertFaceFeature,ResultJSON} from "@/uni_modules/FaceAISDK-Core";
  
 	export default {
@@ -87,7 +87,7 @@
 			
 			
 		   /**
-		    * 3. 活体检测，默认都含静默活体检测
+			* 3. 活体检测，包含动作+炫彩活体 。静默活体默认都包含
 		    * 
 		    * @param faceLivenessType  1.动作活体  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用) 4.静默活体 
 		    * @param motionLivenessTypes  "1,2,3" 动作活体种类用英文","隔开； 1.张张嘴 2.微笑 3.眨眨眼 4.摇头 5.点头
@@ -103,6 +103,7 @@
 					2,         //动作活体步骤，1个
 					 (result: ResultJSON) => {
 						this.faceAIResult =JSON.stringify(result)
+						console.log("【livenessVerify】: 返回 "+ this.faceAIResult);
 					})
 			},
 			
@@ -146,7 +147,8 @@
 			},
 			
 			/**
-			* 7. 切换摄像头，一般0是前置，1是后置。但是部分Android自定义设备可能不是很标准
+			* 7. 切换摄像头仅仅支持Android，一般0是前置，1是后置。
+			* 但是部分Android自定义设备可能不是很标准
 			*/
 			switchCameraDemo: function () {
 				switchCamera(1)
