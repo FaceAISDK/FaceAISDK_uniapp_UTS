@@ -5,6 +5,7 @@
 
 **感谢大家收藏与点赞**，如有问题可描述你的使用场景说明发送邮件：FaceAISDK.Service@gmial.com  
 或**提issues到GitHub排期**：https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues
+**反馈问题请说明使用场景，Vue2/Vue3/uvue,ios/Android,哪个功能，什么设备什么场景尽可能提供详细信息**
 
 快速体验完整人脸识别功能可以下载Demo App：
 <div align=center>

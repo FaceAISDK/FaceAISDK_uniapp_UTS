@@ -5,7 +5,7 @@
 		"arm64-v8a"
   	],
   "dependencies": [
-	"io.github.faceaisdk:Android:2026.03.25.many",
+	"io.github.faceaisdk:Android:2026.03.30.update",
 	"com.tencent:mmkv:1.3.14",
 	"com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.8",
 	"com.airbnb.android:lottie:6.5.2",

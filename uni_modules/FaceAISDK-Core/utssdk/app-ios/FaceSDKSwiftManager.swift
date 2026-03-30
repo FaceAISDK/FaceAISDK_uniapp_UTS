@@ -1,9 +1,80 @@
 import SwiftUI
 import UIKit
 import FaceAISDK_Core
+import Combine 
 
 @objcMembers
 public class FaceSDKSwiftManager: NSObject {
+	
+	
+	
+	private static var addFaceTasks: [String: Any] = [:]
+	
+	@objc public static func addFaceByBase64(_ faceID: String, _ base64Str: String, _ callback: @escaping (NSNumber, String) -> Void) {
+	    
+	    // 1. 剥离可能存在的 Base64 前缀
+	    var cleanBase64 = base64Str
+	    if let idx = cleanBase64.range(of: "base64,")?.upperBound {
+	        cleanBase64 = String(cleanBase64[idx...])
+	    }
+	    
+	    // 2. 将 Base64 转换为 UIImage
+	    guard let data = Data(base64Encoded: cleanBase64, options: .ignoreUnknownCharacters),
+	          let image = UIImage(data: data) else {
+	        callback(0, "") // 0 表示失败
+	        return
+	    }
+	    
+	    //  3. 复用 AddFaceByImageModel 作为桥梁
+	    let model = AddFaceByImageModel() //
+	    let taskID = UUID().uuidString
+	    var cancellables = Set<AnyCancellable>()
+	    
+	    // 清理内存的闭包
+	    let cleanup = {
+	        Self.addFaceTasks.removeValue(forKey: taskID)
+	    }
+	    
+	    // 4. 监听检测成功状态
+	    model.$readyConfirmFace
+	        .receive(on: DispatchQueue.main)
+	        .sink { isReady in
+	            if isReady {
+	                // 成功获取对齐图后，调用公开方法提取特征值
+	                if let feature = model.getFaceFeature(faceUIImage: model.croppedFaceImage) {
+	                    // 保存特征值到本地 (与之前的逻辑保持一致)
+	                    UserDefaults.standard.set(feature, forKey: faceID)
+	                    callback(1, feature)
+	                } else {
+	                    callback(0, "")
+	                }
+	                cleanup() // 执行完毕，清理内存
+	            }
+	        }
+	        .store(in: &cancellables)
+	    
+	    // 5. 监听异常或失败状态 (例如：未检测到人脸、人脸太小等)
+	    model.$sdkInterfaceTips
+	        .receive(on: DispatchQueue.main)
+	        .sink { tips in
+	            // 判断逻辑：如果既不是初始干净状态，也不是准备确认状态，说明遇到了报错拦截[cite: 5]
+	            if tips.code != FaceTipsCode.CLEAN_TIPS && tips.code != FaceTipsCode.CONFIRM_ADD_FACE {
+	                print("❌ [Swift] AddFaceByBase64 Failed: \(tips.message)")
+	                callback(0, "")
+	                cleanup() // 执行完毕，清理内存
+	            }
+	        }
+	        .store(in: &cancellables)
+	    
+	    //  6. 将任务存入静态字典，防止 model 和 cancellables 随作用域结束被销毁
+	    Self.addFaceTasks[taskID] = (model, cancellables)
+	    
+	    // 7. 触发底层的检测逻辑
+	    model.addFaceByUIImage(faceUIImage: image) //[cite: 5]
+	}
+	    
+	
+	
     
     // 临时操作的图片转Base64 编码
     public static func getFaceImageBase64(_ faceName: String) -> String {
