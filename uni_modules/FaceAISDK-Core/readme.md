@@ -4,7 +4,8 @@
 所有功能都是设备端侧AI能力可开飞行模式体验无需网络，无需后台API服务可完全离线运行，高性能无依赖
 
 **感谢大家收藏与点赞**，如有问题可描述你的使用场景说明发送邮件：FaceAISDK.Service@gmial.com  
-或**提issues到本插件GitHub**：https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues
+或**提issues到本插件GitHub**：https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues  
+我们将尽快排期解决，详细的信息有助于我们更好更快解决（Hbuilder版本，Vue版本，平台，功能和场景等）  
 
 快速体验完整人脸识别功能可以下载Demo App：
 <div align=center>
@@ -47,7 +48,8 @@
     
    1. **尽量在云服务器不忙的时候打包**   
    2. 增加版本号并手动清除缓存   
-   3. 切换网络环境，尽量用Mac电脑打包（作者HbuilderX 版本4.87）   
+   3. 切换网络环境，尽量用Mac电脑打包
+   4. **尽量使用新版本Hbuilder打包（4.87 升级到5.05后稳定又快了不少）**
 	    
   ### 2.下载依赖TensorFlowLiteSwift超时出错了(高峰期打包容易超时)
    ```
