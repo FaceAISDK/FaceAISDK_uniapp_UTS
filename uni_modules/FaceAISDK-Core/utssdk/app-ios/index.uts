@@ -17,6 +17,7 @@ function getMsgByCode(code: number): string {
         case 9: return "环境光线过强(炫彩失败)";
         case 10: return "活体检测全部通过";
         case 11: return "静默活体检测失败";
+		case 12: return "静默活体引擎加载失败";
         default: return "未知状态码" ;
     }
 }
@@ -69,15 +70,42 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
     );
 }
 
-//ios提取人脸图片中的特征值。不建议通过此方式录入人脸，品质不高
-export const addFaceBySDKImage : AddFaceBySDKImage = function (
-	faceID : string,
-	base64FaceImage:string,
-	callback : (result : ResultJSON) => void
+
+// ios提取人脸图片中的特征值。不建议通过此方式录入人脸，品质不高
+export const addFaceBySDKImage: AddFaceBySDKImage = function (
+    faceID: string,
+    base64FaceImage: string,
+    callback: (result: ResultJSON) => void
 ) {
-	//非必要不实现
-	
+    // 调用 Swift 原生管理类处理 Base64 图片解析与特征提取
+    FaceSDKSwiftManager.addFaceByBase64(
+        faceID, 
+        base64FaceImage, 
+        (resultCode: number, feature: string) => {
+            
+            let message = "";
+            if (resultCode == 1) {
+                message = "图片人脸特征提取并录入成功";
+            } else {
+                message = "未检测到合格人脸或特征提取失败";
+            }
+            
+            const resultJson: ResultJSON = {
+                code: resultCode,
+                msg: message,  
+                similarity: 0,
+                liveness: 0,
+                faceID: faceID,
+                faceFeature: feature,   
+                faceBase64: "" // 静态图提取特征通常不需要回传 base64
+            };
+            
+            callback(resultJson);
+        }
+    );
 }
+
+
 
 /**
  * 「1:1人脸识别」跳转到 SDK 中原生页面处理人脸识别+活体检测
@@ -219,6 +247,3 @@ export const insertFaceFeature : InsertFaceFeature = function
         );
 }
 
-function Float(arg0: string): number {
-	throw new Error('Function not implemented.');
-}

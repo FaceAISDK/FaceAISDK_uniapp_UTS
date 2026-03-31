@@ -4,7 +4,8 @@
 所有功能都是设备端侧AI能力可开飞行模式体验无需网络，无需后台API服务可完全离线运行，高性能无依赖
 
 **感谢大家收藏与点赞**，如有问题可描述你的使用场景说明发送邮件：FaceAISDK.Service@gmial.com  
-或**提issues到本插件GitHub**：https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues
+或**提issues到GitHub排期**：https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues
+**反馈问题请说明使用场景，Vue2/Vue3/uvue,ios/Android,哪个功能，什么设备什么场景尽可能提供详细信息**
 
 快速体验完整人脸识别功能可以下载Demo App：
 <div align=center>
@@ -45,9 +46,9 @@
    None of your spec sources contain a spec satisfying the dependency: `FaceAISDK_Core (= 2026.01.04)`.
    ```
     
-  1. **尽量在云服务器不忙的时候打包**   
-  2. 增加版本号并手动清除缓存   
-  3. 切换网络环境，尽量用Mac电脑打包（作者HbuilderX 版本4.87）   
+   1. **尽量在云服务器不忙的时候打包**   
+   2. 增加版本号并手动清除缓存   
+   3. 切换网络环境，尽量用Mac电脑打包（作者HbuilderX 版本4.87）   
 	    
   ### 2.下载依赖TensorFlowLiteSwift超时出错了(高峰期打包容易超时)
    ```
@@ -65,9 +66,9 @@
     2. 网络中断：编译环境（无论是本地还是云端）连接GitHub的速度不够快，高峰期打包发生超时，导致在下载完成前连接被切断。
 	如果是本地 Mac 编译 
     如果你是在自己的 Mac 上运行 HBuilderX 进行打包，可以通过修改 Git 配置来解决：
-    增加 Git 缓存大小（这是最直接的修复方法，将缓存设为 1GB）：
-    git config --global http.postBuffer 1048576000
-    git config --global https.postBuffer 1048576000
+    增加 Git 缓存大小（500MB）
+    git config --global http.postBuffer 548576000
+    git config --global https.postBuffer 548576000
 
     开启 VPN/代理：确保终端走了代理流量，因为TensorFlow的服务器在海外。
     设置完后，重新在 HBuilderX 中点击打包。TensorFlowLiteSwift只要成功同步一次后就好了
@@ -82,6 +83,7 @@
    
  ### 4.炫彩活体提示光线太亮导致失败
    这个基本上只能规避强光环境了，或引导用户用手遮住强烈光线，让手机彩色光能照到脸部
+   室外强光环境建议使用动作活体+静默活体检测
    
  ### 5.改动原生swift/kotlin 代码导致基座不能正常运行
    只能重新制作自定义调试基座，UTS API插件使用方如果不需要修改插件底层实现尽量不用改原生代码
@@ -105,4 +107,4 @@
 
 ```
 
-  Copyright © 2026 FaceAISDK. All rights reserved。 FaceAISDK.Service@gmail.com 
+  Copyright © 2024-2026 FaceAISDK. All rights reserved。FaceAISDK.Service@gmail.com 

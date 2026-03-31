@@ -1,15 +1,18 @@
 {
   "deploymentTarget": "15.5",
-  "frameworks": [
-    "libc++.tbd",
-    "Accelerate.framework",
-    "Metal.framework",
-    "CoreGraphics.framework"
-  ],
   "dependencies-pods": [      
     {
       "name": "FaceAISDK_Core",
-      "version": "2026.03.16"
+      "repo": {
+        "git": "https://github.com/FaceAISDK/FaceAISDK_Core.git",
+        "tag": "2026.03.27"
+      }
     }
-  ]
+  ],
+  "ios": {
+    "linkFlags": [
+      "-lc++", 
+      "-ObjC"
+    ]
+  }
 }

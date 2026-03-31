@@ -1,12 +1,13 @@
 <template>
 	<view>
-		<button @tap="addFaceFeatureBySDKCameraDemo">SDK相机录入人脸</button>
+		<button @tap="addFaceFeatureBySDKCameraDemo">SDK相机录入人脸信息</button>
 		<button @tap="faceVerifyDemo">人脸识别+活体检测</button>
 		<button @tap="livenessVerifyDemo">检测人脸是否活体</button>
 		<button @tap="getFaceFeatureDemo">获取人脸特征信息</button>
 		<button @tap="insertFaceFeatureDemo">同步人脸特征信息</button>
-		<button @tap="addFaceFeatureByImageDemo">Base64人脸图提取特征</button>
+		<button @tap="addFaceFeatureByImageDemo">人脸图录入人脸信息</button>
 	    <button @tap="deleteFaceFeatureDemo">删除人脸特征信息</button>
+		
 	    <!-- <button @tap="switchCameraDemo">切换摄像头(仅Android)</button> -->
 	
 		<view class="result-box">
@@ -22,9 +23,9 @@
 //uniappX page
 
 <script> 
-    //deleteFaceFeature，switchCamera 暂时只提供Android，iOS 3月底提供
+
 	import {deleteFaceFeature,switchCamera,addFaceBySDKCamera,addFaceBySDKImage,faceVerify,livenessVerify,getFaceFeature,insertFaceFeature,ResultJSON} from "@/uni_modules/FaceAISDK-Core";
- 
+    import { base64FaceImage } from './imageData.uts';
 	export default {
 		  
 		data() {
@@ -33,7 +34,7 @@
 				motionLivenessType:'1,2,3,4,5',  //动作活体种类，见接口
 				faceFeature: 'faceFeature，1024 length', //录入的人脸提取的特征值，加密后长度1024
 				faceAIResult: 'faceAIResult',
-				base64FaceImage:'data:image/jpg;base64,你的人脸Base64图，注意控制大小无损压缩，人脸部分宽高300-600为佳'
+				base64FaceImage:base64FaceImage as string //640*480 人脸图需要遵守规范：https://i.postimg.cc/RCwNy0kV/add-Face.jpg
 			}
 		},
 		onLoad() {
@@ -50,7 +51,7 @@
 				addFaceBySDKCamera(
 					this.faceID,
 					1,    //1.快速模式， 2.精确模式(人脸品质高)
-					true, //是否需要显示确认框，强烈建议需要
+					false, //是否需要显示确认框，强烈建议需要(目前仅Android生效)
 					 (result: ResultJSON)  => {
 						this.faceAIResult =JSON.stringify(result)
 						console.log("【addFaceBySDKCamera】: ***"+this.faceAIResult);
@@ -62,7 +63,7 @@
 			 * 2. 「1:1人脸识别」+活体检测（默认都含静默活体）   校验是否当前用户
 			 * 
 			 * @param faceID 用户ID 你的业务系统定义用户唯一的字符串（手机号/身份证等）
-			 * @param threshold 阈值设置，范围限 [0.75,0.95] ,默认0.85
+			 * @param threshold 阈值设置，范围限 [0.75,0.95] ,默认0.83
 			 * @param faceLivenessType  1.动作活体  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用) 4.静默活体 
 			 * @param motionLivenessTypes  "1,2,3" 动作活体种类用英文","隔开； 1.张张嘴 2.微笑 3.眨眨眼 4.摇头 5.点头
 			 * @param motionLivenessTimeOut  动作活体超时时间 [3,10]秒
@@ -70,11 +71,10 @@
 			 * @param callback 结果回调
 			 */
 			faceVerifyDemo: function () {	
-				console.log("【faceVerify】: 请求开始 ");
 			
 				faceVerify(
 					this.faceID,
-					0.85,       // 阈值设置，范围限 [0.75,0.95] ,默认0.85
+					0.83,       // 阈值设置，范围限 [0.75,0.95] ,默认0.83
 					1,          // 1.动作活体  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用)4.静默活体 
 					"1,2,3,4,5",//动作活体种类用英文","隔开； 1.张张嘴 2.微笑 3.眨眨眼 4.摇头 5.点头
 					7,          //动作活体超时时间 
@@ -87,7 +87,7 @@
 			
 			
 		   /**
-		    * 3. 活体检测，默认都含静默活体检测
+			* 3. 活体检测，包含动作+炫彩活体 。静默活体默认都包含
 		    * 
 		    * @param faceLivenessType  1.动作活体  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用) 4.静默活体 
 		    * @param motionLivenessTypes  "1,2,3" 动作活体种类用英文","隔开； 1.张张嘴 2.微笑 3.眨眨眼 4.摇头 5.点头
@@ -103,6 +103,7 @@
 					2,         //动作活体步骤，1个
 					 (result: ResultJSON) => {
 						this.faceAIResult =JSON.stringify(result)
+						console.log("【livenessVerify】: 返回 "+ this.faceAIResult);
 					})
 			},
 			
@@ -134,7 +135,8 @@
 					})
 			},
 			
-			//6. 仅仅用于Android 提取人脸图片中的特征值。不建议通过此方式录入人脸特征，品质不高
+			//6. 仅仅用于Android 提取人脸图片中的特征值。不建议通过此方式录入人脸特征
+			// 人脸图需要遵守规范：https://i.postimg.cc/RCwNy0kV/add-Face.jpg
 			addFaceFeatureByImageDemo: function () {
 				addFaceBySDKImage(
 					this.faceID,
@@ -146,7 +148,8 @@
 			},
 			
 			/**
-			* 7. 切换摄像头，一般0是前置，1是后置。但是部分Android自定义设备可能不是很标准
+			* 7. 切换摄像头仅仅支持Android，一般0是前置，1是后置。
+			* 但是部分Android自定义设备可能不是很标准
 			*/
 			switchCameraDemo: function () {
 				switchCamera(1)
