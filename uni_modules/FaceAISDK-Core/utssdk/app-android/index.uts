@@ -70,7 +70,7 @@ UTSAndroid.onAppActivityResult((requestCode: Int, resultCode: Int, intentAct?: I
         switch (requestCode) {
             case REQ_CODE_ADD_FACE:
                 res.faceFeature = intentAct.getStringExtra("faceFeature") ?? "";
-                if (res.code !== 0) {
+                if (res.code != 0) {
                     res.faceBase64 = BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_BASE_FACE_DIR + currentFaceID);
                 }
                 break;

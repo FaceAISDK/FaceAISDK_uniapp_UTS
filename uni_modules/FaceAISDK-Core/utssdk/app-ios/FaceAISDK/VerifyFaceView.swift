@@ -66,7 +66,7 @@ struct VerifyFaceView: View {
                     .cornerRadius(20)
                 
                 Text(localizedTip(for: viewModel.sdkInterfaceTipsExtra.code))
-                    .font(.system(size: 19).bold())
+                    .font(.system(size: 20).bold())
                     .padding(.bottom, 6)
                     .frame(minHeight: 30)
                     .foregroundColor(.black)
@@ -156,7 +156,7 @@ struct VerifyFaceView: View {
                     .padding(.horizontal, 30) // 设置弹窗左右边距
                 }
                 .zIndex(2)
-                .transition(.scale(scale: 0.8).combined(with: .opacity)) // 添加出现动画
+                .transition(.scale(scale: 0.8).combined(with: .opacity))
             }
         }
          .onAppear {
@@ -202,7 +202,6 @@ struct VerifyFaceView: View {
                 }
             }else{
                 showToast = true
-                print("检测返回 ： \(viewModel.faceVerifyResult)")
                 
                 if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage){
                     print("saveFaceImage success ")

@@ -5,8 +5,14 @@
       "name": "FaceAISDK_Core",
       "repo": {
         "git": "https://github.com/FaceAISDK/FaceAISDK_Core.git",
-        "tag": "2026.03.18.silent"
+        "tag": "2026.03.27"
       }
     }
-  ]
+  ],
+  "ios": {
+    "linkFlags": [
+      "-lc++", 
+      "-ObjC"
+    ]
+  }
 }

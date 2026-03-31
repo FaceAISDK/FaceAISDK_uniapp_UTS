@@ -28,10 +28,11 @@ export type AddFaceBySDKCamera = (
 	
 	
 /**
- * 仅仅用于Android 提取人脸图片中的特征值。不建议通过此方式录入人脸，品质不高
+ * 仅仅用于Android 提取人脸图片中的特征值。不建议通过此方式录入人脸
+ * 人脸图需要遵守规范：https://i.postimg.cc/RCwNy0kV/add-Face.jpg
  * 
  * @param faceID 用户ID
- * @param needShowConfirmDialog 是否需要显示确认框
+ * @param base64FaceImage 人脸图Base64编码
  * @param callback 结果回调
  */
 export type AddFaceBySDKImage = (

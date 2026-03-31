@@ -88,7 +88,7 @@
    
  ### 5.改动原生swift/kotlin 代码导致基座不能正常运行
    只能重新制作自定义调试基座，UTS API插件使用方如果不需要修改插件底层实现尽量不用改原生代码
-   
+
 
 ## 人脸识别，活体检测状态码
    人脸识别，活体检测状态码含义
@@ -108,4 +108,4 @@
 
 ```
 
-  Copyright © 2026 FaceAISDK. All rights reserved。 FaceAISDK.Service@gmail.com 
+  Copyright © 2024-2026 FaceAISDK. All rights reserved。FaceAISDK.Service@gmail.com 

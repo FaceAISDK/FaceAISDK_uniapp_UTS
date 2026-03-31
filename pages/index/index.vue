@@ -31,6 +31,8 @@
 		getFaceFeature,
 		insertFaceFeature
 	} from "@/uni_modules/FaceAISDK-Core";
+	
+    import { base64FaceImage } from './imageData.js';
 
 	export default {
 		data() {
@@ -39,7 +41,7 @@
 				motionLivenessType:'1,2,3,4,5',  //动作活体种类，见接口
 				faceFeature: 'faceFeature，1024 length', //录入的人脸提取的特征值，加密后长度1024
 				faceAIResult: 'faceAIResult',
-				base64FaceImage:'data:image/jpg;base64,你的人脸Base64图，注意控制大小无损压缩，人脸部分宽高300-600为佳'
+				base64FaceImage:base64FaceImage as string //640*480 人脸图需要遵守规范：https://i.postimg.cc/RCwNy0kV/add-Face.jpg
 			}
 		},
 		onLoad() {
@@ -55,8 +57,8 @@
 			addFaceFeatureBySDKCameraDemo: function() {
 				addFaceBySDKCamera(
 					this.faceID,
-					1, //1.快速模式，  2.精确模式(人脸品质高)
-					true, //是否需要显示确认框，强烈建议需要
+					1,     //1.快速模式，  2.精确模式(人脸品质高)
+					true,  //是否需要显示确认框，强烈建议需要(目前仅Android生效)
 					(result) => {
 						//录入的人脸
 						this.faceAIResult = JSON.stringify(result)
@@ -82,11 +84,11 @@
 
 
 			/**
-			 * 3. 活体检测，包含动作+炫彩活体
+			 * 3. 活体检测，包含动作+炫彩活体 。静默活体默认都包含
 			 */
 			livenessVerifyDemo: function() {
 				livenessVerify(
-					2, // 1.动作活体  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用) 4.静默活体 
+					1, // 1.动作活体  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用) 4.静默活体 
 					"1,2,3,4,5", //动作活体种类用英文","隔开； 1.张张嘴 2.微笑 3.眨眨眼 4.摇头 5.点头
 					7, //动作活体超时时间,低端机应该适当加点时间
 					2, //动作活体步骤个数
@@ -120,18 +122,20 @@
 					})
 			},
 			
-			//6. 仅仅用于Android 提取人脸图片中的特征值。不建议通过此方式录入人脸特征，品质不高
+			//6. 仅仅用于Android 提取人脸图片中的特征值。不建议通过此方式录入人脸特征
+			// 人脸图需要遵守规范：https://i.postimg.cc/RCwNy0kV/add-Face.jpg
 			addFaceFeatureByImageDemo: function () {
 				addFaceByImage(
 					this.faceID,
 					this.base64FaceImage,
-					 (result: ResultJSON)  => {
+					 (result)  => {
 						this.faceAIResult =JSON.stringify(result)
 					})
 			},
 			
 			/**
-			* 7. 切换摄像头，一般0是前置，1是后置。但是部分Android自定义设备可能不是很标准
+			* 7. 切换摄像头仅仅支持Android，一般0是前置，1是后置。
+			* 但是部分Android自定义设备可能不是很标准
 			*/
 			switchCameraDemo: function () {
 				switchCamera(1)
