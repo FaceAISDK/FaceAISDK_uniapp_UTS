@@ -62,7 +62,7 @@ object FaceAISDKNative {
 	           // Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
 			   var result: UTSJSONObject = object : UTSJSONObject() {
 			   			var code = 0
-			   			var msg = "getFaceFeature failed"
+			   			var msg = msg
 			            var faceID = faceID
 						var faceFeature =" "
 			    }

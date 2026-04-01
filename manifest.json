@@ -33,6 +33,7 @@
 			"splashScreens": {
 				"default": {}
 			},
+			"debuggable" : true, 
 			"abiFilters": [
 				"arm64-v8a",
 				"armeabi-v7a"

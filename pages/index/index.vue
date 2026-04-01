@@ -41,7 +41,7 @@
 				motionLivenessType:'1,2,3,4,5',  //动作活体种类，见接口
 				faceFeature: 'faceFeature，1024 length', //录入的人脸提取的特征值，加密后长度1024
 				faceAIResult: 'faceAIResult',
-				base64FaceImage:base64FaceImage as string //640*480 人脸图需要遵守规范：https://i.postimg.cc/RCwNy0kV/add-Face.jpg
+				base64FaceImage:base64FaceImage  //640*480 人脸图需要遵守规范：https://i.postimg.cc/RCwNy0kV/add-Face.jpg
 			}
 		},
 		onLoad() {

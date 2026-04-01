@@ -17,6 +17,8 @@
 ## 使用方法
   如果你是第一次运行UTS插件工程/引入UTS API插件，你应先安装官方说明配置好基础环境 [基础环境](https://doc.dcloud.net.cn/uni-app-x/plugin/uts-plugin.html) 
  
+  **开发调试阶段请开启调试模式**，Android-manifest.json distribute配置 "debuggable" : true,
+ 
   ### 1. 下载[Demo工程](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS)先跑通；熟悉半天后参考文档集成到主项目
 
   ### 2. 运行 -》 运行到手机或模拟器 -》**制作自定义调试基座** -》打包 等基座制作完成  
