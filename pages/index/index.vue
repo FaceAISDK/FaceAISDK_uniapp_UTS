@@ -3,7 +3,7 @@
 		<button @tap="addFaceFeatureBySDKCameraDemo">SDK相机录入人脸</button>
 		<button @tap="faceVerifyDemo">人脸识别+活体检测</button>
 		<button @tap="livenessVerifyDemo">检测人脸是否活体</button>
-		<button @tap="getFaceFeatureDemo">获取人脸特征信息</button>
+		<button @tap="getFaceFeatureDemo">查询人脸特征信息</button>
 		<button @tap="insertFaceFeatureDemo">同步人脸特征信息</button>
 		<button @tap="addFaceFeatureByImageDemo">Base64人脸图提取特征</button>
 		<button @tap="deleteFaceFeatureDemo">删除人脸特征信息</button>
@@ -62,6 +62,7 @@
 					(result) => {
 						//录入的人脸
 						this.faceAIResult = JSON.stringify(result)
+						console.log("【addFaceBySDKCamera】: ***"+this.faceAIResult);
 					})
 			},
 
@@ -79,6 +80,7 @@
 					2,    //动作活体步骤，1个
 					(result) => {
 						this.faceAIResult = JSON.stringify(result)
+						console.log("【faceVerify】: ***"+this.faceAIResult);
 					})
 			},
 
@@ -125,7 +127,7 @@
 			//6. 仅仅用于Android 提取人脸图片中的特征值。不建议通过此方式录入人脸特征
 			// 人脸图需要遵守规范：https://i.postimg.cc/RCwNy0kV/add-Face.jpg
 			addFaceFeatureByImageDemo: function () {
-				addFaceByImage(
+				addFaceBySDKImage(
 					this.faceID,
 					this.base64FaceImage,
 					 (result)  => {

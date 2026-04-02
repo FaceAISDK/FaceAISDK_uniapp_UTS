@@ -53,7 +53,7 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
                 message = "未知状态";
             }
 			
-            // 修改：优先使用 Swift 闭包直接传回的 feature，为空则 fallback
+            // 修改：优先使用 Swift 闭包直接传回的 feature，vue2 faature 拿不到数据呢？
             let finalFeature = feature.length > 0 ? feature : FaceSDKSwiftManager.getFaceFeature(faceID);
             
 		    const resultJson : ResultJSON = {

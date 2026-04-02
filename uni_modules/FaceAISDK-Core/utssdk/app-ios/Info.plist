@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>NSCameraPortraitEffectEnabled</key>
+    <false/>
     <key>NSCameraUsageDescription</key>
     <string>App需要访问相机才能人脸识别活体检测</string>
     <key>NSPhotoLibraryUsageDescription</key>

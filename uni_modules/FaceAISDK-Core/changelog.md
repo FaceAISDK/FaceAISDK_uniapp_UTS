@@ -1,3 +1,9 @@
+## 3.9.1（2026-04-01）
+1.  开发阶段Android 默认打开调试模式
+2. iOS 升级静默活体检测，发布正式版
+3. iOS，Android 新加从图片添加人脸特征
+
+**开发调试阶段请开启调试模式**，Android-manifest.json distribute配置 "debuggable" : true,
 ## 3.9.0（2026-04-01）
 1.  开发阶段Android 默认打开调试模式
 2. iOS 升级静默活体检测，发布正式版
