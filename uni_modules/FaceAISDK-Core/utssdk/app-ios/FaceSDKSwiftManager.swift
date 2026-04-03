@@ -5,68 +5,83 @@ import Combine
 
 @objcMembers
 public class FaceSDKSwiftManager: NSObject {
-	
-	private static var addFaceTasks: [String: Any] = [:]
-
-	// 👇 修改点 1：回调闭包增加一个 String 参数
-	@objc public static func addFaceByBase64(_ faceID: String, _ base64Str: String, _ callback: @escaping (NSNumber, String, String) -> Void) {
-	    
-	    var cleanBase64 = base64Str
-	    if let idx = cleanBase64.range(of: "base64,")?.upperBound {
-	        cleanBase64 = String(cleanBase64[idx...])
-	    }
-	    
-	    guard let data = Data(base64Encoded: cleanBase64, options: .ignoreUnknownCharacters),
-	          let image = UIImage(data: data) else {
-	        // 👇 修改点 2：补充 message 参数
-	        callback(0, "", "图片Base64解析失败") 
-	        return
-	    }
-	    
-	    let model = AddFaceByImageModel() 
-	    let taskID = UUID().uuidString
-	    var cancellables = Set<AnyCancellable>()
-	    
-	    let cleanup = {
-	        Self.addFaceTasks.removeValue(forKey: taskID)
-	    }
-	    
-	    model.$readyConfirmFace
-	        .receive(on: DispatchQueue.main)
-	        .sink { isReady in
-	            if isReady {
-	                if let feature = model.getFaceFeature(faceUIImage: model.croppedFaceImage) {
-	                    UserDefaults.standard.set(feature, forKey: faceID)
-	                    // 👇 修改点 3：补充 message 参数
-	                    callback(1, feature, "特征提取成功")
-	                } else {
-	                    // 👇 修改点 4：补充 message 参数
-	                    callback(0, "", "未能提取到人脸特征")
-	                }
-	                cleanup() 
-	            }
-	        }
-	        .store(in: &cancellables)
-	    
-	    model.$sdkInterfaceTips
-	        .receive(on: DispatchQueue.main)
-	        .sink { tips in
-	            if tips.code != FaceTipsCode.CLEAN_TIPS && tips.code != FaceTipsCode.CONFIRM_ADD_FACE {
-	                print("❌ [Swift] AddFaceByBase64 Failed: \(tips.message)")
-	                // 👇 修改点 5：透传底层拦截的 tips.message
-	                callback(0, "", tips.message) 
-	                cleanup() 
-	            }
-	        }
-	        .store(in: &cancellables)
-	    
-	    Self.addFaceTasks[taskID] = (model, cancellables)
-	    model.addFaceByUIImage(faceUIImage: image) 
-	}
-	    
-	
-	
     
+    private static var addFaceTasks: [String: Any] = [:]
+
+    // MARK: - Base64 提取人脸特征
+    @objc public static func addFaceByBase64(_ faceID: String, _ base64Str: String, _ callback: @escaping (NSNumber, String, String) -> Void) {
+        
+        var cleanBase64 = base64Str
+        if let idx = cleanBase64.range(of: "base64,")?.upperBound {
+            cleanBase64 = String(cleanBase64[idx...])
+        }
+        
+        guard let data = Data(base64Encoded: cleanBase64, options: .ignoreUnknownCharacters),
+              let image = UIImage(data: data) else {
+            callback(0, "", "图片Base64解析失败") 
+            return
+        }
+        
+        let model = AddFaceByImageModel() 
+        let taskID = UUID().uuidString
+        var cancellables = Set<AnyCancellable>()
+        
+        Self.addFaceTasks[taskID] = model // 保持强引用防释放
+        
+        model.$readyConfirmFace
+            .receive(on: DispatchQueue.main)
+            .sink { isReady in
+                if isReady {
+                    if let feature = model.getFaceFeature(faceUIImage: model.croppedFaceImage) {
+                        // 强制写入磁盘
+                        UserDefaults.standard.set(feature, forKey: faceID)
+                        UserDefaults.standard.synchronize() 
+                        
+                        let safeFeature = String(feature)
+                        callback(1, safeFeature, "")
+                    } else {
+                        callback(0, "", "未能提取到特征")
+                    }
+                    Self.addFaceTasks.removeValue(forKey: taskID)
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    // MARK: - 呼出相机录入人脸
+    // 注意：这里的 callback 参数严格定义为 (NSNumber, String)
+    // 将 _ performanceMode: Int 改为 _ performanceMode: NSNumber
+    @objc public static func showAddFaceByCamera(_ faceID: String, _ performanceMode: NSNumber, _ needConfirm: Bool, _ callback: @escaping (NSNumber, String) -> Void) {
+        
+        guard let topVC = getTopViewController() else {
+            callback(0, "")
+            return
+        }
+
+        let sdkView = AddFaceByCamera(
+            faceID: faceID,
+            addFacePerformanceMode: performanceMode.intValue, 
+            needShowConfirmDialog: needConfirm,
+            onDismiss: { [weak topVC] (resultCode: Int, feature: String?) in
+                // 在 Swift 端提前安全解包，保证传给 UTS 的绝对是纯净的 String
+                let safeFeature = String(feature ?? "")
+                let safeCode = NSNumber(value: resultCode)
+                
+                DispatchQueue.main.async {
+                    ScreenBrightnessHelper.shared.restoreBrightness()
+                    topVC?.dismiss(animated: true) {
+                         callback(safeCode, safeFeature)
+                    }
+                }
+            }
+        )
+        sdkView.autoControlBrightness = false
+
+        let hostingController = UIHostingController(rootView: sdkView)
+        hostingController.modalPresentationStyle = .fullScreen
+        topVC.present(hostingController, animated: true)
+    }
+
     // 临时操作的图片转Base64 编码
     public static func getFaceImageBase64(_ faceName: String) -> String {
         guard let faceImageBase64 = FaceImageManger.faceImageToBase64(fileName: faceName) else {
@@ -75,168 +90,103 @@ public class FaceSDKSwiftManager: NSObject {
         }
         return faceImageBase64
     }
-    
-    // 获取并校验人脸特征值 (同步)
-    public static func getFaceFeature(_ faceID: String) -> String {
-        guard let faceFeature = UserDefaults.standard.string(forKey: faceID) else {
-            print("❌ [Swift] getFaceFeature: No data found for \(faceID)")
-            return ""
-        }
-        
-        //只判断是否为空，具体合法性应由核心算法校验
-        if faceFeature.isEmpty {
-            print("❌ [Swift] getFaceFeature: Invalid Feature (Empty)")
-            return ""
-        }
-        
-        return faceFeature
-    }
-    
-    // faceID 对应的人脸特征是否存在？
-    public static func isFaceFeatureExist(_ faceID: String,
-                                          _ callback: @escaping (NSNumber) -> Void) {
-        guard let faceFeature = UserDefaults.standard.string(forKey: faceID),
-              !faceFeature.isEmpty else { 
-            print("isFaceFeatureExist? : No or Invalid feature!")
-            callback(0)
-            return
-        }
-        print("\n😊FaceFeature Exist: OK")
-        callback(1)
-    }
 	
-	// faceID 对应的人脸特征是否存在？
-	public static func deleteFaceFeature(_ faceID: String) {
-        UserDefaults.standard.set(nil, forKey: faceID)
-        UserDefaults.standard.synchronize()
+	// MARK: - 1:1 人脸识别
+	public static func showFaceVerify(_ faceID: String,
+	                                  _ threshold: NSNumber,
+	                                  _ livenessType: NSNumber,
+	                                  _ motionLivenessTypes: String,
+	                                  _ motionLivenessTimeOut : NSNumber,
+	                                  _ motionLivenessSteps : NSNumber,
+	                                  _ callback: @escaping (NSNumber, NSNumber, NSNumber) -> Void) {
+	    DispatchQueue.main.async {
+	        guard let topVC = self.getTopViewController() else { return }
+	        ScreenBrightnessHelper.shared.maximizeBrightness()
+	        
+	        var sdkView = VerifyFaceView(
+	            faceID: faceID,
+	            threshold: threshold.floatValue,
+	            livenessType: livenessType.intValue,
+	            motionLiveness: motionLivenessTypes,
+	            motionLivenessTimeOut: motionLivenessTimeOut.intValue,
+	            motionLivenessSteps: motionLivenessSteps.intValue,
+	            // 修改：接收新增的参数
+	            onDismiss: { [weak topVC] (resultCode: Int, similarity: Float, liveness: Float) in
+	                DispatchQueue.main.async {
+	                    ScreenBrightnessHelper.shared.restoreBrightness()
+	                    topVC?.dismiss(animated: true) {
+	                        // 修改：回传新增的参数
+	                        callback(NSNumber(value: resultCode), NSNumber(value: similarity), NSNumber(value: liveness))
+	                    }
+	                }
+	            }
+	        )
+	        sdkView.autoControlBrightness = false
+	        
+	        let hostingController = UIHostingController(rootView: sdkView)
+	        hostingController.modalPresentationStyle = .fullScreen
+	        topVC.present(hostingController, animated: true)
+	    }
 	}
-    
-    /**
-     * 同步人脸特征到 SDK
-     */
-    public static func insertFaceFeature(_ faceID: String,
-                                         _ faceFeature: String,
-                                         _ callback: @escaping (NSNumber) -> Void) {
-        guard !faceFeature.isEmpty, faceFeature.count >= 1024 else {
-            if faceFeature.isEmpty {
-                print("FaceAISDK: 插入失败，特征值不能为空")
-            } else {
-                print("FaceAISDK: 插入失败，特征值长度不足")
-            }
-            callback(0)
-            return
-        }
-        
-        UserDefaults.standard.set(faceFeature, forKey: faceID)
-        UserDefaults.standard.synchronize()
-        
-        print("FaceAISDK: 特征值插入成功 (FaceID: \(faceID))")
-        callback(1)
-    }
-
-    // MARK: - 1:1 人脸识别 
-    public static func showFaceVerify(_ faceID: String,
-                                      _ threshold: NSNumber,
-                                      _ livenessType: NSNumber,
-                                      _ motionLivenessTypes: String,
-                                      _ motionLivenessTimeOut : NSNumber,
-                                      _ motionLivenessSteps : NSNumber,
-                                      // 修改：增加 similarity 和 liveness 回调参数
-                                      _ callback: @escaping (NSNumber, NSNumber, NSNumber) -> Void) {
-        DispatchQueue.main.async {
-            guard let topVC = self.getTopViewController() else { return }
-            ScreenBrightnessHelper.shared.maximizeBrightness()
-            
-            var sdkView = VerifyFaceView(
-                faceID: faceID,
-                threshold: threshold.floatValue,
-                livenessType: livenessType.intValue,
-                motionLiveness: motionLivenessTypes,
-                motionLivenessTimeOut: motionLivenessTimeOut.intValue,
-                motionLivenessSteps: motionLivenessSteps.intValue,
-                // 修改：接收新增的参数
-                onDismiss: { [weak topVC] (resultCode: Int, similarity: Float, liveness: Float) in
-                    DispatchQueue.main.async {
-                        ScreenBrightnessHelper.shared.restoreBrightness()
-                        topVC?.dismiss(animated: true) {
-                            // 修改：回传新增的参数
-                            callback(NSNumber(value: resultCode), NSNumber(value: similarity), NSNumber(value: liveness))
-                        }
-                    }
-                }
-            )
-            sdkView.autoControlBrightness = false
-            
-            let hostingController = UIHostingController(rootView: sdkView)
-            hostingController.modalPresentationStyle = .fullScreen
-            topVC.present(hostingController, animated: true)
-        }
-    }
-    
-    // MARK: - 活体检测 
-    public static func showLivenessVerify(_ livenessType: NSNumber,
-                                          _ motionLivenessTypes: String,
-                                          _ motionLivenessTimeOut : NSNumber,
-                                          _ motionLivenessSteps : NSNumber,
-                                          _ callback: @escaping (NSNumber, NSNumber) -> Void) {
-        DispatchQueue.main.async {
-            guard let topVC = self.getTopViewController() else { return }
-            ScreenBrightnessHelper.shared.maximizeBrightness()
-            
-            var sdkView = LivenessDetectView(
-                livenessType: livenessType.intValue,
-                motionLiveness: motionLivenessTypes,
-                motionLivenessTimeOut: motionLivenessTimeOut.intValue,
-                motionLivenessSteps: motionLivenessSteps.intValue,
-                // 修改：接收 liveness 参数
-                onDismiss: { [weak topVC] (resultCode: Int, liveness: Float) in
-                    DispatchQueue.main.async {
-                        ScreenBrightnessHelper.shared.restoreBrightness()
-                        topVC?.dismiss(animated: true) {
-                            // 修改：回传 liveness 参数
-                            callback(NSNumber(value: resultCode), NSNumber(value: liveness))
-                        }
-                    }
-                }
-            )
-            sdkView.autoControlBrightness = false
-            
-            let hostingController = UIHostingController(rootView: sdkView)
-            hostingController.modalPresentationStyle = .fullScreen
-            topVC.present(hostingController, animated: true)
-        }
-    }
-    
-    // MARK: - 人脸采集 (更新版)
-    public static func showAddFaceByCamera(_ faceID: String,
-                                               _ mode: NSNumber,
-                                               _ showConfirm: Bool,
-                                               _ callback: @escaping (NSNumber, String) -> Void) {
-            DispatchQueue.main.async {
-                guard let topVC = self.getTopViewController() else { return }
-                ScreenBrightnessHelper.shared.maximizeBrightness()
-                
-                var sdkView = AddFaceByCamera(
-                    faceID: faceID,
-                    onDismiss: { [weak topVC] (resultCode: Int, feature: String?) in
-                        DispatchQueue.main.async {
-                            ScreenBrightnessHelper.shared.restoreBrightness()
-                            topVC?.dismiss(animated: true) {
-                                let safeFeature = feature ?? ""
-                                // vue2 feature 拿不到数据？
-                                callback(NSNumber(value: resultCode), safeFeature)
-                            }
-                        }
-                    }
-                )
-                sdkView.autoControlBrightness = false
-        
-                let hostingController = UIHostingController(rootView: sdkView)
-                hostingController.modalPresentationStyle = .fullScreen
-                topVC.present(hostingController, animated: true)
-            }
-    }
 	
+	// MARK: - 活体检测 
+	public static func showLivenessVerify(_ livenessType: NSNumber,
+	                                      _ motionLivenessTypes: String,
+	                                      _ motionLivenessTimeOut : NSNumber,
+	                                      _ motionLivenessSteps : NSNumber,
+	                                      _ callback: @escaping (NSNumber, NSNumber) -> Void) {
+	    DispatchQueue.main.async {
+	        guard let topVC = self.getTopViewController() else { return }
+	        ScreenBrightnessHelper.shared.maximizeBrightness()
+	        
+	        var sdkView = LivenessDetectView(
+	            livenessType: livenessType.intValue,
+	            motionLiveness: motionLivenessTypes,
+	            motionLivenessTimeOut: motionLivenessTimeOut.intValue,
+	            motionLivenessSteps: motionLivenessSteps.intValue,
+	            // 修改：接收 liveness 参数
+	            onDismiss: { [weak topVC] (resultCode: Int, liveness: Float) in
+	                DispatchQueue.main.async {
+	                    ScreenBrightnessHelper.shared.restoreBrightness()
+	                    topVC?.dismiss(animated: true) {
+	                        // 修改：回传 liveness 参数
+	                        callback(NSNumber(value: resultCode), NSNumber(value: liveness))
+	                    }
+	                }
+	            }
+	        )
+	        sdkView.autoControlBrightness = false
+	        
+	        let hostingController = UIHostingController(rootView: sdkView)
+	        hostingController.modalPresentationStyle = .fullScreen
+	        topVC.present(hostingController, animated: true)
+	    }
+	}
+	
+
+
+
+    // MARK: - 特征值管理 (核心修复点)
+    // 强制返回 String 而不是 String?，避免 UTS 编译成 Swift 时抛出 unwrapped 错误
+    @objc public static func getFaceFeature(_ faceID: String) -> String {
+        return UserDefaults.standard.string(forKey: faceID) ?? ""
+    }
+    
+    @objc public static func isFaceFeatureExist(_ faceID: String, _ callback: @escaping (NSNumber) -> Void) {
+        let exists = UserDefaults.standard.string(forKey: faceID) != nil
+        callback(NSNumber(value: exists ? 1 : 0))
+    }
+    
+    @objc public static func deleteFaceFeature(_ faceID: String) {
+        UserDefaults.standard.removeObject(forKey: faceID)
+        UserDefaults.standard.synchronize()
+    }
+    
+    @objc public static func insertFaceFeature(_ faceID: String, _ feature: String, _ callback: @escaping (NSNumber) -> Void) {
+        UserDefaults.standard.set(feature, forKey: faceID)
+        UserDefaults.standard.synchronize()
+        callback(NSNumber(value: 1))
+    }
     
     // MARK: - 辅助方法
     private static func getTopViewController() -> UIViewController? {

@@ -11,6 +11,9 @@ var FaceCameraSize: CGFloat {
 
 public struct AddFaceByCamera: View {
     let faceID: String
+    let addFacePerformanceMode: Int
+    let needShowConfirmDialog: Bool
+
     
     // 修改：增加 String 参数返回特征值
     let onDismiss: (Int, String?) -> Void //0 用户取消， 1 添加成功
