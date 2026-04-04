@@ -96,7 +96,7 @@ struct VerifyFaceView: View {
                 let displayTips = toastViewTips.isEmpty ? viewModel.faceVerifyResult.tips : toastViewTips
                 let displayMessage = (toastViewTips.isEmpty) ? "\(displayTips)" : displayTips
                 
-                ////iOS 静默活体阈值降低一点到 0.7
+                // 计算样式：如果是无特征值错误，或者相似度低，则为 failure
                 let isSuccess = viewModel.faceVerifyResult.similarity > threshold && viewModel.faceVerifyResult.liveness>0.7
                 let toastStyle: ToastStyle = isSuccess ? .success : .failure
                 

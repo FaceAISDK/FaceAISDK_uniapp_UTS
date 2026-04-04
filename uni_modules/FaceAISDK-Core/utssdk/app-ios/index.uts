@@ -67,33 +67,42 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
     );
 }
 
+
+
+/**
+ * 实现：从 Base64 图片中提取人脸特征并录入
+ */
 export const addFaceBySDKImage: AddFaceBySDKImage = function (
-    faceID: string,
-    base64FaceImage: string,
+    faceID: string, 
+    base64FaceImage: string, 
     callback: (result: ResultJSON) => void
 ) {
+    // 调用 Swift 原生类的 addFaceByBase64 方法
+    // 注意：Swift 回调返回的是 (code, feature, errorMsg)
     FaceSDKSwiftManager.addFaceByBase64(
         faceID, 
         base64FaceImage, 
-        (resultCode: number, feature: string, message:string) => {
-            
-            let featureFromStore = FaceSDKSwiftManager.getFaceFeature(faceID) ?? "";
-            let finalFeature = feature.length > 0 ? feature : featureFromStore;
+        (resultCode: NSNumber, feature: string, msg: string) => {
             
             const resultJson: ResultJSON = {
-                code: resultCode,
-                msg: message,  
+                code: resultCode.intValue, // 转换为 UTS 的 number
+                msg: msg,
+                faceID: faceID,
                 similarity: 0,
                 liveness: 0,
-                faceID: faceID,
-                faceFeature: finalFeature,   
-                faceBase64: "" 
+                faceFeature: feature,
+                faceBase64: ""
             };
-           
+            
+            // 回调给前端 UVUE/VUE
             callback(resultJson);
         }
     );
 }
+
+
+
+
 
 export const faceVerify : FaceVerify = function (
     faceID: string ,
@@ -179,7 +188,7 @@ export const getFaceFeature : GetFaceFeature = function
                 const resultJson : ResultJSON = {
                     code: resultCode,
                     msg: "1:exist  0:not exist",
-                    faceID: "",
+                    faceID: faceID,
                     similarity: 0,
                     liveness: 0,
                     faceFeature: faceFeature,
