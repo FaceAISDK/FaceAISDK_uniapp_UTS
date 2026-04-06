@@ -110,4 +110,4 @@
 
 ```
 
-  Copyright © 2024-2026 FaceAISDK. All rights reserved。FaceAISDK.Service@gmail.com 
+  Copyright © 2024-2026 FaceAISDK. All rights reserved@license。FaceAISDK.Service@gmail.com 

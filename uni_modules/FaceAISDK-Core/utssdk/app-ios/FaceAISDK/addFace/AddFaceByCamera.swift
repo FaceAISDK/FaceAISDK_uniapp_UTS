@@ -85,7 +85,6 @@ public struct AddFaceByCamera: View {
                             onConfirm: {
                                 // 保存人脸特征值
                                 UserDefaults.standard.set(viewModel.faceFeatureBySDKCamera, forKey: faceID)
-                                UserDefaults.standard.synchronize()
                                 // 保存人脸图（可选操作，非SDK运行必须）
                                 if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage){
                                     print("saveFaceImage success")

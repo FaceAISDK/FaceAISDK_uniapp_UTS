@@ -49,7 +49,7 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
                 message = "未知状态";
             }
             
-            let featureFromStore = FaceSDKSwiftManager.getFaceFeature(faceID) ?? "";
+            let featureFromStore = FaceSDKSwiftManager.getiOSFaceFeature(faceID) ?? "";
             let rawFeature = feature.length > 0 ? feature : featureFromStore;
             
             const resultJson : ResultJSON = {
@@ -82,7 +82,7 @@ export const addFaceBySDKImage: AddFaceBySDKImage = function (
     FaceSDKSwiftManager.addFaceByBase64(
         faceID, 
         base64FaceImage, 
-        (resultCode: NSNumber, feature: string, msg: string) => {
+        (resultCode: number, feature: string, msg: string) => {
             
             const resultJson: ResultJSON = {
                 code: resultCode.intValue, // 转换为 UTS 的 number
@@ -180,23 +180,25 @@ export const livenessVerify : LivenessVerify = function (
 export const getFaceFeature : GetFaceFeature = function 
              (faceID : string, callback : (re : ResultJSON) => void) {
                  
-        // ✅ 修复：使用 ?? "" 安全解包
-        let faceFeature = FaceSDKSwiftManager.getFaceFeature(faceID) ?? "";         
-        FaceSDKSwiftManager.isFaceFeatureExist(
-            faceID,
-            (resultCode: number) => {
-                const resultJson : ResultJSON = {
-                    code: resultCode,
-                    msg: "1:exist  0:not exist",
-                    faceID: faceID,
-                    similarity: 0,
-                    liveness: 0,
-                    faceFeature: faceFeature,
-                    faceBase64: ""
-                };
-                callback(resultJson);
-            }
-        );
+    // 1. 从 Swift 获取特征值
+    // 注意：Swift 层没找到时可能返回 "vue2 error?" 或 ""
+    let faceFeature = FaceSDKSwiftManager.getiOSFaceFeature(faceID) ?? "";
+    FaceSDKSwiftManager.isFaceFeatureExist(
+        faceID,
+        (resultCode: number) => {
+            const resultJson : ResultJSON = {
+                code: resultCode,
+                msg: "1:exist  0:not exist",
+                faceID: faceID,
+                similarity: 0,
+                liveness: 0,
+                faceFeature: faceFeature,
+                faceBase64: ""
+            };
+            callback(resultJson);
+        }
+    );
+	
 }
 
 export const deleteFaceFeature: DeleteFaceFeature = function (faceID: string) {
@@ -209,10 +211,10 @@ export const insertFaceFeature : InsertFaceFeature = function
         FaceSDKSwiftManager.insertFaceFeature(
             faceID,
             faceFeature,
-            (resultCode: number) => {
+            (resultCode: number, msg: string) => {
                 const resultJson : ResultJSON = {
                     code: resultCode,
-                    msg: "1:success  0:failed",
+                    msg: msg,
                     faceID: "",
                     similarity: 0,
                     liveness: 0,
