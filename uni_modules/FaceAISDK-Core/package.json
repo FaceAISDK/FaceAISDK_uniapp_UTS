@@ -26,8 +26,8 @@
 			"qq": "Wechat: FaceAISDK"
 		},
 		"declaration": {
-			"ads": "无",
-			"data": "插件可离线运行，不收集数据",
+			"ads": "无.",
+			"data": "插件离线运行,功能不需要网络，不收集数据. ",
 			"permissions": "相机"
 		},
 		"npmurl": "",
@@ -73,21 +73,21 @@
 						"toutiao": "x",
 						"baidu": "x",
 						"kuaishou": "x",
-						"jd": "-",
-						"harmony": "-",
-						"qq": "-",
-                        "lark": "-",
-                        "xhs": "-"
+						"jd": "x",
+						"harmony": "x",
+						"qq": "x",
+                        "lark": "x",
+                        "xhs": "x"
 					},
 					"quickapp": {
-						"huawei": "-",
+						"huawei": "x",
 						"union": "x"
 					}
 				},
 				"uni-app-x": {
 					"web": {
-						"safari": "-",
-						"chrome": "-"
+						"safari": "x",
+						"chrome": "x"
 					},
 					"app": {
 						"android": {
