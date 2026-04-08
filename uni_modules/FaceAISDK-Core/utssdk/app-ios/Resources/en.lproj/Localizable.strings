@@ -6,6 +6,7 @@
 "Confirm Add Face" = "Confirm Add Face";
 "Ensure face is clear" = "Ensure face is clear";
 "Face Verify and Liveness Detection" = "Face Verify and Liveness Detection";
+"Face_Tips_Code_-1" = "FaceSDK Version too Old";
 "Face_Tips_Code_0" = "Keep Face Frontal";
 "Face_Tips_Code_1" = "No Face Detected";
 "Face_Tips_Code_2" = "Detect Too Many Face";

@@ -13,7 +13,6 @@ public struct AddFaceByCamera: View {
     let faceID: String
     let addFacePerformanceMode: Int
     let needShowConfirmDialog: Bool
-
     
     // 修改：增加 String 参数返回特征值
     let onDismiss: (Int, String) -> Void //0 用户取消， 1 添加成功
@@ -80,11 +79,13 @@ public struct AddFaceByCamera: View {
                             .clipShape(Circle())
                         
                         ConfirmAddFaceDialog(
+                            faceID: faceID, // 🌟 新增这行，将外部的 faceID 传给弹窗
                             viewModel: viewModel,
                             cameraSize: FaceCameraSize,
                             onConfirm: {
                                 // 保存人脸特征值
                                 UserDefaults.standard.set(viewModel.faceFeatureBySDKCamera, forKey: faceID)
+                                UserDefaults.standard.synchronize()
                                 // 保存人脸图（可选操作，非SDK运行必须）
                                 if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage){
                                     print("saveFaceImage success")
@@ -135,8 +136,8 @@ public struct AddFaceByCamera: View {
     }
 }
 
-//ConfirmAddFaceDialog 保持不变
 struct ConfirmAddFaceDialog: View {
+    let faceID: String // 🌟 新增接收 faceID 参数
     let viewModel: AddFaceByCameraModel
     let cameraSize: CGFloat
     let onConfirm: () -> Void
@@ -161,10 +162,25 @@ struct ConfirmAddFaceDialog: View {
                 .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
 
             Text("Ensure face is clear")
-                .font(.system(size: 15))
+                .font(.system(size: 14))
                 .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
+            
+            //    VStack(spacing: 2) {
+            //     Text("ID: \(faceID)")
+            //         .font(.system(size: 8)) // 极小字体
+            //         .foregroundColor(.gray.opacity(0.6))
+            //         .lineLimit(1)
+                
+            //     Text("Feature: \(viewModel.faceFeatureBySDKCamera)")
+            //         .font(.system(size: 8)) // 极小字体
+            //         .foregroundColor(.gray.opacity(0.6))
+            //         .lineLimit(2) // 特征值太长，限制一下行数防止 UI 崩溃
+            //         .truncationMode(.tail)
+            // }
+			
+            .padding(.horizontal, 10)
             
             // 按钮组
             HStack(spacing: 12) {

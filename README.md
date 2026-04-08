@@ -32,68 +32,48 @@
   ### 4. 把插件引入到你的主项目（即 import {faceVerify,**等方法} from "@/uni_modules/FaceAISDK-Core";）
 	
 	
-  **一定一定要先制作自定义调试基准，然后运行的时候使用自定义基准，请看图片步骤引导说明**
+  **一定一定要先制作自定义调试基准，然后运行的时候使用自定义基准，请看图片步骤引导说明**  
 	
-  若之前手机安装过基座需要先卸载之前的基座，iOS 可能会提示你安装好后杀死应进程后重新启动(可以点击几个其他应用加快彻底杀死重启)
+
   注：只支持真机调试，需要用到硬件摄像头。**不可用于金融场景**
 
 
 ## 常见错误与解决方法
  ### 1.iOS自定义基座相比Android很容易打包失败
+   **iOS插件在Vue2/Vue3环境获取特征目前异常20260408**
+
    ```
    Analyzing dependencies
    CocoaPods could not find compatible versions for pod "FaceAISDK_Core":
    in Podfile:
-   FaceAISDK_Core (= 2026.01.04)
-   None of your spec sources contain a spec satisfying the dependency: `FaceAISDK_Core (= 2026.01.04)`.
+   FaceAISDK_Core (= 2026.04.07)
+   None of your spec sources contain a spec satisfying the dependency: `FaceAISDK_Core (= 2026.04.07)`.
    ```
     
    1. **尽量在云服务器不忙的时候打包**   
    2. 增加版本号并手动清除缓存   
    3. 切换网络环境，尽量用Mac电脑打包
-   4. **尽量使用新版本Hbuilder打包（4.87 升级到5.05后稳定又快了不少）**
+   4. **尽量使用新版本Hbuilder打包**
 	    
-  ### 2.下载依赖TensorFlowLiteSwift超时出错了(高峰期打包容易超时)
-   ```
-	[!] Error installing TensorFlowLiteSwift
-	[!] /usr/bin/git clone https://github.com/tensorflow/tensorflow.git /var/folders/ft/7c temp
-	Cloning into '/var/folders/ft/7cxjq5ss2094sj67mbhnzjrc0000gn/T/d20260113-17932-1xwealt'...
-	error: RPC failed; curl 18 transfer closed with outstanding read data remaining
-	error: 3926 bytes of body are still expected
-	fetch-pack: unexpected disconnect while reading sideband packet
-	fatal: early EOF
-   ```
-   
-	这表明：
-    1. 仓库过大：TensorFlowLiteSwift 的源仓库（TensorFlow）比较大。
-    2. 网络中断：编译环境（无论是本地还是云端）连接GitHub的速度不够快，高峰期打包发生超时，导致在下载完成前连接被切断。
-	如果是本地 Mac 编译 
-    如果你是在自己的 Mac 上运行 HBuilderX 进行打包，可以通过修改 Git 配置来解决：
-    增加 Git 缓存大小（500MB）
-    git config --global http.postBuffer 548576000
-    git config --global https.postBuffer 548576000
-
-    开启 VPN/代理：确保终端走了代理流量，因为TensorFlow的服务器在海外。
-    设置完后，重新在 HBuilderX 中点击打包。TensorFlowLiteSwift只要成功同步一次后就好了
 	
- ### 3.iOS 基座安装到手机后很久都是白屏/黑屏
+ ### 2.iOS 基座安装到手机后很久都是白屏/黑屏
   ```
    控制台输出
    项目 [FaceAI_API_Plugin] 已启动。请点击手机/模拟器的运行基座App（uni-app x）查看效果。
    如应用未更新，请在手机上杀掉基座进程重启
   ```
-   根据提示确保杀死基座进程，稍后重启App就可以了
+   老旧手机根据提示确保杀死基座进程，稍后重启App就可以了
    
- ### 4.炫彩活体提示光线太亮导致失败
+ ### 3.炫彩活体提示光线太亮导致失败
    这个基本上只能规避强光环境了，或引导用户用手遮住强烈光线，让手机彩色光能照到脸部
    室外强光环境建议使用动作活体+静默活体检测
    
- ### 5.改动原生swift/kotlin 代码导致基座不能正常运行
+ ### 4.改动原生swift/kotlin 代码导致基座不能正常运行
    只能重新制作自定义调试基座，UTS API插件使用方如果不需要修改插件底层实现尽量不用改原生代码
 
 
 ## 人脸识别，活体检测状态码
-   人脸识别，活体检测状态码含义
+   人脸识别，活体检测状态码含义  
 ```
     let DEFAULT = 0                  // 0   初始化状态，流程没有开始
     let VERIFY_SUCCESS = 1           // 1   人脸识别对比成功大于设置的threshold
@@ -110,4 +90,4 @@
 
 ```
 
-  Copyright © 2024-2026 FaceAISDK. All rights reserved@license。FaceAISDK.Service@gmail.com 
+  Copyright © 2024-2026 FaceAISDK. 商用联系FaceAISDK.Service@gmail.com授权 

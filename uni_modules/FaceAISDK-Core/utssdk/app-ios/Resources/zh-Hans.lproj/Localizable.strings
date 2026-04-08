@@ -6,6 +6,7 @@
 "Confirm Add Face" = "确认录入此人脸图？";
 "Ensure face is clear" = "请录入无遮挡正脸清晰图";
 "Face Verify and Liveness Detection" = "人脸识别+活体检测";
+"Face_Tips_Code_-1" = "FaceSDK Version too Old";
 "Face_Tips_Code_0" = "请正对摄像头";
 "Face_Tips_Code_1" = "没有检测到人脸";
 "Face_Tips_Code_2" = "检测到多个人脸";

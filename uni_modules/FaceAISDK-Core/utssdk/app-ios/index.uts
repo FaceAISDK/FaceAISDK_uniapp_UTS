@@ -59,7 +59,7 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
                 liveness: 0,
                 faceID: faceID,
                 faceFeature: rawFeature,   
-                faceBase64: base64Str
+                faceBase64: base64Str   
             };
             
             callback(resultJson);
@@ -180,15 +180,13 @@ export const livenessVerify : LivenessVerify = function (
 export const getFaceFeature : GetFaceFeature = function 
              (faceID : string, callback : (re : ResultJSON) => void) {
                  
-    // 1. 从 Swift 获取特征值
-    // 注意：Swift 层没找到时可能返回 "vue2 error?" 或 ""
     let faceFeature = FaceSDKSwiftManager.getiOSFaceFeature(faceID) ?? "";
     FaceSDKSwiftManager.isFaceFeatureExist(
         faceID,
-        (resultCode: number) => {
+        (resultCode: number,msg:string) => {
             const resultJson : ResultJSON = {
                 code: resultCode,
-                msg: "1:exist  0:not exist",
+                msg: msg,
                 faceID: faceID,
                 similarity: 0,
                 liveness: 0,

@@ -44,20 +44,20 @@ object FaceAISDKNative {
 	 */
 	fun getFaceFeatureByImageNative(context:Context,faceID: String,base64FaceImage: String,callback: (UTSJSONObject) -> Unit){
 		
-	   //Bitmap为null提示msg: base64ToBitmap failed
-	   val bitmap = BitmapUtils.base64ToBitmap(base64FaceImage)
-	   if (bitmap == null) {
-	       val errorResult = UTSJSONObject()
-	       errorResult["code"] = 0 // 0 代表失败
-	       errorResult["msg"] = "base64ToBitmap failed" // 明确提示转码失败
-	       errorResult["faceID"] = faceID
-		   errorResult["faceFeature"] = " "
-	       callback(errorResult)
-	       return // 结束执行
-	   }
+	   // //Bitmap为null提示msg: base64ToBitmap failed
+	   // val bitmap = BitmapUtils.base64ToBitmap(base64FaceImage)
+	   // if (bitmap == null) {
+	   //     val errorResult = UTSJSONObject()
+	   //     errorResult["code"] = 0 // 0 代表失败
+	   //     errorResult["msg"] = "base64ToBitmap failed" // 明确提示转码失败
+	   //     errorResult["faceID"] = faceID
+		  //  errorResult["faceFeature"] = " "
+	   //     callback(errorResult)
+	   //     return // 结束执行
+	   // }
 	       
 		
-	   Image2FaceFeature.getInstance(context).getFaceFeatureByBitmap(bitmap,faceID,object : Image2FaceFeature.Callback{
+	   Image2FaceFeature.getInstance(context).getFaceFeatureByBase64(base64FaceImage,faceID,object : Image2FaceFeature.Callback{
 	       override fun onFailed(msg: String) {
 	           // Toast.makeText(baseContext, msg, Toast.LENGTH_LONG).show()
 			   var result: UTSJSONObject = object : UTSJSONObject() {

@@ -6,42 +6,75 @@ import Combine
 @objcMembers
 public class FaceSDKSwiftManager: NSObject {
     
-
-
-    // MARK: - Base64 提取人脸特征
+    // MARK: - 特征值管理 (核心修复点)
+   public static func getiOSFaceFeature(_ faceID: String) -> String {
+	   
+        return UserDefaults.standard.string(forKey: faceID) ?? ""
+    }
+	
+	
+    // MARK: - Base64 提取人脸特征 (支持插件/外部调用)
+// MARK: - Base64 提取人脸特征 (已修复 Actor 隔离与可选绑定问题)
     public static func addFaceByBase64(_ faceID: String,
                                        _ base64Str: String, 
                                        _ callback: @escaping (NSNumber, String, String) -> Void) {
         
+        // 1. 预处理 Base64 字符串（可以在后台线程做）
         var cleanBase64 = base64Str
         if let idx = cleanBase64.range(of: "base64,")?.upperBound {
             cleanBase64 = String(cleanBase64[idx...])
         }
         
-        // 1. 解析 Base64 为 UIImage
         guard let data = Data(base64Encoded: cleanBase64, options: .ignoreUnknownCharacters),
               let image = UIImage(data: data) else {
             callback(0, "", "图片Base64解析失败") 
             return
         }
-        
-        // 2. 实例化 Model
-        let model = AddFaceByImageModel() 
-          
-        // 3. 直接传入解析好的 image 进行特征提取 (移除冗余的 Combine 监听)
-        // 假设 model.getFaceFeature 支持直接传入 UIImage 并同步/快速返回特征值
-        if let feature = model.getFaceFeature(faceUIImage: image) {
+
+        // 2. 切换到主线程操作 @MainActor 隔离的 Model
+        DispatchQueue.main.async {
+            // 修复错误 2: 在主线程实例化 @MainActor 类
+            let model = AddFaceByImageModel() 
             
-            // 提取成功，存入本地
-            UserDefaults.standard.set(feature, forKey: faceID)
+            // 修复错误 3: 在主线程调用 @MainActor 方法
+            let feature = model.getFaceFeature(faceUIImage: image)
             
-            // 回调成功状态和特征值 bfeature.count
-            callback(1, String(feature), "Base64 img 提取人脸信息成功\(feature.count)")
-        } else {
-            // 提取失败（可能是图片中没有人脸、模糊等原因）
-            callback(0, "", "未能提取到人脸特征，请确保图片清晰且包含人脸")
+            // 修复错误 1: getFaceFeature 返回 String, 使用 isEmpty 判断而非 if let
+            if !feature.isEmpty {
+                // 提取成功，存入本地
+                UserDefaults.standard.set(feature, forKey: faceID)
+                UserDefaults.standard.synchronize()
+                
+                // 回调成功
+                callback(1, feature, "提取人脸特征成功，长度：\(feature.count)")
+            } else {
+                // 提取失败
+                callback(0, "", "未能提取到人脸特征，请确保图片清晰且包含人脸")
+            }
         }
     }
+		
+
+	
+	
+	// 插入人脸特征值：增加长度判断拦截
+	public static func insertFaceFeature(_ faceID: String,
+	                                     _ feature: String, 
+	                                     _ callback: @escaping (NSNumber,String) -> Void) {
+	    
+	    // 1. 拦截：判断字符串是否为空，或者长度是否小于 1024
+	    // 特征值通常是加密后的超长字符串，如果太短说明数据不完整
+	    if feature.isEmpty || feature.count < 1024 {
+	        callback(NSNumber(value: 0),"特征值长度仅 \(feature.count)") // 返回 0 表示失败
+	        return
+	    }
+	
+	    // 2. 校验通过，执行存储
+	    UserDefaults.standard.set(feature, forKey: faceID)
+	    
+	    print("【FaceSDK】人脸特征值插入成功，ID: \(faceID)")
+	    callback(NSNumber(value: 1),"\(faceID)人脸同步成功") // 返回 1 表示成功
+	}
 
 
     // MARK: - 呼出相机录入人脸
@@ -163,21 +196,13 @@ public class FaceSDKSwiftManager: NSObject {
         return faceImageBase64
     }
 
-
-    // MARK: - 特征值管理 (核心修复点)
-   public static func getiOSFaceFeature(_ faceID: String) -> String {
-	    UserDefaults.standard.set("This is Test Face Feature", forKey: faceID) //测试
-	   
-        return UserDefaults.standard.string(forKey: faceID) ?? "vue2 error?"
-    }
-	
 	
     
-    public static func isFaceFeatureExist(_ faceID: String, _ callback: @escaping (NSNumber) -> Void) {
+    public static func isFaceFeatureExist(_ faceID: String, _ callback: @escaping (NSNumber,String) -> Void) {
         let featureString = UserDefaults.standard.string(forKey: faceID)
         // 2. 只有当字符串不为 nil 且长度正好为 1024 时，才判定为 true
         let exists = (featureString?.count == 1024)
-        callback(NSNumber(value: exists ? 1 : 0))
+		callback(NSNumber(value: exists ? 1 : 0), "feature 长度=\(featureString?.count ?? 0)")
     }
 	
     
@@ -186,25 +211,6 @@ public class FaceSDKSwiftManager: NSObject {
     }
 	
     
-    // 插入人脸特征值：增加长度判断拦截
-    public static func insertFaceFeature(_ faceID: String,
-	                                     _ feature: String, 
-	                                     _ callback: @escaping (NSNumber,String) -> Void) {
-        
-        // 1. 拦截：判断字符串是否为空，或者长度是否小于 1024
-        // 特征值通常是加密后的超长字符串，如果太短说明数据不完整
-        if feature.isEmpty || feature.count < 1024 {
-            print("【FaceSDK】插入失败：特征值长度不足 (\(feature.count))")
-            callback(NSNumber(value: 0),"特征值长度仅(\(feature.count)") // 返回 0 表示失败
-            return
-        }
-
-        // 2. 校验通过，执行存储
-        UserDefaults.standard.set(feature, forKey: faceID)
-        
-        print("【FaceSDK】人脸特征值插入成功，ID: \(faceID)")
-        callback(NSNumber(value: 1),"人脸特征值插入成功") // 返回 1 表示成功
-    }
     
     // MARK: - 辅助方法
     private static func getTopViewController() -> UIViewController? {

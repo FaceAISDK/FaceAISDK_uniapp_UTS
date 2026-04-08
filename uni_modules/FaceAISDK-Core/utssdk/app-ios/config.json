@@ -1,10 +1,13 @@
 {
   "deploymentTarget": "15.5",
   "dependencies-pods": [      
-	{
-	  	"name": "FaceAISDK_Core",
-	  	"version": "2026.04.02"
-	}
+    {
+      "name": "FaceAISDK_Core",
+      "repo": {
+        "git": "https://github.com/FaceAISDK/FaceAISDK_Core.git",
+        "tag": "2026.04.07.image2"
+      }
+    }
   ],
   "ios": {
     "linkFlags": [

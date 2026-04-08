@@ -1,7 +1,7 @@
 {
 	"id": "FaceAISDK-Core",
 	"displayName": "人脸识别+活体检测 API插件，支持iOS和Android",
-	"version": "3.9.2",
+	"version": "3.10.0",
 	"description": "人脸识别，活体检测都可离线无需后端API不收集人脸敏感数据；支持iOS和Android(HM调研中); uniapp及uniapp x",
 	"keywords": [
         "人脸识别，活体检测，高性能，无依赖"
@@ -26,7 +26,7 @@
 			"qq": "Wechat: FaceAISDK"
 		},
 		"declaration": {
-			"ads": "无\n\n更多VIP服务联系FaceAISDK.Service@gmail.com",
+			"ads": "无",
 			"data": "插件可离线运行，不收集数据",
 			"permissions": "相机"
 		},
@@ -76,7 +76,8 @@
 						"jd": "-",
 						"harmony": "-",
 						"qq": "-",
-                        "lark": "-"
+                        "lark": "-",
+                        "xhs": "-"
 					},
 					"quickapp": {
 						"huawei": "-",
