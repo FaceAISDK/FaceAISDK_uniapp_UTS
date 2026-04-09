@@ -181,9 +181,10 @@ struct VerifyFaceView: View {
                 }
                 return
             }
-			
+             
+             
              guard faceFeature.count >= 1024 else {
-                 toastViewTips = "Invalid Feature length : \(faceFeature.count)"
+                 toastViewTips = "Invalid Feature length for : \(faceID)"
                  showToast = true
                  
                  DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
@@ -193,6 +194,8 @@ struct VerifyFaceView: View {
                  }
                  return
              }
+             
+             
             
             viewModel.initFaceAISDK(
                 faceIDFeature: faceFeature,

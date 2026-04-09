@@ -124,8 +124,9 @@ public struct AddFaceByImage: View {
                             // 此时 viewModel.croppedFaceImage 已经被 async 方法更新为对齐后的图
                             let feature = viewModel.getFaceFeature(faceUIImage: viewModel.croppedFaceImage)
                             if !feature.isEmpty {
+                                
+                                //保存人脸特征信息，Save face feature
                                 UserDefaults.standard.set(feature, forKey: faceID)
-                                UserDefaults.standard.synchronize()
                                 onDismiss(1, feature)
                                 dismiss()
                             }

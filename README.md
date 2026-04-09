@@ -54,8 +54,7 @@
    2. 增加版本号并手动清除缓存   
    3. 切换网络环境，尽量用Mac电脑打包
    4. **尽量使用新版本Hbuilder打包**
-	    
-	
+
  ### 2.iOS 基座安装到手机后很久都是白屏/黑屏
   ```
    控制台输出
@@ -90,4 +89,4 @@
 
 ```
 
-  Copyright © 2024-2026 FaceAISDK. 商用联系FaceAISDK.Service@gmail.com授权 
+  Copyright © 2024-2026 FaceAISDK. 商用联系FaceAISDK.Service@gmail.com
