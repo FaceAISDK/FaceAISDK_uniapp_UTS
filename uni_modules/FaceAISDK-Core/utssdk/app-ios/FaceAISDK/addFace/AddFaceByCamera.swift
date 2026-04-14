@@ -2,20 +2,18 @@ import SwiftUI
 import AVFoundation
 import FaceAISDK_Core
 
-// 使用 @MainActor 确保在主线程访问
 @MainActor
 var FaceCameraSize: CGFloat {
-    // 保持相机区域为屏幕宽度或高度的 70%，确保是正方形
     15 * min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) / 20
 }
 
 public struct AddFaceByCamera: View {
     let faceID: String
-    let addFacePerformanceMode: Int
-    let needShowConfirmDialog: Bool
+    let addFacePerformanceMode: Int //备用字段
+    let needShowConfirmDialog: Bool //是否需要弹框用户确认
     
-    // 修改：增加 String 参数返回特征值
-    let onDismiss: (Int, String) -> Void //0 用户取消， 1 添加成功
+    // callback Status , FaceFeature
+    let onDismiss: (Int, String) -> Void //status 0 cancel， 1 success
     
     // 屏幕亮度控制开关，默认为 true (原生友好)
     // 如果是三方uniapp,RN,Flutter插件调用，会将其设为 false，由 Manager 在外部控制亮度
@@ -26,21 +24,37 @@ public struct AddFaceByCamera: View {
     
     @StateObject private var viewModel: AddFaceByCameraModel = AddFaceByCameraModel()
     
-    // 辅助函数：获取本地化提示
+    // 根据状态码转换为对应的文字提示
     private func localizedTip(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
         let defaultValue = "Add Face Tips Code=\(code)"
         return NSLocalizedString(key, value: defaultValue, comment: "")
     }
     
+    // 统一处理人脸录入成功的逻辑
+    private func handleFaceAddSuccess() {
+        // 保存人脸特征信息，Save face feature
+        UserDefaults.standard.set(viewModel.faceFeatureBySDKCamera, forKey: faceID)
+        
+        // 保存人脸图（可选操作，非SDK运行必须）
+        // if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage) {
+        //     print("saveFaceImage success")
+        // }
+        
+        // 延迟退出，给予视觉缓冲
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            onDismiss(1, viewModel.faceFeatureBySDKCamera)
+            dismiss()
+        }
+    }
+    
     public var body: some View {
         ZStack {
             VStack(spacing: 20) {
-                // 自定义顶部栏 (关闭按钮)
                 HStack {
                     Button(action: {
-                        onDismiss(0,"")  // 传递取消状态
-                        dismiss()     // 触发导航栏返回（Pop）
+                        onDismiss(0, "")  // 传递取消状态
+                        dismiss()         // 触发导航栏返回（Pop）
                     }) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 16, weight: .semibold))
@@ -72,9 +86,9 @@ public struct AddFaceByCamera: View {
                         .background(Circle().fill(Color.white)) // 相机背景
                         .overlay(Circle().stroke(Color.gray, lineWidth: 1))
                     
-                    // 图层 B: 确认对话框 (顶层)
-                    if viewModel.readyConfirmFace {
-                        // 黑色半透明遮罩
+                    // 图层 B: 确认对话框 (顶层，仅在需要弹窗时渲染)
+                    if viewModel.readyConfirmFace && needShowConfirmDialog {
+                        // 建议保留在此处：用于压暗底部的圆形相机画面，与弹窗组件解耦
                         Color.black.opacity(0.3)
                             .clipShape(Circle())
                         
@@ -82,17 +96,7 @@ public struct AddFaceByCamera: View {
                             viewModel: viewModel,
                             cameraSize: FaceCameraSize,
                             onConfirm: {
-                                //保存人脸特征信息，Save face feature
-                                UserDefaults.standard.set(viewModel.faceFeatureBySDKCamera, forKey: faceID)
-                                // 保存人脸图（可选操作，非SDK运行必须）
-                                if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage){
-                                    print("saveFaceImage success")
-                                }
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    onDismiss(1,viewModel.faceFeatureBySDKCamera)  // 传递取消状态
-                                    dismiss()     // 触发导航栏返回（Pop）
-                                }
+                                handleFaceAddSuccess()
                             }
                         )
                         .transition(.scale.combined(with: .opacity))
@@ -106,35 +110,36 @@ public struct AddFaceByCamera: View {
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.white.ignoresSafeArea())
-            // 隐藏系统导航栏和返回按钮
             .navigationBarBackButtonHidden(true)
-            .navigationBarHidden(true) //兼容iOS 15 及以下
+            .navigationBarHidden(true)
             
-            // 生命周期事件
+            // 生命周期与状态监听
             .onAppear {
-                // 如果是原生app自动模式，则在此处调亮（为了兼容uniapp Flutter等插件）
                 if autoControlBrightness {
                     ScreenBrightnessHelper.shared.maximizeBrightness()
                 }
-                
                 viewModel.initAddFace()
+            }
+            .onDisappear {
+                if autoControlBrightness {
+                    ScreenBrightnessHelper.shared.restoreBrightness()
+                }
+                viewModel.stopAddFace()
             }
             .onChange(of: viewModel.sdkInterfaceTips.code) { newValue in
                 print("🔔 AddFaceBySDKCamera： \(viewModel.sdkInterfaceTips.message)")
             }
-            .onDisappear {
-                // 【新增】如果是自动模式（原生），则在此处恢复
-                if autoControlBrightness {
-                    ScreenBrightnessHelper.shared.restoreBrightness()
+            // 监听人脸捕获状态，处理“无需弹窗确认”的自动保存逻辑
+            .onChange(of: viewModel.readyConfirmFace) { isReady in
+                if isReady && !needShowConfirmDialog {
+                    handleFaceAddSuccess()
                 }
-                
-                viewModel.stopAddFace()
             }
         }
     }
 }
 
-//ConfirmAddFaceDialog 保持不变
+// 人脸录入确认框
 struct ConfirmAddFaceDialog: View {
     let viewModel: AddFaceByCameraModel
     let cameraSize: CGFloat

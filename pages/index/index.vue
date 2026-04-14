@@ -11,10 +11,11 @@
 		
 		
 		<view class="result-box">
-			<view> Email: FaceAISDK.Service@gmail.com</view>
 			<scroll-view scroll-y="true" class="scroll-view-box">
-				<text class="text-content">{{faceAIResult}}</text>
+				<text class="text-content">{{faceSDKResult}}</text>
 			</scroll-view>
+			<view> Email: FaceAISDK.Service@gmail.com</view>
+		
 		</view>
 	</view>
 </template>
@@ -40,7 +41,7 @@
 				faceID: 'youFaceID', //你的业务系统定义用户唯一的字符串（手机号/身份证等）
 				motionLivenessType:'1,2,3,4,5',  //动作活体种类，见接口
 				faceFeature: 'faceFeature，1024 length', //录入的人脸提取的特征值，加密后长度1024
-				faceAIResult: 'faceAIResult',
+				faceSDKResult: 'faceSDKResult',
 				base64FaceImage:base64FaceImage  //640*480 人脸图需要遵守规范：https://i.postimg.cc/RCwNy0kV/add-Face.jpg
 			}
 		},
@@ -61,8 +62,8 @@
 					true,  //是否需要显示确认框，强烈建议需要(目前仅Android生效)
 					(result) => {
 						//录入的人脸
-						this.faceAIResult = JSON.stringify(result)
-						console.log("【addFaceBySDKCamera】: ***"+this.faceAIResult);
+						this.faceSDKResult = JSON.stringify(result)
+						console.log("【addFaceBySDKCamera】: ***"+this.faceSDKResult);
 					})
 			},
 
@@ -79,8 +80,8 @@
 					7,    //动作活体超时时间,低端机应该适当加点时间
 					2,    //动作活体步骤，1个
 					(result) => {
-						this.faceAIResult = JSON.stringify(result)
-						console.log("【faceVerify】: ***"+this.faceAIResult);
+						this.faceSDKResult = JSON.stringify(result)
+						console.log("【faceVerify】: ***"+this.faceSDKResult);
 					})
 			},
 
@@ -95,7 +96,7 @@
 					7, //动作活体超时时间,低端机应该适当加点时间
 					2, //动作活体步骤个数
 					(result) => {
-						this.faceAIResult = JSON.stringify(result)
+						this.faceSDKResult = JSON.stringify(result)
 					})
 			},
 
@@ -108,7 +109,7 @@
 				getFaceFeature(
 					this.faceID,
 					(result) => {
-						this.faceAIResult = "OK：" + JSON.stringify(result)
+						this.faceSDKResult = "OK：" + JSON.stringify(result)
 					})
 			},
 
@@ -120,7 +121,7 @@
 					this.faceID,
 					this.faceFeature,
 					(result) => {
-						this.faceAIResult = JSON.stringify(result)
+						this.faceSDKResult = JSON.stringify(result)
 					})
 			},
 			
@@ -131,7 +132,7 @@
 					this.faceID,
 					this.base64FaceImage,
 					 (result)  => {
-						this.faceAIResult =JSON.stringify(result)
+						this.faceSDKResult =JSON.stringify(result)
 					})
 			},
 			

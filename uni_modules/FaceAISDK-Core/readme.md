@@ -1,62 +1,44 @@
-## FaceAISDK-UTS API 插件
+## 人脸识别UTS API插件简介
 
 **1:1人脸识别，活体检测UTS API插件**，支持iOS，Android，支持uniappX和uniapp(vue2&vue3)。    
 所有功能都是设备端侧AI能力可开飞行模式体验无需网络，无需后台API服务可完全离线运行，高性能无依赖
 
-**感谢大家收藏与点赞**，如有问题可描述你的使用场景说明发送邮件：FaceAISDK.Service@gmial.com  
+**感谢大家点赞收藏**，如有问题可描述你的使用场景说明发送邮件：FaceAISDK.Service@gmial.com  
 或**提issues到本插件GitHub**：https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues  
 我们将尽快排期解决，详细的信息有助于我们更好更快解决（Hbuilder版本，Vue版本，平台，功能和场景等）  
 
-快速体验完整人脸识别功能可以下载Demo App：
+快速体验完整人脸识别功能可以下载Android演示App：
 <div align=center>
 <img src="https://www.pgyer.com/app/qrcode/faceVerify" width = 15%   alt="扫一扫下载Demo"/>
 </div>
 
-另：**1:N人脸搜索识别** 插件应用市场地址：https://ext.dcloud.net.cn/plugin?id=26467  
 
 ## 使用方法
   如果你是第一次运行UTS插件工程/引入UTS API插件，你应先安装官方说明配置好基础环境 [基础环境](https://doc.dcloud.net.cn/uni-app-x/plugin/uts-plugin.html) 
  
   **开发调试阶段请开启调试模式**，Android-manifest.json distribute配置 "debuggable" : true,
  
-  ### 1. 下载[Demo工程](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS)先跑通；熟悉半天后参考文档集成到主项目
+  ### 1. 下载最新[Demo工程](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS)先跑通；熟悉半天后参考文档集成到主项目
 
-  ### 2. 运行 -》 运行到手机或模拟器 -》**制作自定义调试基座** -》打包 等基座制作完成  
+  ### 2. 运行 -》 运行到手机或模拟器 -》**制作自定义调试基座** -》打包 （期间不要修改原生代码） 
    .
     ![制作自定义调试基座](https://i.postimg.cc/QVZFgycd/1.png)
 
-  ### 3. 运行 -》运行到iOS/Android基座-》**使用自定义基座运行**-》选择手机-》运行 
+  ### 3. 运行 -》运行到iOS/Android基座 -》**使用自定义基座运行** -》本地基座 -》运行 
    .
     ![运行到手机](https://i.postimg.cc/QdwtZM60/2.png)
 	
   ### 4. 把插件引入到你的主项目（即 import {faceVerify,**等方法} from "@/uni_modules/FaceAISDK-Core";）
 	
 	
-  **一定一定要先制作自定义调试基准，然后运行的时候使用自定义基准，请看图片步骤引导说明**  
+  **一定一定要先制作自定义调试基准，然后运行的时候使用自定义基准-本地基座，请看图片步骤引导说明**  
 	
-
-  注：只支持真机调试，需要用到硬件摄像头。**不可用于金融场景**
 
 
 ## 常见错误与解决方法
- ### 1.iOS自定义基座相比Android很容易打包失败
-   **iOS插件在Vue2/Vue3环境获取特征目前异常20260408**
 
-   ```
-   Analyzing dependencies
-   CocoaPods could not find compatible versions for pod "FaceAISDK_Core":
-   in Podfile:
-   FaceAISDK_Core (= 2026.04.07)
-   None of your spec sources contain a spec satisfying the dependency: `FaceAISDK_Core (= 2026.04.07)`.
-   ```
-    
-   1. **尽量在云服务器不忙的时候打包**   
-   2. 增加版本号并手动清除缓存   
-   3. 切换网络环境，尽量用Mac电脑打包
-   4. **尽量使用新版本Hbuilder打包**
-	    
-	
- ### 2.iOS 基座安装到手机后很久都是白屏/黑屏
+
+ ### 1.iOS 基座安装到手机后很久都是白屏/黑屏
   ```
    控制台输出
    项目 [FaceAI_API_Plugin] 已启动。请点击手机/模拟器的运行基座App（uni-app x）查看效果。
@@ -64,11 +46,11 @@
   ```
    老旧手机根据提示确保杀死基座进程，稍后重启App就可以了
    
- ### 3.炫彩活体提示光线太亮导致失败
+ ### 2.炫彩活体提示光线太亮导致失败
    这个基本上只能规避强光环境了，或引导用户用手遮住强烈光线，让手机彩色光能照到脸部
    室外强光环境建议使用动作活体+静默活体检测
    
- ### 4.改动原生swift/kotlin 代码导致基座不能正常运行
+ ### 3.改动原生swift/kotlin 代码导致基座不能正常运行
    只能重新制作自定义调试基座，UTS API插件使用方如果不需要修改插件底层实现尽量不用改原生代码
 
 
@@ -90,4 +72,4 @@
 
 ```
 
-  Copyright © 2024-2026 FaceAISDK. 商用联系FaceAISDK.Service@gmail.com授权 
+  Copyright © 2024-2026 FaceAISDK. 商用联系 FaceAISDK.Service@gmail.com

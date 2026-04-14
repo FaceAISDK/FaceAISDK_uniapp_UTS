@@ -11,10 +11,10 @@
 	    <!-- <button @tap="switchCameraDemo">切换摄像头(仅Android)</button> -->
 	
 		<view class="result-box">
-		      <view> Email: FaceAISDK.Service@gmail.com</view>
 		      <scroll-view scroll-y="true" class="scroll-view-box">
-		      <text class="text-content">{{faceAIResult}}</text>
+		      <text class="text-content">{{faceSDKResult}}</text>
 		      </scroll-view>
+			  <view> Email: FaceAISDK.Service@gmail.com</view>
 		</view>
 		
 	</view>
@@ -33,7 +33,7 @@
 				faceID: 'youFaceID', //你的业务系统定义用户唯一的字符串（手机号/身份证等）
 				motionLivenessType:'1,2,3,4,5',  //动作活体种类，见接口
 				faceFeature: 'faceFeature，1024 length', //录入的人脸提取的特征值，加密后长度1024
-				faceAIResult: 'faceAIResult',
+				faceSDKResult: 'faceSDKResult',
 				base64FaceImage:base64FaceImage as string //640*480 人脸图需要遵守规范：https://i.postimg.cc/RCwNy0kV/add-Face.jpg
 			}
 		},
@@ -51,10 +51,10 @@
 				addFaceBySDKCamera(
 					this.faceID,
 					1,    //1.快速模式， 2.精确模式(人脸品质高)
-					true, //是否需要显示确认框，强烈建议需要(目前仅Android生效)
+					true, //是否需要显示人脸确认框，强烈建议设置为true
 					 (result: ResultJSON)  => {
-						this.faceAIResult =JSON.stringify(result)
-						console.log("【addFaceBySDKCamera】: ***"+this.faceAIResult);
+						this.faceSDKResult =JSON.stringify(result)
+						console.log("【addFaceBySDKCamera】: ***"+this.faceSDKResult);
 					})
 			},
 			
@@ -80,8 +80,8 @@
 					7,          //动作活体超时时间 
 					2,          //动作活体步骤个数
 					 (result: ResultJSON) => {
-						this.faceAIResult =JSON.stringify(result)
-						console.log("【faceVerify】: 返回 "+ this.faceAIResult);
+						this.faceSDKResult =JSON.stringify(result)
+						console.log("【faceVerify】: 返回 "+ this.faceSDKResult);
 					})
 			},
 			
@@ -102,8 +102,8 @@
 					7,         //动作活体超时时间 
 					2,         //动作活体步骤，1个
 					 (result: ResultJSON) => {
-						this.faceAIResult =JSON.stringify(result)
-						console.log("【livenessVerify】: 返回 "+ this.faceAIResult);
+						this.faceSDKResult =JSON.stringify(result)
+						console.log("【livenessVerify】: 返回 "+ this.faceSDKResult);
 					})
 			},
 			
@@ -115,8 +115,8 @@
 				getFaceFeature(
 					this.faceID,
 					 (result: ResultJSON) => {
-						this.faceAIResult ="OK："+JSON.stringify(result)		
-						console.log("【getFaceFeature】: "+ this.faceAIResult);
+						this.faceSDKResult ="OK："+JSON.stringify(result)		
+						console.log("【getFaceFeature】: "+ this.faceSDKResult);
 					})
 			}, 
 			
@@ -130,8 +130,8 @@
 				    this.faceID,
 					"this.faceFeature",
 					(result: ResultJSON) => {
-						this.faceAIResult =JSON.stringify(result)
-						console.log("【insertFaceFeature】: "+ this.faceAIResult);
+						this.faceSDKResult =JSON.stringify(result)
+						console.log("【insertFaceFeature】: "+ this.faceSDKResult);
 					})
 			},
 			
@@ -144,8 +144,8 @@
 					this.faceID,
 					this.base64FaceImage,
 					 (result: ResultJSON)  => {
-						this.faceAIResult =JSON.stringify(result)
-						console.log("【FaceSDK Result】: " + this.faceAIResult);
+						this.faceSDKResult =JSON.stringify(result)
+						console.log("【FaceSDK Result】: " + this.faceSDKResult);
 					})
 			},
 			
@@ -177,7 +177,7 @@
     
     .scroll-view-box {
         height: 400rpx; /* 必须指定高度，否则无法滚动 */
-        border: 1px solid #ccc;
+        border: 1px solid #800080;
         border-radius: 10rpx;
         background-color: #f8f8f8;
         padding: 15rpx;
@@ -186,7 +186,7 @@
 
     .text-content {
         font-size: 28rpx;
-        color: #0B4D46; /* word-break: break-all; 关键：解决长JSON字符串不换行的问题 */
+        color: #800080; /* word-break: break-all; 关键：解决长JSON字符串不换行的问题 */
         white-space: pre-wrap; /* 保留格式并自动换行 */
     }
 </style>
