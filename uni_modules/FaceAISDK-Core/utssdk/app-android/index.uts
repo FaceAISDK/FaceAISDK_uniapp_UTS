@@ -1,4 +1,4 @@
-import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceBySDKImage, ToastMessage, DeleteFaceFeature, SwitchCamera } from '../interface.uts'
+import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceBySDKImage, ToastMessage, DeleteFaceFeature, SwitchCamera, GoNativeApp } from '../interface.uts'
 import Application from 'android.app.Application';
 import Activity from 'android.app.Activity';
 import Intent from 'android.content.Intent';
@@ -201,6 +201,18 @@ export const switchCamera: SwitchCamera = function (cameraID: number) {
         const context = UTSAndroid.getAppContext() as Application;
         FaceSDKConfig.init(context);
         FaceSDKConfig.setCameraID(context,cameraID.toInt())
+    });
+}
+
+
+//跳转到原生App导航页面
+//跳转到原生App导航页面
+export const goNativeApp: GoNativeApp = function () {
+    UTSAndroid.getUniActivity()?.runOnUiThread(() => {
+        const context = UTSAndroid.getUniActivity() as Activity;
+        const intent = new Intent();
+        intent.setClassName(context as Context, "com.faceAI.demo.FaceAINaviActivity");
+        context.startActivity(intent);
     });
 }
 

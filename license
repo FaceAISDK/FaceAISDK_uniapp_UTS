@@ -5,7 +5,10 @@ You are free to use, modify, and distribute the demo code in your own projects.
 
 Note regarding the Native SDK: Demo depends on FaceAISDK, which is a proprietary 
 software. The SDK libraries and binary files are subject to their own commercial 
-license and are NOT covered by the MIT License. You may use the SDK for evaluation 
-purposes, but a valid commercial license is required for production deployment.
+license and are NOT covered by the MIT License.
+
+You may use the SDK for evaluation purposes with no limit, but a valid commercial
+license is required for production deployment.
+
 
 Copyright © 2024-2026 FaceAISDK. FaceAISDK.Service@gmail.com

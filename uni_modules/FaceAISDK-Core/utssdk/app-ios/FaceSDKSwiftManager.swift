@@ -8,13 +8,11 @@ public class FaceSDKSwiftManager: NSObject {
     
     // MARK: - 特征值管理 (核心修复点)
    public static func getiOSFaceFeature(_ faceID: String) -> String {
-	   
         return UserDefaults.standard.string(forKey: faceID) ?? ""
     }
 	
 	
     // MARK: - Base64 提取人脸特征 (支持插件/外部调用)
-// MARK: - Base64 提取人脸特征 (已修复 Actor 隔离与可选绑定问题)
     public static func addFaceByBase64(_ faceID: String,
                                        _ base64Str: String, 
                                        _ callback: @escaping (NSNumber, String, String) -> Void) {
@@ -33,18 +31,11 @@ public class FaceSDKSwiftManager: NSObject {
 
         // 2. 切换到主线程操作 @MainActor 隔离的 Model
         DispatchQueue.main.async {
-            // 修复错误 2: 在主线程实例化 @MainActor 类
             let model = AddFaceByImageModel() 
-            
-            // 修复错误 3: 在主线程调用 @MainActor 方法
             let feature = model.getFaceFeature(faceUIImage: image)
-            
-            // 修复错误 1: getFaceFeature 返回 String, 使用 isEmpty 判断而非 if let
             if !feature.isEmpty {
-                // 提取成功，存入本地
                 UserDefaults.standard.set(feature, forKey: faceID)
                 UserDefaults.standard.synchronize()
-                
                 // 回调成功
                 callback(1, feature, "提取人脸特征成功，长度：\(feature.count)")
             } else {
@@ -55,7 +46,6 @@ public class FaceSDKSwiftManager: NSObject {
     }
 		
 
-	
 	
 	// 插入人脸特征值：增加长度判断拦截
 	public static func insertFaceFeature(_ faceID: String,
@@ -82,8 +72,6 @@ public class FaceSDKSwiftManager: NSObject {
                                            _ performanceMode: NSNumber,
                                            _ needConfirm: Bool, 
                                            _ callback: @escaping (NSNumber, String) -> Void) {
-        
-        // ✅ 核心修复：确保所有 UI 相关的初始化和跳转都在主线程执行
         DispatchQueue.main.async {
             guard let topVC = self.getTopViewController() else {
                 callback(0, "topVC nil")
@@ -179,6 +167,21 @@ public class FaceSDKSwiftManager: NSObject {
 	            }
 	        )
 	        sdkView.autoControlBrightness = false
+	        
+	        let hostingController = UIHostingController(rootView: sdkView)
+	        hostingController.modalPresentationStyle = .fullScreen
+	        topVC.present(hostingController, animated: true)
+	    }
+	}
+	
+	
+	// MARK: - 主页导航
+	public static func goNativeDemoNavi() {
+	    DispatchQueue.main.async {
+	        guard let topVC = self.getTopViewController() else { return }
+	        ScreenBrightnessHelper.shared.maximizeBrightness()
+	        
+	        var sdkView = FaceAINaviView()
 	        
 	        let hostingController = UIHostingController(rootView: sdkView)
 	        hostingController.modalPresentationStyle = .fullScreen

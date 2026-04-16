@@ -1,4 +1,4 @@
-import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceBySDKImage, DeleteFaceFeature } from '../interface.uts'
+import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceBySDKImage, DeleteFaceFeature, GoNativeApp } from '../interface.uts'
 
 /**
  * 工具函数：根据状态码获取提示文案
@@ -200,8 +200,15 @@ export const getFaceFeature : GetFaceFeature = function
 }
 
 export const deleteFaceFeature: DeleteFaceFeature = function (faceID: string) {
-        FaceSDKSwiftManager.deleteFaceFeature(faceID);
+    FaceSDKSwiftManager.deleteFaceFeature(faceID);
 }
+
+//跳转到原生App导航页面
+export const goNativeApp: GoNativeApp = function () {
+    FaceSDKSwiftManager.goNativeDemoNavi();
+}
+
+
 
 export const insertFaceFeature : InsertFaceFeature = function 
               (faceID : string, faceFeature : string, callback : (result : ResultJSON) => void) {

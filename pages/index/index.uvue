@@ -7,7 +7,7 @@
 		<button @tap="insertFaceFeatureDemo">同步人脸特征信息</button>
 		<button @tap="addFaceFeatureByImageDemo">人脸图录入人脸信息</button>
 	    <button @tap="deleteFaceFeatureDemo">删除人脸特征信息</button>
-		
+
 	    <!-- <button @tap="switchCameraDemo">切换摄像头(仅Android)</button> -->
 	
 		<view class="result-box">
@@ -24,7 +24,7 @@
 
 <script> 
 
-	import {deleteFaceFeature,switchCamera,addFaceBySDKCamera,addFaceBySDKImage,faceVerify,livenessVerify,getFaceFeature,insertFaceFeature,ResultJSON} from "@/uni_modules/FaceAISDK-Core";
+	import {goNativeApp,deleteFaceFeature,switchCamera,addFaceBySDKCamera,addFaceBySDKImage,faceVerify,livenessVerify,getFaceFeature,insertFaceFeature,ResultJSON} from "@/uni_modules/FaceAISDK-Core";
     import { base64FaceImage } from './imageData.uts';
 	export default {
 		  
@@ -51,7 +51,7 @@
 				addFaceBySDKCamera(
 					this.faceID,
 					1,    //1.快速模式， 2.精确模式(人脸品质高)
-					true, //是否需要显示人脸确认框，强烈建议设置为true
+					false, //是否需要显示人脸确认框，强烈建议设置为true
 					 (result: ResultJSON)  => {
 						this.faceSDKResult =JSON.stringify(result)
 						console.log("【addFaceBySDKCamera】: ***"+this.faceSDKResult);
@@ -163,6 +163,14 @@
 			deleteFaceFeatureDemo: function () {
 				deleteFaceFeature(this.faceID)
 			},
+			
+			/**
+			* 9. 跳转到原生App页面（仅供演示）
+			*/
+			goNativeAppDemo: function () {
+				goNativeApp()
+			},
+					
 			
 	   }			
 

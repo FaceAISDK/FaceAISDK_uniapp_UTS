@@ -109,3 +109,6 @@ export type DeleteFaceFeature = (faceID: string) => void
 	
 // 切换摄像头	
 export type SwitchCamera = (cameraID: number) => void
+
+// 切到原生App
+export type GoNativeApp = () => void
