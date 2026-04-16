@@ -51,7 +51,7 @@
 				addFaceBySDKCamera(
 					this.faceID,
 					1,    //1.快速模式， 2.精确模式(人脸品质高)
-					false, //是否需要显示人脸确认框，强烈建议设置为true
+					true, //是否需要显示人脸确认框，强烈建议设置为true
 					 (result: ResultJSON)  => {
 						this.faceSDKResult =JSON.stringify(result)
 						console.log("【addFaceBySDKCamera】: ***"+this.faceSDKResult);
