@@ -74,4 +74,4 @@
 
 ```
 
-  Copyright © 2024-2026 FaceAISDK. 商用联系 FaceAISDK.Service@gmail.com
+  Copyright © 2024-2026 FaceAISDK. FaceAISDK.Service@gmail.com
