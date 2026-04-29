@@ -10,7 +10,6 @@ import LivenessDetectActivity from "com.faceAI.demo.SysCamera.verify.LivenessDet
 import BitmapUtils from "com.faceAI.demo.base.utils.BitmapUtils";
 import Context from "android.content.Context";
 
-// --- 内部常量与状态 ---
 const REQ_CODE_ADD_FACE = 10086;
 const REQ_CODE_VERIFY = 10087;
 const REQ_CODE_LIVENESS = 10088;
