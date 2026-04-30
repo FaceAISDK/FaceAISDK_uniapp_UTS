@@ -6,7 +6,7 @@
 **1:1人脸识别，活体检测插件**，支持iOS，Android，支持vue2，vue3和uvue。   
 所有功能无需后台API服务可完全离线运行，高性能无依赖其他三方SDK服务
 
-**感谢点赞收藏**，如有问题可 [到GitHub提issues](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues) , [邮件联系](mailto:FaceAISDK@gmail.com) 或 添加微信 FaceAISDK  
+**感谢点赞收藏**，如有问题可 [到GitHub提issues](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues) , [邮件联系](mailto:FaceAISDK@gmail.com) 或 Wv：FaceAISDK  
 详细的信息有助于我们更好更快解决问题（Hbuilder版本，Vue版本，平台，功能和场景等）  
  <br>
 
