@@ -79,6 +79,7 @@
 ```
 
 
+  Powere by FaceAISDK Copyright©2026. 商用联系FaceAISDK@gmail.com
   另：**1:N人脸搜索识别** 插件应用市场地址：https://ext.dcloud.net.cn/plugin?id=26467   
   
 
