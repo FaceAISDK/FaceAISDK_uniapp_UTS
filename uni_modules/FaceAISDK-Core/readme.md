@@ -20,18 +20,22 @@
 
   ## 2. 运行 -》 运行到手机或模拟器 -》**制作自定义调试基座** -》打包 （期间不要修改原生代码） 
    <br>
-    ![制作自定义调试基座](https://i.postimg.cc/QVZFgycd/1.png)  
+   
+  ![制作自定义调试基座](https://i.postimg.cc/QVZFgycd/1.png)
+  
    <br>
    <br>
   ## 3. 运行 -》运行到iOS/Android基座 -》**使用自定义基座运行** -》本地基座 -》运行 
    <br>
-    ![运行到手机](https://i.postimg.cc/QdwtZM60/2.png)  
+   
+   ![运行到手机](https://i.postimg.cc/QdwtZM60/2.png)  
+	
    <br>
    <br>
 	
   ## 4. 把插件引入到你的主项目（即 import {faceVerify,**等方法} from "@/uni_modules/本插件名称ID";）
   <br>
-  **一定一定要先制作自定义调试基准，然后运行的时候使用自定义基准-本地基座，请看图片步骤引导说明**  
+  **按照步骤一定要先制作自定义调试基准，然后运行的时候使用自定义基准。偶尔打包服务器失败请重试**  
   <br>
   <br>
   
