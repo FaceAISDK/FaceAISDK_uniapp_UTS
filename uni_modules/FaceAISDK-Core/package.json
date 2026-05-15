@@ -1,7 +1,7 @@
 {
 	"id": "FaceAISDK-Core",
 	"displayName": "人脸识别，活体检测UTS-API插件；不依赖第三方服务",
-	"version": "3.14.3",
+	"version": "3.14.4",
 	"description": "端侧离线人脸识别FaceAISDK,无需后端API不收集人脸数据；支持iOS,Android,支持vue2,3和uvue",
 	"keywords": [
         "人脸识别，活体检测，不依赖三方服务"

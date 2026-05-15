@@ -8,7 +8,7 @@
 
 **感谢点赞收藏**，如有问题可 [到GitHub提issues](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues) , [邮件联系](mailto:FaceAISDK@gmail.com) 或 Wv：FaceAISDK  
 详细的信息有助于我们更好更快解决问题（Hbuilder版本，Vue版本，平台，功能和场景等）  
- <br>
+  <br>
 
 # 使用方法
   如果你是第一次运行UTS插件工程/引入UTS API插件，你应先安装官方说明配置好基础环境 [基础环境](https://doc.dcloud.net.cn/uni-app-x/plugin/uts-plugin.html) 
@@ -33,9 +33,8 @@
   <br>
   **一定一定要先制作自定义调试基准，然后运行的时候使用自定义基准-本地基座，请看图片步骤引导说明**  
   <br>
-
-
-   <br>
+  <br>
+  
 # 常见错误与解决方法
    **出现错误可以把错误信息发给AI Agent分析，常见可能的错误与解决方法如下**  
 
@@ -57,6 +56,7 @@
    自定义基座打好后不能再改动原生Kotlin/Swift代码，改动后需重新打包
 
    <br>
+   
 # 人脸识别，活体检测状态码  
   
   **人脸识别，活体检测状态码含义**  
@@ -79,13 +79,12 @@
 ```
 
 
-  Powered by FaceAISDK Copyright©2026. 商用联系FaceAISDK@gmail.com  
-  另：**1:N人脸搜索识别** 插件应用市场地址：https://ext.dcloud.net.cn/plugin?id=26467   
-  
+  Powered by FaceAISDK Copyright©2026. 商用授权联系FaceAISDK@gmail.com  
+  1:N人脸搜索识别插件：https://ext.dcloud.net.cn/plugin?id=26467     
 
 
 # Android 完整版本SDK API Demo：
-  完整版本支持VUC协议摄像头，从相册导入人脸等更多功能  
+  原生Android完整版本支持VUC协议摄像头，从相册导入人脸等更多功能  
   
   <div align=center>
      <img src="https://www.pgyer.com/app/qrcode/faceVerify" width = 15%   alt="扫一扫下载Demo"/>
