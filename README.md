@@ -64,6 +64,7 @@
     let ALL_LIVENESS_SUCCESS = 10    // 10  所有的活体检测完成(包括动作和炫彩)  
     let SILENT_LIVENESS_FAILED = 11  // 11  静默活体检测失败  
     let NO_BASE_FACE_FEATURE = 12    // 12  没有录入人脸信息  
+    let NOT_ALLOW_MULTI_FACES = 13   // 13  多人脸出现在镜头
 
 ```
 

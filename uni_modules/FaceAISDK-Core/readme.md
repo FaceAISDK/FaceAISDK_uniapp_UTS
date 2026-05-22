@@ -77,10 +77,11 @@
     let NO_FACE_FEATURE = 6          // 6   没有对应的人脸特征值
     let COLOR_LIVENESS_SUCCESS = 7   // 7   炫彩活体成功
     let COLOR_LIVENESS_FAILED = 8    // 8   炫彩活体失败  
-    let COLOR_LIVENESS_LIGHT_TOO_HIGH = 9 // 9   炫彩活体失败，光线亮度过高  
+    let COLOR_LIVENESS_LIGHT_TOO_HIGH = 9 // 9炫彩活体失败，光线亮度过高  
     let ALL_LIVENESS_SUCCESS = 10    // 10  所有的活体检测完成(包括动作和炫彩)  
     let SILENT_LIVENESS_FAILED = 11  // 11  静默活体检测失败  
     let NO_BASE_FACE_FEATURE = 12    // 12  没有录入人脸信息  
+    let NOT_ALLOW_MULTI_FACES = 13   // 13  多人脸出现在镜头
 
 ```
 

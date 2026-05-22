@@ -61,6 +61,7 @@ export type FaceVerify = (
 	motionLivenessTypes : string,
 	motionLivenessTimeOut : number,
 	motionLivenessSteps : number,
+	allowMultiFaces : boolean,
 	callback : (result : ResultJSON) => void) => void	
 	
 
@@ -79,6 +80,7 @@ export type LivenessVerify = (
 	motionLivenessTypes : string,
 	motionLivenessTimeOut : number,
 	motionLivenessSteps : number,
+	allowMultiFaces : boolean,
 	callback : (result : ResultJSON) => void) => void	
 	
 	

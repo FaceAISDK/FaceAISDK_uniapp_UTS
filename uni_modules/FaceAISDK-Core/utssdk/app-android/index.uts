@@ -107,7 +107,9 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
 }
 
 export const faceVerify: FaceVerify = function (
-    faceID: string, threshold: number, faceLivenessType: number, motionLivenessTypes: string, motionLivenessTimeOut: number, motionLivenessSteps: number, callback: (result: ResultJSON) => void
+    faceID: string, threshold: number, faceLivenessType: number, motionLivenessTypes: string,
+	motionLivenessTimeOut: number, motionLivenessSteps: number,	allowMultiFaces : boolean,
+     callback: (result: ResultJSON) => void
 ) {
     launchActivity("com.faceAI.demo.SysCamera.verify.FaceVerificationActivity", REQ_CODE_VERIFY as Int, faceID, callback, (intent: Intent) => {
         intent.putExtra(FaceVerificationActivity.USER_FACE_ID_KEY, faceID);
@@ -116,17 +118,22 @@ export const faceVerify: FaceVerify = function (
         intent.putExtra(FaceVerificationActivity.MOTION_LIVENESS_TYPES, motionLivenessTypes);
         intent.putExtra(FaceVerificationActivity.MOTION_TIMEOUT, motionLivenessTimeOut);
         intent.putExtra(FaceVerificationActivity.MOTION_STEP_SIZE, motionLivenessSteps);
+		intent.putExtra(FaceVerificationActivity.ALLOW_MULTI_FACES, allowMultiFaces);
+		
     });
 }
 
 export const livenessVerify: LivenessVerify = function (
-    faceLivenessType: number, motionLivenessTypes: string, motionLivenessTimeOut: number, motionLivenessSteps: number, callback: (result: ResultJSON) => void
+    faceLivenessType: number, motionLivenessTypes: string, motionLivenessTimeOut: number, 
+	motionLivenessSteps: number, allowMultiFaces : boolean, callback: (result: ResultJSON) => void
 ) {
     launchActivity("com.faceAI.demo.SysCamera.verify.LivenessDetectActivity", REQ_CODE_LIVENESS as Int, "", callback, (intent: Intent) => {
         intent.putExtra(LivenessDetectActivity.FACE_LIVENESS_TYPE, faceLivenessType);
         intent.putExtra(LivenessDetectActivity.MOTION_LIVENESS_TYPES, motionLivenessTypes);
         intent.putExtra(LivenessDetectActivity.MOTION_TIMEOUT, motionLivenessTimeOut);
         intent.putExtra(LivenessDetectActivity.MOTION_STEP_SIZE, motionLivenessSteps);
+		intent.putExtra(LivenessDetectActivity.ALLOW_MULTI_FACES, allowMultiFaces);
+		
     });
 }
 

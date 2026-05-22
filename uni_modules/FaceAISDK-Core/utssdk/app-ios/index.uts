@@ -18,6 +18,7 @@ function getMsgByCode(code: number): string {
         case 10: return "活体检测全部通过";
         case 11: return "静默活体检测失败";
         case 12: return "没有录入人脸信息";
+		case 13: return "多个人脸入境";
         default: return "未知状态码" ;
     }
 }
@@ -111,6 +112,7 @@ export const faceVerify : FaceVerify = function (
     motionLivenessTypes:string,
     motionLivenessTimeOut : number,
     motionLivenessSteps : number,
+	allowMultiFaces : boolean,
     callback : (result : ResultJSON) => void
 ) {
     
@@ -148,6 +150,7 @@ export const livenessVerify : LivenessVerify = function (
     motionLivenessTypes:string,
     motionLivenessTimeOut : number,
     motionLivenessSteps : number,
+	allowMultiFaces : boolean,
     callback : (result : ResultJSON) => void
 ) {
     FaceSDKSwiftManager.showLivenessVerify(

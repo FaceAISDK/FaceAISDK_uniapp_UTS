@@ -74,13 +74,18 @@
 			faceVerifyDemo: function() {
 				faceVerify(
 					this.faceID,
-					0.83, // 阈值设置，范围限 [0.75,0.95] ,默认0.83
-					1,    // 1.动作活体 2.动作+炫彩活体 3.炫彩活体(不能强光环境使用) 4.静默活体
+					0.84,  // 阈值设置，范围限 [0.75,0.95] ,默认0.84
+					1,     // 1.动作活体 2.动作+炫彩活体 3.炫彩活体(不能强光环境使用) 4.静默活体
 					"1,2,3,4,5", //动作活体种类用英文","隔开； 1.张张嘴 2.微笑 3.眨眨眼 4.摇头 5.点头
-					7,    //动作活体超时时间,低端机应该适当加点时间
-					2,    //动作活体步骤，1个
+					7,     //动作活体超时时间,低端机应该适当加点时间
+					2,     //动作活体步骤，1个
+					true,     //ALLOW_MULTI_FACES 是否允许多人脸入镜(仅Android)
 					(result) => {
-						this.faceSDKResult = JSON.stringify(result)
+						
+						this.faceSDKResult = `code: ${result.code}\n` +
+						                     `msg: ${result.msg}\n` +
+						                     `similarity: ${result.similarity}\n` +
+						                     `liveness: ${result.liveness}`;
 						console.log("【faceVerify】: ***"+this.faceSDKResult);
 					})
 			},
@@ -91,12 +96,19 @@
 			 */
 			livenessVerifyDemo: function() {
 				livenessVerify(
-					2, // 1.动作活体  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用) 4.静默活体 
+					2,      // 1.动作活体  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用) 4.静默活体 
 					"1,2,3,4,5", //动作活体种类用英文","隔开； 1.张张嘴 2.微笑 3.眨眨眼 4.摇头 5.点头
-					7, //动作活体超时时间,低端机应该适当加点时间
-					2, //动作活体步骤个数
+					7,     //动作活体超时时间,低端机应该适当加点时间
+					2,     //动作活体步骤个数
+					true,     //ALLOW_MULTI_FACES 是否允许多人脸入镜(仅Android)
 					(result) => {
-						this.faceSDKResult = JSON.stringify(result)
+						
+						this.faceSDKResult = `code: ${result.code}\n` +
+						                     `msg: ${result.msg}\n` +
+						                     `similarity: ${result.similarity}\n` +
+						                     `faceBase64: ${result.faceBase64}`;
+						console.log("【livenessVerify】: ***"+this.faceSDKResult);
+						
 					})
 			},
 
