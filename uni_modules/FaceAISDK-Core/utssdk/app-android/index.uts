@@ -76,11 +76,21 @@ UTSAndroid.onAppActivityResult((requestCode: Int, resultCode: Int, intentAct?: I
             case REQ_CODE_VERIFY:
                 res.similarity = intentAct.getFloatExtra("similarity", defFloat) as number;
                 res.liveness = intentAct.getFloatExtra("livenessValue", defFloat) as number;
-                res.faceBase64 = BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR + "verifyBitmap");
+				
+				if (res.code != 1) {
+				    res.faceBase64 = "";
+				}else{
+					res.faceBase64 = BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR + "verifyBitmap");
+				}
+				
                 break;
             case REQ_CODE_LIVENESS:
                 res.liveness = intentAct.getFloatExtra("livenessValue", defFloat) as number;
-                res.faceBase64 = BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR + "liveBitmap");
+				if (res.code != 1) {
+				    res.faceBase64 = "";
+				}else{
+					res.faceBase64 = BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR + "liveBitmap");
+				}
                 break;
         }
     }
