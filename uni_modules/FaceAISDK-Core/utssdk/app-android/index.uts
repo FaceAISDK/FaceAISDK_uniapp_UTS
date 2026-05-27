@@ -78,7 +78,7 @@ UTSAndroid.onAppActivityResult((requestCode: Int, resultCode: Int, intentAct?: I
                 res.liveness = intentAct.getFloatExtra("livenessValue", defFloat) as number;
 				
 				if (res.code != 1) {
-				    res.faceBase64 = "";
+				    res.faceBase64 = ""; //没成功就不要返回Base 64 图
 				}else{
 					res.faceBase64 = BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR + "verifyBitmap");
 				}
@@ -86,8 +86,8 @@ UTSAndroid.onAppActivityResult((requestCode: Int, resultCode: Int, intentAct?: I
                 break;
             case REQ_CODE_LIVENESS:
                 res.liveness = intentAct.getFloatExtra("livenessValue", defFloat) as number;
-				if (res.code != 1) {
-				    res.faceBase64 = "";
+				if (res.code != 10) {
+				    res.faceBase64 = ""; //没成功就不要返回Base 64 图
 				}else{
 					res.faceBase64 = BitmapUtils.bitmapToBase64(FaceSDKConfig.CACHE_FACE_LOG_DIR + "liveBitmap");
 				}
