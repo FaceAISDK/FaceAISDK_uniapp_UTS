@@ -2,8 +2,8 @@
 	"name": "人脸识别",
 	"appid": "__UNI__A6AD04B",
 	"description": "FaceSDK UTS API插件是设备端可离线不联网人脸识别、活体检测（动作+炫彩活体）SDK，uniapp开发者可快速集成实现人脸识别 活体检测",
-	"versionName": "2026.05.27",
-	"versionCode": "20260527",
+	"versionName": "2026.05.29",
+	"versionCode": "20260529",
 	"uni-app-x": {},
 	"vueVersion": "unix",
 	"app": {

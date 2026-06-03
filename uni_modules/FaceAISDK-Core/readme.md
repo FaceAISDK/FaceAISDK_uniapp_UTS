@@ -86,8 +86,7 @@
 ```
 
 
-  Powered by FaceAISDK Copyright©2026. 商用联系FaceAISDK@gmail.com  
-  1:N人脸搜索识别插件：https://ext.dcloud.net.cn/plugin?id=26467     
+ 1:N人脸搜索识别插件：https://ext.dcloud.net.cn/plugin?id=26467     
 
 
 # Android 完整版本SDK API Demo：

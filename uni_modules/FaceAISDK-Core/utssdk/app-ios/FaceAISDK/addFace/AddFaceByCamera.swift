@@ -34,10 +34,10 @@ public struct AddFaceByCamera: View {
     
     // 统一处理人脸录入成功的逻辑
     private func handleFaceAddSuccess() {
-        // Optional
-        // if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage) {
-        //     print("saveFaceImage success")
-        // }
+
+        if FaceImageManger.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage) {
+            print("saveFaceImage success")
+        }
         
         // Save face feature 保存人脸特征信息，
         UserDefaults.standard.set(viewModel.faceFeatureBySDKCamera, forKey: faceID)
