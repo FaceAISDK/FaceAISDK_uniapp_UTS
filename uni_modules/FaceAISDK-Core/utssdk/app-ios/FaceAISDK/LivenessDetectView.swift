@@ -210,8 +210,8 @@ struct LivenessDetectView: View {
             }else{
                 showToast = true
                 
-                if FaceImageManger.saveFaceImage(faceName: "Liveness", faceImage: viewModel.faceVerifyResult.faceImage){
-                    //print("Base64: \(String(describing: FaceImageManger.faceImageToBase64(fileName:"Liveness")))")
+                if FaceImageManager.saveFaceImage(faceName: "Liveness", faceImage: viewModel.faceVerifyResult.faceImage){
+                    //print("Base64: \(String(describing: FaceImageManager.faceImageToBase64(fileName:"Liveness")))")
                 }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {

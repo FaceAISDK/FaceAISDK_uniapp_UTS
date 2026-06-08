@@ -41,7 +41,6 @@
   <br>
   <br>
   
-  ![FaceSDK](https://i.postimg.cc/qq33s216/1.png)  
   
   
 # 常见问题解决方法  

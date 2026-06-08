@@ -192,7 +192,7 @@ public class FaceSDKSwiftManager: NSObject {
 
     // 临时操作的图片转Base64 编码
     public static func getFaceImageBase64(_ faceName: String) -> String {
-        guard let faceImageBase64 = FaceImageManger.faceImageToBase64(fileName: faceName) else {
+        guard let faceImageBase64 = FaceImageManager.faceImageToBase64(fileName: faceName) else {
             print("❌ [Swift] getFaceImageBase64 failed")
             return ""
         }
