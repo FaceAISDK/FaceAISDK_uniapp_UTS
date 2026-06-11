@@ -1,6 +1,6 @@
 {
 	"id": "FaceAISDK-Core",
-	"displayName": "「端侧」人脸识别，活体检测 UTS-API插件",
+	"displayName": "1：1 人脸识别，活体检测 UTS-API插件",
 	"version": "3.18.0",
 	"description": "不依赖三方服务;离线人脸识别SDK,支持iOS&Android,支持vue2、3和uvue",
 	"keywords": [
@@ -26,7 +26,7 @@
 			"qq": "Wechat: FaceAISDK"
 		},
 		"declaration": {
-			"ads": "无.",
+			"ads": "无",
 			"data": "插件离线运行,功能不需要网络，不收集数据. ",
 			"permissions": "相机"
 		},
