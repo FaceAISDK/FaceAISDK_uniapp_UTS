@@ -60,6 +60,9 @@
  ## 3.改动原生Kotlin/Swift 代码导致基座不能正常运行  
    自定义基座打好后不能再改动原生Kotlin/Swift代码，改动后需重新打包  
 
+ ## 4.App体积裁剪  
+   Android目前还兼容了32位老旧CPU，你可以只保留64位CPU（arm64-v8a）可以大大降低APK体积 
+
    <br>
    
 # 人脸识别，活体检测状态码  
@@ -76,7 +79,7 @@
     let NO_FACE_FEATURE = 6          // 6   没有对应的人脸特征值
     let COLOR_LIVENESS_SUCCESS = 7   // 7   炫彩活体成功
     let COLOR_LIVENESS_FAILED = 8    // 8   炫彩活体失败  
-    let COLOR_LIVENESS_LIGHT_TOO_HIGH = 9 // 9炫彩活体失败，光线亮度过高  
+    let COLOR_LIVENESS_LIGHT_TOO_HIGH=9 //  炫彩活体失败，光线亮度过高  
     let ALL_LIVENESS_SUCCESS = 10    // 10  所有的活体检测完成(包括动作和炫彩)  
     let SILENT_LIVENESS_FAILED = 11  // 11  静默活体检测失败  
     let NO_BASE_FACE_FEATURE = 12    // 12  没有录入人脸信息  
@@ -85,14 +88,14 @@
 ```
 
 
- 1:N人脸搜索识别插件：https://ext.dcloud.net.cn/plugin?id=26467     
-
+ **发现BUG，新功能需求？去提Issues吧：https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues**，商用联系：FaceAISDK.Service@gmail.com
 
 # Android 完整版本SDK API Demo：
   原生Android完整版本支持VUC协议摄像头，从相册导入人脸等更多功能  
   
   <div align=center>
-     <img src="https://www.pgyer.com/app/qrcode/faceVerify" width = 15%   alt="扫一扫下载Demo"/>
+     <img src="https://www.pgyer.com/app/qrcode/hiface" width = 16%   alt="扫一扫下载Demo"/>
   </div>
   
 
+ 1:N人脸搜索识别插件：https://ext.dcloud.net.cn/plugin?id=26467     

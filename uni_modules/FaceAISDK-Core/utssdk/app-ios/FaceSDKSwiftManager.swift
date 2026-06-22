@@ -145,6 +145,7 @@ public class FaceSDKSwiftManager: NSObject {
 	                                      _ motionLivenessTypes: String,
 	                                      _ motionLivenessTimeOut : NSNumber,
 	                                      _ motionLivenessSteps : NSNumber,
+										  _ showResultTips: Bool,
 	                                      _ callback: @escaping (NSNumber, NSNumber) -> Void) {
 	    DispatchQueue.main.async {
 	        guard let topVC = self.getTopViewController() else { return }
@@ -155,6 +156,7 @@ public class FaceSDKSwiftManager: NSObject {
 	            motionLiveness: motionLivenessTypes,
 	            motionLivenessTimeOut: motionLivenessTimeOut.intValue,
 	            motionLivenessSteps: motionLivenessSteps.intValue,
+				showResultTips:showResultTips,
 	            // 修改：接收 liveness 参数
 	            onDismiss: { [weak topVC] (resultCode: Int, liveness: Float) in
 	                DispatchQueue.main.async {

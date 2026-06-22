@@ -264,7 +264,7 @@ struct VerifyFaceView: View {
                     print("saveFaceImage success ")
                 }
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     withAnimation {
                         showToast = false
                     }

@@ -110,6 +110,7 @@
 					7,         //动作活体超时时间 
 					2,         //动作活体步骤，1个
 					true,     //ALLOW_MULTI_FACES 是否允许多人脸入镜(仅Android)
+					true,     //是否提示提示活体检测结果   
 					 (result: ResultJSON) => {
 						// 解析出每个字段并拼接到 this.faceSDKResult 
 						this.faceSDKResult = "code: " + result.code + "\n" +

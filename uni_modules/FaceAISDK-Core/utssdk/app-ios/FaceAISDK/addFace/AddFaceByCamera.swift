@@ -35,7 +35,7 @@ public struct AddFaceByCamera: View {
     // 统一处理人脸录入成功的逻辑
     private func handleFaceAddSuccess() {
         // Optional
-         if FaceImageManager.saveFaceImage(faceName: faceID, faceImage: viewModel.originFaceImage) {
+         if FaceImageManager.saveFaceImage(faceName: faceID, faceImage: viewModel.croppedFaceImage) {
              print("saveFaceImage success")
          }
         

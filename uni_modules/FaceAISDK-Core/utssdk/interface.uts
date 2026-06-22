@@ -81,8 +81,8 @@ export type LivenessVerify = (
 	motionLivenessTimeOut : number,
 	motionLivenessSteps : number,
 	allowMultiFaces : boolean,
+	showResultTips : boolean,
 	callback : (result : ResultJSON) => void) => void	
-	
 	
 	
 	

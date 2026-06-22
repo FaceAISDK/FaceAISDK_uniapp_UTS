@@ -151,6 +151,7 @@ export const livenessVerify : LivenessVerify = function (
     motionLivenessTimeOut : number,
     motionLivenessSteps : number,
 	allowMultiFaces : boolean,
+	showResultTips : boolean,
     callback : (result : ResultJSON) => void
 ) {
     FaceSDKSwiftManager.showLivenessVerify(
@@ -158,6 +159,7 @@ export const livenessVerify : LivenessVerify = function (
         motionLivenessTypes,
         motionLivenessTimeOut,
         motionLivenessSteps,
+		showResultTips,
         (resultCode: number, liveness: number) => {
             
             let base64Str = "";
