@@ -88,7 +88,7 @@
 ```
 
 
- **发现BUG，新功能需求？去提Issues吧：https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues**，商用联系：FaceAISDK.Service@gmail.com
+ **发现BUG，新功能需求？去提Issues吧：https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues**
 
 # Android 完整版本SDK API Demo：
   原生Android完整版本支持VUC协议摄像头，从相册导入人脸等更多功能  

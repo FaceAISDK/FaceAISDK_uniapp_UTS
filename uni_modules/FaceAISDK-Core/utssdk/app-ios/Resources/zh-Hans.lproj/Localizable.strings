@@ -1,26 +1,14 @@
-
-/* General UI */
-"About us" = "关于我们";
+"About us" = "关于我们 ";
 "Add Face By Camera" = "SDK相机添加人脸";
 "Add Face From Album" = "从相册添加一人脸";
 "Confirm" = "确认";
 "Confirm Add Face" = "确认录入此人脸图？";
 "Ensure face is clear" = "请录入无遮挡正脸清晰图";
 "Face Verify & Liveness" = "人脸识别+活体检测";
-"I Know" = "知道了";
-"Is Face Feature Exist" = "人脸特征值是否存在";
-"ONLY Liveness Detection" = "仅仅活体检测";
-"Retry" = "重试";
-"Save Face Feature" = "保存人脸特征";
-"Select from album" = "从相册选择";
-"Select Image" = "选择图片";
-"Verify Two Face Similarity" = "静态人脸相似度对比";
-
-/* Face SDK Tips (Code Based) */
 "Face_Tips_Code_-1" = "FaceSDK Version Too Old";
 "Face_Tips_Code_(code)" = "error";
 "Face_Tips_Code_0" = "请正对摄像头";
-"Face_Tips_Code_1" = "没有检测到人脸";
+"Face_Tips_Code_1" = "未检测到人脸";
 "Face_Tips_Code_2" = "检测到多个人脸";
 "Face_Tips_Code_3" = "请靠近一点";
 "Face_Tips_Code_4" = "保持正脸不要晃动";
@@ -53,3 +41,11 @@
 "Face_Tips_Code_61" = "活体检测完成";
 "Face_Tips_Code_62" = "人脸识别成功";
 "Face_Tips_Code_63" = "人脸识别失败";
+"I Know" = "知道了";
+"Is Face Feature Exist" = "人脸特征值是否存在";
+"ONLY Liveness Detection" = "仅仅活体检测";
+"Retry" = "重试";
+"Save Face Feature" = "保存人脸特征";
+"Select from album" = "从相册选择";
+"Select Image" = "选择图片";
+"Verify Two Face Similarity" = "静态人脸相似度对比";
