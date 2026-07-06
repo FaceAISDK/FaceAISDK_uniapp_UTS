@@ -80,7 +80,6 @@
 					7,     //动作活体超时时间,低端机应该适当加点时间
 					2,     //动作活体步骤，1个或2个随机
 					true,     //ALLOW_MULTI_FACES 是否允许多人脸入镜(仅Android)
-					true,     //是否提示活体检测结果
 					(result) => {
 						
 						this.faceSDKResult = `code: ${result.code}\n` +
@@ -102,6 +101,7 @@
 					7,     //动作活体超时时间,低端机应该适当加点时间
 					2,     //动作活体步骤个数
 					true,     //ALLOW_MULTI_FACES 是否允许多人脸入镜(仅Android)
+					true,     //是否提示活体检测结果
 					(result) => {
 						
 						this.faceSDKResult = `code: ${result.code}\n` +
