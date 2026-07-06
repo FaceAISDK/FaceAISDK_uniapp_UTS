@@ -71,10 +71,10 @@ public class FaceSDKSwiftManager: NSObject {
     public static func showAddFaceByCamera(_ faceID: String,
                                            _ performanceMode: NSNumber,
                                            _ needConfirm: Bool, 
-                                           _ callback: @escaping (NSNumber, String) -> Void) {
+                                           _ callback: @escaping (NSNumber, String, String) -> Void) {
         DispatchQueue.main.async {
             guard let topVC = self.getTopViewController() else {
-                callback(0, "topVC nil")
+                callback(0, "","topVC nil")
                 return
             }
 
@@ -82,14 +82,14 @@ public class FaceSDKSwiftManager: NSObject {
                 faceID: faceID,
                 addFacePerformanceMode: performanceMode.intValue, 
                 needShowConfirmDialog: needConfirm,
-                onDismiss: { [weak topVC] (resultCode: Int, feature: String) in
+                onDismiss: { [weak topVC] (resultCode: Int, feature: String,message:String) in
                     
                     let safeCode = NSNumber(value: resultCode)
                     
                     DispatchQueue.main.async {
                         ScreenBrightnessHelper.shared.restoreBrightness()
                         topVC?.dismiss(animated: true) {
-                             callback(safeCode, feature)
+                             callback(safeCode, feature,message)
                         }
                     }
                 }
@@ -109,7 +109,7 @@ public class FaceSDKSwiftManager: NSObject {
 	                                  _ motionLivenessTypes: String,
 	                                  _ motionLivenessTimeOut : NSNumber,
 	                                  _ motionLivenessSteps : NSNumber,
-	                                  _ callback: @escaping (NSNumber, NSNumber, NSNumber) -> Void) {
+	                                  _ callback: @escaping (NSNumber, NSNumber, NSNumber, String) -> Void) {
 	    DispatchQueue.main.async {
 	        guard let topVC = self.getTopViewController() else { return }
 	        ScreenBrightnessHelper.shared.maximizeBrightness()
@@ -122,12 +122,12 @@ public class FaceSDKSwiftManager: NSObject {
 	            motionLivenessTimeOut: motionLivenessTimeOut.intValue,
 	            motionLivenessSteps: motionLivenessSteps.intValue,
 	            // 修改：接收新增的参数
-	            onDismiss: { [weak topVC] (resultCode: Int, similarity: Float, liveness: Float) in
+	            onDismiss: { [weak topVC] (resultCode: Int, similarity: Float, liveness: Float,message:String) in
 	                DispatchQueue.main.async {
 	                    ScreenBrightnessHelper.shared.restoreBrightness()
 	                    topVC?.dismiss(animated: true) {
 	                        // 修改：回传新增的参数
-	                        callback(NSNumber(value: resultCode), NSNumber(value: similarity), NSNumber(value: liveness))
+	                        callback(NSNumber(value: resultCode), NSNumber(value: similarity), NSNumber(value: liveness),message)
 	                    }
 	                }
 	            }
@@ -145,8 +145,7 @@ public class FaceSDKSwiftManager: NSObject {
 	                                      _ motionLivenessTypes: String,
 	                                      _ motionLivenessTimeOut : NSNumber,
 	                                      _ motionLivenessSteps : NSNumber,
-										  _ showResultTips: Bool,
-	                                      _ callback: @escaping (NSNumber, NSNumber) -> Void) {
+	                                      _ callback: @escaping (NSNumber, NSNumber, String) -> Void) {
 	    DispatchQueue.main.async {
 	        guard let topVC = self.getTopViewController() else { return }
 	        ScreenBrightnessHelper.shared.maximizeBrightness()
@@ -156,14 +155,13 @@ public class FaceSDKSwiftManager: NSObject {
 	            motionLiveness: motionLivenessTypes,
 	            motionLivenessTimeOut: motionLivenessTimeOut.intValue,
 	            motionLivenessSteps: motionLivenessSteps.intValue,
-				showResultTips:showResultTips,
 	            // 修改：接收 liveness 参数
-	            onDismiss: { [weak topVC] (resultCode: Int, liveness: Float) in
+	            onDismiss: { [weak topVC] (resultCode: Int, liveness: Float,message:String) in
 	                DispatchQueue.main.async {
 	                    ScreenBrightnessHelper.shared.restoreBrightness()
 	                    topVC?.dismiss(animated: true) {
 	                        // 修改：回传 liveness 参数
-	                        callback(NSNumber(value: resultCode), NSNumber(value: liveness))
+	                        callback(NSNumber(value: resultCode), NSNumber(value: liveness),message)
 	                    }
 	                }
 	            }

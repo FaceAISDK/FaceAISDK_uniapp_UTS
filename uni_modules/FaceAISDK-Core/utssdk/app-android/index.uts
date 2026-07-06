@@ -135,7 +135,7 @@ export const faceVerify: FaceVerify = function (
 
 export const livenessVerify: LivenessVerify = function (
     faceLivenessType: number, motionLivenessTypes: string, motionLivenessTimeOut: number, 
-	motionLivenessSteps: number, allowMultiFaces : boolean, showResultTips:boolean,callback: (result: ResultJSON) => void
+	motionLivenessSteps: number, allowMultiFaces : boolean, callback: (result: ResultJSON) => void
 ) {
     launchActivity("com.faceAI.demo.SysCamera.verify.LivenessDetectActivity", REQ_CODE_LIVENESS as Int, "", callback, (intent: Intent) => {
         intent.putExtra(LivenessDetectActivity.FACE_LIVENESS_TYPE, faceLivenessType);
@@ -143,7 +143,6 @@ export const livenessVerify: LivenessVerify = function (
         intent.putExtra(LivenessDetectActivity.MOTION_TIMEOUT, motionLivenessTimeOut);
         intent.putExtra(LivenessDetectActivity.MOTION_STEP_SIZE, motionLivenessSteps);
 		intent.putExtra(LivenessDetectActivity.ALLOW_MULTI_FACES, allowMultiFaces);
-		intent.putExtra(LivenessDetectActivity.SHOW_RESULT_TIPS, showResultTips);
     });
 }
 

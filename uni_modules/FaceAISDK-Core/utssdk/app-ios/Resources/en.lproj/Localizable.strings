@@ -1,3 +1,4 @@
+/* General UI Keys */
 "About us" = "About us";
 "Add Face By Camera" = "Add Face By Camera";
 "Add Face From Album" = "Add Face From Album";
@@ -5,6 +6,16 @@
 "Confirm Add Face" = "Confirm Add Face";
 "Ensure face is clear" = "Ensure face is clear";
 "Face Verify & Liveness" = "Face Verify & Liveness";
+"I Know" = "I Know";
+"Is Face Feature Exist" = "Is Face Feature Exist";
+"ONLY Liveness Detection" = "ONLY Liveness Detection";
+"Retry" = "Retry";
+"Save Face Feature" = "Save Face Feature";
+"Select from album" = "Select from album";
+"Select Image" = "Select Image";
+"Verify Two Face Similarity" = "Verify Two Face Similarity";
+
+/* SDK Face Tips Codes */
 "Face_Tips_Code_-1" = "FaceSDK Version Too Old";
 "Face_Tips_Code_(code)" = "error";
 "Face_Tips_Code_0" = "Keep Face Frontal";
@@ -41,11 +52,3 @@
 "Face_Tips_Code_61" = "Face Liveness Success";
 "Face_Tips_Code_62" = "Face Verify Success";
 "Face_Tips_Code_63" = "Face Verify Failed";
-"I Know" = "I Know";
-"Is Face Feature Exist" = "Is Face Feature Exist";
-"ONLY Liveness Detection" = "ONLY Liveness Detection";
-"Retry" = "Retry";
-"Save Face Feature" = "Save Face Feature";
-"Select from album" = "Select from album";
-"Select Image" = "Select Image";
-"Verify Two Face Similarity" = "Verify Two Face Similarity";

@@ -12,8 +12,8 @@ public struct AddFaceByCamera: View {
     let addFacePerformanceMode: Int //Alternate fields备用字段
     let needShowConfirmDialog: Bool
     
-    // callback Status , FaceFeature
-    let onDismiss: (Int, String) -> Void //status 0 cancel， 1 success
+    // callback Status , FaceFeature,message
+    let onDismiss: (Int, String,String) -> Void //status 0 cancel， 1 success
     
     var autoControlBrightness: Bool = true
     
@@ -22,7 +22,7 @@ public struct AddFaceByCamera: View {
     @StateObject private var viewModel: AddFaceByCameraModel = AddFaceByCameraModel()
     
     // 根据状态码转换为对应的文字提示
-    private func localizedTip(for code: Int) -> String {
+    private func localizedTips(for code: Int) -> String {
         let key = "Face_Tips_Code_\(code)"
         let defaultValue = "Add Face Tips Code=\(code)"
         let tipsString = NSLocalizedString(key, value: defaultValue, comment: "")
@@ -44,7 +44,7 @@ public struct AddFaceByCamera: View {
         
         // Close Page, CallBack
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            onDismiss(1, viewModel.faceFeatureBySDKCamera)
+            onDismiss(1, viewModel.faceFeatureBySDKCamera,"Add Face Success")
             dismiss()
         }
         
@@ -55,7 +55,7 @@ public struct AddFaceByCamera: View {
             VStack(spacing: 20) {
                 HStack {
                     Button(action: {
-                        onDismiss(0, "")
+                        onDismiss(0, "","User Cancel")
                         dismiss()
                     }) {
                         Image(systemName: "chevron.left")
@@ -71,7 +71,7 @@ public struct AddFaceByCamera: View {
                 .padding(.top, 10)
                 
                 // Status Tips
-                Text(localizedTip(for: viewModel.sdkInterfaceTips.code))
+                Text(localizedTips(for: viewModel.sdkInterfaceTips.code))
                     .font(.system(size: 19).bold())
                     .padding(.horizontal, 20)
                     .padding(.vertical, 8)

@@ -1,27 +1,27 @@
 import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceBySDKImage, DeleteFaceFeature, GoNativeApp } from '../interface.uts'
 
-/**
- * 工具函数：根据状态码获取提示文案
- */
-function getMsgByCode(code: number): string {
-    switch (code) {
-        case 0: return "用户取消/中断操作";
-        case 1: return "操作成功verifySuccess";  
-        case 2: return "人脸相似度过低(认证失败)";
-        case 3: return "动作活体检测成功";
-        case 4: return "动作活体检测超时";
-        case 5: return "多次未检测到人脸";
-        case 6: return "本地无对应人脸特征值";
-        case 7: return "炫彩活体成功";
-        case 8: return "炫彩活体失败";
-        case 9: return "环境光线过强(炫彩失败)";
-        case 10: return "活体检测全部通过";
-        case 11: return "静默活体检测失败";
-        case 12: return "没有录入人脸信息";
-		case 13: return "多个人脸入境";
-        default: return "未知状态码" ;
-    }
-}
+// /**
+//  * 工具函数：根据状态码获取提示文案
+//  */
+// function getMsgByCode(code: number): string {
+//     switch (code) {
+//         case 0: return "用户取消/中断操作";
+//         case 1: return "操作成功verifySuccess";  
+//         case 2: return "人脸相似度过低(认证失败)";
+//         case 3: return "动作活体检测成功";
+//         case 4: return "动作活体检测超时";
+//         case 5: return "多次未检测到人脸";
+//         case 6: return "本地无对应人脸特征值";
+//         case 7: return "炫彩活体成功";
+//         case 8: return "炫彩活体失败";
+//         case 9: return "环境光线过强(炫彩失败)";
+//         case 10: return "活体检测全部通过";
+//         case 11: return "静默活体检测失败";
+//         case 12: return "没有录入人脸信息";
+// 		case 13: return "多个人脸入境";
+//         default: return "未知状态码" ;
+//     }
+// }
 
 /**
  * 实现录入人脸接口
@@ -37,18 +37,12 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
         faceID, 
         addFacePerformanceMode, 
         needShowConfirmDialog, 
-        (resultCode: number, feature: string) => {
-            let message = "";
+        (resultCode: number, feature: string,message:string) => {
             let base64Str = "";
             
             if (resultCode == 1) {
-                message = "人脸录入成功";
                 base64Str = FaceSDKSwiftManager.getFaceImageBase64(faceID) ?? "";
-            } else if (resultCode == 0) {
-                message = "用户取消录入";
-            } else {
-                message = "未知状态";
-            }
+            } 
             
             let featureFromStore = FaceSDKSwiftManager.getiOSFaceFeature(faceID) ?? "";
             let rawFeature = feature.length > 0 ? feature : featureFromStore;
@@ -123,7 +117,7 @@ export const faceVerify : FaceVerify = function (
         motionLivenessTypes,
         motionLivenessTimeOut,
         motionLivenessSteps,
-        (resultCode: number, similarity: number, liveness: number) => {
+        (resultCode: number, similarity: number, liveness: number,message:string) => {
             let base64Str = "";
             
             if (resultCode == 1 || resultCode == 10) {
@@ -132,7 +126,7 @@ export const faceVerify : FaceVerify = function (
             
             const resultJson : ResultJSON = {
                 code: resultCode,
-                msg: getMsgByCode(resultCode),
+                msg: message,
                 faceID: faceID,
                 similarity: similarity, 
                 liveness: liveness,
@@ -151,7 +145,6 @@ export const livenessVerify : LivenessVerify = function (
     motionLivenessTimeOut : number,
     motionLivenessSteps : number,
 	allowMultiFaces : boolean,
-	showResultTips : boolean,
     callback : (result : ResultJSON) => void
 ) {
     FaceSDKSwiftManager.showLivenessVerify(
@@ -159,8 +152,7 @@ export const livenessVerify : LivenessVerify = function (
         motionLivenessTypes,
         motionLivenessTimeOut,
         motionLivenessSteps,
-		showResultTips,
-        (resultCode: number, liveness: number) => {
+        (resultCode: number, liveness: number,message:string) => {
             
             let base64Str = "";
             if (resultCode == 1 || resultCode == 10) {
@@ -169,7 +161,7 @@ export const livenessVerify : LivenessVerify = function (
            
            const resultJson = {
                 code: resultCode,
-                msg: getMsgByCode(resultCode),
+                msg: message,
                 faceID: "-",
                 similarity: 0,
                 liveness: liveness,
