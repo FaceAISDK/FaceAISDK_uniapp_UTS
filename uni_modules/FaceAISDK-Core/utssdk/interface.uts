@@ -103,6 +103,9 @@ export type InsertFaceFeature = (
 	
 	
 export type ToastMessage = (message : string) => void	
+
+//文字转语音，没有完善
+export type PlayTTS = (text : string) => void	
 	
 	
 //「1:1人脸识别」检测人脸是否存在

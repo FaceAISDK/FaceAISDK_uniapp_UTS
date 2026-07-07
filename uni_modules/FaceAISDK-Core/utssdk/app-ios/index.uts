@@ -1,27 +1,5 @@
-import { AddFaceBySDKCamera, FaceVerify, InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceBySDKImage, DeleteFaceFeature, GoNativeApp } from '../interface.uts'
+import { AddFaceBySDKCamera, FaceVerify,PlayTTS,InsertFaceFeature, LivenessVerify, GetFaceFeature, ResultJSON, AddFaceBySDKImage, DeleteFaceFeature, GoNativeApp } from '../interface.uts'
 
-// /**
-//  * 工具函数：根据状态码获取提示文案
-//  */
-// function getMsgByCode(code: number): string {
-//     switch (code) {
-//         case 0: return "用户取消/中断操作";
-//         case 1: return "操作成功verifySuccess";  
-//         case 2: return "人脸相似度过低(认证失败)";
-//         case 3: return "动作活体检测成功";
-//         case 4: return "动作活体检测超时";
-//         case 5: return "多次未检测到人脸";
-//         case 6: return "本地无对应人脸特征值";
-//         case 7: return "炫彩活体成功";
-//         case 8: return "炫彩活体失败";
-//         case 9: return "环境光线过强(炫彩失败)";
-//         case 10: return "活体检测全部通过";
-//         case 11: return "静默活体检测失败";
-//         case 12: return "没有录入人脸信息";
-// 		case 13: return "多个人脸入境";
-//         default: return "未知状态码" ;
-//     }
-// }
 
 /**
  * 实现录入人脸接口
@@ -205,6 +183,11 @@ export const goNativeApp: GoNativeApp = function () {
     FaceSDKSwiftManager.goNativeDemoNavi();
 }
 
+
+//文字转语音播报
+export const playTTS:PlayTTS = function (text : string) {
+    FaceSDKSwiftManager.playTTS(text);
+}
 
 
 export const insertFaceFeature : InsertFaceFeature = function 

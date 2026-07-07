@@ -23,6 +23,7 @@
 <script>
 	//uniapp Page 注意：在普通 UniApp 中，需要确保该插件支持 JS 端的调用方式
 	import {
+		playTTS,
 		deleteFaceFeature,
 		switchCamera,
 		addFaceBySDKImage,
@@ -61,8 +62,13 @@
 					1,     //1.快速模式，  2.精确模式(人脸品质高)
 					true,  //是否需要显示确认框，强烈建议需要(目前仅Android生效)
 					(result) => {
+						uni.showToast({title: result.msg, icon: 'none',duration: 2000 });
+						
 						//录入的人脸
-						this.faceSDKResult = JSON.stringify(result)
+						this.faceSDKResult = `code: ${result.code}\n` +
+						                     `msg: ${result.msg}\n` +
+						                     `faceFeature: ${result.faceFeature.length}\n` +
+						                     `faceBase64: ${result.faceBase64.length}`;
 						console.log("【addFaceBySDKCamera】: ***"+this.faceSDKResult);
 					})
 			},
@@ -81,6 +87,7 @@
 					2,     //动作活体步骤，1个或2个随机
 					true,     //ALLOW_MULTI_FACES 是否允许多人脸入镜(仅Android)
 					(result) => {
+						uni.showToast({title: result.msg, icon: 'none',duration: 2000 });
 						
 						this.faceSDKResult = `code: ${result.code}\n` +
 						                     `msg: ${result.msg}\n` +
@@ -102,6 +109,7 @@
 					2,     //动作活体步骤个数
 					true,     //ALLOW_MULTI_FACES 是否允许多人脸入镜(仅Android)
 					(result) => {
+						uni.showToast({title: result.msg, icon: 'none',duration: 2000 });
 						
 						this.faceSDKResult = `code: ${result.code}\n` +
 						                     `msg: ${result.msg}\n` +

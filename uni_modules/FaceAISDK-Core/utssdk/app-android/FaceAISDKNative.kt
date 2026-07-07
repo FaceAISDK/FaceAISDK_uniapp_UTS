@@ -21,6 +21,7 @@ import com.faceAI.demo.FaceSDKConfig;
 import com.ai.face.faceSearch.search.Image2FaceFeature;
 import com.ai.face.core.engine.FaceAISDKEngine;
 import com.faceAI.demo.SysCamera.search.ImageToast
+import com.faceAI.demo.base.utils.TTSPlayer;
 
  
 /**
@@ -35,6 +36,14 @@ object FaceAISDKNative {
 	 */
 	fun toastMessage(context:Context,message: String){
 	    ImageToast().show(context, message)
+	}
+	
+	/**
+	 * Toast 信息
+	 * 
+	 */
+	fun playTTS(text: String){
+	    TTSPlayer.getInstance().playTTS(text);
 	}
 	
 	

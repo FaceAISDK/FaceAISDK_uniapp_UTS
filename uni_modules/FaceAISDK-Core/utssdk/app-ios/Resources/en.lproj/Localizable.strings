@@ -43,7 +43,7 @@
 "Face_Tips_Code_43" = "Please Blink";
 "Face_Tips_Code_44" = "Please Shake Head";
 "Face_Tips_Code_45" = "Please Nod Head";
-"Face_Tips_Code_50" = "Start Color Flash";
+"Face_Tips_Code_50" = "Please move closer. Screen will flash";
 "Face_Tips_Code_51" = "Color Flash Success";
 "Face_Tips_Code_52" = "Color Flash Failed";
 "Face_Tips_Code_53" = "Detection failed: Too bright.Please avoid direct light as below and use in a softly lit indoor environment";

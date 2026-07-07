@@ -11,6 +11,11 @@ public class FaceSDKSwiftManager: NSObject {
         return UserDefaults.standard.string(forKey: faceID) ?? ""
     }
 	
+	// 语音播报
+	public static func playTTS(_ text: String) -> Void {
+	     TTSPlayer.shared.speak(text)
+	 }
+	
 	
     // MARK: - Base64 提取人脸特征 (支持插件/外部调用)
     public static func addFaceByBase64(_ faceID: String,
