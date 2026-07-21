@@ -16,7 +16,8 @@ struct FaceAINaviView: View {
     @State private var toastMessage = ""
     @State private var toastStyle: ToastStyle = .success
     
-
+    //silent Liveness performance depends on the device's camera. 静默活体检测和设备相机有关
+    private var silentLivenessThreshold = 0.85; //silent liveness threshold(0.85-0.95)
 
     private func triggerToast(message: String, style: ToastStyle = .success) {
         toastMessage = message
@@ -24,7 +25,7 @@ struct FaceAINaviView: View {
         withAnimation(.easeInOut(duration: 0.25)) {
             showToast = true
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
             withAnimation(.easeInOut(duration: 0.25)) {
                 showToast = false
             }
@@ -48,7 +49,7 @@ struct FaceAINaviView: View {
                                 onDismiss: { result, feature ,message in
                                     //ShowToast
                                     triggerToast(message: message, style: result == 1 ? .success : .failure)
-                                    print("🎆 AddFace   Status: \(result),  Message: \(message), Feature: \(feature)")
+                                    print("🎆 AddFace  Status: \(result),  Message: \(message), Feature: \(feature)")
                                 }
                             )) {
                                 MenuRowView(icon: "camera.viewfinder", title: "Add Face By Camera")
@@ -59,7 +60,7 @@ struct FaceAINaviView: View {
                                 onDismiss: { result, feature ,message in
                                     //ShowToast
                                     triggerToast(message: message, style: result == 1 ? .success : .failure)
-                                    print("🎆  AddFace  Status: \(result), Feature: \(feature ?? "")")
+                                    print("🎆 AddFace  Status: \(result),  Message: \(message), Feature: \(feature)")
                                 }
                             )) {
                                 MenuRowView(icon: "photo.on.rectangle.angled", title: "Add Face From Album")
@@ -72,30 +73,32 @@ struct FaceAINaviView: View {
                             NavigationLink(destination: VerifyFaceView(
                                 faceID: faceID,
                                 threshold: 0.83,
-                                livenessType: 1,
+                                livenessType: 4,
                                 motionLiveness: "1,2,3,4,5",
                                 motionLivenessTimeOut: 11,
                                 motionLivenessSteps:2,
                                 
                                 onDismiss: {code, similarity, liveness, message in
-                                    //ShowToast
-                                    let isSuccess = liveness > 0.72 && similarity > 0.83
-                                    triggerToast(message: message, style: isSuccess ? .success : .failure)
-                                    print("🎆 Face Verify  Status: \(code), Similarity: \(similarity), Liveness: \(liveness), Message: \(message)")
+                                    // ios silent liveness > 0.66 is success , need optimise
+                                    let isSuccess = liveness > 0.70 && similarity > 0.83
+                                    let fullMessage = "\(message), Liveness: \(String(format: "%.2f", liveness)) , similarity: \(String(format: "%.2f", similarity))"
+                                    triggerToast(message: fullMessage, style: isSuccess ? .success : .failure)
+                                    print("🎆 Face Verify  Result: \(code), Similarity: \(similarity), Liveness: \(liveness), Message: \(message)")
                                 }
                             )) {
                                 MenuRowView(icon: "faceid", title: "Face Verify & Liveness")
                             }
                             
                             NavigationLink(destination: LivenessDetectView(
-                                livenessType: 1,
+                                livenessType: 4, 
                                 motionLiveness: "1,2,3,4,5",
                                 motionLivenessTimeOut: 5,
                                 motionLivenessSteps:2,
                                 onDismiss: { code,liveness,message in
-                                    //ShowToast
-                                    let isSuccess = liveness > 0.72
-                                    triggerToast(message: message, style: isSuccess ? .success : .failure)
+                                    // ios silent liveness > 0.66 is success , need optimise
+                                    let isSuccess = liveness > 0.70
+                                    let fullMessage = "\(message), Liveness: \(String(format: "%.2f", liveness))"
+                                    triggerToast(message: fullMessage, style: isSuccess ? .success : .failure)
                                     print("🎆 Liveness Result: \(code), Liveness Score: \(liveness) , Message: \(message)")
                                 }
                             )) {

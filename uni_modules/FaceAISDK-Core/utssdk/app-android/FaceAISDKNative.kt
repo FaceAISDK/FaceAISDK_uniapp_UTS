@@ -114,7 +114,6 @@ object FaceAISDKNative {
 	    var isExist=true;
 		var msg = "Face Feature exist"
 
-        //从本地MMKV读取人脸特征值(2025.11.23版本使用MMKV，老的人脸数据请做好迁移)
         var faceFeature = MMKV.defaultMMKV().decodeString(faceID)
         if (faceFeature.isNullOrEmpty()) {
 			isExist=false;
