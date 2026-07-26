@@ -12,7 +12,6 @@ assignees: ''
 
 
 
-
 ## 🔄 2. 复现步骤 (To Reproduce)
 请提供能够复现该问题的具体步骤和核心代码：
 1. 调用的 API：[例如：`gofaceVerify.init(...)`]
