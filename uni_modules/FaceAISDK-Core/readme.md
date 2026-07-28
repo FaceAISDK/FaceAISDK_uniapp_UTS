@@ -1,15 +1,15 @@
 <div align="center">
 
-# 🎭 FaceSDK 人脸识别 UTS API 插件
+# 🎭 FaceSDK 人脸识别 UTS API 插件  
 
-**高性能 1:1 人脸识别 · 离线活体检测 · 多端统一**
-
-[![Platform](https://img.shields.io/badge/Platform-iOS%20%7C%20Android-blue.svg)](https://ext.dcloud.net.cn/)
-[![Vue](https://img.shields.io/badge/Vue-Vue2%20%7C%20Vue3%20%7C%20uvue-42b883.svg)](https://uniapp.dcloud.net.cn/)
-[![GitHub Issues](https://img.shields.io/github/issues/FaceAISDK/FaceAISDK_uniapp_UTS)](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues)
-
-[快速上手](#-快速上手) • [常见问题与解决方案](#-常见问题与解决方案) • [状态码说明](#-状态码说明) • [社区与支持](#-社区与支持)
-
+**高性能 1:1 人脸识别 · 离线活体检测 · 多端统一**  
+ 
+[![Platform](https://img.shields.io/badge/Platform-iOS%20%7C%20Android-blue.svg)](https://ext.dcloud.net.cn/)  
+[![Vue](https://img.shields.io/badge/Vue-Vue2%20%7C%20Vue3%20%7C%20uvue-42b883.svg)](https://uniapp.dcloud.net.cn/)  
+[![GitHub Issues](https://img.shields.io/github/issues/FaceAISDK/FaceAISDK_uniapp_UTS)](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues)  
+ 
+[快速上手](#-快速上手) • [常见问题与解决方案](#-常见问题与解决方案) • [状态码说明](#-状态码说明) • [社区与支持](#-社区与支持)  
+ 
 ---
 
 </div>
@@ -96,22 +96,19 @@ Android 动态库默认包含了针对 32 位老旧设备的兼容。若仅针�
 
 SDK 在识别或活体检测过程中通过回调返回的状态码定义如下：
 
-| 状态码 (`Code`) | 常量名 (`Constant`) | 详细描述 |
-| --- | --- | --- |
-| `0` | `DEFAULT` | 初始化状态，流程尚未开始 |
-| `1` | `VERIFY_SUCCESS` | 1:1 人脸比对成功（相似度高于设置的阈值 threshold） |
-| `2` | `VERIFY_FAILED` | 1:1 人脸比对失败（相似度低于设置的阈值 threshold） |
-| `3` | `MOTION_LIVENESS_SUCCESS` | 动作活体检测成功（通常内部会自动过渡到后续流程） |
-| `4` | `MOTION_LIVENESS_TIMEOUT` | 动作活体检测超时 |
-| `5` | `NO_FACE_MULTI` | 连续多次未能成功检测到人脸 |
-| `6` | `NO_FACE_FEATURE` | 未检测到或无法提取有效的特征值 |
-| `7` | `COLOR_LIVENESS_SUCCESS` | 炫彩活体检测通过 |
-| `8` | `COLOR_LIVENESS_FAILED` | 炫彩活体检测失败 |
-| `9` | `COLOR_LIVENESS_LIGHT_TOO_HIGH` | 炫彩活体检测失败（环境光线亮度过高） |
-| `10` | `ALL_LIVENESS_SUCCESS` | 所有活体检测环节全部完成（包含动作与炫彩） |
-| `11` | `SILENT_LIVENESS_FAILED` | 静默活体检测失败 |
-| `12` | `NO_BASE_FACE_FEATURE` | 本地未注册/未录入基准人脸信息 |
-| `13` | `NOT_ALLOW_MULTI_FACES` | 摄像头画面中出现多张人脸 |
+    let DEFAULT = 0                  // 0   初始化状态，流程没有开始
+    let VERIFY_SUCCESS = 1           // 1   人脸识别对比成功大于设置的threshold
+    let VERIFY_FAILED = 2            // 2   人脸识别对比识别小于设置的threshold
+    let MOTION_LIVENESS_SUCCESS = 3  // 3   动作活体检测成功（基本不用，还有后续动作）
+    let MOTION_LIVENESS_TIMEOUT = 4  // 4   动作活体超时
+    let NO_FACE_MULTI = 5            // 5   多次没有检测到人脸
+    let NO_FACE_FEATURE = 6          // 6   没有对应的人脸特征值
+    let COLOR_LIVENESS_SUCCESS = 7   // 7   炫彩活体成功
+    let COLOR_LIVENESS_FAILED = 8    // 8   炫彩活体失败
+    let COLOR_LIVENESS_LIGHT_TOO_HIGH = 9 // 9   炫彩活体失败，光线亮度过高
+    let ALL_LIVENESS_SUCCESS = 10    // 10  所有的活体检测完成(包括动作和炫彩)
+	let SILENT_LIVENESS_FAILED = 11  // 11  静默活体检测失败
+
 
 ---
 
