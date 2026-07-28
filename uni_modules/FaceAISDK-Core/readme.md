@@ -1,18 +1,16 @@
-<div align="center">
 
-# 🎭 FaceSDK 人脸识别 UTS API 插件  
-
-**高性能 1:1 人脸识别 · 离线活体检测 · 多端统一**  
- 
+## FaceSDK人脸识别 UTS API 插件   
+  
+**高性能 1:1 人脸识别 · 离线活体检测 · 多端统一**   
+   
 [![Platform](https://img.shields.io/badge/Platform-iOS%20%7C%20Android-blue.svg)](https://ext.dcloud.net.cn/)  
 [![Vue](https://img.shields.io/badge/Vue-Vue2%20%7C%20Vue3%20%7C%20uvue-42b883.svg)](https://uniapp.dcloud.net.cn/)  
 [![GitHub Issues](https://img.shields.io/github/issues/FaceAISDK/FaceAISDK_uniapp_UTS)](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues)  
- 
-[快速上手](#-快速上手) • [常见问题与解决方案](#-常见问题与解决方案) • [状态码说明](#-状态码说明) • [社区与支持](#-社区与支持)  
- 
----
+   
+[快速上手](#-快速上手) • [常见问题与解决方案](#-常见问题与解决方案) • [状态码说明](#-状态码说明) • [社区与支持](#-社区与支持)   
+    
+---   
 
-</div>
 
 ## 📌 插件简介
 
