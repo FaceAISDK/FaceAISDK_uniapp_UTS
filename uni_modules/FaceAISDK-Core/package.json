@@ -1,7 +1,7 @@
 {
 	"id": "FaceAISDK-Core",
 	"displayName": "1：1 人脸识别 及 活体检测 UTS-API插件",
-	"version": "4.1.0",
+	"version": "4.2.0",
 	"description": "端侧离线人脸识别SDK插件,支持iOS&Android,支持vue2、3和uvue。识别检测无需网络API，可开飞行模式运行",
 	"keywords": [
         "人脸识别、活体检测、不依赖三方服务"
@@ -58,11 +58,11 @@
                         "vue": "√",
                         "nvue": "√",
 						"android": {
-                            "extVersion": "2.0.0",
+                            "extVersion": "",
                             "minVersion": "21"
                         },
 						"ios": {
-                            "extVersion": "2.0.0",
+                            "extVersion": "",
                             "minVersion": "15"
                         },
 						"harmony": "x"
