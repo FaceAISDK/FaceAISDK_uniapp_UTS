@@ -1,3 +1,7 @@
+## 4.4.0（2026-07-31）
+1.  适配新系统iOS27，Android17  Initial adaptation for iOS 27 and Android 17
+2. 统一iOS Android 静默活体通过阈值分数0.85到0.95  Silent liveness threshold (iOS/Android): 0.85–0.95
+3. 缩减SDK体积 Reduce SDK size 
 ## 4.3.0（2026-07-28）
 1. 更新iOS 中英文文案提示
 2. 重构iOS 活体检测实现流程

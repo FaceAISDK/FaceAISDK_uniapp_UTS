@@ -100,6 +100,7 @@
 
 			/**
 			 * 3. 活体检测，包含动作+炫彩活体 。静默活体默认都包含
+			 * Silent liveness threshold (iOS/Android): 0.85–0.95
 			 */
 			livenessVerifyDemo: function() {
 				livenessVerify(
@@ -110,7 +111,7 @@
 					true,     //ALLOW_MULTI_FACES 是否允许多人脸入镜(仅Android)
 					(result) => {
 						uni.showToast({title: result.msg, icon: 'none',duration: 2000 });
-						
+						//Silent liveness threshold (iOS/Android): 0.85–0.95
 						this.faceSDKResult = `code: ${result.code}\n` +
 						                     `msg: ${result.msg}\n` +
 						                     `liveness: ${result.liveness}\n` +
