@@ -53,7 +53,7 @@ UTSAndroid.onAppActivityResult((requestCode: Int, resultCode: Int, intentAct?: I
 
     let res: ResultJSON = {
         code: 0,
-        msg: "用户取消/中断操作",
+        msg: "-",
         faceID: currentFaceID,
         similarity: 0,
         liveness: 0,
@@ -63,7 +63,7 @@ UTSAndroid.onAppActivityResult((requestCode: Int, resultCode: Int, intentAct?: I
 
     if (intentAct != null) {
         res.code = intentAct.getIntExtra("code", 0);
-        res.msg = intentAct.getStringExtra("msg") ?? res.msg;
+        res.msg = intentAct.getStringExtra("message") ?? res.msg;
         const defFloat: Float = 0.0.toFloat(); 
 
         switch (requestCode) {
