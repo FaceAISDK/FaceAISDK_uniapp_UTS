@@ -122,4 +122,5 @@ Silent liveness threshold (iOS/Android): 0.85–0.95
 * 📧 **EMAIL**: [FaceAISDK.Service@gmail.com](https://www.google.com/search?q=mailto%3AFaceAISDK.Service%40gmail.com)
 * 💬 **WeChat**: `FaceAISDK`
 
+人脸识别、活体检测、Face Recognition、不依赖三方服务    
 ---
