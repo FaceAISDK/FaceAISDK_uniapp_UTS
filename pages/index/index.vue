@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="page">
 		<button @tap="addFaceFeatureBySDKCameraDemo">SDK相机录入人脸</button>
 		<button @tap="faceVerifyDemo">人脸识别+活体检测</button>
 		<button @tap="livenessVerifyDemo">检测人脸是否活体</button>
@@ -178,13 +178,22 @@
 </script>
 
 <style>
-	/* 给滚动区域一个固定高度和边框 */
+	.page {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		box-sizing: border-box;
+		padding-bottom: 24rpx;
+		padding-bottom: calc(24rpx + env(safe-area-inset-bottom));
+	}
+
+	/* 将结果显示滚动区域推到屏幕底部 */
 	.result-box {
-		margin: 20rpx;
+		margin: auto 20rpx 0;
 	}
 
 	.scroll-view-box {
-		height: 400rpx;
+		height: 300rpx;
 		/* 必须指定高度，否则无法滚动 */
 		border: 1px solid #ccc;
 		border-radius: 10rpx;

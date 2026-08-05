@@ -87,6 +87,7 @@ Android 动态库默认包含了针对 32 位老旧设备的兼容。若仅针�
 ## 🔢 状态码说明
 
 SDK 在识别或活体检测过程中通过回调返回的状态码定义如下：
+Silent liveness threshold (iOS/Android): 0.85–0.95
 
     let DEFAULT = 0                  // 0   初始化状态，流程没有开始
     let VERIFY_SUCCESS = 1           // 1   人脸识别对比成功大于设置的threshold

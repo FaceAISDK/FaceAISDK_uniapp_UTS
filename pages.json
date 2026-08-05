@@ -3,13 +3,13 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "FaceAI人脸识别Demo"
+				"navigationBarTitleText": "FaceSDK人脸识别Demo"
 			}
 		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "FaceAI人脸识别Demo",
+		"navigationBarTitleText": "FaceSDK人脸识别Demo",
 		"navigationBarBackgroundColor": "#108040",
 		"backgroundColor": "#804002"
 	},

@@ -95,6 +95,7 @@ Android 动态库默认包含了针对 32 位老旧设备的兼容。若仅针�
 ## 🔢 状态码说明
 
 SDK 在识别或活体检测过程中通过回调返回的状态码定义如下：
+Silent liveness threshold (iOS/Android): 0.85–0.95
 
 | 状态码 (`Code`) | 常量名 (`Constant`) | 详细描述 |
 | --- | --- | --- |
