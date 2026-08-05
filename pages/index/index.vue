@@ -1,21 +1,30 @@
 <template>
 	<view class="page">
-		<button @tap="addFaceFeatureBySDKCameraDemo">SDK相机录入人脸</button>
-		<button @tap="faceVerifyDemo">人脸识别+活体检测</button>
-		<button @tap="livenessVerifyDemo">检测人脸是否活体</button>
-		<button @tap="getFaceFeatureDemo">查询人脸特征信息</button>
-		<button @tap="insertFaceFeatureDemo">同步人脸特征信息</button>
-		<button @tap="addFaceFeatureByImageDemo">Base64人脸图提取特征</button>
-		<button @tap="deleteFaceFeatureDemo">删除人脸特征信息</button>
-		<!-- <button @tap="switchCameraDemo">切换摄像头</button> -->
-		
-		
+		<view class="page-header">
+			<text class="page-eyebrow">FaceAISDK · DEMO</text>
+			<text class="page-title">插件调用示例</text>
+		</view>
+
+		<view class="button-list">
+			<button class="demo-button" @tap="addFaceFeatureBySDKCameraDemo">SDK相机录入人脸</button>
+			<button class="demo-button" @tap="faceVerifyDemo">人脸识别 + 活体检测</button>
+			<button class="demo-button" @tap="livenessVerifyDemo">检测人脸是否活体</button>
+			<button class="demo-button" @tap="getFaceFeatureDemo">查询人脸特征信息</button>
+			<button class="demo-button" @tap="insertFaceFeatureDemo">同步人脸特征信息</button>
+			<button class="demo-button" @tap="addFaceFeatureByImageDemo">Base64 人脸图提取特征</button>
+			<button class="demo-button" @tap="deleteFaceFeatureDemo">删除人脸特征信息</button>
+			<!-- <button class="demo-button" @tap="switchCameraDemo">切换摄像头</button> -->
+		</view>
+
 		<view class="result-box">
+			<view class="result-header">
+				<text class="result-title">调用结果</text>
+				<text class="result-label">RESULT</text>
+			</view>
 			<scroll-view scroll-y="true" class="scroll-view-box">
 				<text class="text-content">{{faceSDKResult}}</text>
 			</scroll-view>
-			<view> Email: FaceAISDK.Service@gmail.com</view>
-		
+			<text class="contact-text">技术支持 · FaceAISDK.Service@gmail.com</text>
 		</view>
 	</view>
 </template>
@@ -178,47 +187,5 @@
 </script>
 
 <style>
-	.page {
-		min-height: 100vh;
-		display: flex;
-		flex-direction: column;
-		box-sizing: border-box;
-		padding-bottom: 24rpx;
-		padding-bottom: calc(24rpx + env(safe-area-inset-bottom));
-	}
-
-	/* 将结果显示滚动区域推到屏幕底部 */
-	.result-box {
-		margin: auto 20rpx 0;
-	}
-
-	.scroll-view-box {
-		height: 300rpx;
-		/* 必须指定高度，否则无法滚动 */
-		border: 1px solid #ccc;
-		border-radius: 10rpx;
-		background-color: #f8f8f8;
-		padding: 15rpx;
-		box-sizing: border-box;
-		/* 确保padding不撑大宽高 */
-	}
-
-	.text-content {
-		font-size: 28rpx;
-		color: #fc0280;
-		/* word-break: break-all; 关键：解决长JSON字符串不换行的问题 */
-		white-space: pre-wrap;
-		/* 保留格式并自动换行 */
-	}
-</style>
-
-<style>
-	.gray-button {
-		background-color: #ffffff;
-		/* 灰色背景 */
-		color: #800080;
-		/* 深灰色文字 */
-		/* 如果需要，可以覆盖默认的边框 */
-		border: none;
-	}
+@import url("./index.css");
 </style>
