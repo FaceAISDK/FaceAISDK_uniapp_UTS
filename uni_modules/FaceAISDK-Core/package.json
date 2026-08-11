@@ -1,7 +1,7 @@
 {
 	"id": "FaceAISDK-Core",
 	"displayName": "【无广告，纯离线】人脸识别 及 活体检测 UTS-API插件      ",
-	"version": "4.5.1",
+	"version": "4.5.2",
 	"description": "端侧离线1:1人脸识别SDK插件,支持iOS&Android, 支持vue2、3和uvue。识别检测无需网络API，可开飞行模式运行",
 	"keywords": [
         "人脸识别、活体检测、Face",
@@ -31,7 +31,7 @@
 			"qq": "FaceAISDK.Service@gmail.com"
 		},
 		"declaration": {
-			"ads": "无",
+			"ads": "不含任何广告，纯净",
 			"data": "离线运行,功能不需要网络，不收集数据.  ",
 			"permissions": "仅相机"
 		},
