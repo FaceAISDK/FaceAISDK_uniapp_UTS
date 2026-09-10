@@ -2,21 +2,21 @@
 	"name": "人脸识别",
 	"appid": "__UNI__A6AD04B",
 	"description": "FaceSDK UTS API插件是设备端可离线不联网人脸识别、活体检测（动作+炫彩活体）SDK，uniapp开发者可快速集成实现人脸识别 活体检测",
-	"versionName": "2026.08.12",
-	"versionCode": "20260812",
+	"versionName": "2026.08.13",
+	"versionCode": "20260813",
 	"uni-app-x": {},
 	"vueVersion": "unix",
 	"app": {
 		"distribute": {
 			"icons": {
 				"android": {
-					"hdpi": "unpackage/res/icons/72x72.png",
-					"xhdpi": "unpackage/res/icons/96x96.png",
-					"xxhdpi": "unpackage/res/icons/144x144.png",
-					"xxxhdpi": "unpackage/res/icons/192x192.png"
+					"hdpi": "static/app-icons/72x72.png",
+					"xhdpi": "static/app-icons/96x96.png",
+					"xxhdpi": "static/app-icons/144x144.png",
+					"xxxhdpi": "static/app-icons/192x192.png"
 				},
 				"ios": {
-					"appstore": "unpackage/res/icons/1024x1024.png"
+					"appstore": "static/app-icons/1024x1024.png"
 				}
 			}
 		}
@@ -25,10 +25,10 @@
 		"distribute": {
 			"modules": {},
 			"icons": {
-				"hdpi": "",
-				"xhdpi": "",
-				"xxhdpi": "",
-				"xxxhdpi": ""
+				"hdpi": "static/app-icons/72x72.png",
+				"xhdpi": "static/app-icons/96x96.png",
+				"xxhdpi": "static/app-icons/144x144.png",
+				"xxxhdpi": "static/app-icons/192x192.png"
 			},
 			"splashScreens": {
 				"default": {}
@@ -45,7 +45,9 @@
 	"app-ios": {
 		"distribute": {
 			"modules": {},
-			"icons": {},
+			"icons": {
+				"appstore": "static/app-icons/1024x1024.png"
+			},
 			"splashScreens": {}
 		}
 	}
