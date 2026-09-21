@@ -101,7 +101,9 @@
 						this.faceSDKResult = `code: ${result.code}\n` +
 						                     `msg: ${result.msg}\n` +
 						                     `similarity: ${result.similarity}\n` +
-						                     `liveness: ${result.liveness}`;
+						                     `liveness: ${result.liveness}\n` +
+											 `faceBase64: ${result.faceBase64.length}`;
+											 
 						console.log("【faceVerify】: ***"+this.faceSDKResult);
 					})
 			},
