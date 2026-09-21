@@ -33,7 +33,10 @@
 
 <script> 
 
-	import {goNativeApp,deleteFaceFeature,switchCamera,addFaceBySDKCamera,addFaceBySDKImage,faceVerify,livenessVerify,getFaceFeature,insertFaceFeature,ResultJSON} from "@/uni_modules/FaceAISDK-Core";
+	import {goNativeApp,deleteFaceFeature,addFaceBySDKCamera,addFaceBySDKImage,faceVerify,livenessVerify,getFaceFeature,insertFaceFeature,ResultJSON} from "@/uni_modules/FaceAISDK-Core";
+	// #ifdef APP-ANDROID
+	import { switchCamera } from "@/uni_modules/FaceAISDK-Core";
+	// #endif
     import { base64FaceImage } from './imageData.uts';
 	export default {
 		  
@@ -80,7 +83,7 @@
 			 * 
 			 * @param faceID 用户ID 你的业务系统定义用户唯一的字符串（手机号/身份证等）
 			 * @param threshold 阈值设置，范围限 [0.75,0.95] ,默认0.83
-			 * @param faceLivenessType  1.动作活体  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用) 4.静默活体(不同摄像头效果有差异) 
+			 * @param faceLivenessType 0.无需活体 1.动作活体  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用) 4.静默活体(不同摄像头效果有差异) 
 			 * @param motionLivenessTypes  "1,2,3" 动作活体种类用英文","隔开； 1.张张嘴 2.微笑 3.眨眨眼 4.摇头 5.点头
 			 * @param motionLivenessTimeOut  动作活体超时时间 [3,10]秒
 			 * @param motionLivenessSteps    动作活体步骤，1或2 个
@@ -91,9 +94,9 @@
 				faceVerify(
 					this.faceID,
 					0.84,       // 阈值设置，范围限 [0.75,0.95] ,默认0.84
-					1,          // 1.动作活体  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用)4.静默活体 
+					1,          // 0.无需活体 1.动作活体  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用)4.静默活体 
 					"1,2,3,4,5",//动作活体种类用英文","隔开； 1.张张嘴 2.微笑 3.眨眨眼 4.摇头 5.点头
-					7,          //动作活体超时时间 
+					9,          //动作活体超时时间 
 					2,          //动作活体步骤个数
 					true,       //ALLOW_MULTI_FACES 是否允许多人脸入镜(仅Android)
 					 (result: ResultJSON) => {
@@ -127,7 +130,7 @@
 				livenessVerify(
 					1,          // 1.动作活体  2.动作+炫彩活体 3.炫彩活体(不能强光环境使用) 4.静默活体 
 					"1,2,3,4,5",//动作活体种类用英文","隔开； 1.张张嘴 2.微笑 3.眨眨眼 4.摇头 5.点头
-					7,          //动作活体超时时间 
+					9,          //动作活体超时时间 
 					2,          //动作活体步骤，1个
 					true,       //ALLOW_MULTI_FACES 是否允许多人脸入镜(仅Android)  
 					 (result: ResultJSON) => {
@@ -189,9 +192,11 @@
 			* 7. 切换摄像头仅仅支持Android，一般0是前置，1是后置。
 			* 但是部分Android自定义设备可能不是很标准
 			*/
+			// #ifdef APP-ANDROID
 			switchCameraDemo: function () {
 				switchCamera(1)
 			},
+			// #endif
 			
 			/**
 			* 8. 删除人脸特征信息
