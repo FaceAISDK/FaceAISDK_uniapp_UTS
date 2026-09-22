@@ -112,7 +112,8 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
         intent.putExtra("ADD_FACE_IMAGE_TYPE_KEY", "FACE_VERIFY");
         intent.putExtra("USER_FACE_ID_KEY", faceID);
         intent.putExtra("NEED_CONFIRM_ADD_FACE", needShowConfirmDialog);
-        intent.putExtra("ADD_FACE_PERFORMANCE_MODE", addFacePerformanceMode);
+        // UTS number 在 Android 运行时是 Double；显式转换以匹配原生 getIntExtra。
+        intent.putExtra("ADD_FACE_PERFORMANCE_MODE", addFacePerformanceMode.toInt());
     });
 }
 
@@ -123,11 +124,12 @@ export const faceVerify: FaceVerify = function (
 ) {
     launchActivity("com.faceAI.demo.SysCamera.verify.FaceVerificationActivity", REQ_CODE_VERIFY as Int, faceID, callback, (intent: Intent) => {
         intent.putExtra(FaceVerificationActivity.USER_FACE_ID_KEY, faceID);
-        intent.putExtra(FaceVerificationActivity.THRESHOLD_KEY, threshold);
-        intent.putExtra(FaceVerificationActivity.FACE_LIVENESS_TYPE, faceLivenessType);
+        // 固定 Intent Extra 的数值类型，避免编译器选择 putExtra(String, double)。
+        intent.putExtra(FaceVerificationActivity.THRESHOLD_KEY, threshold.toFloat());
+        intent.putExtra(FaceVerificationActivity.FACE_LIVENESS_TYPE, faceLivenessType.toInt());
         intent.putExtra(FaceVerificationActivity.MOTION_LIVENESS_TYPES, motionLivenessTypes);
-        intent.putExtra(FaceVerificationActivity.MOTION_TIMEOUT, motionLivenessTimeOut);
-        intent.putExtra(FaceVerificationActivity.MOTION_STEP_SIZE, motionLivenessSteps);
+        intent.putExtra(FaceVerificationActivity.MOTION_TIMEOUT, motionLivenessTimeOut.toInt());
+        intent.putExtra(FaceVerificationActivity.MOTION_STEP_SIZE, motionLivenessSteps.toInt());
 		intent.putExtra(FaceVerificationActivity.ALLOW_MULTI_FACES, allowMultiFaces);
 		
     });
@@ -138,10 +140,11 @@ export const livenessVerify: LivenessVerify = function (
 	motionLivenessSteps: number, allowMultiFaces : boolean, callback: (result: ResultJSON) => void
 ) {
     launchActivity("com.faceAI.demo.SysCamera.verify.LivenessDetectActivity", REQ_CODE_LIVENESS as Int, "", callback, (intent: Intent) => {
-        intent.putExtra(LivenessDetectActivity.FACE_LIVENESS_TYPE, faceLivenessType);
+        // LivenessDetectActivity 同样通过 getIntExtra 读取这些参数。
+        intent.putExtra(LivenessDetectActivity.FACE_LIVENESS_TYPE, faceLivenessType.toInt());
         intent.putExtra(LivenessDetectActivity.MOTION_LIVENESS_TYPES, motionLivenessTypes);
-        intent.putExtra(LivenessDetectActivity.MOTION_TIMEOUT, motionLivenessTimeOut);
-        intent.putExtra(LivenessDetectActivity.MOTION_STEP_SIZE, motionLivenessSteps);
+        intent.putExtra(LivenessDetectActivity.MOTION_TIMEOUT, motionLivenessTimeOut.toInt());
+        intent.putExtra(LivenessDetectActivity.MOTION_STEP_SIZE, motionLivenessSteps.toInt());
 		intent.putExtra(LivenessDetectActivity.ALLOW_MULTI_FACES, allowMultiFaces);
     });
 }
@@ -235,4 +238,3 @@ export const goNativeApp: GoNativeApp = function () {
         context.startActivity(intent);
     });
 }
-

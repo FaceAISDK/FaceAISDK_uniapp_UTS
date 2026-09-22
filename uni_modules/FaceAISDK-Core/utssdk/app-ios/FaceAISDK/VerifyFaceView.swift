@@ -148,7 +148,7 @@ struct VerifyFaceView: View {
                                 _ = FaceImageManager.saveFaceImage(
                                     faceName: faceID, faceImage: viewModel.faceVerifyResult.faceImage)
 
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                     onDismiss(
                                         viewModel.faceVerifyResult.code,
                                         viewModel.faceVerifyResult.similarity,

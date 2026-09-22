@@ -74,7 +74,7 @@ public class FaceSDKSwiftManager: NSObject {
 
     // MARK: - 呼出相机录入人脸
     public static func showAddFaceByCamera(_ faceID: String,
-                                           _ performanceMode: NSNumber,
+                                           _ performanceMode: Int,
                                            _ needConfirm: Bool, 
                                            _ callback: @escaping (NSNumber, String, String) -> Void) {
         DispatchQueue.main.async {
@@ -85,7 +85,7 @@ public class FaceSDKSwiftManager: NSObject {
 
             var sdkView = AddFaceByCamera(
                 faceID: faceID,
-                addFacePerformanceMode: performanceMode.intValue, 
+                addFacePerformanceMode: performanceMode,
                 needShowConfirmDialog: needConfirm,
                 onDismiss: { [weak topVC] (resultCode: Int, feature: String,message:String) in
                     
@@ -109,11 +109,11 @@ public class FaceSDKSwiftManager: NSObject {
 	
 	// MARK: - 1:1 人脸识别
 	public static func showFaceVerify(_ faceID: String,
-	                                  _ threshold: NSNumber,
-	                                  _ livenessType: NSNumber,
+	                                  _ threshold: Float,
+	                                  _ livenessType: Int,
 	                                  _ motionLivenessTypes: String,
-	                                  _ motionLivenessTimeOut : NSNumber,
-	                                  _ motionLivenessSteps : NSNumber,
+	                                  _ motionLivenessTimeOut : Int,
+	                                  _ motionLivenessSteps : Int,
 	                                  _ callback: @escaping (NSNumber, NSNumber, NSNumber, String) -> Void) {
 	    DispatchQueue.main.async {
 	        guard let topVC = self.getTopViewController() else { return }
@@ -121,11 +121,11 @@ public class FaceSDKSwiftManager: NSObject {
 	        
 	        var sdkView = VerifyFaceView(
 	            faceID: faceID,
-	            threshold: threshold.floatValue,
-	            livenessType: livenessType.intValue,
+	            threshold: threshold,
+	            livenessType: livenessType,
 	            motionLiveness: motionLivenessTypes,
-	            motionLivenessTimeOut: motionLivenessTimeOut.intValue,
-	            motionLivenessSteps: motionLivenessSteps.intValue,
+	            motionLivenessTimeOut: motionLivenessTimeOut,
+	            motionLivenessSteps: motionLivenessSteps,
 	            // 修改：接收新增的参数
 	            onDismiss: { [weak topVC] (resultCode: Int, similarity: Float, liveness: Float,message:String) in
 	                DispatchQueue.main.async {
@@ -146,20 +146,20 @@ public class FaceSDKSwiftManager: NSObject {
 	}
 	
 	// MARK: - 活体检测 
-	public static func showLivenessVerify(_ livenessType: NSNumber,
+	public static func showLivenessVerify(_ livenessType: Int,
 	                                      _ motionLivenessTypes: String,
-	                                      _ motionLivenessTimeOut : NSNumber,
-	                                      _ motionLivenessSteps : NSNumber,
+	                                      _ motionLivenessTimeOut : Int,
+	                                      _ motionLivenessSteps : Int,
 	                                      _ callback: @escaping (NSNumber, NSNumber, String) -> Void) {
 	    DispatchQueue.main.async {
 	        guard let topVC = self.getTopViewController() else { return }
 	        ScreenBrightnessHelper.shared.maximizeBrightness()
 	        
 	        var sdkView = LivenessDetectView(
-	            livenessType: livenessType.intValue,
+	            livenessType: livenessType,
 	            motionLiveness: motionLivenessTypes,
-	            motionLivenessTimeOut: motionLivenessTimeOut.intValue,
-	            motionLivenessSteps: motionLivenessSteps.intValue,
+	            motionLivenessTimeOut: motionLivenessTimeOut,
+	            motionLivenessSteps: motionLivenessSteps,
 	            // 修改：接收 liveness 参数
 	            onDismiss: { [weak topVC] (resultCode: Int, liveness: Float,message:String) in
 	                DispatchQueue.main.async {

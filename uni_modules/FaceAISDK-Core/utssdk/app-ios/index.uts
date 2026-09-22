@@ -13,7 +13,7 @@ export const addFaceBySDKCamera: AddFaceBySDKCamera = function (
 
     FaceSDKSwiftManager.showAddFaceByCamera(
         faceID, 
-        addFacePerformanceMode, 
+        addFacePerformanceMode.toInt(),
         needShowConfirmDialog, 
         (resultCode: number, feature: string,message:string) => {
             let base64Str = "";
@@ -90,11 +90,11 @@ export const faceVerify : FaceVerify = function (
     
     FaceSDKSwiftManager.showFaceVerify(
         faceID, 
-        threshold,
-        faceLivenessType,
+        threshold.toFloat(),
+        faceLivenessType.toInt(),
         motionLivenessTypes,
-        motionLivenessTimeOut,
-        motionLivenessSteps,
+        motionLivenessTimeOut.toInt(),
+        motionLivenessSteps.toInt(),
         (resultCode: number, similarity: number, liveness: number,message:string) => {
             let base64Str = "";
             
@@ -126,10 +126,10 @@ export const livenessVerify : LivenessVerify = function (
     callback : (result : ResultJSON) => void
 ) {
     FaceSDKSwiftManager.showLivenessVerify(
-        faceLivenessType,
+        faceLivenessType.toInt(),
         motionLivenessTypes,
-        motionLivenessTimeOut,
-        motionLivenessSteps,
+        motionLivenessTimeOut.toInt(),
+        motionLivenessSteps.toInt(),
         (resultCode: number, liveness: number,message:string) => {
             
             let base64Str = "";
