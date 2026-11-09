@@ -1,8 +1,8 @@
 {
   "id": "FaceAISDK-Core",
-  "displayName": "人脸识别与活体检测离线SDK",
+  "displayName": "人脸识别 活体检测 离线SDK支持Android iOS",
   "version": "4.7.0",
-  "description": "面向 uni-app / uni-app x 的离线人脸识别与活体检测 UTS 插件。支持 Android/iOS、1:1 人脸比对，以及静默、动作、炫彩活体检测；识别过程无需联网，兼容 Vue2/Vue3/uvue。",
+  "description": "离线人脸识别与活体检测UTS插件，适用于uni-app和uni-app x，支持Android和iOS、1:1人脸比对及静默、动作、炫彩活体检测。",
   "keywords": [
     "人脸识别",
     "活体检测",
