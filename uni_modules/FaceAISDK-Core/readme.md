@@ -120,6 +120,7 @@ Silent liveness threshold (iOS/Android): 0.85–0.95
 
 如果您在开发过程中遇到问题，欢迎随时联系我们！请提供尽可能详细的背景信息（包括但不限于 **HBuilderX 版本**、**Vue 版本**、**测试机型平台** 以及 **报错日志/使用场景**），这有助于我们更快为你解决问题。
 
+* 🌍 **网站说明**: [HelloFace SDK](https://helloface.dev/)
 * 🐛 **提交 Issue**: [GitHub Issues](https://github.com/FaceAISDK/FaceAISDK_uniapp_UTS/issues)
 * 📧 **EMAIL**: [FaceAISDK.Service@gmail.com](https://www.google.com/search?q=mailto%3AFaceAISDK.Service%40gmail.com)
 * 💬 **WeChat**: `FaceAISDK`
